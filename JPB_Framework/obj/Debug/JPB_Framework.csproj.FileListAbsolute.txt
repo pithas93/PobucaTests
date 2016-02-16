@@ -1,0 +1,9 @@
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\JPB_Framework.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\JPB_Framework.pdb
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\WebDriver.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\WebDriver.Support.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\WebDriver.xml
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\WebDriver.Support.xml
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.csprojResolveAssemblyReference.cache
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.pdb
