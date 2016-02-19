@@ -13,8 +13,9 @@ namespace JPB_Framework
         
         public static void SelectContact()
         {
-            var firstContact = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[1]"));
-            firstContact.Click();
+            Driver.SelectRecordFromListBySequence(1);
+            //var firstContact = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[1]"));
+            //firstContact.Click();
         }
     }
 }

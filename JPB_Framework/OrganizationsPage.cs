@@ -24,8 +24,10 @@ namespace JPB_Framework
         
         public static void SelectOrganization()
         {
-            var firstOrganization = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[1]"));
-            firstOrganization.Click();
+
+            Driver.SelectRecordFromListBySequence(1);
+            //var firstOrganization = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[1]"));
+            //firstOrganization.Click();
         }
     }
 }
