@@ -50,7 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContactsPage.cs" />
+    <Compile Include="ContactViewPage.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="EditContactPage.cs" />
+    <Compile Include="EditOrganizationPage.cs" />
     <Compile Include="LoginPage.cs" />
+    <Compile Include="NewContactPage.cs" />
+    <Compile Include="NewOrganizationPage.cs" />
+    <Compile Include="OrganizationsPage.cs" />
+    <Compile Include="OrganizationViewPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
