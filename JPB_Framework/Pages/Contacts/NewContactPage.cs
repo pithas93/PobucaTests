@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 
 namespace JPB_Framework
 {
@@ -42,12 +44,12 @@ namespace JPB_Framework
         {
             var firstNameField = Driver.Instance.FindElement(By.Id("First Name"));
             var lastNameField = Driver.Instance.FindElement(By.Id("Last Name"));
-            var saveBtn = Driver.Instance.FindElement(By.Id("save-entity"));
 
             firstNameField.SendKeys(firstName);
             lastNameField.SendKeys(lastName);
             Driver.Wait(TimeSpan.FromSeconds(1));
-            saveBtn.Click();
+
+            Commands.ClickSave();
         }
     }
 }

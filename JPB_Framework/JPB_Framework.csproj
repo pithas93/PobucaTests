@@ -49,17 +49,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactsPage.cs" />
-    <Compile Include="ContactViewPage.cs" />
-    <Compile Include="Driver.cs" />
-    <Compile Include="EditContactPage.cs" />
-    <Compile Include="EditOrganizationPage.cs" />
-    <Compile Include="LoginPage.cs" />
-    <Compile Include="NewContactPage.cs" />
-    <Compile Include="NewOrganizationPage.cs" />
-    <Compile Include="OrganizationsPage.cs" />
-    <Compile Include="OrganizationViewPage.cs" />
+    <Compile Include="Pages\Contacts\ContactsPage.cs" />
+    <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="Selenium\Driver.cs" />
+    <Compile Include="Pages\Contacts\EditContactPage.cs" />
+    <Compile Include="Pages\Organizations\EditOrganizationPage.cs" />
+    <Compile Include="Pages\Login\LoginPage.cs" />
+    <Compile Include="Pages\Contacts\NewContactPage.cs" />
+    <Compile Include="Pages\Organizations\NewOrganizationPage.cs" />
+    <Compile Include="Pages\Organizations\OrganizationsPage.cs" />
+    <Compile Include="Pages\Organizations\OrganizationViewPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI Utilities\Commands.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -59,12 +59,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CreateContactTest.cs" />
-    <Compile Include="CreateOrganizationTest.cs" />
-    <Compile Include="EditContactTest.cs" />
-    <Compile Include="EditOrganizationTest.cs" />
-    <Compile Include="JpbBaseTest.cs" />
-    <Compile Include="LoginTest.cs" />
+    <Compile Include="Smoke Tests\CreateContactTest.cs" />
+    <Compile Include="Smoke Tests\CreateOrganizationTest.cs" />
+    <Compile Include="Smoke Tests\EditContactTest.cs" />
+    <Compile Include="Smoke Tests\EditOrganizationTest.cs" />
+    <Compile Include="Utilities\JpbBaseTest.cs" />
+    <Compile Include="Smoke Tests\LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +76,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

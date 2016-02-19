@@ -5,17 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 
-namespace JPB_Framework
+namespace JPB_Framework.UI_Utilities
 {
-    public class EditOrganizationPage
+    public class Commands
     {
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Edit Organization"); } }
+        public static void ClickSave()
+        {
+            var saveBtn = Driver.Instance.FindElement(By.Id("save-entity"));
+            saveBtn.Click();
+        }
 
-        public static void GoTo()
+        internal static void ClickEdit()
         {
             var editBtn = Driver.Instance.FindElement(By.Id("edit-entity"));
             editBtn.Click();
         }
-
     }
 }

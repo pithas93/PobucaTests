@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 
 namespace JPB_Framework
@@ -35,11 +36,11 @@ namespace JPB_Framework
         public void Create()
         {
             var organizationNameField = Driver.Instance.FindElement(By.Id("Organization Name"));
-            var saveBtn = Driver.Instance.FindElement(By.Id("save-entity"));
+            
 
             organizationNameField.SendKeys(organization_name);
             Driver.Wait(TimeSpan.FromSeconds(1));
-            saveBtn.Click();
+            Commands.ClickSave();
         }
     }
 }

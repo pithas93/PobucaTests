@@ -10,16 +10,7 @@ namespace JPB_Framework
 {
     public class ContactViewPage
     {
-        public static bool IsAt
-        {
-            get
-            {
-                //Driver.Wait(TimeSpan.FromSeconds(5));
-                //var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
-                //wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("breadcrumb")));
-                return Driver.CheckIfIsAt("Contact View");
-            }
-        }
+        public static bool IsAt { get { return Driver.CheckIfIsAt("Contact View"); } }
 
         public static string FirstName
         {
