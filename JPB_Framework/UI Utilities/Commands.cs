@@ -20,5 +20,11 @@ namespace JPB_Framework.UI_Utilities
             var editBtn = Driver.Instance.FindElement(By.Id("edit-entity"));
             editBtn.Click();
         }
+
+        public static void ClickDelete()
+        {
+            var deleteBtn = Driver.Instance.FindElement(By.Id("delete-entity"));
+            deleteBtn.Click();
+        }
     }
 }

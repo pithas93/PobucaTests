@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 
 namespace JPB_Framework
@@ -24,5 +25,18 @@ namespace JPB_Framework
             }
         }
 
+        public static DeleteOrganizationCommand Delete()
+        {
+            Commands.ClickDelete();
+            return new DeleteOrganizationCommand();
+        }
+    }
+
+    public class DeleteOrganizationCommand
+    {
+        public void OnlyOrganization()
+        {
+            var deleteOnlyOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
+        }
     }
 }

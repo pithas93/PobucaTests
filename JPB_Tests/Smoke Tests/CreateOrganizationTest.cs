@@ -23,6 +23,7 @@ namespace JPB_Tests
             Assert.IsTrue(OrganizationViewPage.IsAt);
             Assert.AreEqual(OrganizationViewPage.FirstName, "SiEBEN", "Organization name was not saved correctly");
 
+            OrganizationViewPage.Delete().OnlyOrganization();
         }
 
     }

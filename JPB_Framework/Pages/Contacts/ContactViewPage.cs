@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -43,7 +44,10 @@ namespace JPB_Framework
         }
 
 
-
+        public static void Delete()
+        {
+            Commands.ClickDelete();
+        }
     }
 
 
