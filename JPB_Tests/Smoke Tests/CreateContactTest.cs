@@ -18,7 +18,10 @@ namespace JPB_Tests
             Assert.AreEqual(ContactViewPage.FirstName, "Panagiotis", "First name was not saved correctly");
             Assert.AreEqual(ContactViewPage.LastName, "Mavrogiannis", "Last name was not saved correctly");
 
-            ContactViewPage.Delete();
+            ContactViewPage.DeleteContact().Delete();
+
+            Assert.IsTrue(ContactsPage.IsAt, "Failed to show organizations page");
+            Assert.IsFalse(ContactsPage.DoesContactExistWithFirstName("Panagiotis").AndLastName("Mavrogiannis"));
         }
 
     }

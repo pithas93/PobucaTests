@@ -11,6 +11,9 @@ namespace JPB_Framework
 {
     public class ContactViewPage
     {
+        /// <summary>
+        /// Check if browser is at the selected contact's detail view page
+        /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Contact View"); } }
 
         public static string FirstName
@@ -43,12 +46,26 @@ namespace JPB_Framework
 
         }
 
-
-        public static void Delete()
+        /// <summary>
+        /// Issue delete command from a contact's detail view page
+        /// </summary>
+        /// <returns></returns>
+        public static DeleteContactCommand DeleteContact()
         {
             Commands.ClickDelete();
+            return new DeleteContactCommand();
         }
     }
 
-
+    public class DeleteContactCommand
+    {
+        /// <summary>
+        /// Delete contact 
+        /// </summary>
+        public void Delete()
+        {
+            var deleteBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
+            deleteBtn.Click();
+        }
+    }
 }
