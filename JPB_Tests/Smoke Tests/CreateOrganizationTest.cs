@@ -21,9 +21,12 @@ namespace JPB_Tests
             NewOrganizationPage.CreateOrganization("SiEBEN").Create();
 
             Assert.IsTrue(OrganizationViewPage.IsAt);
-            Assert.AreEqual(OrganizationViewPage.FirstName, "SiEBEN", "Organization name was not saved correctly");
+            Assert.AreEqual(OrganizationViewPage.OrganizationName, "SiEBEN", "Organization name was not saved correctly");
 
-            OrganizationViewPage.Delete().OnlyOrganization();
+            OrganizationViewPage.DeleteOrganization().OnlyOrganization();
+
+            Assert.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations page");
+            Assert.IsFalse(OrganizationsPage.DoesOrganizationExistWithName("SiEBEN"));
         }
 
     }

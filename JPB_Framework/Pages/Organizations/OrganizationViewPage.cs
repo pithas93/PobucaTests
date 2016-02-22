@@ -10,9 +10,13 @@ namespace JPB_Framework
 {
     public class OrganizationViewPage
     {
+        /// <summary>
+        /// Check if browser is at the selected organization's detail view page
+        /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Organization View"); } }
+
         
-        public static string FirstName {
+        public static string OrganizationName {
             get
             {
                 var organizationName =
@@ -25,7 +29,11 @@ namespace JPB_Framework
             }
         }
 
-        public static DeleteOrganizationCommand Delete()
+        /// <summary>
+        /// Issue delete command from an organization's detail view page
+        /// </summary>
+        /// <returns></returns>
+        public static DeleteOrganizationCommand DeleteOrganization()
         {
             Commands.ClickDelete();
             return new DeleteOrganizationCommand();
@@ -34,9 +42,22 @@ namespace JPB_Framework
 
     public class DeleteOrganizationCommand
     {
+        /// <summary>
+        /// Delete organization and its assigned contacts
+        /// </summary>
+        public void WithContacts()
+        {
+            var deleteAllBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
+            deleteAllBtn.Click();
+        }
+
+        /// <summary>
+        /// Delete only the organization. Its assigned contacts will become orphan.
+        /// </summary>
         public void OnlyOrganization()
         {
             var deleteOnlyOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
+            deleteOnlyOrganizationBtn.Click();
         }
     }
 }
