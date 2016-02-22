@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Safari;
+using OpenQA.Selenium.Opera;
 
 namespace JPB_Framework
 {
@@ -18,9 +22,26 @@ namespace JPB_Framework
         /// <summary>
         /// Instantiates a Firefox web driver singleton that drives browser through pages
         /// </summary>
-        public static void Initialize()
+        public static void Initialize(Browser type)
         {
-            Instance = new FirefoxDriver();
+            switch (type)
+            {
+                case Browser.Chrome:
+                    Instance = new ChromeDriver();
+                    break;
+                case Browser.Firefox:
+                    Instance = new FirefoxDriver();
+                    break;
+                case Browser.IE:
+                    Instance = new InternetExplorerDriver();
+                    break;
+                case Browser.Safari:
+                    Instance = new SafariDriver();
+                    break;
+                case Browser.Opera:
+                    Instance = new OperaDriver();
+                    break;
+            }
             Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
         }
 
@@ -69,5 +90,9 @@ namespace JPB_Framework
             
         }
     }
-
+    
+    public enum Browser
+    {
+        Chrome, Firefox, IE, Safari, Opera
+    }
 }

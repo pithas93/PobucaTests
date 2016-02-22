@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using JPB_Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Tests
+namespace JPB_Tests.Smoke_Tests.Opera
 {
     [TestClass]
-    public class CreateOrganizationTest : JpbBaseTest
+    public class CreateOrganizationTest : JpbBaseTest_Opera
     {
         [TestMethod]
         public void Can_Create_A_Simple_Organization()

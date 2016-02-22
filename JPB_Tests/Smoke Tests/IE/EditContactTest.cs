@@ -1,10 +1,10 @@
 ﻿using JPB_Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Tests
+namespace JPB_Tests.Smoke_Tests.IE
 {
     [TestClass]
-    public class EditContactTest : JpbBaseTest
+    public class EditContactTest : JpbBaseTest_IE
     {
         
         [TestMethod]

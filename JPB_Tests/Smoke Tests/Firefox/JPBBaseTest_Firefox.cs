@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using JPB_Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Tests
+namespace JPB_Tests.Smoke_Tests.Firefox
 {
-    public class JpbBaseTest
+    public class JpbBaseTest_Firefox
     {
 
         [TestInitialize]
