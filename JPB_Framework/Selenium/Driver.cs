@@ -27,19 +27,19 @@ namespace JPB_Framework
             switch (type)
             {
                 case Browser.Chrome:
-                    Instance = new ChromeDriver();
+                    Instance = new ChromeDriver("C:/Selenium/Chrome_Driver/");
                     break;
                 case Browser.Firefox:
                     Instance = new FirefoxDriver();
                     break;
                 case Browser.IE:
-                    Instance = new InternetExplorerDriver();
+                    Instance = new InternetExplorerDriver("C:/Selenium/IE_Driver/");
                     break;
                 case Browser.Safari:
                     Instance = new SafariDriver();
                     break;
                 case Browser.Opera:
-                    Instance = new OperaDriver();
+                    Instance = new OperaDriver("C:/Selenium/Opera_Driver/");
                     break;
             }
             Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
