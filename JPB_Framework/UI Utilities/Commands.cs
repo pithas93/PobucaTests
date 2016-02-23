@@ -35,6 +35,7 @@ namespace JPB_Framework.UI_Utilities
         {
             var deleteBtn = Driver.Instance.FindElement(By.Id("delete-entity"));
             deleteBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
         }
 
         /// <summary>
