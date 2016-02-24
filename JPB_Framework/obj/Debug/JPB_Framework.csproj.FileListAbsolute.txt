@@ -7,3 +7,9 @@ D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.dll
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.pdb
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.csprojResolveAssemblyReference.cache
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\Selenium.WebDriverBackedSelenium.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\ThoughtWorks.Selenium.Core.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\Selenium.WebDriverBackedSelenium.xml
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\ThoughtWorks.Selenium.Core.xml
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll

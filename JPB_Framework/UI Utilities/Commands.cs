@@ -17,6 +17,7 @@ namespace JPB_Framework.UI_Utilities
         {
             var saveBtn = Driver.Instance.FindElement(By.Id("save-entity"));
             saveBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
         }
 
         /// <summary>

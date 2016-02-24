@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using JPB_Framework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Tests
+namespace JPB_Tests.Utilities
 {
     public class JpbBaseTest
     {
@@ -14,15 +14,15 @@ namespace JPB_Tests
         [TestInitialize]
         public void SetUp()
         {
-            Driver.Initialize(Browser.Firefox);
+            Driver.Initialize(Browser.Opera);
             LoginPage.GoTo();
-            LoginPage.LoginAs("panagiotis@panagof1.com").WithPassword("6AB10F93").Login();
+            LoginPage.LoginAs("panagiotis@panagof1.com").WithPassword("6AB10F93").Login();            
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            Driver.Close();
+            //Driver.Close();
         }
     }
 }

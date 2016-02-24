@@ -50,12 +50,19 @@ namespace JPB_Framework
 
         public void Login()
         {
-            var userField = Driver.Instance.FindElement(By.Id("email"));
-            var passField = Driver.Instance.FindElement(By.Id("pass"));
-            var loginBtn = Driver.Instance.FindElement(By.Id("login_btn"));
-            userField.SendKeys(username);
-            passField.SendKeys(password);
-            loginBtn.Click();
+            try
+            {
+                var userField = Driver.Instance.FindElement(By.Id("email"));
+                var passField = Driver.Instance.FindElement(By.Id("pass"));
+                var loginBtn = Driver.Instance.FindElement(By.Id("login_btn"));
+                userField.SendKeys(username);
+                passField.SendKeys(password);
+                loginBtn.Click();
+            }
+            catch (NoSuchElementException e)
+            {
+                // In case that browser navigates directly to Contacts List Page, it 's not required to login, so do nothing
+            }
             var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
         }

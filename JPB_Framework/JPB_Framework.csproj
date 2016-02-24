@@ -30,6 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Selenium.WebDriverBackedSelenium, Version=2.52.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriverBackedSelenium.2.52.0\lib\net40\Selenium.WebDriverBackedSelenium.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -39,6 +44,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.Selenium.Core, Version=2.52.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.RC.2.52.0\lib\net40\ThoughtWorks.Selenium.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebDriver, Version=2.52.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.2.52.0\lib\net40\WebDriver.dll</HintPath>
       <Private>True</Private>
@@ -51,6 +60,8 @@
   <ItemGroup>
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="Pages\Contacts\ImportContactsWindow.cs" />
+    <Compile Include="Pages\Contacts\test.cs" />
     <Compile Include="Selenium\Driver.cs" />
     <Compile Include="Pages\Contacts\EditContactPage.cs" />
     <Compile Include="Pages\Organizations\EditOrganizationPage.cs" />
@@ -64,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -59,36 +59,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Smoke Tests\Chrome\CreateContactTest.cs" />
-    <Compile Include="Smoke Tests\Chrome\CreateOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Chrome\EditContactTest.cs" />
-    <Compile Include="Smoke Tests\Chrome\EditOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Chrome\JPBBaseTest_Chrome.cs" />
-    <Compile Include="Smoke Tests\Chrome\LoginTest.cs" />
-    <Compile Include="Smoke Tests\Firefox\CreateContactTest.cs" />
-    <Compile Include="Smoke Tests\Firefox\CreateOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Firefox\EditContactTest.cs" />
-    <Compile Include="Smoke Tests\Firefox\EditOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Firefox\JPBBaseTest_Firefox.cs" />
-    <Compile Include="Smoke Tests\Firefox\LoginTest.cs" />
-    <Compile Include="Smoke Tests\IE\CreateContactTest.cs" />
-    <Compile Include="Smoke Tests\IE\CreateOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\IE\EditContactTest.cs" />
-    <Compile Include="Smoke Tests\IE\EditOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\IE\JPBBaseTest_IE.cs" />
-    <Compile Include="Smoke Tests\IE\LoginTest.cs" />
-    <Compile Include="Smoke Tests\Opera\CreateContactTest.cs" />
-    <Compile Include="Smoke Tests\Opera\CreateOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Opera\EditContactTest.cs" />
-    <Compile Include="Smoke Tests\Opera\EditOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Opera\JPBBaseTest_Opera.cs" />
-    <Compile Include="Smoke Tests\Opera\LoginTest.cs" />
-    <Compile Include="Smoke Tests\Safari\CreateContactTest.cs" />
-    <Compile Include="Smoke Tests\Safari\CreateOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Safari\EditContactTest.cs" />
-    <Compile Include="Smoke Tests\Safari\EditOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\Safari\JPBBaseTest_Safari.cs" />
-    <Compile Include="Smoke Tests\Safari\LoginTest.cs" />
+    <Compile Include="Smoke Tests\CreateContactTest.cs" />
+    <Compile Include="Smoke Tests\CreateOrganizationTest.cs" />
+    <Compile Include="Smoke Tests\EditContactTest.cs" />
+    <Compile Include="Smoke Tests\EditOrganizationTest.cs" />
+    <Compile Include="Smoke Tests\ImportContactTemplateTest.cs" />
+    <Compile Include="Smoke Tests\LoginTest.cs" />
     <Compile Include="Utilities\JpbBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

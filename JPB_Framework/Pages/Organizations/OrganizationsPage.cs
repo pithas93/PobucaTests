@@ -26,6 +26,7 @@ namespace JPB_Framework
             organizationsBtn.Click();
             var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
+            if (!IsAt) Console.WriteLine("Failed to open new contact");
         }
 
         /// <summary>

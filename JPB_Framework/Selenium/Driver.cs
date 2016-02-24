@@ -11,6 +11,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Opera;
+using OpenQA.Selenium.Remote;
 
 namespace JPB_Framework
 {
@@ -50,7 +51,7 @@ namespace JPB_Framework
         /// </summary>
         public static void Close()
         {
-            //Instance.Close();
+            Instance.Dispose();
         }
 
         /// <summary>
