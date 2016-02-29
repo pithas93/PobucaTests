@@ -48,7 +48,8 @@ namespace JPB_Framework.Pages.Organizations
             var submitBtn = Driver.Instance.FindElement(By.Id("upload-wizard-btn"));
             submitBtn.Click();
 
-
+            var finishBtn = Driver.Instance.FindElement(By.CssSelector("fieldset[ng-show='wizardStepThree'] .btn.btn-primary"));
+            finishBtn.Click();
 
         }
     }

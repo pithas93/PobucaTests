@@ -20,15 +20,14 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Import_Contact_Template()
         {
-//           ImportContactsWindow
-//                .FromPath("D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
-//                .ImportFile("Contacts1.xls").Submit();
-            
+            ImportContactsWindow
+                 .FromPath("D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
+                 .ImportFile("Contacts1.xls").Submit();
+
             ContactsPage.FindContactWithFirstName("Panagiotis").AndLastName("Mavrogiannis").Delete();
-                        //ContactViewPage.DeleteContact().Delete();
-            //
-            //Assert.IsTrue(ContactsPage.IsAt, "Failed to show organizations page");
-            //Assert.IsFalse(ContactsPage.FindContactWithFirstName("Panagiotis").AndLastName("Mavrogiannis").Find());
+
+            Assert.IsTrue(ContactsPage.IsAt, "Failed to show contacts list page");
+            Assert.IsFalse(ContactsPage.FindContactWithFirstName("Panagiotis").AndLastName("Mavrogiannis").Find());
         }
 
 
@@ -36,10 +35,14 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Import_Organization_Template()
         {
             OrganizationsPage.GoTo();
-            ImportOrganizationsWindow.GoTo();
-            ImportOrganizationsWindow
-                .FromPath("D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
+            ImportOrganizationsWindow.FromPath(
+                "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
                 .ImportFile("Organizations1.xls").Submit();
+
+            OrganizationsPage.FindOrganizationWithName("SiEBEN").Delete();
+
+            Assert.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations list page");
+            Assert.IsFalse(OrganizationsPage.FindOrganizationWithName("SiEBEN").Find());
         }
     }
 }

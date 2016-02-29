@@ -17,7 +17,7 @@ namespace JPB_Framework
         /// Check if browser is at contacts list page
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Contacts"); } }
-        
+
         /// <summary>
         /// Selects a contact from the list. By default selects the first one
         /// </summary>
@@ -31,11 +31,11 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
-        public static SearchCommand FindContactWithFirstName(string firstName)
+        public static SearchContactCommand FindContactWithFirstName(string firstName)
         {
             Commands.SearchFor(firstName);
             Driver.Wait(TimeSpan.FromSeconds(3));
-            return new SearchCommand(firstName);
+            return new SearchContactCommand(firstName);
         }
 
         public static void SelectContactWithFirstName(string panagiotis)
@@ -44,12 +44,12 @@ namespace JPB_Framework
         }
     }
 
-    public class SearchCommand
+    public class SearchContactCommand
     {
         private readonly string firstName;
         private string lastName;
 
-        public SearchCommand(string firstName)
+        public SearchContactCommand(string firstName)
         {
             this.firstName = firstName;
         }
@@ -59,7 +59,7 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="lastName"> Last name of contact</param>
         /// <returns>True if there is at least one contact</returns>
-        public SearchCommand AndLastName(string lastName)
+        public SearchContactCommand AndLastName(string lastName)
         {
             this.lastName = lastName;
             return this;
@@ -70,25 +70,29 @@ namespace JPB_Framework
             return Driver.Instance.FindElements(By.LinkText(firstName + lastName)).Any();
         }
 
+        /// <summary>
+        /// Selects every contact matching with given first and last name and then deletes them though the delete button
+        /// </summary>
         public void Delete()
         {
-
             var contacts = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-//            var contacts = Driver.Instance.FindElements(By.CssSelector(".font-bold.ng-binding"));
-            Debug.WriteLine("Count = " + firstName + " " + lastName);
 
             foreach (var contact in contacts)
             {
-                var contactName = Driver.Instance.FindElement(By.CssSelector(".font-bold.ng-binding"));
+                var contactName = contact.FindElement(By.CssSelector(".font-bold.ng-binding"));
                 if (contactName.Text.Equals(firstName + " " + lastName))
                 {
                     Actions action = new Actions(Driver.Instance);
                     action.MoveToElement(contact);
                     action.Perform();
                     contact.FindElement(By.CssSelector(".icheckbox")).Click();
-                    
                 }
+                else break;
             }
+
+            Driver.Instance.FindElement(By.CssSelector("a[ng-click='showDeleteModal=1;']")).Click();
+            var deleteBtn = Driver.Instance.FindElement(By.CssSelector(".generalUseModal.modal.fade.ng-scope.in button.btn.btn-primary"));
+            deleteBtn.Click();
 
         }
     }

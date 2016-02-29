@@ -36,7 +36,7 @@ namespace JPB_Tests.Smoke_Tests
             OrganizationViewPage.DeleteOrganization().OnlyOrganization();
 
             Assert.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations page");
-            Assert.IsFalse(OrganizationsPage.FindOrganizationWithName("SiEBEN"));
+            Assert.IsFalse(OrganizationsPage.FindOrganizationWithName("SiEBEN").Find());
         }
 
     }
