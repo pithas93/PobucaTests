@@ -49,7 +49,6 @@ namespace JPB_Framework.Pages.Organizations
         public static SearchOrganizationCommand FindOrganizationWithName(string organization_name)
         {
             Commands.SearchFor(organization_name);
-            Driver.Wait(TimeSpan.FromSeconds(3));
             return new SearchOrganizationCommand(organization_name);
 
         }
@@ -87,9 +86,10 @@ namespace JPB_Framework.Pages.Organizations
                 else break;
             }
 
-            Driver.Instance.FindElement(By.CssSelector("a[ng-click='showDeleteModal=1;']")).Click();
-            var deleteOnlyOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
-            deleteOnlyOrganizationBtn.Click();
+            var deleteCmd = new DeleteRecordCommand();
+            deleteCmd.OnlyOrganization();
+            
+
         }
 
     }

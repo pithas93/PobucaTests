@@ -34,7 +34,6 @@ namespace JPB_Framework
         public static SearchContactCommand FindContactWithFirstName(string firstName)
         {
             Commands.SearchFor(firstName);
-            Driver.Wait(TimeSpan.FromSeconds(3));
             return new SearchContactCommand(firstName);
         }
 
@@ -90,9 +89,8 @@ namespace JPB_Framework
                 else break;
             }
 
-            Driver.Instance.FindElement(By.CssSelector("a[ng-click='showDeleteModal=1;']")).Click();
-            var deleteBtn = Driver.Instance.FindElement(By.CssSelector(".generalUseModal.modal.fade.ng-scope.in button.btn.btn-primary"));
-            deleteBtn.Click();
+            var deleteCmd = new DeleteRecordCommand();
+            deleteCmd.Delete();
 
         }
     }

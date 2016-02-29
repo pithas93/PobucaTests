@@ -34,7 +34,7 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         public static void ClickDelete()
         {
-            var deleteBtn = Driver.Instance.FindElement(By.Id("delete-entity"));
+            var deleteBtn = Driver.Instance.FindElement(By.CssSelector("i.fa.fa-trash-o"));
             deleteBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(1));
         }
@@ -49,6 +49,7 @@ namespace JPB_Framework.UI_Utilities
                 searchbox.FindElement(
                     By.TagName("input"));
             searchBoxField.SendKeys(keyword);
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
         /// <summary>
@@ -73,5 +74,6 @@ namespace JPB_Framework.UI_Utilities
                 Driver.Instance.FindElement(By.PartialLinkText("Import"));
             importOption.Click();
         }
+
     }
 }

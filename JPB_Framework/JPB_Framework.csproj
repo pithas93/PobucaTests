@@ -72,6 +72,8 @@
     <Compile Include="Pages\Organizations\OrganizationViewPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI Utilities\Commands.cs" />
+    <Compile Include="UI Utilities\DeleteRecordCommand.cs" />
+    <Compile Include="UI Utilities\ImportFileCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

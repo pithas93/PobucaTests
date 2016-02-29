@@ -22,7 +22,7 @@ namespace JPB_Tests.Utilities
         [TestCleanup]
         public void CleanUp()
         {
-           // Driver.Close();
+            Driver.Close();
         }
     }
 }

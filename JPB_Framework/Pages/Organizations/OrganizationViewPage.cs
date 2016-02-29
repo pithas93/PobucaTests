@@ -33,31 +33,10 @@ namespace JPB_Framework.Pages.Organizations
         /// Issue delete command from an organization's detail view page
         /// </summary>
         /// <returns></returns>
-        public static DeleteOrganizationCommand DeleteOrganization()
+        public static DeleteRecordCommand DeleteOrganization()
         {
-            Commands.ClickDelete();
-            return new DeleteOrganizationCommand();
+            return new DeleteRecordCommand();
         }
     }
 
-    public class DeleteOrganizationCommand
-    {
-        /// <summary>
-        /// Delete organization and its assigned contacts
-        /// </summary>
-        public void WithContacts()
-        {
-            var deleteAllBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
-            deleteAllBtn.Click();
-        }
-
-        /// <summary>
-        /// Delete only the organization. Its assigned contacts will become orphan.
-        /// </summary>
-        public void OnlyOrganization()
-        {
-            var deleteOnlyOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
-            deleteOnlyOrganizationBtn.Click();
-        }
-    }
 }

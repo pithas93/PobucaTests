@@ -50,22 +50,10 @@ namespace JPB_Framework
         /// Issue delete command from a contact's detail view page
         /// </summary>
         /// <returns></returns>
-        public static DeleteContactCommand DeleteContact()
+        public static DeleteRecordCommand DeleteContact()
         {
-            Commands.ClickDelete();
-            return new DeleteContactCommand();
+            return new DeleteRecordCommand();
         }
     }
 
-    public class DeleteContactCommand
-    {
-        /// <summary>
-        /// Delete contact 
-        /// </summary>
-        public void Delete()
-        {
-            var deleteBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
-            deleteBtn.Click();
-        }
-    }
 }
