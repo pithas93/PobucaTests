@@ -59,11 +59,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Smoke Tests\CreateContactTest.cs" />
-    <Compile Include="Smoke Tests\CreateOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\EditContactTest.cs" />
-    <Compile Include="Smoke Tests\EditOrganizationTest.cs" />
-    <Compile Include="Smoke Tests\ImportContactTemplateTest.cs" />
+    <Compile Include="Smoke Tests\CreateRecordTest.cs" />
+    <Compile Include="Smoke Tests\EditRecordTest.cs" />
+    <Compile Include="Smoke Tests\ImportRecordsTest.cs" />
     <Compile Include="Smoke Tests\LoginTest.cs" />
     <Compile Include="Utilities\JpbBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

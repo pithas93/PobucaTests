@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
@@ -61,7 +62,7 @@ namespace JPB_Framework
             }
             catch (NoSuchElementException e)
             {
-                // In case that browser navigates directly to Contacts List Page, it 's not required to login, so do nothing
+               // In case that browser navigates directly to Contacts List Page, it 's not required to login, so do nothing
             }
             var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));

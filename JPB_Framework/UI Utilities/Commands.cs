@@ -44,9 +44,10 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         public static void SearchFor(string keyword)
         {
+            var searchbox = Driver.Instance.FindElement(By.Id("search-input-related"));
             var searchBoxField =
-                Driver.Instance.FindElement(
-                    By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[4]/div/input"));
+                searchbox.FindElement(
+                    By.TagName("input"));
             searchBoxField.SendKeys(keyword);
         }
 
@@ -54,10 +55,23 @@ namespace JPB_Framework.UI_Utilities
         /// Selects a record from a list page, identified by its position in the list
         /// </summary>
         /// <param name="position"></param>
-        public static void SelectRecordFromListBySequence(int position)
+        public static void OpenRecordFromListBySequence(int position)
         {
             var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
             record.Click();
+        }
+        
+        /// <summary>
+        /// Navigates browser to the import dialog box which is available through contacts and organizations list pages
+        /// </summary>
+        public static void ClickImport()
+        {
+            var importCombo = Driver.Instance.FindElement(By.CssSelector("i.fa.fa-file-text-o.jp-light-blue.f20"));
+            importCombo.Click();
+
+            var importOption =
+                Driver.Instance.FindElement(By.PartialLinkText("Import"));
+            importOption.Click();
         }
     }
 }

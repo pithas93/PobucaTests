@@ -61,7 +61,7 @@
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
     <Compile Include="Pages\Contacts\ImportContactsWindow.cs" />
-    <Compile Include="Pages\Contacts\test.cs" />
+    <Compile Include="Pages\Organizations\ImportOrganizationsWindow.cs" />
     <Compile Include="Selenium\Driver.cs" />
     <Compile Include="Pages\Contacts\EditContactPage.cs" />
     <Compile Include="Pages\Organizations\EditOrganizationPage.cs" />

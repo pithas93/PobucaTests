@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Organizations
 {
     public class NewOrganizationPage
     {

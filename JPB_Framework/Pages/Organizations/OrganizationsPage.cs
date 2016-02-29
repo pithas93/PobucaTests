@@ -7,7 +7,7 @@ using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Organizations
 {
     public class OrganizationsPage
     {
@@ -32,9 +32,9 @@ namespace JPB_Framework
         /// <summary>
         /// Selects an organization from the list. By default selects the first one
         /// </summary>
-        public static void SelectOrganization()
+        public static void OpenOrganization()
         {
-            Commands.SelectRecordFromListBySequence(1);
+            Commands.OpenRecordFromListBySequence(1);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="organization_name"></param>
         /// <returns>True if there is at least one such organization</returns>
-        public static bool DoesOrganizationExistWithName(string organization_name)
+        public static bool FindOrganizationWithName(string organization_name)
         {
             //Commands.SearchFor(organization_name);
             return Driver.Instance.FindElements(By.LinkText(organization_name)).Any();
