@@ -20,7 +20,6 @@ namespace JPB_Framework
         {
             var newContactBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[5]/ul/li[2]/a/i"));            
             newContactBtn.Click();
-            if (!IsAt) Console.WriteLine("Failed to open new contact");
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace JPB_Framework
 
             firstNameField.SendKeys(firstName);
             lastNameField.SendKeys(lastName);
-            Driver.Wait(TimeSpan.FromSeconds(1.5));
+            Driver.Wait(TimeSpan.FromSeconds(5));
 
             Commands.ClickSave();
             

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -64,36 +65,47 @@ namespace JPB_Framework
         }
 
         /// <summary>
-        ///  Instructs web driver to check if browser is at a given page
+        ///  Instructs web driver to check if browser is at a given page.
         /// </summary>
-        /// <param name="View">It corresponds to each page 'page link path' which 
+        /// <param name="view">It corresponds to each page 'page link path' which 
         /// is located just below Company Name and the current page title and in 
         /// the webpage has the form 'Home / Contacts' e.t.c. If browser hasn't 
         /// already load webpage content, web driver wait for 1 second and 
         /// checks again</param>
         /// <returns>True if browser is at the given page</returns>
-        public static bool CheckIfIsAt(string View)
+        public static bool CheckIfIsAt(string view)
         {
-
             try
             {
                 var tmp = Driver.Instance.FindElement(By.Id("breadcrumb"));
-                var ViewLbl = tmp.FindElement(By.LinkText(View));
-                return ViewLbl.Text == View;
+                var viewLbl = tmp.FindElement(By.LinkText(view));
+                return viewLbl.Text == view;
+            }
+            catch (NoSuchElementException e)
+            {
+                Report.ToLogFile(MessageType.Exception, $"Browser was expected to be at {view} page, but was not", e);
+                return false;
+            }
+        }
+
+        public static bool CheckIfRecordListIsLoaded()
+        {
+            try
+            {
+                var recordlist = Driver.Instance.FindElement(By.Id("main-content"));
+                if (recordlist.Displayed) return true;
+                else return false;
+            }
+            catch (NoSuchElementException e)
+            {
+                Report.ToLogFile(MessageType.Exception, "Probably at wrong page or record list is taking time to load", e);
+                return false;
             }
             catch (StaleElementReferenceException e)
             {
-                Driver.Wait(TimeSpan.FromSeconds(1));
-                var tmp = Driver.Instance.FindElement(By.Id("breadcrumb"));
-                var ViewLbl = tmp.FindElement(By.LinkText(View));
-                return ViewLbl.Text == View;
+                Report.ToLogFile(MessageType.Exception, "", e);
+                return false;
             }
-            
         }
-    }
-    
-    public enum Browser
-    {
-        Chrome, Firefox, IE, Safari, Opera
     }
 }

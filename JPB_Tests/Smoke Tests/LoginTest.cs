@@ -1,4 +1,5 @@
 ﻿using JPB_Framework;
+using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,10 +10,11 @@ namespace JPB_Tests.Smoke_Tests
     {
      
         [TestMethod]
-        public void Can_Go_Login()
+        public void Can_Login()
         {
-           
-            Assert.IsTrue(ContactsPage.IsAt, "Failed to login");
+
+            AssertThat.IsTrue(ContactsPage.IsAt, "Failed to login");
+            AssertThat.IsTrue(ContactsPage.ContactListIsLoaded, "Failed to load contact list");
         }
      
       

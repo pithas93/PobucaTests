@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Pages.Organizations;
+using JPB_Framework.Selenium;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.UI_Utilities
 {
@@ -41,9 +43,22 @@ namespace JPB_Framework.UI_Utilities
             var submitBtn = Driver.Instance.FindElement(By.Id("upload-wizard-btn"));
             submitBtn.Click();
 
+            // Assert that successful import message is being shown. If it's not, throw exception and log it
+            try
+            {
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromMinutes(2));
+                wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".modal-dialog .ng-binding b")));
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.ToLogFile(MessageType.Message, "Failed to import file or did take too long.", e);
+                throw e;
+            }
+
             var finishBtn = Driver.Instance.FindElement(By.CssSelector("fieldset[ng-show='wizardStepThree'] .btn.btn-primary"));
             finishBtn.Click();
-
         }
     }
 }
+
+

@@ -1,5 +1,6 @@
 ﻿using JPB_Framework;
 using JPB_Framework.Pages.Organizations;
+using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,9 +14,9 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Edit_Contact()
         {
             ContactsPage.OpenContact();
-            Assert.IsTrue(ContactViewPage.IsAt, "Failed to open contact view");
+            AssertThat.IsTrue(ContactViewPage.IsAt, "Failed to open contact view");
             EditContactPage.GoTo();
-            Assert.IsTrue(EditContactPage.IsAt, "Failed to open contact for edit");
+            AssertThat.IsTrue(EditContactPage.IsAt, "Failed to open contact for edit");
         }
 
         [TestMethod]
@@ -23,12 +24,12 @@ namespace JPB_Tests.Smoke_Tests
         {
 
             OrganizationsPage.GoTo();
-            Assert.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations page");
+            AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations page");
 
             OrganizationsPage.OpenOrganization();
-            Assert.IsTrue(OrganizationViewPage.IsAt, "Failed to open organization view");
+            AssertThat.IsTrue(OrganizationViewPage.IsAt, "Failed to open organization view");
             EditOrganizationPage.GoTo();
-            Assert.IsTrue(EditOrganizationPage.IsAt, "Failed to open organization for edit");
+            AssertThat.IsTrue(EditOrganizationPage.IsAt, "Failed to open organization for edit");
 
         }
 

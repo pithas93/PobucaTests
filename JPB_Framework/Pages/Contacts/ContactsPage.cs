@@ -5,9 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework
 {
@@ -17,6 +19,9 @@ namespace JPB_Framework
         /// Check if browser is at contacts list page
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Contacts"); } }
+
+        public static bool ContactListIsLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
+
 
         /// <summary>
         /// Selects a contact from the list. By default selects the first one
@@ -31,26 +36,46 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
-        public static SearchContactCommand FindContactWithFirstName(string firstName)
+        public static SearchContactCommand FindContact()
         {
-            Commands.SearchFor(firstName);
-            return new SearchContactCommand(firstName);
+            return new SearchContactCommand();
         }
 
-        public static void SelectContactWithFirstName(string panagiotis)
+        public static void GoTo()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var mainMenu = Driver.Instance.FindElement(By.Id("main-menu"));
+                var contactsBtn = mainMenu.FindElement(By.Id("Contacts"));
+                contactsBtn.Click();
+
+                // wait for organization list to load
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
+                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.ToLogFile(MessageType.Message, "", e);
+                throw e;
+            }
+            catch (NoSuchElementException e)
+            {
+                Report.ToLogFile(MessageType.Message, "", e);
+                throw e;
+            }
         }
     }
 
     public class SearchContactCommand
     {
-        private readonly string firstName;
+        private string firstName;
         private string lastName;
 
-        public SearchContactCommand(string firstName)
+
+        public SearchContactCommand WithFirstName(string firstName)
         {
             this.firstName = firstName;
+            return this;
         }
 
         /// <summary>
@@ -66,32 +91,41 @@ namespace JPB_Framework
 
         public bool Find()
         {
-            return Driver.Instance.FindElements(By.LinkText(firstName + lastName)).Any();
+            Commands.SearchFor($"{firstName} {lastName}");
+            return Commands.FindIfRecordExists($"{firstName} {lastName}");
         }
+
 
         /// <summary>
         /// Selects every contact matching with given first and last name and then deletes them though the delete button
         /// </summary>
         public void Delete()
         {
-            var contacts = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            Commands.SearchFor($"{firstName} {lastName}");
 
-            foreach (var contact in contacts)
-            {
-                var contactName = contact.FindElement(By.CssSelector(".font-bold.ng-binding"));
-                if (contactName.Text.Equals(firstName + " " + lastName))
-                {
-                    Actions action = new Actions(Driver.Instance);
-                    action.MoveToElement(contact);
-                    action.Perform();
-                    contact.FindElement(By.CssSelector(".icheckbox")).Click();
-                }
-                else break;
-            }
-
-            var deleteCmd = new DeleteRecordCommand();
-            deleteCmd.Delete();
+            Commands.SelectRecordsMatching($"{firstName} {lastName}");
+//            var contacts = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+//
+//            foreach (var contact in contacts)
+//            {
+//                var contactName = contact.FindElement(By.CssSelector(".font-bold.ng-binding"));
+//                if (contactName.Text.Equals(firstName + " " + lastName))
+//                {
+//                    //Commands.SelectRecord(contact);
+//                    Actions action = new Actions(Driver.Instance);
+//                    action.MoveToElement(contact);
+//                    action.Perform();
+//                    contact.FindElement(By.CssSelector(".icheckbox")).Click();
+//                }
+//                else break;
+//            }
+//
+//            var deleteCmd = new DeleteRecordCommand();
+                        new DeleteRecordCommand().Delete();
+//            deleteCmd.Delete();
 
         }
+
+        
     }
 }

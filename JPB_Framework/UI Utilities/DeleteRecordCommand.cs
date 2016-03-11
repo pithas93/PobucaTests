@@ -22,6 +22,7 @@ namespace JPB_Framework.UI_Utilities
         {
             var deleteBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
             deleteBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
         /// <summary>
@@ -31,6 +32,7 @@ namespace JPB_Framework.UI_Utilities
         {
             var deleteAllBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
             deleteAllBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
         /// <summary>
@@ -40,6 +42,7 @@ namespace JPB_Framework.UI_Utilities
         {
             var deleteOnlyOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
             deleteOnlyOrganizationBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
     }
