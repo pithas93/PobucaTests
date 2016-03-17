@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace JPB_Framework.Selenium
 {
     /// <summary>
-    /// A class to output messages or test output to a console, file, etc
+    /// A class to output messages Or test output to a console, file, etc
     /// </summary>
     public class Report
     {
         /// <summary>
-        /// Collect info about the class and the method that threw the assertion error
+        /// Collect info about the class And the method that threw the assertion error
         /// </summary>
         /// <returns></returns>
         private static string MessageType(MessageType type)

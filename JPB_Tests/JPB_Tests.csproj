@@ -59,10 +59,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Smoke Tests\CreateRecordTest.cs" />
-    <Compile Include="Smoke Tests\EditRecordTest.cs" />
-    <Compile Include="Smoke Tests\ImportRecordsTest.cs" />
-    <Compile Include="Smoke Tests\LoginTest.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="ContactsTests\ContactListTests.cs" />
+    <Compile Include="Smoke Tests\CreateRecordTests.cs" />
+    <Compile Include="Smoke Tests\EditRecordTests.cs" />
+    <Compile Include="Smoke Tests\ImportRecordsTests.cs" />
+    <Compile Include="Smoke Tests\LoginTests.cs" />
     <Compile Include="Utilities\JpbBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

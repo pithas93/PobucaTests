@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.Smoke_Tests
 {
     [TestClass]
-    public class ImportRecordsTest : JpbBaseTest
+    public class ImportRecordsTests : JpbBaseTest
     {
 
         [TestMethod]
@@ -25,11 +25,11 @@ namespace JPB_Tests.Smoke_Tests
                  .FromPath("D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
                  .ImportFile("Contacts1.xls").Submit();
 
-            ContactsPage.FindContact().WithFirstName("Panagiotis").AndLastName("Mavrogiannis").Delete();
+            ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Delete();
 
             ContactsPage.GoTo();
             AssertThat.IsTrue(ContactsPage.IsAt, "Failed to show contacts list page");
-            VerifyThat.IsFalse(ContactsPage.FindContact().WithFirstName("Panagiotis").AndLastName("Mavrogiannis").Find(), "Previously imported contact failed to be deleted");
+            VerifyThat.IsFalse(ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Find(), "Previously imported contact failed to be deleted");
         }
 
 
@@ -41,11 +41,11 @@ namespace JPB_Tests.Smoke_Tests
                 "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
                 .ImportFile("Organizations1.xls").Submit();
 
-            OrganizationsPage.FindOrganization().WithName("SiEBEN").Delete();
+            OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Delete();
 
             OrganizationsPage.GoTo();
             AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations list page");
-            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().WithName("SiEBEN").Find(), "Previously imported organization failed to be deleted");
+            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Find(), "Previously imported organization failed to be deleted");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Organizations"); } }
 
-        public static bool OrganizationListIsLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
+        public static bool IsOrganizationListLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
 
         /// <summary>
         /// Navigates browser to the organizations list page
@@ -60,73 +60,12 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         /// <param name="organization_name"></param>
         /// <returns>True if there is at least one such organization</returns>
-        public static SearchOrganizationCommand FindOrganization()
+        public static SearchRecordCommand FindOrganization()
         {
-            return new SearchOrganizationCommand();
+            return new SearchRecordCommand();
 
         }
     }
 
-    public class SearchOrganizationCommand
-    {
-        private string organizationName;
-
-        public SearchOrganizationCommand WithName(string organizationName)
-        {
-            this.organizationName = organizationName;
-            return this;
-        }
-
-        public bool Find()
-        {
-            Commands.SearchFor(organizationName);
-            return Commands.FindIfRecordExists(organizationName);
-        }
-
-
-        public void Delete()
-        {
-            Commands.SearchFor(organizationName);
-            Commands.SelectRecordsMatching(organizationName);
-//            var organizations = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-//
-//            foreach (var organization in organizations)
-//            {
-//                var organizationName = organization.FindElement(By.CssSelector(".font-bold.ng-binding"));
-//                if (organizationName.Text.Equals(organization_name))
-//                {
-//                    Commands.SelectRecord(organization);
-//
-//                }
-//                else break;
-//            }
-
-//            var deleteCmd = new DeleteRecordCommand();
-            new DeleteRecordCommand().OnlyOrganization();
-            
-            
-        }
-
-    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//        public static bool DoesOrganizationExistWithName(string organization_name)
-//        {
-//            //Commands.SearchFor(organization_name);
-//            return Driver.Instance.FindElements(By.LinkText(organization_name)).Any();
-//
-//        }
-//    }
-//}

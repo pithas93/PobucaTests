@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Selenium;
@@ -15,12 +17,43 @@ namespace JPB_Framework
 {
     public class ContactsPage
     {
+
+
         /// <summary>
         /// Check if browser is at contacts list page
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Contacts"); } }
 
-        public static bool ContactListIsLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
+        /// <summary>
+        /// Check if contact list is loaded properly
+        /// </summary>
+        public static bool IsContactListLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
+
+        /// <summary>
+        /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in ascending order
+        /// </summary>
+        public static bool IsContactListSortedByFirstNameAscending { get { return Driver.CheckIfRecordListIsSortedBy(SortField.FirstName, SortOrder.Ascending); } }
+
+        /// <summary>
+        /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in descending order
+        /// </summary>
+        public static bool IsContactListSortedByFirstNameDescending { get { return Driver.CheckIfRecordListIsSortedBy(SortField.FirstName, SortOrder.Descending); } }
+
+        /// <summary>
+        /// Checks whether or not, the contacts are sorted firstly by their last name, then by their first name, in ascending order
+        /// </summary>
+        public static bool IsContactListSortedByLastNameAscending { get { return Driver.CheckIfRecordListIsSortedBy(SortField.LastName, SortOrder.Ascending); } }
+
+        /// <summary>
+        /// Checks whether or not, the contacts are sorted firstly by their last name, then by their first name, in descending order
+        /// </summary>
+        public static bool IsContactListSortedByLastNameDescending { get { return Driver.CheckIfRecordListIsSortedBy(SortField.LastName, SortOrder.Descending); } }
+
+        /// <summary>
+        /// The total number of contacts being displayed by the contact list
+        /// </summary>
+        public static int ContactsBeingDisplayed { get { return Driver.GetRecordListCount(); } }
+
 
 
         /// <summary>
@@ -36,11 +69,14 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
-        public static SearchContactCommand FindContact()
+        public static SearchRecordCommand FindContacts()
         {
-            return new SearchContactCommand();
+            return new SearchRecordCommand();
         }
 
+        /// <summary>
+        /// Navigate browser to contact list page
+        /// </summary>
         public static void GoTo()
         {
             try
@@ -64,68 +100,25 @@ namespace JPB_Framework
                 throw e;
             }
         }
-    }
 
-    public class SearchContactCommand
-    {
-        private string firstName;
-        private string lastName;
-
-
-        public SearchContactCommand WithFirstName(string firstName)
+        /// <summary>
+        /// Issue a FilterBy command. Selects the filterby button from contact list page to reveal the filterby options
+        /// </summary>
+        /// <returns>A command upon which the filterby criteria are being build</returns>
+        public static FilterRecordCommand FilterBy()
         {
-            this.firstName = firstName;
-            return this;
+            Commands.ClickFilterBy();
+            return new FilterRecordCommand();
         }
 
         /// <summary>
-        /// Check if there is at least one contact matching given first and last name
+        /// Issue a SortBy command. Selects the sortby button from contact list page to reveal the sortby options
         /// </summary>
-        /// <param name="lastName"> Last name of contact</param>
-        /// <returns>True if there is at least one contact</returns>
-        public SearchContactCommand AndLastName(string lastName)
+        /// <returns>A command upon which the sortby criteria are being build</returns>
+        public static SortRecordsCommand SortBy()
         {
-            this.lastName = lastName;
-            return this;
+            Commands.ClickSortBy();
+            return new SortRecordsCommand();
         }
-
-        public bool Find()
-        {
-            Commands.SearchFor($"{firstName} {lastName}");
-            return Commands.FindIfRecordExists($"{firstName} {lastName}");
-        }
-
-
-        /// <summary>
-        /// Selects every contact matching with given first and last name and then deletes them though the delete button
-        /// </summary>
-        public void Delete()
-        {
-            Commands.SearchFor($"{firstName} {lastName}");
-
-            Commands.SelectRecordsMatching($"{firstName} {lastName}");
-//            var contacts = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-//
-//            foreach (var contact in contacts)
-//            {
-//                var contactName = contact.FindElement(By.CssSelector(".font-bold.ng-binding"));
-//                if (contactName.Text.Equals(firstName + " " + lastName))
-//                {
-//                    //Commands.SelectRecord(contact);
-//                    Actions action = new Actions(Driver.Instance);
-//                    action.MoveToElement(contact);
-//                    action.Perform();
-//                    contact.FindElement(By.CssSelector(".icheckbox")).Click();
-//                }
-//                else break;
-//            }
-//
-//            var deleteCmd = new DeleteRecordCommand();
-                        new DeleteRecordCommand().Delete();
-//            deleteCmd.Delete();
-
-        }
-
-        
     }
 }

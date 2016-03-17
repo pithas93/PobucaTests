@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.Smoke_Tests
 {
     [TestClass]
-    public class LoginTest : JpbBaseTest
+    public class LoginTests : JpbBaseTest
     {
      
         [TestMethod]
@@ -14,7 +14,7 @@ namespace JPB_Tests.Smoke_Tests
         {
 
             AssertThat.IsTrue(ContactsPage.IsAt, "Failed to login");
-            AssertThat.IsTrue(ContactsPage.ContactListIsLoaded, "Failed to load contact list");
+            AssertThat.IsTrue(ContactsPage.IsContactListLoaded, "Failed to load contact list");
         }
      
       

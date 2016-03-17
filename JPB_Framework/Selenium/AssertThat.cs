@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Framework.Selenium
 {
     /// <summary>
-    /// Sames use as the original Assert. In case of AssertionFailedException, outputs to log filee and terminates test execution.
+    /// Sames use as the original Assert. In case of AssertionFailedException, outputs to log filee And terminates test execution.
     /// </summary>
     public class AssertThat
     {

@@ -16,8 +16,7 @@ namespace JPB_Tests.Utilities
         [TestInitialize]
         public void SetUp()
         {
-            //Report.Initialize();
-            Driver.Initialize(Browser.IE);
+            Driver.Initialize(Browser.Chrome);
             LoginPage.GoTo();
             LoginPage.LoginAs("panagiotis@panagof1.com").WithPassword("6AB10F93").Login();
         }
@@ -26,7 +25,6 @@ namespace JPB_Tests.Utilities
         public void CleanUp()
         {
             Driver.Close();
-            //Report.ShowReport();
         }
     }
 }

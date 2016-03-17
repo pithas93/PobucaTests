@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="UI Utilities\FilterRecordCommand.cs" />
     <Compile Include="Pages\Contacts\ImportContactsWindow.cs" />
     <Compile Include="Pages\Organizations\ImportOrganizationsWindow.cs" />
     <Compile Include="Selenium\AssertThat.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="UI Utilities\Commands.cs" />
     <Compile Include="UI Utilities\DeleteRecordCommand.cs" />
     <Compile Include="UI Utilities\ImportFileCommand.cs" />
+    <Compile Include="UI Utilities\SearchRecordCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

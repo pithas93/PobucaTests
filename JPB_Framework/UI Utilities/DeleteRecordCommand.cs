@@ -46,4 +46,10 @@ namespace JPB_Framework.UI_Utilities
         }
 
     }
+
+    public enum DeleteType
+    {
+        WithContacts,
+        OnlyOrganization
+    }
 }

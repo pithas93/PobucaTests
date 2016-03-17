@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.Smoke_Tests
 {
     [TestClass]
-    public class EditRecordTest : JpbBaseTest
+    public class EditRecordTests : JpbBaseTest
     {
         
         [TestMethod]
