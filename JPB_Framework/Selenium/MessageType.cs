@@ -8,6 +8,7 @@ namespace JPB_Framework.Selenium
         AssertionError,   // for assertion log messages
         VerificationError,  // for verification log messages
         Exception,      // for exception thrown log messages
-        Message         // for general purpose messages
+        Message,        // for general purpose messages
+        Empty           // Empty string
     }
 }

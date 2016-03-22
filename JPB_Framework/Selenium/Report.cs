@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Framework.Selenium
 {
@@ -25,22 +26,27 @@ namespace JPB_Framework.Selenium
             {
                 case Selenium.MessageType.AssertionError:
                     {
-                        messageType = $"Assertion error, message=";
+                        messageType = $"Assertion error, message= ";
                         break;
                     }
                 case Selenium.MessageType.VerificationError:
                     {
-                        messageType = $"Verification error, message=";
+                        messageType = $"Verification error, message= ";
                         break;
                     }
                 case Selenium.MessageType.Exception:
                     {
-                        messageType = $"Exception thrown, message=";
+                        messageType = $"Exception thrown, message= ";
                         break;
                     }
                 case Selenium.MessageType.Message:
                     {
-                        messageType = "Message=";
+                        messageType = "Message= ";
+                        break;
+                    }
+                case Selenium.MessageType.Empty:
+                    {
+                        messageType = "";
                         break;
                     }
             }
@@ -62,43 +68,34 @@ namespace JPB_Framework.Selenium
             reportOutput.Append(DateTime.Now.ToLongTimeString());
             reportOutput.Append('\n');
             reportOutput.Append(MessageType(type));
-            reportOutput.Append(' ');
             reportOutput.Append(message);
             reportOutput.Append('\n');
 
-            if (e != null)
-            {
-                reportOutput.Append('\t');
-                reportOutput.Append(e.Message);
-                reportOutput.Append("\n\t");
-                reportOutput.Append(e.StackTrace);
-            }
-            else
-            {
-                StackTrace stack = new StackTrace(true);
-                StackFrame frame = stack.GetFrame(2);
+            if (!(type == Selenium.MessageType.Empty))
+                if (e != null)
+                {
+                    reportOutput.Append('\t');
+                    reportOutput.Append(e.Message);
+                    reportOutput.Append("\n\t");
+                    reportOutput.Append(e.StackTrace);
+                }
+                else
+                {
+                    StackTrace stack = new StackTrace(true);
+                    StackFrame frame = stack.GetFrame(2);
 
-                reportOutput.Append("\tClass = ");
-                reportOutput.Append(frame.GetMethod().ReflectedType.FullName);
-                reportOutput.Append('\n');
-                reportOutput.Append("\tTest = ");
-                reportOutput.Append(frame.GetMethod().Name);
-                reportOutput.Append('\n');
-                reportOutput.Append("\tLine = ");
-                reportOutput.Append(frame.GetFileLineNumber());
-            }
+                    reportOutput.Append("\tClass = ");
+                    reportOutput.Append(frame.GetMethod().ReflectedType.FullName);
+                    reportOutput.Append('\n');
+                    reportOutput.Append("\tTest = ");
+                    reportOutput.Append(frame.GetMethod().Name);
+                    reportOutput.Append('\n');
+                    reportOutput.Append("\tLine = ");
+                    reportOutput.Append(frame.GetFileLineNumber());
+                }
 
             reportOutput.Append("\n\n");
             File.AppendAllText("C:\\Selenium\\test_report.txt", reportOutput.ToString());
-        }
-
-        /// <summary>
-        /// Clear report file to output test results
-        /// </summary>
-        public static void Initialize()
-        {
-            if (File.Exists("C:\\Selenium\\test_report.txt"))
-                File.Delete("C:\\Selenium\\test_report.txt");
         }
 
         /// <summary>
@@ -107,6 +104,23 @@ namespace JPB_Framework.Selenium
         public static void ShowReport()
         {
             System.Diagnostics.Process.Start("CMD.exe", "notepad++ C:\\Selenium\\test_report.txt");
+        }
+
+        /// <summary>
+        /// Clear report file to output test results
+        /// </summary>
+        public static void Initialize(string testClassName, string testMethodName)
+        {
+
+            if (File.Exists("C:\\Selenium\\test_report.txt"))
+                File.Delete("C:\\Selenium\\test_report.txt");
+            Report.ToLogFile(Selenium.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest Started", null);
+        }
+
+        public static void Finalize(string testClassName, string testMethodName, UnitTestOutcome testOutput)
+        {
+            var t = testOutput;
+            Report.ToLogFile(Selenium.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest {testOutput}", null);
         }
     }
 }

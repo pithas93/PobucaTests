@@ -12,10 +12,13 @@ namespace JPB_Tests.Utilities
 {
     public class JpbBaseTest
     {
+        
 
         [TestInitialize]
         public void SetUp()
         {
+            var t = TestContext;
+            Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
             Driver.Initialize(Browser.Firefox);
             LoginPage.GoTo();
             LoginPage.LoginAs("panagiotis@panagof1.com").WithPassword("6AB10F93").Login();
@@ -24,7 +27,25 @@ namespace JPB_Tests.Utilities
         [TestCleanup]
         public void CleanUp()
         {
-            //Driver.Close();
+            Report.Finalize(TestContext.FullyQualifiedTestClassName, TestContext.TestName, TestContext.CurrentTestOutcome);
+            Driver.Close();
+        }
+
+        private TestContext testContextInstance;
+        /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext
+        {
+            get
+            {
+                return testContextInstance;
+            }
+            set
+            {
+                testContextInstance = value;
+            }
         }
     }
 }

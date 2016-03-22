@@ -44,9 +44,9 @@ namespace JPB_Framework.Selenium
             {
                 Assert.AreEqual(a,b,message);
             }
-            catch (AssertFailedException)
+            catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.VerificationError, message, null);
+                Report.ToLogFile(MessageType.VerificationError, message, e);
             }
         }
 
@@ -56,9 +56,9 @@ namespace JPB_Framework.Selenium
             {
                 Assert.AreEqual(a, b, message);
             }
-            catch (AssertFailedException)
+            catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.VerificationError, message, null);
+                Report.ToLogFile(MessageType.VerificationError, message, e);
             }
         }
 
@@ -68,9 +68,9 @@ namespace JPB_Framework.Selenium
             {
                 Assert.AreEqual(a, b, message);
             }
-            catch (AssertFailedException)
+            catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.VerificationError, message, null);
+                Report.ToLogFile(MessageType.VerificationError, message, e);
             }
         }
 
@@ -80,9 +80,9 @@ namespace JPB_Framework.Selenium
             {
                 Assert.AreEqual(a, b, message);
             }
-            catch (AssertFailedException)
+            catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.VerificationError, message, null);
+                Report.ToLogFile(MessageType.VerificationError, message, e);
             }
         }
     }

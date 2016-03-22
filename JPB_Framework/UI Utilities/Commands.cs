@@ -59,8 +59,6 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(5));
         }
 
-
-
         /// <summary>
         /// Selects a record from a list page, identified by its position in the list
         /// </summary>
@@ -73,6 +71,11 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
+        /// <summary>
+        /// Selects the record from the list that corresponds to the given position
+        /// </summary>
+        /// <param name="position">The position of the record to be selected inside the record list</param>
+        /// <returns>Returns true if the record was selected and false if it was deselected</returns>
         private static bool SelectRecordFromListBySequence(int position)
         {
             var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
@@ -121,13 +124,17 @@ namespace JPB_Framework.UI_Utilities
         /// <param name="record">The web element that corresponds to the record that will be selected</param>
         public static bool SelectRecord(IWebElement record)
         {
+            IWebElement checkBox;
             Actions action = new Actions(Driver.Instance);
             action.MoveToElement(record);
             action.Perform();
-            var checkbox = record.FindElement(By.CssSelector(".icheckbox"));
-            checkbox.Click();
+            checkBox = record.FindElement(By.CssSelector(".icheckbox"));
+            checkBox.Click();
+            string tmp = checkBox.GetAttribute("class");
             Driver.Wait(TimeSpan.FromSeconds(1));
-            return checkbox.Selected;
+            if (tmp.Equals("icheckbox") || tmp.Equals("icheckbox hover")) return false;
+            else if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
+            else throw new Exception();
         }
 
         /// <summary>
@@ -169,12 +176,19 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(1));
         }
 
+        /// <summary>
+        ///  Selects a random number of records from the records list currently displayed
+        /// </summary>
+        /// <returns>The number of records that have been randomly selected</returns>
         public static int SelectRandomNumberOfRecords()
         {
+            // The range of reccords from where the selection will be
             int range;
-            if (40 < Driver.GetRecordListCount())
+            int maxNumberOfRecordsToBeSelected = 40;
+
+            if (maxNumberOfRecordsToBeSelected < Driver.GetRecordListCount())
             {
-                range = 40;
+                range = maxNumberOfRecordsToBeSelected;
             }
             else
             {
@@ -183,6 +197,7 @@ namespace JPB_Framework.UI_Utilities
 
             Random rand = new Random();
             int selectedContacts = 0;
+
             int numOfContactsToBeSelected = rand.Next(1, 20);
 
             for (var i = 0; i < numOfContactsToBeSelected; i++)
@@ -191,8 +206,8 @@ namespace JPB_Framework.UI_Utilities
                 int positionOfRecord = rand.Next(1, range);
 
                 isChecked = Commands.SelectRecordFromListBySequence(positionOfRecord);
-                if (isChecked) selectedContacts--;
-                else selectedContacts++;
+                if (isChecked) selectedContacts++;
+                else selectedContacts--;
             }
 
             return selectedContacts;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using JPB_Framework.Selenium;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -19,6 +21,8 @@ namespace JPB_Framework
 {
     public class Driver
     {
+        
+
         public static IWebDriver Instance { get; set; }
         public static string BaseAddress { get { return "https://jpbstaging.azurewebsites.net"; } }
 
@@ -45,7 +49,33 @@ namespace JPB_Framework
                     Instance = new OperaDriver("C:/Selenium/Opera_Driver/");
                     break;
             }
+            TurnOnWait();
+        }
+
+        public static void NoWait(Action action)
+        {
+            TurnOffWait();
+            action();
+            TurnOnWait();
+        }
+
+        private static void TurnOnWait()
+        {
             Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(30));
+        }
+
+        private static void TurnOffWait()
+        {
+            Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(0));
+        }
+
+
+        /// <summary>
+        /// Instruct web driver to terminate itself
+        /// </summary>
+        public static void Close()
+        {
+            Instance.Dispose();
         }
 
         /// <summary>
@@ -231,13 +261,6 @@ namespace JPB_Framework
         }
 
 
-        /// <summary>
-        /// Instruct web driver to terminate itself
-        /// </summary>
-        public static void Close()
-        {
-            Instance.Dispose();
-        }
 
         /// <summary>
         /// Instructs web driver to wait for a given timespan

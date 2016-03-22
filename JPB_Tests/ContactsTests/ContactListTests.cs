@@ -9,6 +9,7 @@ using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
@@ -29,13 +30,13 @@ namespace JPB_Tests.ContactsTests
             Test that checks that the record list count is the same with the value displayed in the corresponding label
 
     */
-
-
+        
 
         // 1. Check that default sorting works properly
         [TestMethod]
         public void Default_Sorting()
         {
+            
             AssertThat.IsTrue(ContactsPage.IsContactListSortedByFirstNameAscending, "Contacts are not sorted by default according to their first/last name.");
         }
 

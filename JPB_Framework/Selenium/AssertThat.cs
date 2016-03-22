@@ -50,7 +50,7 @@ namespace JPB_Framework.Selenium
             }
             catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.AssertionError, message, null);
+                Report.ToLogFile(MessageType.AssertionError, message, e);
                 throw e;
             }
         }
@@ -63,7 +63,7 @@ namespace JPB_Framework.Selenium
             }
             catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.AssertionError, message, null);
+                Report.ToLogFile(MessageType.AssertionError, message, e);
                 throw e;
             }
         }
@@ -76,7 +76,7 @@ namespace JPB_Framework.Selenium
             }
             catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.AssertionError, message, null);
+                Report.ToLogFile(MessageType.AssertionError, message, e);
                 throw e;
             }
         }
@@ -89,7 +89,7 @@ namespace JPB_Framework.Selenium
             }
             catch (AssertFailedException e)
             {
-                Report.ToLogFile(MessageType.AssertionError, message, null);
+                Report.ToLogFile(MessageType.AssertionError, message, e);
                 throw e;
             }
         }
