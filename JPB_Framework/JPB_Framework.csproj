@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="UI Utilities\RecordSelector.cs" />
+    <Compile Include="UI Utilities\SortContactCommand.cs" />
     <Compile Include="UI Utilities\FilterRecordCommand.cs" />
     <Compile Include="Pages\Contacts\ImportContactsWindow.cs" />
     <Compile Include="Pages\Organizations\ImportOrganizationsWindow.cs" />

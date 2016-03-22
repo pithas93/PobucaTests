@@ -73,6 +73,12 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
+        private static bool SelectRecordFromListBySequence(int position)
+        {
+            var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
+            return Commands.SelectRecord(record);
+        }
+
         /// <summary>
         /// Navigates browser to the import dialog box which is available through contacts And organizations list pages
         /// </summary>
@@ -113,13 +119,15 @@ namespace JPB_Framework.UI_Utilities
         ///  Selects/deselects a single record within a record list by checking its checkbox
         /// </summary>
         /// <param name="record">The web element that corresponds to the record that will be selected</param>
-        public static void SelectRecord(IWebElement record)
+        public static bool SelectRecord(IWebElement record)
         {
             Actions action = new Actions(Driver.Instance);
             action.MoveToElement(record);
             action.Perform();
-            record.FindElement(By.CssSelector(".icheckbox")).Click();
+            var checkbox = record.FindElement(By.CssSelector(".icheckbox"));
+            checkbox.Click();
             Driver.Wait(TimeSpan.FromSeconds(1));
+            return checkbox.Selected;
         }
 
         /// <summary>
@@ -160,5 +168,36 @@ namespace JPB_Framework.UI_Utilities
             sortrByBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(1));
         }
+
+        public static int SelectRandomNumberOfRecords()
+        {
+            int range;
+            if (40 < Driver.GetRecordListCount())
+            {
+                range = 40;
+            }
+            else
+            {
+                range = Driver.GetRecordListCount();
+            }
+
+            Random rand = new Random();
+            int selectedContacts = 0;
+            int numOfContactsToBeSelected = rand.Next(1, 20);
+
+            for (var i = 0; i < numOfContactsToBeSelected; i++)
+            {
+                bool isChecked;
+                int positionOfRecord = rand.Next(1, range);
+
+                isChecked = Commands.SelectRecordFromListBySequence(positionOfRecord);
+                if (isChecked) selectedContacts--;
+                else selectedContacts++;
+            }
+
+            return selectedContacts;
+        }
+
+        
     }
 }

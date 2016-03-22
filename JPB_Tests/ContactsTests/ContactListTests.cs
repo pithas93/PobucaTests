@@ -148,6 +148,11 @@ namespace JPB_Tests.ContactsTests
         }
 
         // 5. Check that multiple selection works properly
+        [TestMethod]
+        public void Select_Multiple_Contacts()
+        {
+            AssertThat.AreEqual(ContactsPage.SelectRandomNumberOfContacts(), ContactsPage.ContactsBeingSelected, "The count of selected contacts is not equal with the value of the corresponding label");
+        }
 
         // 6. Check that multiple selection works properly in conjuction with sorting
 

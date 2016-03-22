@@ -85,7 +85,7 @@ namespace JPB_Framework
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordName.Text)) break;
 
-                            if (order == SortOrder.Ascending)
+                            if (order == SortRecordsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
@@ -96,7 +96,7 @@ namespace JPB_Framework
                                     return false;
                                 }
                             }
-                            else if (order == SortOrder.Descending)
+                            else if (order == SortRecordsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
@@ -125,7 +125,7 @@ namespace JPB_Framework
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordName.Text)) break;
 
-                            if (order == SortOrder.Ascending)
+                            if (order == SortRecordsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordNameStr, nextRecordNameStr) == 1)
@@ -136,7 +136,7 @@ namespace JPB_Framework
                                     return false;
                                 }
                             }
-                            else if (order == SortOrder.Descending)
+                            else if (order == SortRecordsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordNameStr, nextRecordNameStr) == -1)
                                 {
@@ -161,7 +161,7 @@ namespace JPB_Framework
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordName.Text)) break;
 
-                            if (order == SortOrder.Ascending)
+                            if (order == SortRecordsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
@@ -172,7 +172,7 @@ namespace JPB_Framework
                                     return false;
                                 }
                             }
-                            else if (order == SortOrder.Descending)
+                            else if (order == SortRecordsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
@@ -197,7 +197,7 @@ namespace JPB_Framework
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordCity.Text)) break;
 
-                            if (order == SortOrder.Ascending)
+                            if (order == SortRecordsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == 1)
@@ -208,7 +208,7 @@ namespace JPB_Framework
                                     return false;
                                 }
                             }
-                            else if (order == SortOrder.Descending)
+                            else if (order == SortRecordsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == -1)
                                 {
@@ -229,6 +229,7 @@ namespace JPB_Framework
             }
             
         }
+
 
         /// <summary>
         /// Instruct web driver to terminate itself
@@ -309,5 +310,12 @@ namespace JPB_Framework
             var totalRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
             return int.Parse(totalRecordsLbl.Text);
         }
+        
+        public static int GetSelectedRecordsCount()
+        {
+            var selectedRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
+            return int.Parse(selectedRecordsLbl.Text);
+        }
+
     }
 }
