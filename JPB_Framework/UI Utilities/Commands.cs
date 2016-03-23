@@ -177,12 +177,12 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        ///  Selects a random number of records from the records list currently displayed
+        /// Selects a random number of up to 20 records from a list of no more than 40 records. 
         /// </summary>
-        /// <returns>The number of records that have been randomly selected</returns>
+        /// <returns>The count of records that where selected</returns>
         public static int SelectRandomNumberOfRecords()
         {
-            // The range of reccords from where the selection will be
+            // The range of records from where the selection will be
             int range;
             int maxNumberOfRecordsToBeSelected = 40;
 

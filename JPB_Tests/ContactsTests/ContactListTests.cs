@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework;
+using JPB_Framework.Pages;
 using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,14 +18,6 @@ namespace JPB_Tests.ContactsTests
     {
         // Tests to be added
         /*
-            Test that checks that filter by option are not checked And they are in the correct order
-                1. Favorites
-                2. Department
-                3. Allow Email
-                4. Allo SMS
-                5. Allow Phones
-                6. Orphans
-
             Test that departments from filterby are placed alphabetically And in the correct order
 
             Test that checks that the record list count is the same with the value displayed in the corresponding label
@@ -159,7 +152,48 @@ namespace JPB_Tests.ContactsTests
 
         // 7. Check that multiple selection works properly in conjuction with search filters
 
-        // 8. Check that search box works properly
+        // 8. Check that search using side alphabet bar works properly
+        [TestMethod]
+        public void Search_Using_Side_Alphabet_Bar()
+        {
+            AlphabetSideBar.SelectLetter(LatinAlphabet.RestChars);
+            int expectedResult1 = 168;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
 
+            AlphabetSideBar.SelectLetter(LatinAlphabet.Z);
+            int expectedResult2 = 0;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
+
+            AlphabetSideBar.SelectLetter(LatinAlphabet.P);
+            int expectedResult3 = 2;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
+
+            AlphabetSideBar.SelectLetter(GreekAlphabet.RestChars);
+            int expectedResult4 = 35;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
+
+            AlphabetSideBar.SelectLetter(GreekAlphabet.Α);
+            int expectedResult5 = 4;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
+
+            AlphabetSideBar.SelectLetter(GreekAlphabet.Β);
+            int expectedResult6 = 2;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
+
+        }
+
+        // 9. Check that "filter by" options are not checked and they are in the correct order
+        [TestMethod]
+        public void Filter_By_Options_Are_In_Correct_Initial_State()
+        {
+            AssertThat.IsTrue(ContactsPage.AreFilterByOptionsInCorrectState, "Filter By filters are not in the correct initial state");
+        }
+
+        // 10. Check that departments from filterby are placed alphabetically And in the correct order
+        [TestMethod]
+        public void Filter_By_Departments_In_Correct_Initial_State()
+        {
+            AssertThat.IsTrue(ContactsPage.AreFilterByDepartmentsInCorrectState, "Filter By departments list is not in the correct initial state");
+        }
     }
 }

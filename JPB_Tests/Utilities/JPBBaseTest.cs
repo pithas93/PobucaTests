@@ -12,16 +12,18 @@ namespace JPB_Tests.Utilities
 {
     public class JpbBaseTest
     {
-        
+        //public const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        public const string ImportFilePath = "C:\\Users\\Panagof\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        public const string Username = "panagiotis@panagof1.com";
+        public const string Password = "6AB10F93";
 
         [TestInitialize]
         public void SetUp()
         {
-            var t = TestContext;
             Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
-            Driver.Initialize(Browser.Firefox);
+            Driver.Initialize(Browser.Chrome);
             LoginPage.GoTo();
-            LoginPage.LoginAs("panagiotis@panagof1.com").WithPassword("6AB10F93").Login();
+            LoginPage.LoginAs(Username).WithPassword(Password).Login();
         }
 
         [TestCleanup]

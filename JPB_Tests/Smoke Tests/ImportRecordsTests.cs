@@ -21,9 +21,7 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Import_Contact_Template()
         {
-            ImportContactsWindow
-                 .FromPath("D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
-                 .ImportFile("Contacts1.xls").Submit();
+            ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts1.xls").Submit();
 
             ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Delete();
 
@@ -37,9 +35,7 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Import_Organization_Template()
         {
             OrganizationsPage.GoTo();
-            ImportOrganizationsWindow.FromPath(
-                "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\")
-                .ImportFile("Organizations1.xls").Submit();
+            ImportOrganizationsWindow.FromPath(ImportFilePath).ImportFile("Organizations1.xls").Submit();
 
             OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Delete();
 

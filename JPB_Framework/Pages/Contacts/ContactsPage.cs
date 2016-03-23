@@ -16,7 +16,7 @@ namespace JPB_Framework
 {
     public class ContactsPage
     {
-
+        private static readonly string[] filter = { " Favorites", " Department", " Allow Email", " Allow SMS", " Allow Phones", " Orphans" };
 
         /// <summary>
         /// Check if browser is at contacts list page
@@ -53,8 +53,66 @@ namespace JPB_Framework
         /// </summary>
         public static int ContactsBeingDisplayed { get { return Driver.GetRecordListCount(); } }
 
+        /// <summary>
+        /// The total number of contacts being selected in the contact list
+        /// </summary>
         public static int ContactsBeingSelected { get { return Driver.GetSelectedRecordsCount(); } }
 
+        /// <summary>
+        /// Checks whether or not, the Filter By options have the correct labels and are in the correct order.
+        /// </summary>
+        public static bool AreFilterByOptionsInCorrectState
+        {
+            get
+            {
+                FilterBy();
+                var filterByOptions =
+                    Driver.Instance.FindElements(
+                        By.CssSelector(".checkboxLayer.show div.multiSelectItem.ng-scope.vertical span.ng-binding"));
+                int i = 0;
+                foreach (var option in filterByOptions)
+                {
+                    if (filter[i] != option.Text) return false;
+                    i++;
+                }
+                return true;
+            }
+        }
+
+        public static bool AreFilterByDepartmentsInCorrectState
+        {
+            get
+            {
+                FilterBy();
+                var filterByOptionList = Driver.Instance.FindElements(By.CssSelector(".checkboxLayer.show .checkBoxContainer .multiSelectItem.ng-scope.vertical"));
+                filterByOptionList[1].Click();
+                Driver.Wait(TimeSpan.FromSeconds(1));
+                FilterBy();
+
+                var departmentListBtn = Driver.Instance.FindElement(By.CssSelector("div#department-dropdown .button.multiSelectButton.ng-binding"));
+                departmentListBtn.Click();
+                Driver.Wait(TimeSpan.FromSeconds(1));
+
+                var departmentsOptionList =
+                    Driver.Instance.FindElements(By.CssSelector("div#department-dropdown .checkBoxContainer .multiSelectItem.ng-scope.vertical .ng-binding"));
+
+                int departmentsCount = departmentsOptionList.Count;
+
+                for (int i=1; i<departmentsCount; i++)
+                {
+                    string previousDepartmentName = departmentsOptionList[i - 1].Text;
+                    string currentDepartmentName = departmentsOptionList[i].Text;
+                    if (String.Compare(previousDepartmentName, currentDepartmentName) == 1)
+                    {
+                        Report.ToLogFile(MessageType.Message,
+                                        $"Department:'{previousDepartmentName}' is before department:'{currentDepartmentName}' which is wrong. The department list must be sorted alphabetically.",
+                                        null);
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
 
         /// <summary>
         /// Selects a contact from the list. By default selects the first one
@@ -121,6 +179,10 @@ namespace JPB_Framework
             return new SortRecordsCommand();
         }
 
+        /// <summary>
+        /// Selects a random number of up to 20 contacts from a list of no more than 40 contacts. 
+        /// </summary>
+        /// <returns>The count of contacts that where selected</returns>
         public static int SelectRandomNumberOfContacts()
         {
             return Commands.SelectRandomNumberOfRecords();

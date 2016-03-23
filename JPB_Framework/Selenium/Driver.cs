@@ -61,7 +61,7 @@ namespace JPB_Framework
 
         private static void TurnOnWait()
         {
-            Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(30));
+            Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
         }
 
         private static void TurnOffWait()

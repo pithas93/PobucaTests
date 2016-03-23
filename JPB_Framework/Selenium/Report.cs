@@ -111,15 +111,11 @@ namespace JPB_Framework.Selenium
         /// </summary>
         public static void Initialize(string testClassName, string testMethodName)
         {
-
-            if (File.Exists("C:\\Selenium\\test_report.txt"))
-                File.Delete("C:\\Selenium\\test_report.txt");
             Report.ToLogFile(Selenium.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest Started", null);
         }
 
         public static void Finalize(string testClassName, string testMethodName, UnitTestOutcome testOutput)
         {
-            var t = testOutput;
             Report.ToLogFile(Selenium.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest {testOutput}", null);
         }
     }

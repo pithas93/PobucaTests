@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\AlphabetSideBar.cs" />
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
     <Compile Include="UI Utilities\RecordSelector.cs" />
