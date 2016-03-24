@@ -20,32 +20,7 @@ namespace JPB_Framework.Pages.Organizations
 
         public static bool IsOrganizationListLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
 
-        /// <summary>
-        /// Navigates browser to the organizations list page
-        /// </summary>
-        public static void GoTo()
-        {
-            try
-            {
-                var mainMenu = Driver.Instance.FindElement(By.Id("main-menu"));
-                var organizationsBtn = mainMenu.FindElement(By.Id("Companies"));
-                organizationsBtn.Click();
-
-                // wait for organization list to load
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
-                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
-            }
-            catch (WebDriverTimeoutException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
-            catch (NoSuchElementException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
-        }
+       
 
         /// <summary>
         /// Selects an organization from the list. By default selects the first one

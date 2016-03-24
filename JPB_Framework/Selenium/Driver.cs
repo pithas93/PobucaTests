@@ -52,6 +52,18 @@ namespace JPB_Framework
             TurnOnWait();
         }
 
+        /// <summary>
+        /// Instruct web driver to terminate itself
+        /// </summary>
+        public static void Close()
+        {
+            Instance.Dispose();
+        }
+
+        /// <summary>
+        /// Deactivate driver wait timeout for a specific action
+        /// </summary>
+        /// <param name="action"></param>
         public static void NoWait(Action action)
         {
             TurnOffWait();
@@ -59,23 +71,29 @@ namespace JPB_Framework
             TurnOnWait();
         }
 
+        /// <summary>
+        /// Instructs web driver to wait for a given timespan
+        /// </summary>
+        /// <param name="timespan"></param>
+        public static void Wait(TimeSpan timespan)
+        {
+            Thread.Sleep((int)timespan.TotalSeconds * 1000);
+        }
+
+        /// <summary>
+        /// Turn on driver wait timeout. The timeout is 10 seconds
+        /// </summary>
         private static void TurnOnWait()
         {
             Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
         }
 
+        /// <summary>
+        /// Turn off driver wait timeout.
+        /// </summary>
         private static void TurnOffWait()
         {
             Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(0));
-        }
-
-
-        /// <summary>
-        /// Instruct web driver to terminate itself
-        /// </summary>
-        public static void Close()
-        {
-            Instance.Dispose();
         }
 
         /// <summary>
@@ -260,17 +278,6 @@ namespace JPB_Framework
             
         }
 
-
-
-        /// <summary>
-        /// Instructs web driver to wait for a given timespan
-        /// </summary>
-        /// <param name="timespan"></param>
-        public static void Wait(TimeSpan timespan)
-        {
-            Thread.Sleep((int)timespan.TotalSeconds * 1000);
-        }
-
         /// <summary>
         ///  Instructs web driver to check if browser is at a given page.
         /// </summary>
@@ -333,12 +340,60 @@ namespace JPB_Framework
             var totalRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
             return int.Parse(totalRecordsLbl.Text);
         }
-        
+
+        /// <summary>
+        /// Returns the value of label displaying the number of records selected in the record list currently displayed
+        /// </summary>
+        /// <returns></returns>
         public static int GetSelectedRecordsCount()
         {
             var selectedRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
             return int.Parse(selectedRecordsLbl.Text);
         }
 
+        /// <summary>
+        ///  Returns the total number of records being displayed in the record list currently displayed.
+        /// </summary>
+        /// <returns></returns>
+        public static int GetTotalRecordsCount()
+        {
+            var recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+//            int recordListCount = GetRecordListCount();
+
+            // Check if there is at least one record in the record list or else there is no point in continuing
+            var recordName = recordList[0].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            if (String.IsNullOrEmpty(recordName.Text)) return 0;
+
+            // Make page load every single record so that web driver can access them through their WebElements
+            int newRecordListCount = recordList.Count;
+            int previousRecordListCount = recordList.Count;
+            do
+            {
+                Actions action = new Actions(Driver.Instance);
+
+                // Navigate to the last record list item
+                action.MoveToElement(recordList[newRecordListCount - 1]);
+                action.Perform();
+
+                // After the record list has load the extra, not shown previously records, get the new record list count
+                recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+                // Save the previousRecordListCount
+                previousRecordListCount = newRecordListCount;
+
+                // Save the newRecordListCount
+                newRecordListCount = recordList.Count;
+
+                if (previousRecordListCount > newRecordListCount)
+                {
+                    Report.ToLogFile(MessageType.Message, "It seems that there is somethign wrong while counting records from the list", null);
+                    throw new Exception();
+                }
+
+                // There is no change in the newRecordListCount, we have probably reached its bottom
+            } while (previousRecordListCount != newRecordListCount);
+
+            return newRecordListCount;
+        }
     }
 }

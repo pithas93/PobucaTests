@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework;
+using JPB_Framework.Navigation;
 using JPB_Framework.Pages;
 using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
@@ -18,11 +19,8 @@ namespace JPB_Tests.ContactsTests
     {
         // Tests to be added
         /*
-            Test that departments from filterby are placed alphabetically And in the correct order
 
-            Test that checks that the record list count is the same with the value displayed in the corresponding label
-
-    */
+        */
         
 
         // 1. Check that default sorting works properly
@@ -40,37 +38,37 @@ namespace JPB_Tests.ContactsTests
             ContactsPage.FilterBy().AllowEmail().Filter();
             int expectedResult1 = 85;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy().AllowSMS().Filter();
             int expectedResult2 = 75;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy().AllowPhones().Filter();
             int expectedResult3 = 49;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy().Orphans().Filter();
             int expectedResult4 = 17;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy().DepartmentIs(Department.Logistics).Filter();
             int expectedResult5 = 13;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy().DepartmentIs(Department.Consulting).Filter();
             int expectedResult6 = 57;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy().AllowEmail().And().DepartmentIs(Department.RnD).Filter();
             int expectedResult7 = 7;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult7, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult7}");
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy()
                 .AllowSMS()
@@ -194,6 +192,13 @@ namespace JPB_Tests.ContactsTests
         public void Filter_By_Departments_In_Correct_Initial_State()
         {
             AssertThat.IsTrue(ContactsPage.AreFilterByDepartmentsInCorrectState, "Filter By departments list is not in the correct initial state");
+        }
+
+        // 11. Check that the contacts displayed count is the same with the value displayed in the corresponding label
+        [TestMethod]
+        public void Check_Contacts_Displayed_Is_Equal_To_Label()
+        {
+            AssertThat.AreEqual(ContactsPage.GetTotalContactsCount(), ContactsPage.ContactsBeingDisplayed, "The count of contacts being displayed is not equal with the value of the corresponding label");
         }
     }
 }

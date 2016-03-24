@@ -1,4 +1,5 @@
 ﻿using JPB_Framework;
+using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
@@ -23,7 +24,7 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Edit_Organization()
         {
 
-            OrganizationsPage.GoTo();
+            LeftSideMenu.GoToOrganizations();
             AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations page");
 
             OrganizationsPage.OpenOrganization();

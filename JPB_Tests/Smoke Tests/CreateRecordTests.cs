@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using JPB_Framework;
+using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
@@ -33,7 +34,7 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Create_A_Simple_Organization()
         {
-            OrganizationsPage.GoTo();
+            LeftSideMenu.GoToOrganizations();
             AssertThat.IsTrue(OrganizationsPage.IsAt,"Failed to show organization list page");
             AssertThat.IsTrue(OrganizationsPage.IsOrganizationListLoaded,"Failed to load organization list");
             NewOrganizationPage.CreateOrganization("SiEBEN").Create();

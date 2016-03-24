@@ -49,12 +49,12 @@ namespace JPB_Framework
         public static bool IsContactListSortedByLastNameDescending { get { return Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Descending); } }
 
         /// <summary>
-        /// The total number of contacts being displayed by the contact list
+        /// The total number of contacts being displayed by the contact list according to the corresponding label on the page
         /// </summary>
         public static int ContactsBeingDisplayed { get { return Driver.GetRecordListCount(); } }
 
         /// <summary>
-        /// The total number of contacts being selected in the contact list
+        /// The total number of contacts being selected in the contact list according to the corresponding label on the page
         /// </summary>
         public static int ContactsBeingSelected { get { return Driver.GetSelectedRecordsCount(); } }
 
@@ -114,6 +114,7 @@ namespace JPB_Framework
             }
         }
 
+
         /// <summary>
         /// Selects a contact from the list. By default selects the first one
         /// </summary>
@@ -132,32 +133,7 @@ namespace JPB_Framework
             return new SearchRecordCommand();
         }
 
-        /// <summary>
-        /// Navigate browser to contact list page
-        /// </summary>
-        public static void GoTo()
-        {
-            try
-            {
-                var mainMenu = Driver.Instance.FindElement(By.Id("main-menu"));
-                var contactsBtn = mainMenu.FindElement(By.Id("Contacts"));
-                contactsBtn.Click();
-
-                // wait for organization list to load
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
-                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
-            }
-            catch (WebDriverTimeoutException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
-            catch (NoSuchElementException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
-        }
+      
 
         /// <summary>
         /// Issue a FilterBy command. Selects the filterby button from contact list page to reveal the filterby options
@@ -186,6 +162,11 @@ namespace JPB_Framework
         public static int SelectRandomNumberOfContacts()
         {
             return Commands.SelectRandomNumberOfRecords();
+        }
+
+        public static int GetTotalContactsCount()
+        {
+            return Driver.GetTotalRecordsCount();
         }
     }
 }

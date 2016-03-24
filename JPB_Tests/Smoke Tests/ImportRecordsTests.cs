@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework;
+using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Selenium;
@@ -25,7 +26,7 @@ namespace JPB_Tests.Smoke_Tests
 
             ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Delete();
 
-            ContactsPage.GoTo();
+            LeftSideMenu.GoToContacts();
             AssertThat.IsTrue(ContactsPage.IsAt, "Failed to show contacts list page");
             VerifyThat.IsFalse(ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Find(), "Previously imported contact failed to be deleted");
         }
@@ -34,12 +35,12 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Import_Organization_Template()
         {
-            OrganizationsPage.GoTo();
+            LeftSideMenu.GoToOrganizations();
             ImportOrganizationsWindow.FromPath(ImportFilePath).ImportFile("Organizations1.xls").Submit();
 
             OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Delete();
 
-            OrganizationsPage.GoTo();
+            LeftSideMenu.GoToOrganizations();
             AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations list page");
             VerifyThat.IsFalse(OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Find(), "Previously imported organization failed to be deleted");
         }
