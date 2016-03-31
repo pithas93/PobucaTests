@@ -35,12 +35,61 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         /// <param name="organization_name"></param>
         /// <returns>True if there is at least one such organization</returns>
-        public static SearchRecordCommand FindOrganization()
+        public static SearchOrganizationCommand FindOrganization()
         {
-            return new SearchRecordCommand();
+            return new SearchOrganizationCommand();
 
         }
     }
 
+    public class SearchOrganizationCommand
+    {
+        private SearchRecordCommand command;
 
+        public SearchOrganizationCommand()
+        {
+            command = new SearchRecordCommand();
+        }
+
+        /// <summary>
+        /// Direct the search command to search for organizations with specific organization name
+        /// </summary>
+        /// <param name="organizationName"></param>
+        /// <returns></returns>
+        public SearchOrganizationCommand WithOrganizationName(string organizationName)
+        {
+            command.WithOrganizationName(organizationName);
+            return this;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for organizations with specific keywords in their name
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public SearchOrganizationCommand ContainingKeyword(string key)
+        {
+            command.ContainingKeyword(key);
+            return this;
+
+        }
+
+        /// <summary>
+        /// Direct the search command to execute itself
+        /// </summary>
+        /// <returns>Returns true if at least one record exists in the record list after the search execution</returns>
+        public bool Find()
+        {
+            return command.Find();
+        }
+
+        /// <summary>
+        /// Direct the search command to execute itself and then issue a delete command on the organizations returned by the search execution
+        /// </summary>
+        /// <param name="deleteType">Defines whether the contacts linked with organization, will be also deleted or not</param>
+        public void Delete(DeleteType deleteType)
+        {
+            command.Delete(deleteType);
+        }
+    }
 }

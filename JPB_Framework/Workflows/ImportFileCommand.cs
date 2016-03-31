@@ -23,7 +23,7 @@ namespace JPB_Framework.UI_Utilities
         /// <summary>
         /// Import file of type .xls with given name, containing contact/organization records
         /// </summary>
-        /// <param name="fileXls">The name of file containing records for import</param>
+        /// <param name="fileXls">The name of file containing records for import. Example "Contacts.xls"</param>
         /// <returns></returns>
         public ImportFileCommand ImportFile(string fileXls)
         {
@@ -43,20 +43,24 @@ namespace JPB_Framework.UI_Utilities
             var submitBtn = Driver.Instance.FindElement(By.Id("upload-wizard-btn"));
             submitBtn.Click();
 
-            // Assert that successful import message is being shown. If it's not, throw exception and log it
             try
             {
+                // Wait till spinner gets invisible and the sucess/failure message is shown
                 var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromMinutes(2));
-                wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".modal-dialog .ng-binding b")));
+                wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("div[ng-show='showSpinner']")));
             }
             catch (WebDriverTimeoutException e)
             {
                 Report.ToLogFile(MessageType.Message, "Failed to import file or did take too long.", e);
                 throw e;
             }
+        }
 
+        public static void CloseImportDialogBox()
+        {
             var finishBtn = Driver.Instance.FindElement(By.CssSelector("fieldset[ng-show='wizardStepThree'] .btn.btn-primary"));
             finishBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
         }
     }
 }

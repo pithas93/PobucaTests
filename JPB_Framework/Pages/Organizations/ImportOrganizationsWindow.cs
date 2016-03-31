@@ -14,6 +14,11 @@ namespace JPB_Framework.Pages.Organizations
             GoTo();
             return new ImportFileCommand(filePath);
         }
+
+        public static void CloseImportDialogBox()
+        {
+            ImportFileCommand.CloseImportDialogBox();
+        }
     }
 
 

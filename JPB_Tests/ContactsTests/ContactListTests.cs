@@ -88,35 +88,35 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Search_Using_Searchbox()
         {
-            ContactsPage.FindContacts().ContainingKeyword("lavi").Find();
+            ContactsPage.FindContact().ContainingKeyword("lavi").Find();
             int expectedResult1 = 1;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"Search using organization field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
 
-            ContactsPage.FindContacts().ContainingKeyword("παπα").Find();
+            ContactsPage.FindContact().ContainingKeyword("παπα").Find();
             int expectedResult2 = 9;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"Search using surname field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
 
-            ContactsPage.FindContacts().ContainingKeyword("21066").Find();
+            ContactsPage.FindContact().ContainingKeyword("21066").Find();
             int expectedResult3 = 1;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"Search using phone field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
 
-            ContactsPage.FindContacts().ContainingKeyword("αργυρουπ").Find();
+            ContactsPage.FindContact().ContainingKeyword("αργυρουπ").Find();
             int expectedResult4 = 18;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"Search using city field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
 
-            ContactsPage.FindContacts().ContainingKeyword("βουλιαγμ").Find();
+            ContactsPage.FindContact().ContainingKeyword("βουλιαγμ").Find();
             int expectedResult5 = 13;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"Search using street field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
 
-            ContactsPage.FindContacts().ContainingKeyword("roma").Find();
+            ContactsPage.FindContact().ContainingKeyword("roma").Find();
             int expectedResult6 = 21;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"Search using country field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
 
-            ContactsPage.FindContacts().ContainingKeyword("director").Find();
+            ContactsPage.FindContact().ContainingKeyword("director").Find();
             int expectedResult7 = 7;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult7, $"Search using job title field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult7}");
 
-            ContactsPage.FindContacts().ContainingKeyword("kosmocar.gr").Find();
+            ContactsPage.FindContact().ContainingKeyword("kosmocar.gr").Find();
             int expectedResult8 = 17;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult8, $"Search using website field, doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult8}");
 

@@ -26,7 +26,7 @@ namespace JPB_Tests.Smoke_Tests
             ContactViewPage.DeleteContact().Delete();
 
             AssertThat.IsTrue(ContactsPage.IsAt, "Failed to show contacts list page");
-            VerifyThat.IsFalse(ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Find(), "Contact was not deleted successfully");
+            VerifyThat.IsFalse(ContactsPage.FindContact().WithFirstName("Panagiotis").AndLastName("Mavrogiannis").Find(), "Contact was not deleted successfully");
             
 
         }
@@ -45,7 +45,7 @@ namespace JPB_Tests.Smoke_Tests
             OrganizationViewPage.DeleteOrganization().OnlyOrganization();
 
             AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations list page");
-            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Find(), "Organization was not deleted successfully");
+            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().WithOrganizationName("SiEBEN").Find(), "Organization was not deleted successfully");
         }
 
     }

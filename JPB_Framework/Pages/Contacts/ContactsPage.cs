@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
+using JPB_Tests.Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -79,6 +80,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        ///  Checks whether or not the filter by department options are in alphabetical order
+        /// </summary>
         public static bool AreFilterByDepartmentsInCorrectState
         {
             get
@@ -114,7 +118,6 @@ namespace JPB_Framework
             }
         }
 
-
         /// <summary>
         /// Selects a contact from the list. By default selects the first one
         /// </summary>
@@ -124,13 +127,13 @@ namespace JPB_Framework
         }
 
         /// <summary>
-        /// Check if contacts exists matching given first name
+        /// Issue a search command to find one or more contacts
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
-        public static SearchRecordCommand FindContacts()
+        public static SearchContactCommand FindContact()
         {
-            return new SearchRecordCommand();
+            return new SearchContactCommand();
         }
 
       
@@ -168,5 +171,77 @@ namespace JPB_Framework
         {
             return Driver.GetTotalRecordsCount();
         }
+
+        public static bool FindDummyContact()
+        {
+            return FindContact().WithFirstName(DummyData.FirstName).AndLastName(DummyData.LastName).Find();
+        }
+
+        public static void DeleteDummyContact()
+        {
+            FindContact().WithFirstName(DummyData.FirstName).AndLastName(DummyData.LastName).Delete();
+        }
+    }
+
+    public class SearchContactCommand
+    {
+        private SearchRecordCommand command;
+
+        public SearchContactCommand()
+        {
+            command = new SearchRecordCommand();
+        }
+
+        /// <summary>
+        /// Direct the search command to search for contacts with specific first name
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
+        public SearchContactCommand WithFirstName(string firstName)
+        {
+            command.WithFirstName(firstName);
+            return this;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for contacts with specific last name
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public SearchContactCommand AndLastName(string lastName)
+        {
+            command.AndLastName(lastName);
+            return this;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for contacts with specific keywords in their name
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public SearchContactCommand ContainingKeyword(string key)
+        {
+            command.ContainingKeyword(key);
+            return this;
+
+        }
+
+        /// <summary>
+        /// Direct the search command to execute itself
+        /// </summary>
+        /// <returns>Returns true if at least one record exists in the record list after the search execution</returns>
+        public bool Find()
+        {
+            return command.Find();
+        }
+
+        /// <summary>
+        /// Direct the search command to execute itself and then issue a delete command on the contacts returned by the search execution
+        /// </summary>
+        public void Delete()
+        {
+            command.Delete();
+        }
+
     }
 }

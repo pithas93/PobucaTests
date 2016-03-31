@@ -23,12 +23,13 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Import_Contact_Template()
         {
             ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts1.xls").Submit();
+            ImportContactsWindow.CloseImportDialogBox();
 
-            ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Delete();
+            ContactsPage.FindContact().WithFirstName("Panagiotis").AndLastName("Mavrogiannis").Delete();
 
             LeftSideMenu.GoToContacts();
             AssertThat.IsTrue(ContactsPage.IsAt, "Failed to show contacts list page");
-            VerifyThat.IsFalse(ContactsPage.FindContacts().With().FirstName("Panagiotis").And().LastName("Mavrogiannis").Find(), "Previously imported contact failed to be deleted");
+            VerifyThat.IsFalse(ContactsPage.FindContact().WithFirstName("Panagiotis").AndLastName("Mavrogiannis").Find(), "Previously imported contact failed to be deleted");
         }
 
 
@@ -37,12 +38,13 @@ namespace JPB_Tests.Smoke_Tests
         {
             LeftSideMenu.GoToOrganizations();
             ImportOrganizationsWindow.FromPath(ImportFilePath).ImportFile("Organizations1.xls").Submit();
+            ImportOrganizationsWindow.CloseImportDialogBox();
 
-            OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Delete();
+            OrganizationsPage.FindOrganization().WithOrganizationName("SiEBEN").Delete(DeleteType.OnlyOrganization);
 
             LeftSideMenu.GoToOrganizations();
             AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations list page");
-            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().With().OrganizationName("SiEBEN").Find(), "Previously imported organization failed to be deleted");
+            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().WithOrganizationName("SiEBEN").Find(), "Previously imported organization failed to be deleted");
         }
     }
 }

@@ -1,5 +1,8 @@
-﻿using JPB_Framework.UI_Utilities;
+﻿using System;
+using JPB_Framework.Selenium;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.Pages.Contacts
 {
@@ -34,6 +37,39 @@ namespace JPB_Framework.Pages.Contacts
         {
             GoTo();
             Driver.Instance.FindElement(By.CssSelector("a[ng-href='import/Contacts.xls']")).Click();
+        }
+
+        public static bool IsImportSuccessMessageShown {
+            get
+            {
+                var element =
+                    Driver.Instance.FindElement(
+                        By.CssSelector("fieldset[ng-show='wizardStepThree'] div[ng-show='showSuccessResult']"));
+                var value = element.GetAttribute("class");
+
+                if (string.Equals(value, "ng-binding")) return true;
+                return false;
+            }
+        }
+
+        public static bool IsImportFailedMessageShown
+        {
+            get
+            {
+                var element =
+                    Driver.Instance.FindElement(
+                        By.CssSelector("fieldset[ng-show='wizardStepThree'] div[ng-show='errorReport']"));
+                var msgIsShown = element.GetAttribute("class");
+
+                if (string.IsNullOrEmpty(msgIsShown)) return true;
+                return false;
+            }
+        }
+
+
+        public static void CloseImportDialogBox()
+        {           
+            ImportFileCommand.CloseImportDialogBox();
         }
     }
 
