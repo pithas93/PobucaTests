@@ -114,17 +114,69 @@ namespace JPB_Tests.ContactsTests
         }
 
         // 11. Import contacts - Template contains less columns than the original template
+        [TestMethod]
+        public void Import_Contacts_Template_Containing_Less_Columns_Than_Normal()
+        {
+            ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts11.xls").Submit();
+            AssertThat.IsTrue(ImportContactsWindow.IsImportSuccessMessageShown, "There should be an message informing user that import was successful. The message did not show up.");
+            ImportContactsWindow.CloseImportDialogBox();
+
+            AssertThat.IsTrue(ContactsPage.FindDummyContacts(), "Contact was not imported successfully.");
+            ContactsPage.DeleteDummyContacts();
+        }
 
         // 12. Import contacts - Template contains more columns that the original template
+        [TestMethod]
+        public void Import_Contacts_Template_Containing_More_Columns_Than_Normal()
+        {
+            ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts12.xls").Submit();
+            AssertThat.IsTrue(ImportContactsWindow.IsImportSuccessMessageShown, "There should be an message informing user that import was successful. The message did not show up.");
+            ImportContactsWindow.CloseImportDialogBox();
+
+            AssertThat.IsTrue(ContactsPage.FindDummyContacts(), "Contact was not imported successfully.");
+            ContactsPage.DeleteDummyContacts();
+        }
 
         // 13. Import contacts - Template contains null rows between normal contact rows
+        [TestMethod]
+        public void Import_Contacts_Template_Containing_Null_Rows_Between_Normal_Contact_Rows()
+        {
+            ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts13.xls").Submit();
+            AssertThat.IsTrue(ImportContactsWindow.IsImportSuccessMessageShown, "There should be an message informing user that import was successful. The message did not show up.");
+            ImportContactsWindow.CloseImportDialogBox();
+
+            AssertThat.IsTrue(ContactsPage.FindDummyContacts(), "Contacts were not imported successfully.");
+            var expectedValue = 9;
+            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedValue, $"Some contacts were not imported successfully. There are {ContactsPage.ContactsBeingDisplayed} contacts but it was expected to be {expectedValue}.");
+            ContactsPage.DeleteDummyContacts();
+        }
 
         // 14. Immport contacts - Template does not contain the mandatory field column
+        [TestMethod]
+        public void Import_Contacts_Template_Without_Mandatory_Column()
+        {
+            ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts14.xls").Submit();
+            VerifyThat.IsTrue(ImportContactsWindow.IsImportFailedMessageShown, "There should be an error message informing user that the file import has failed. The message did not show up.");
+            ImportContactsWindow.CloseImportDialogBox();
 
-        // 15. Import ontacts - Template contains duplicate contacts
+            VerifyThat.IsFalse(ContactsPage.FindContact().WithFirstName("Panagiotis").Find(), "Contact was imported successfully though the import file, from which it was imported, contained no 'LastName' column");
+            if (ContactsPage.FindContact().WithFirstName("Panagiotis").Find())
+                ContactsPage.FindContact().WithFirstName("Panagiotis").Delete();
+        }
+
+        // 15. Import contacts - Template contains duplicate contacts
 
         // 16. Import contacts - Template contains columns in different order than that of the original template
+        [TestMethod]
+        public void Import_Contacts_Template_With_Columns_In_Random_Order()
+        {
+            ImportContactsWindow.FromPath(ImportFilePath).ImportFile("Contacts16.xls").Submit();
+            AssertThat.IsTrue(ImportContactsWindow.IsImportSuccessMessageShown, "There should be an message informing user that import was successful. The message did not show up.");
+            ImportContactsWindow.CloseImportDialogBox();
 
+            AssertThat.IsTrue(ContactsPage.FindDummyContacts(), "Contacts were not imported successfully.");
+            ContactsPage.DeleteDummyContacts();
+        }
 
     }
 }
