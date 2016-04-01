@@ -18,7 +18,7 @@ namespace JPB_Framework
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Contact View"); } }
 
-        public static bool AreContactFieldValuesImportedCorrectly
+        public static bool AreContactFieldValuesCorrect
         {
             get
             {

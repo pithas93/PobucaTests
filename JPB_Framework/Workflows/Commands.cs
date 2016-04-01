@@ -110,7 +110,7 @@ namespace JPB_Framework.UI_Utilities
             foreach (var record in records)
             {
                 if (record.Text.Equals("") || record.Text == null) break;
-                if (record.Text.Equals(title))
+                if (record.Text.StartsWith(title))
                 {
                     return true;
                 }
@@ -148,7 +148,7 @@ namespace JPB_Framework.UI_Utilities
             foreach (var record in records)
             {
                 var contactName = record.FindElement(By.CssSelector(".font-bold.ng-binding"));
-                if (contactName.Text.Equals(s))
+                if (contactName.Text.StartsWith(s))
                 {
                     Commands.SelectRecord(record);
                 }

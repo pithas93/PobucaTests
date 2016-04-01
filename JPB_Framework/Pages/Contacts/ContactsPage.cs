@@ -172,12 +172,12 @@ namespace JPB_Framework
             return Driver.GetTotalRecordsCount();
         }
 
-        public static bool FindDummyContact()
+        public static bool FindDummyContacts()
         {
             return FindContact().WithFirstName(DummyData.FirstName).AndLastName(DummyData.LastName).Find();
         }
 
-        public static void DeleteDummyContact()
+        public static void DeleteDummyContacts()
         {
             FindContact().WithFirstName(DummyData.FirstName).AndLastName(DummyData.LastName).Delete();
         }
