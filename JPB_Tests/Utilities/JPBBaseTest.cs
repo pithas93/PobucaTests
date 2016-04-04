@@ -39,7 +39,7 @@ namespace JPB_Tests.Utilities
         public void SetUp()
         {
             Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
-            Driver.Initialize(Browser.Chrome);
+            Driver.Initialize(Browser.Firefox);
             LoginPage.GoTo();
             LoginPage.LoginAs(Username).WithPassword(Password).Login();
         }

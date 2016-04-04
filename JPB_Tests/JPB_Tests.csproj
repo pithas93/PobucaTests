@@ -60,6 +60,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="ContactsTests\AddContactTests.cs" />
     <Compile Include="ContactsTests\ContactListTests.cs" />
     <Compile Include="ContactsTests\ImportContactsTests.cs" />
     <Compile Include="Smoke Tests\CreateRecordTests.cs" />

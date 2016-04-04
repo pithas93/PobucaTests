@@ -57,7 +57,7 @@ namespace JPB_Tests.Utilities
         public static string JobTitle { get { return "Ταξιτζής"; } }
         public static string Website { get { return "http://www.facebook.com/TheNontas"; } }
         public static string Religion { get { return "Αγνωστικιστής"; } }
-        public static string Birthdate { get { return "28/2/1980"; } }
+        public static string Birthdate { get { return "03-02-1928"; } }
         public static string Gender { get { return "Other"; } }
         public static string Comments { get { return "No comments"; } }
 
