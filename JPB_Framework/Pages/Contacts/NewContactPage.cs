@@ -20,10 +20,29 @@ namespace JPB_Framework
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Add Contact"); } }
 
+        /// <summary>
+        /// Sets the value for the First Name field
+        /// </summary>
         public static string FirstName { set { Driver.Instance.FindElement(By.Id("First Name")).SendKeys(value); } }
+
+        /// <summary>
+        /// Sets the value for the Last Name field
+        /// </summary>
         public static string LastName { set { Driver.Instance.FindElement(By.Id("Last Name")).SendKeys(value); } }
+
+        /// <summary>
+        /// Sets the value for the Middle Name field
+        /// </summary>
         public static string MiddleName { set { Driver.Instance.FindElement(By.Id("Middle Name")).SendKeys(value); } }
+
+        /// <summary>
+        /// Sets the value for the Suffix field
+        /// </summary>
         public static string Suffix { set { Driver.Instance.FindElement(By.Id("Suffix")).SendKeys(value); } }
+
+        /// <summary>
+        /// Sets the value for the Organization Name list field
+        /// </summary>
         public static string OrganizationName
         {
             set
@@ -33,6 +52,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Department combo box
+        /// </summary>
         public static string Department
         {
             set
@@ -44,6 +66,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work Phone field
+        /// </summary>
         public static string WorkPhone
         {
             set
@@ -54,6 +79,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work Phone 2 field
+        /// </summary>
         public static string WorkPhone2
         {
             set
@@ -64,6 +92,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Mobile Phone field
+        /// </summary>
         public static string MobilePhone
         {
             set
@@ -74,6 +105,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Mobile Phone 2 field
+        /// </summary>
         public static string MobilePhone2
         {
             set
@@ -84,6 +118,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home Phone field
+        /// </summary>
         public static string HomePhone
         {
             set
@@ -94,6 +131,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home Phone 2 field
+        /// </summary>
         public static string HomePhone2
         {
             set
@@ -104,6 +144,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home Fax field
+        /// </summary>
         public static string HomeFax
         {
             set
@@ -114,6 +157,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work Fax field
+        /// </summary>
         public static string WorkFax
         {
             set
@@ -124,6 +170,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other Phone field
+        /// </summary>
         public static string OtherPhone
         {
             set
@@ -134,6 +183,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Email field
+        /// </summary>
         public static string Email
         {
             set
@@ -144,6 +196,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Personal Email field
+        /// </summary>
         public static string PersonalEmail
         {
             set
@@ -154,6 +209,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other Email field
+        /// </summary>
         public static string OtherEmail
         {
             set
@@ -164,6 +222,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work Street textfield
+        /// </summary>
         public static string WorkStreet
         {
             set
@@ -178,6 +239,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work City textfield
+        /// </summary>
         public static string WorkCity
         {
             set
@@ -192,6 +256,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work State textfield
+        /// </summary>
         public static string WorkState
         {
             set
@@ -206,6 +273,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work Postal Code
+        /// </summary>
         public static string WorkPostalCode
         {
             set
@@ -220,6 +290,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Work Country combo box
+        /// </summary>
         public static string WorkCountry
         {
             set
@@ -236,6 +309,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home Street textfield
+        /// </summary>
         public static string HomeStreet
         {
             set
@@ -250,6 +326,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home City textfield
+        /// </summary>
         public static string HomeCity
         {
             set
@@ -264,6 +343,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home State textfield
+        /// </summary>
         public static string HomeState
         {
             set
@@ -278,6 +360,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home Postal Code textfield
+        /// </summary>
         public static string HomePostalCode
         {
             set
@@ -292,6 +377,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Home ountry combo box
+        /// </summary>
         public static string HomeCountry
         {
             set
@@ -308,6 +396,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other Street textfield
+        /// </summary>
         public static string OtherStreet
         {
             set
@@ -322,6 +413,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other City textfield
+        /// </summary>
         public static string OtherCity
         {
             set
@@ -336,6 +430,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other State textfield
+        /// </summary>
         public static string OtherState
         {
             set
@@ -350,6 +447,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other Postal Code textfield
+        /// </summary>
         public static string OtherPostalCode
         {
             set
@@ -364,6 +464,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Other Country combo box
+        /// </summary>
         public static string OtherCountry
         {
             set
@@ -380,6 +483,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Salutation / Title textfield
+        /// </summary>
         public static string Salutation
         {
             set
@@ -390,6 +496,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Nickname textfield
+        /// </summary>
         public static string Nickname
         {
             set
@@ -399,6 +508,10 @@ namespace JPB_Framework
                 Driver.Instance.FindElement(By.Id("nickname")).SendKeys(value);
             }
         }
+
+        /// <summary>
+        /// Sets the value for the Job Title textfield
+        /// </summary>
         public static string JobTitle
         {
             set
@@ -408,6 +521,10 @@ namespace JPB_Framework
                 Driver.Instance.FindElement(By.Id("jobtitle")).SendKeys(value);
             }
         }
+
+        /// <summary>
+        /// Sets the value for the Website textfield
+        /// </summary>
         public static string Website
         {
             set
@@ -417,6 +534,10 @@ namespace JPB_Framework
                 Driver.Instance.FindElement(By.Id("website")).SendKeys(value);
             }
         }
+
+        /// <summary>
+        /// Sets the value for the Religion textfield
+        /// </summary>
         public static string Religion
         {
             set
@@ -427,6 +548,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Birthdate date picklist field
+        /// </summary>
         public static string Birthdate
         {
             set
@@ -456,6 +580,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Gender combo box
+        /// </summary>
         public static string Gender
         {
             set
@@ -465,6 +592,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Comments textbox
+        /// </summary>
         public static string Comments
         {
             set
@@ -473,6 +603,9 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Sets the value for the Allow SMS checkbox
+        /// </summary>
         public static bool AllowSMS
         {
             set
@@ -487,6 +620,10 @@ namespace JPB_Framework
                 if (value ^ isChecked) checkbox.Click();
             }
         }
+
+        /// <summary>
+        /// Sets the value for the Allow Phones checkbox
+        /// </summary>
         public static bool AllowPhones
         {
             set
@@ -501,6 +638,10 @@ namespace JPB_Framework
                 if (value ^ isChecked) checkbox.Click();
             }
         }
+
+        /// <summary>
+        /// Sets the value for the Allow Emails checkbox
+        /// </summary>
         public static bool AllowEmails
         {
             set
@@ -536,15 +677,21 @@ namespace JPB_Framework
             return new CreateContactCommand(firstName);
         }
 
+        /// <summary>
+        /// Issue a command to create a contact with predefined field values. The dummy contact contains values in all contact fields
+        /// </summary>
         public static void CreateDummyContact()
         {
             GoTo();
             new CreateContactCommand().WithDummyValues().Create();
         }
 
+        /// <summary>
+        /// Expands the 4 field categories at new contact page so that browser can selects either of the hidden fields
+        /// </summary>
+        /// <param name="category">The field category name to expand</param>
         private static void ExpandCategory(string category)
         {
-
             var categoryFields = Driver.Instance.FindElements(By.CssSelector("span[class^='jp-light-blue']"));
             foreach (var option in categoryFields)
             {
@@ -555,67 +702,29 @@ namespace JPB_Framework
             }
         }
 
+        /// <summary>
+        /// Inserts an extra, previously hidden field at the new contact page.
+        /// </summary>
+        /// <param name="category">The field category name that contains the field</param>
+        /// <param name="field">The field to be added to the page</param>
         private static void InsertExtraField(string category, string field)
         {
-            switch (category)
+            var comboList = Driver.Instance.FindElements(By.CssSelector($"div[mytitle='{category}'] a.ng-scope.ng-binding"));
+            foreach (var option in comboList)
             {
-                case "Phone":
-                    {
-                        var phoneComboList =
-                                        Driver.Instance.FindElements(By.CssSelector("div[mytitle='Phone'] a.ng-scope.ng-binding"));
-                        foreach (var option in phoneComboList)
-                        {
-                            if (!string.Equals(option.Text, field)) continue;
-                            option.Click();
-                            Driver.Wait(TimeSpan.FromSeconds(1));
-                            break;
-                        }
-                        break;
-                    }
-                case "Email":
-                    {
-                        var emailComboList =
-                                        Driver.Instance.FindElements(By.CssSelector("div[mytitle='Email'] a.ng-scope.ng-binding"));
-                        foreach (var option in emailComboList)
-                        {
-                            if (!string.Equals(option.Text, field)) continue;
-                            option.Click();
-                            Driver.Wait(TimeSpan.FromSeconds(1));
-                            break;
-                        }
-                        break;
-                    }
-                case "Address":
-                    {
-                        var addressComboList =
-                                        Driver.Instance.FindElements(By.CssSelector("a[onclick^='scrollToId']"));
-                        foreach (var option in addressComboList)
-                        {
-                            if (!string.Equals(option.Text, field)) continue;
-                            option.Click();
-                            Driver.Wait(TimeSpan.FromSeconds(1));
-                            break;
-                        }
-                        break;
-                    }
-                case "Other Info":
-                    {
-                        var otherInfoComboList =
-                                        Driver.Instance.FindElements(By.CssSelector("div[mytitle='Other Info'] a.ng-scope.ng-binding"));
-                        foreach (var option in otherInfoComboList)
-                        {
-                            if (!string.Equals(option.Text, field)) continue;
-                            option.Click();
-                            Driver.Wait(TimeSpan.FromSeconds(1));
-                            break;
-                        }
-                        break;
-                    }
+                if (!string.Equals(option.Text, field)) continue;
+                option.Click();
+                Driver.Wait(TimeSpan.FromSeconds(1));
+                break;
             }
-
 
         }
 
+        /// <summary>
+        /// Selects an item from a combo field. The selected item is assigned as the new field value. If the item is not among the list, ESC key is pressed.
+        /// </summary>
+        /// <param name="elementList">The list of elements within the combo option list</param>
+        /// <param name="value">The item we are looking for inside the combo option list</param>
         private static void SelectFromListByName(ReadOnlyCollection<IWebElement> elementList, string value)
         {
             var optionExists = false;
@@ -713,7 +822,7 @@ namespace JPB_Framework
         }
 
         /// <summary>
-        /// Creates the new contact with given first and last name
+        /// Creates the new contact with given contact field values
         /// </summary>
         public void Create()
         {
@@ -774,6 +883,10 @@ namespace JPB_Framework
 
         }
 
+        /// <summary>
+        /// Sets dummy values for eveery field of the new contact
+        /// </summary>
+        /// <returns></returns>
         public CreateContactCommand WithDummyValues()
         {
             this.firstName = DummyData.FirstName;
@@ -830,6 +943,9 @@ namespace JPB_Framework
         }
     }
 
+    /// <summary>
+    /// Regards the extra contact fields and their respective categories inside new contact page.
+    /// </summary>
     public static class ContactFieldCategories
     {
         public const string Phone = "Phone";

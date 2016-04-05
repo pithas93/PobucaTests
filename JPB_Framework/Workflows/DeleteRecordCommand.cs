@@ -9,7 +9,9 @@ namespace JPB_Framework.UI_Utilities
 {
     public class DeleteRecordCommand
     {
-
+        /// <summary>
+        /// Clicks the delete button
+        /// </summary>
         public DeleteRecordCommand()
         {
             Commands.ClickDelete();

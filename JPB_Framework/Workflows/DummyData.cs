@@ -66,7 +66,6 @@ namespace JPB_Tests.Utilities
         public static bool AllowPhones { get { return false; } }
         public static bool AllowEmails { get { return true; } }
 
-        //        public static string LastName { get { return ""; } }
 
     }
 }

@@ -10,6 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.UI_Utilities
 {
+
     public class Commands
     {
 

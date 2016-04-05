@@ -91,12 +91,27 @@ namespace JPB_Framework
             return new DeleteRecordCommand();
         }
 
-        private static bool NotOk(string fieldName, string field, string dummyField)
+        /// <summary>
+        /// For reporting purposes. Reports to file the given value and the expected dummy value of a record field
+        /// </summary>
+        /// <param name="fieldName">Contact field under chek</param>
+        /// <param name="value">Given field value</param>
+        /// <param name="dummyValue">Expected dummy value for the current filed</param>
+        /// <returns>Always true</returns>
+        private static bool NotOk(string fieldName, string value, string dummyValue)
         {
-            Report.ToLogFile(MessageType.Message, $"Field: {fieldName} has value='{field}' but was expected to have value='{dummyField}'", null);
+            Report.ToLogFile(MessageType.Message, $"Field: {fieldName} has value='{value}' but was expected to have value='{dummyValue}'", null);
             return true;
         }
 
+
+        /// <summary>
+        /// For reporting purposes. Reports to file the given value and the expected dummy value of a record field
+        /// </summary>
+        /// <param name="fieldName">Contact field under chek</param>
+        /// <param name="value">Given field value</param>
+        /// <param name="dummyValue">Expected dummy value for the current filed</param>
+        /// <returns>Always true</returns>
         private static bool NotOk(string fieldName, bool field, bool dummyField)
         {
             Report.ToLogFile(MessageType.Message, $"Field: {fieldName} has value='{field}' but was expected to have value='{dummyField}'", null);
@@ -205,8 +220,6 @@ namespace JPB_Framework
                 return string.Empty;
             }
         }
-
-
 
         // EXTRA FIELDS START ////////////////////////////////////////////////
 
@@ -423,7 +436,7 @@ namespace JPB_Framework
             }
         }
 
-        
+       
         public static string WorkStreet
         {
             get
