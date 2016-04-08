@@ -611,54 +611,57 @@ namespace JPB_Framework
         /// <summary>
         /// Sets the value for the Allow SMS checkbox
         /// </summary>
-        public static bool AllowSMS
+        public static string AllowSMS
         {
             set
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("input[ng-model='contact.allowSMS']"));
                 var checkbox = element.FindElement(By.XPath(".."));
                 var val = checkbox.GetAttribute("class");
-                var isChecked = false;
-                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = false;
-                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = true;
+                var isChecked = "False";
+                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = "False";
+                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = "True";
 
-                if (value ^ isChecked) checkbox.Click();
+                if ((value.Equals("True") && isChecked.Equals("False")) || (value.Equals("False") && isChecked.Equals("True")))
+                    checkbox.Click();
             }
         }
 
         /// <summary>
         /// Sets the value for the Allow Phones checkbox
         /// </summary>
-        public static bool AllowPhones
+        public static string AllowPhones
         {
             set
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("input[ng-model='contact.allowPhones']"));
                 var checkbox = element.FindElement(By.XPath(".."));
                 var val = checkbox.GetAttribute("class");
-                var isChecked = false;
-                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = false;
-                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = true;
+                var isChecked = "False";
+                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = "False";
+                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = "True";
 
-                if (value ^ isChecked) checkbox.Click();
+                if ((value.Equals("True") && isChecked.Equals("False")) || (value.Equals("False") && isChecked.Equals("True")))
+                    checkbox.Click();
             }
         }
 
         /// <summary>
         /// Sets the value for the Allow Emails checkbox
         /// </summary>
-        public static bool AllowEmails
+        public static string AllowEmails
         {
             set
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("input[ng-model='contact.allowEmails']"));
                 var checkbox = element.FindElement(By.XPath(".."));
                 var val = checkbox.GetAttribute("class");
-                var isChecked = false;
-                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = false;
-                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = true;
+                var isChecked = "False";
+                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = "False";
+                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = "True";
 
-                if (value ^ isChecked) checkbox.Click();
+                if((value.Equals("True") && isChecked.Equals("False")) || (value.Equals("False") && isChecked.Equals("True")))
+                    checkbox.Click();
             }
         }
 
@@ -811,9 +814,9 @@ namespace JPB_Framework
         private string birthdate;
         private string gender;
         private string comments;
-        private bool? allowSms;
-        private bool? allowPhones;
-        private bool? allowEmails;
+        private string allowSms;
+        private string allowPhones;
+        private string allowEmails;
 
         /// <summary>
         /// Sets the first name for the new contact
@@ -1014,9 +1017,9 @@ namespace JPB_Framework
             if (gender != null) NewContactPage.Gender = gender;
             if (comments != null) NewContactPage.Comments = comments;
 
-            if (allowSms != null) NewContactPage.AllowSMS = (bool)allowSms;
-            if (allowPhones != null) NewContactPage.AllowPhones = (bool)allowPhones;
-            if (allowEmails != null) NewContactPage.AllowEmails = (bool)allowEmails;
+            if (allowSms != null) NewContactPage.AllowSMS = allowSms;
+            if (allowPhones != null) NewContactPage.AllowPhones = allowPhones;
+            if (allowEmails != null) NewContactPage.AllowEmails = allowEmails;
 
             Driver.Wait(TimeSpan.FromSeconds(5));
 

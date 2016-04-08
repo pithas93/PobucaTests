@@ -63,9 +63,9 @@ namespace JPB_Framework.Workflows
         public static string Comments { get { return "No comments"; } }
 
 
-        public static bool AllowSMS { get { return false; } }
-        public static bool AllowPhones { get { return false; } }
-        public static bool AllowEmails { get { return true; } }
+        public static string AllowSMS { get { return "False"; } }
+        public static string AllowPhones { get { return "False"; } }
+        public static string AllowEmails { get { return "True"; } }
 
         public static string OverflowValue { get { return "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm"; } }
         public static string NonsenseValue { get { return "!@#123qweQWEασδΑΣΔ"; } }

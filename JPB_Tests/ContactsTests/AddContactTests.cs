@@ -68,18 +68,11 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Create_Contact_With_Extra_Null_Fields()
         {
-            
-
             ContactCreator.CreateContactWithNullValues();
 
             AssertThat.IsTrue(ContactCreator.ContactWasCreated, "Contact was not created successfully though it should. Defect spotted!");
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
         }
 
-        [TestMethod]
-        public void testcase()
-        {
-            ContactCreator.testcase();
-        }
     }
 }

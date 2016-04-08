@@ -1411,18 +1411,21 @@ namespace JPB_Framework
                 }
             }
         }
-        public static bool IsBirthdateFieldVisible()
+        public static bool IsBirthdateFieldVisible
         {
-            try
+            get
             {
-                IWebElement element = null;
-                Driver.NoWait(
-                    () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Birthday']")));
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Birthday']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
             }
         }
 
@@ -1446,18 +1449,21 @@ namespace JPB_Framework
                 }
             }
         }
-        public static bool IsGenderFieldVisible()
+        public static bool IsGenderFieldVisible
         {
-            try
+            get
             {
-                IWebElement element = null;
-                Driver.NoWait(
-                    () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Gender']")));
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Gender']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
             }
         }
 
@@ -1481,38 +1487,38 @@ namespace JPB_Framework
             }
         }
 
-        public static bool AllowSMS
+        public static string AllowSMS
         {
             get
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowSMS']"));
                 string text = element.GetAttribute("class");
-                if (String.IsNullOrEmpty(text)) return true;
-                if (String.Equals(text, "ng-hide")) return false;
+                if (String.IsNullOrEmpty(text)) return true.ToString();
+                if (String.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
         }
 
-        public static bool AllowPhones
+        public static string AllowPhones
         {
             get
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowPhones']"));
                 string text = element.GetAttribute("class");
-                if (String.IsNullOrEmpty(text)) return true;
-                if (String.Equals(text, "ng-hide")) return false;
+                if (String.IsNullOrEmpty(text)) return true.ToString();
+                if (String.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
         }
 
-        public static bool AllowEmails
+        public static string AllowEmails
         {
             get
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowEmails']"));
                 string text = element.GetAttribute("class");
-                if (String.IsNullOrEmpty(text)) return true;
-                if (String.Equals(text, "ng-hide")) return false;
+                if (String.IsNullOrEmpty(text)) return true.ToString();
+                if (String.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
         }
