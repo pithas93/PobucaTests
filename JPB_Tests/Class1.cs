@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,18 +10,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests
 {
-    [TestClass]
+
     public class Class1
     {
-        [TestMethod]
-        public void testmethod()
+        static void Main(string[] args)
         {
-            string a = "Ab";
-            string b = "Bb";
-            var x1 = String.CompareOrdinal(a, b);
-            var x2 = String.CompareOrdinal(b, a);
-            var x3 = String.CompareOrdinal(a, a);
-            Thread.Sleep(100);
+            var domain = "matrix";
+            Check(() => domain);
+            Console.ReadLine();
+        }
+
+        public static void Check<T>(Expression<Func<T>> expr)
+        {
+            var body = ((MemberExpression)expr.Body);
+            Console.WriteLine("Name is: {0}", body.Member.Name);
+            Console.WriteLine("Value is: {0}", ((FieldInfo)body.Member)
+           .GetValue(((ConstantExpression)body.Expression).Value));
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using JPB_Tests.Utilities;
+using JPB_Framework.Workflows;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -18,70 +18,6 @@ namespace JPB_Framework
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Contact View"); } }
 
-        public static bool AreContactFieldValuesCorrect
-        {
-            get
-            {
-                bool notOK = false;
-
-                if (DummyData.FirstName != FirstName) notOK = NotOk("First Name", FirstName, DummyData.FirstName);
-                if (DummyData.LastName != LastName) notOK = NotOk("Last Name", LastName, DummyData.LastName);
-                if (DummyData.MiddleName != MiddleName) notOK = NotOk("Middle Name", MiddleName, DummyData.MiddleName);
-                if (DummyData.Suffix != Suffix) notOK = NotOk("Suffix", Suffix, DummyData.Suffix);
-                if (DummyData.OrganizationNameExisting != OrganizationName) notOK = NotOk("Organization Name", OrganizationName, DummyData.OrganizationNameExisting);
-                if (DummyData.Department != Department) notOK = NotOk("Department", Department, DummyData.Department);
-
-                if (DummyData.WorkPhone != WorkPhone) notOK = NotOk("Work Phone", WorkPhone, DummyData.WorkPhone);
-                if (DummyData.WorkPhone2 != WorkPhone2) notOK = NotOk("Work Phone 2", WorkPhone2, DummyData.WorkPhone2);
-                if (DummyData.MobilePhone != MobilePhone) notOK = NotOk("Mobile Phone", MobilePhone, DummyData.MobilePhone);
-                if (DummyData.MobilePhone2 != MobilePhone2) notOK = NotOk("Mobile Phone 2", MobilePhone2, DummyData.MobilePhone2);
-                if (DummyData.HomePhone != HomePhone) notOK = NotOk("Home Phone", HomePhone, DummyData.HomePhone);
-                if (DummyData.HomePhone2 != HomePhone2) notOK = NotOk("Home Phone 2", HomePhone2, DummyData.HomePhone2);
-                if (DummyData.HomeFax != HomeFax) notOK = NotOk("Home Fax", HomeFax, DummyData.HomeFax);
-                if (DummyData.WorkFax != WorkFax) notOK = NotOk("Work Fax", WorkFax, DummyData.WorkFax);
-                if (DummyData.OtherPhone != OtherPhone) notOK = NotOk("Other Phone", OtherPhone, DummyData.OtherPhone);
-
-                if (DummyData.Email != Email) notOK = NotOk("Email", Email, DummyData.Email);
-                if (DummyData.PersonalEmail != PersonalEmail) notOK = NotOk("Personal Email", PersonalEmail, DummyData.PersonalEmail);
-                if (DummyData.OtherEmail != OtherEmail) notOK = NotOk("Other Email", OtherEmail, DummyData.OtherEmail);
-
-                if (DummyData.WorkStreet != WorkStreet) notOK = NotOk("Work Street", WorkStreet, DummyData.WorkStreet);
-                if (DummyData.WorkCity != WorkCity) notOK = NotOk("Work City", WorkCity, DummyData.WorkCity);
-                if (DummyData.WorkState != WorkState) notOK = NotOk("Work State", WorkState, DummyData.WorkState);
-                if (DummyData.WorkPostalCode != WorkPostalCode) notOK = NotOk("Work Postal Code", WorkPostalCode, DummyData.WorkPostalCode);
-                if (DummyData.WorkCountry != WorkCountry) notOK = NotOk("Work Country", WorkCountry, DummyData.WorkCountry);
-
-                if (DummyData.HomeStreet != HomeStreet) notOK = NotOk("Home Street", HomeStreet, DummyData.HomeStreet);
-                if (DummyData.HomeCity != HomeCity) notOK = NotOk("Home City", HomeCity, DummyData.HomeCity);
-                if (DummyData.HomeState != HomeState) notOK = NotOk("Home State", HomeState, DummyData.HomeState);
-                if (DummyData.HomePostalCode != HomePostalCode) notOK = NotOk("Home Postal Code", HomePostalCode, DummyData.HomePostalCode);
-                if (DummyData.HomeCountry != HomeCountry) notOK = NotOk("Home Country", HomeCountry, DummyData.HomeCountry);
-
-                if (DummyData.OtherStreet != OtherStreet) notOK = NotOk("Other Street", OtherStreet, DummyData.OtherStreet);
-                if (DummyData.OtherCity != OtherCity) notOK = NotOk("Other City", OtherCity, DummyData.OtherCity);
-                if (DummyData.OtherState != OtherState) notOK = NotOk("Other State", OtherState, DummyData.OtherState);
-                if (DummyData.OtherPostalCode != OtherPostalCode) notOK = NotOk("Other Postal Code", OtherPostalCode, DummyData.OtherPostalCode);
-                if (DummyData.OtherCountry != OtherCountry) notOK = NotOk("Other Country", OtherCountry, DummyData.OtherCountry);
-
-                if (DummyData.Salutation != Salutation) notOK = NotOk("Salutation", Salutation, DummyData.Salutation);
-                if (DummyData.Nickname != Nickname) notOK = NotOk("Nickname", Nickname, DummyData.Nickname);
-                if (DummyData.JobTitle != JobTitle) notOK = NotOk("Job Title", JobTitle, DummyData.JobTitle);
-
-                if (DummyData.Website != Website) notOK = NotOk("Website", Website, DummyData.Website);
-                if (DummyData.Religion != Religion) notOK = NotOk("Religion", Religion, DummyData.Religion);
-                if (DummyData.Birthdate != Birthdate) notOK = NotOk("Birthdate", Birthdate, DummyData.Birthdate);
-                if (DummyData.Gender != Gender) notOK = NotOk("Gender", Gender, DummyData.Gender);
-
-                if (DummyData.Comments != Comments) notOK = NotOk("Comments", Comments, DummyData.Comments);
-                if (DummyData.AllowSMS != AllowSMS) notOK = NotOk("Allow SMS", AllowSMS, DummyData.AllowSMS);
-                if (DummyData.AllowPhones != AllowPhones) notOK = NotOk("Allow Phones", AllowPhones, DummyData.AllowPhones);
-                if (DummyData.AllowEmails != AllowEmails) notOK = NotOk("Allow Emails", AllowEmails, DummyData.AllowEmails);
-
-                if (notOK) return false;
-                return true;
-            }
-        }
-
         /// <summary>
         /// Issue delete command from a contact's detail view page
         /// </summary>
@@ -89,33 +25,6 @@ namespace JPB_Framework
         public static DeleteRecordCommand DeleteContact()
         {
             return new DeleteRecordCommand();
-        }
-
-        /// <summary>
-        /// For reporting purposes. Reports to file the given value and the expected dummy value of a record field
-        /// </summary>
-        /// <param name="fieldName">Contact field under chek</param>
-        /// <param name="value">Given field value</param>
-        /// <param name="dummyValue">Expected dummy value for the current filed</param>
-        /// <returns>Always true</returns>
-        private static bool NotOk(string fieldName, string value, string dummyValue)
-        {
-            Report.ToLogFile(MessageType.Message, $"Field: {fieldName} has value='{value}' but was expected to have value='{dummyValue}'", null);
-            return true;
-        }
-
-
-        /// <summary>
-        /// For reporting purposes. Reports to file the given value and the expected dummy value of a record field
-        /// </summary>
-        /// <param name="fieldName">Contact field under chek</param>
-        /// <param name="value">Given field value</param>
-        /// <param name="dummyValue">Expected dummy value for the current filed</param>
-        /// <returns>Always true</returns>
-        private static bool NotOk(string fieldName, bool field, bool dummyField)
-        {
-            Report.ToLogFile(MessageType.Message, $"Field: {fieldName} has value='{field}' but was expected to have value='{dummyField}'", null);
-            return true;
         }
 
 
@@ -220,6 +129,15 @@ namespace JPB_Framework
                 return string.Empty;
             }
         }
+        public static bool IsDepartmentFieldVisible
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.departmentID']"));
+                var attr = element.GetAttribute("class");
+                return string.Equals(attr, "m-b-xs");
+            }
+        }
 
         // EXTRA FIELDS START ////////////////////////////////////////////////
 
@@ -244,6 +162,24 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsWorkPhoneFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Phone']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string WorkPhone2
         {
@@ -265,7 +201,25 @@ namespace JPB_Framework
                 }
             }
         }
-        
+        public static bool IsWorkPhone2FieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Phone 2']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
+
         public static string MobilePhone2
         {
             get
@@ -283,6 +237,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsMobilePhone2FieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Mobile Phone 2']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -304,6 +276,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsHomePhoneFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Phone']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -329,6 +319,24 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsHomePhone2FieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Phone 2']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string WorkFax
         {
@@ -347,6 +355,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsWorkFaxFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Fax']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -371,6 +397,24 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsHomeFaxFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Fax']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string OtherPhone
         {
@@ -392,8 +436,25 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsOtherPhoneFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Other']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
-        
         public static string PersonalEmail
         {
             get
@@ -411,6 +472,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsPersonalEmailFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Personal Email']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -435,8 +514,25 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsOtherEmailFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Other Email']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
-       
         public static string WorkStreet
         {
             get
@@ -455,6 +551,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsWorkStreetFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showWorkAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -480,6 +598,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsWorkCityFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showWorkAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string WorkState
         {
@@ -499,6 +639,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsWorkStateFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showWorkAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -524,6 +686,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsWorkPostalCodeFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showWorkAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string WorkCountry
         {
@@ -543,6 +727,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsWorkCountryFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showWorkAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -569,6 +775,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsHomeStreetFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showHomeAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string HomeCity
         {
@@ -588,6 +816,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsHomeCityFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showHomeAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -613,6 +863,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsHomeStateFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showHomeAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string HomePostalCode
         {
@@ -635,6 +907,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsHomePostalCodeFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showHomeAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string HomeCountry
         {
@@ -654,6 +948,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsHomeCountryFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showHomeAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -680,6 +996,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsOtherStreetFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string OtherCity
         {
@@ -699,6 +1037,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsOtherCityFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -724,6 +1084,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsOtherStateFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string OtherPostalCode
         {
@@ -743,6 +1125,28 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsOtherPostalCodeFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -768,6 +1172,28 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsOtherCountryFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    IWebElement element2 = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(contact);']")));
+                    Driver.NoWait(
+                        () =>
+                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
 
         public static string Salutation
@@ -787,6 +1213,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsSalutationFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Salutation']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -811,6 +1255,24 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsNicknameFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Nickname']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string JobTitle
         {
@@ -829,6 +1291,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsJobTitleFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Job Title']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -853,6 +1333,24 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsWebsiteFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Website']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
         public static string Religion
         {
@@ -871,6 +1369,24 @@ namespace JPB_Framework
                 catch (NoSuchElementException)
                 {
                     return string.Empty;
+                }
+            }
+        }
+        public static bool IsReligionFieldVisible
+        {
+            get
+            {
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () =>
+                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Religion']")));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
                 }
             }
         }
@@ -895,6 +1411,20 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsBirthdateFieldVisible()
+        {
+            try
+            {
+                IWebElement element = null;
+                Driver.NoWait(
+                    () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Birthday']")));
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
 
         public static string Gender
         {
@@ -916,6 +1446,20 @@ namespace JPB_Framework
                 }
             }
         }
+        public static bool IsGenderFieldVisible()
+        {
+            try
+            {
+                IWebElement element = null;
+                Driver.NoWait(
+                    () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Gender']")));
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
 
         public static string Comments
         {
@@ -925,6 +1469,15 @@ namespace JPB_Framework
                 if (!string.IsNullOrEmpty(element.Text))
                     return element.Text;
                 return string.Empty;
+            }
+        }
+        public static bool IsCommentsFieldVisible
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.comments']"));
+                var attr = element.GetAttribute("class");
+                return string.Equals(attr, "ibox float-e-margins");
             }
         }
 

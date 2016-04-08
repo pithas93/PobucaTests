@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using JPB_Tests.Utilities;
+using JPB_Framework.Workflows;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -211,6 +211,16 @@ namespace JPB_Framework
         public SearchContactCommand AndLastName(string lastName)
         {
             command.AndLastName(lastName);
+            return this;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for contacts with dummy first and last name
+        /// </summary>
+        /// <returns></returns>
+        public SearchContactCommand WithDummyValues()
+        {
+            command.WithDummyValues();
             return this;
         }
 

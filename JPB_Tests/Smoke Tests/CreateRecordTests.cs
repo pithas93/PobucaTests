@@ -3,6 +3,7 @@ using JPB_Framework;
 using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Selenium;
+using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,19 +16,8 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Create_A_Simple_Contact()
         {
-
-
-            NewContactPage.CreateContact("Panagiotis").withLastName("Mavrogiannis").Create();
-
-            AssertThat.IsTrue(ContactViewPage.IsAt, "Failed to show contact detail view page");
-            AssertThat.AreEqual(ContactViewPage.FirstName, "Panagiotis", "First name was not saved correctly");
-            AssertThat.AreEqual(ContactViewPage.LastName, "Mavrogiannis", "Last name was not saved correctly");
-
-            ContactViewPage.DeleteContact().Delete();
-
-            AssertThat.IsTrue(ContactsPage.IsAt, "Failed to show contacts list page");
-            VerifyThat.IsFalse(ContactsPage.FindContact().WithFirstName("Panagiotis").AndLastName("Mavrogiannis").Find(), "Contact was not deleted successfully");
-            
+            ContactCreator.CreateSimpleContact();
+            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 

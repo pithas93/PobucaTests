@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.Workflows;
 
 namespace JPB_Framework.UI_Utilities
 {
@@ -23,6 +24,17 @@ namespace JPB_Framework.UI_Utilities
         {
             if (String.IsNullOrEmpty(keyword)) keyword = str;
             else keyword = keyword + ' ' + str;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for contacts with dummy first and last name
+        /// </summary>
+        /// <returns></returns>
+        public SearchRecordCommand WithDummyValues()
+        {
+            AppendToKeyword(DummyData.FirstName);
+            AppendToKeyword(DummyData.LastName);
+            return this;
         }
 
         /// <summary>
@@ -118,6 +130,7 @@ namespace JPB_Framework.UI_Utilities
             }
 
         }
+
 
     }
 }

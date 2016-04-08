@@ -66,6 +66,7 @@
     <Compile Include="Pages\AlphabetSideBar.cs" />
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="Workflows\ContactCreator.cs" />
     <Compile Include="Workflows\DummyData.cs" />
     <Compile Include="Workflows\SortContactCommand.cs" />
     <Compile Include="Workflows\FilterRecordCommand.cs" />

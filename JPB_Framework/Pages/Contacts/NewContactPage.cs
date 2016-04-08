@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using JPB_Tests.Utilities;
+using JPB_Framework.Workflows;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
@@ -19,6 +19,11 @@ namespace JPB_Framework
         /// Check if browser is at contact form page that allows to create a new contact
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Add Contact"); } }
+
+        /// <summary>
+        /// Returns whether the new contact Save button was pressed, and so the contact was saved, or not.
+        /// </summary>
+        public static bool IsContactSavedSuccessfully { get; set; }
 
         /// <summary>
         /// Sets the value for the First Name field
@@ -671,19 +676,10 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns> A command upon which the parameters for the new contact are specified</returns>
-        public static CreateContactCommand CreateContact(string firstName)
+        public static CreateContactCommand CreateContact()
         {
             GoTo();
-            return new CreateContactCommand(firstName);
-        }
-
-        /// <summary>
-        /// Issue a command to create a contact with predefined field values. The dummy contact contains values in all contact fields
-        /// </summary>
-        public static void CreateDummyContact()
-        {
-            GoTo();
-            new CreateContactCommand().WithDummyValues().Create();
+            return new CreateContactCommand();
         }
 
         /// <summary>
@@ -709,13 +705,29 @@ namespace JPB_Framework
         /// <param name="field">The field to be added to the page</param>
         private static void InsertExtraField(string category, string field)
         {
-            var comboList = Driver.Instance.FindElements(By.CssSelector($"div[mytitle='{category}'] a.ng-scope.ng-binding"));
-            foreach (var option in comboList)
+            if (!category.Equals("Address"))
             {
-                if (!string.Equals(option.Text, field)) continue;
-                option.Click();
-                Driver.Wait(TimeSpan.FromSeconds(1));
-                break;
+                var comboList =
+                    Driver.Instance.FindElements(By.CssSelector($"div[mytitle='{category}'] a.ng-scope.ng-binding"));
+                foreach (var option in comboList)
+                {
+                    if (!string.Equals(option.Text, field)) continue;
+                    option.Click();
+                    Driver.Wait(TimeSpan.FromSeconds(1));
+                    break;
+                }
+            }
+            else
+            {
+                var comboList =
+                    Driver.Instance.FindElements(By.CssSelector("a[onclick^='scrollToId']"));
+                foreach (var option in comboList)
+                {
+                    if (!string.Equals(option.Text, field)) continue;
+                    option.Click();
+                    Driver.Wait(TimeSpan.FromSeconds(1));
+                    break;
+                }
             }
 
         }
@@ -752,62 +764,66 @@ namespace JPB_Framework
     public class CreateContactCommand
     {
 
-        private string firstName = "";
-        private string lastName = "";
-        private string middleName = "";
-        private string suffix = "";
-        private string organizationName = "";
-        private string department = "";
+        private string firstName;
+        private string lastName;
+        private string middleName;
+        private string suffix;
+        private string organizationName;
+        private string department;
 
-        private string workPhone = "";
-        private string workPhone2 = "";
-        private string mobilePhone = "";
-        private string mobilePhone2 = "";
-        private string homePhone = "";
-        private string homePhone2 = "";
-        private string homeFax = "";
-        private string workFax = "";
-        private string otherPhone = "";
+        private string workPhone;
+        private string workPhone2;
+        private string mobilePhone;
+        private string mobilePhone2;
+        private string homePhone;
+        private string homePhone2;
+        private string homeFax;
+        private string workFax;
+        private string otherPhone;
 
-        private string email = "";
-        private string personalEmail = "";
-        private string otherEmail = "";
+        private string email;
+        private string personalEmail;
+        private string otherEmail;
 
-        private string workStreet = "";
-        private string workCity = "";
-        private string workState = "";
-        private string workPostalCode = "";
+        private string workStreet;
+        private string workCity;
+        private string workState;
+        private string workPostalCode;
         private string workCountry;
 
-        private string homeStreet = "";
-        private string homeCity = "";
-        private string homeState = "";
-        private string homePostalCode = "";
-        private string homeCountry = "";
+        private string homeStreet;
+        private string homeCity;
+        private string homeState;
+        private string homePostalCode;
+        private string homeCountry;
 
-        private string otherStreet = "";
-        private string otherCity = "";
-        private string otherState = "";
-        private string otherPostalCode = "";
-        private string otherCountry = "";
+        private string otherStreet;
+        private string otherCity;
+        private string otherState;
+        private string otherPostalCode;
+        private string otherCountry;
 
-        private string salutation = "";
-        private string nickname = "";
-        private string jobTitle = "";
-        private string website = "";
-        private string religion = "";
-        private string birthdate = "";
-        private string gender = "";
-        private string comments = "";
-        private bool allowSms = false;
-        private bool allowPhones = false;
-        private bool allowEmails = false;
+        private string salutation;
+        private string nickname;
+        private string jobTitle;
+        private string website;
+        private string religion;
+        private string birthdate;
+        private string gender;
+        private string comments;
+        private bool? allowSms;
+        private bool? allowPhones;
+        private bool? allowEmails;
 
-        public CreateContactCommand() { }
-
-        public CreateContactCommand(string firstName)
+        /// <summary>
+        /// Sets the first name for the new contact
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithFirstName(string firstName)
         {
             this.firstName = firstName;
+            return this;
         }
 
         /// <summary>
@@ -815,76 +831,80 @@ namespace JPB_Framework
         /// </summary>
         /// <param name="lastName"></param>
         /// <returns></returns>
-        public CreateContactCommand withLastName(string lastName)
+        public CreateContactCommand WithLastName(string lastName)
         {
             this.lastName = lastName;
             return this;
         }
 
         /// <summary>
-        /// Creates the new contact with given contact field values
+        /// Sets the organization for the new contact
         /// </summary>
-        public void Create()
+        /// <param name="organizationName"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithOrganizationName(string organizationName)
         {
-
-            if (!string.IsNullOrEmpty(firstName)) NewContactPage.FirstName = firstName;
-            if (!string.IsNullOrEmpty(lastName)) NewContactPage.LastName = lastName;
-            if (!string.IsNullOrEmpty(middleName)) NewContactPage.MiddleName = middleName;
-            if (!string.IsNullOrEmpty(suffix)) NewContactPage.Suffix = suffix;
-            if (!string.IsNullOrEmpty(organizationName)) NewContactPage.OrganizationName = organizationName;
-            if (!string.IsNullOrEmpty(department)) NewContactPage.Department = department;
-            if (!string.IsNullOrEmpty(workPhone)) NewContactPage.WorkPhone = workPhone;
-            if (!string.IsNullOrEmpty(workPhone2)) NewContactPage.WorkPhone2 = workPhone2;
-            if (!string.IsNullOrEmpty(mobilePhone)) NewContactPage.MobilePhone = mobilePhone;
-            if (!string.IsNullOrEmpty(mobilePhone2)) NewContactPage.MobilePhone2 = mobilePhone2;
-            if (!string.IsNullOrEmpty(homePhone)) NewContactPage.HomePhone = homePhone;
-            if (!string.IsNullOrEmpty(homePhone2)) NewContactPage.HomePhone2 = homePhone2;
-            if (!string.IsNullOrEmpty(workFax)) NewContactPage.WorkFax = workFax;
-            if (!string.IsNullOrEmpty(homeFax)) NewContactPage.HomeFax = homeFax;
-            if (!string.IsNullOrEmpty(otherPhone)) NewContactPage.OtherPhone = otherPhone;
-            if (!string.IsNullOrEmpty(email)) NewContactPage.Email = email;
-            if (!string.IsNullOrEmpty(personalEmail)) NewContactPage.PersonalEmail = personalEmail;
-            if (!string.IsNullOrEmpty(otherEmail)) NewContactPage.OtherEmail = otherEmail;
-
-            if (!string.IsNullOrEmpty(workStreet)) NewContactPage.WorkStreet = workStreet;
-            if (!string.IsNullOrEmpty(workCity)) NewContactPage.WorkCity = workCity;
-            if (!string.IsNullOrEmpty(workState)) NewContactPage.WorkState = workState;
-            if (!string.IsNullOrEmpty(workPostalCode)) NewContactPage.WorkPostalCode = workPostalCode;
-            if (!string.IsNullOrEmpty(workCountry)) NewContactPage.WorkCountry = workCountry;
-
-            if (!string.IsNullOrEmpty(homeStreet)) NewContactPage.HomeStreet = homeStreet;
-            if (!string.IsNullOrEmpty(homeCity)) NewContactPage.HomeCity = homeCity;
-            if (!string.IsNullOrEmpty(homeState)) NewContactPage.HomeState = homeState;
-            if (!string.IsNullOrEmpty(homePostalCode)) NewContactPage.HomePostalCode = homePostalCode;
-            if (!string.IsNullOrEmpty(homeCountry)) NewContactPage.HomeCountry = homeCountry;
-
-            if (!string.IsNullOrEmpty(otherStreet)) NewContactPage.OtherStreet = otherStreet;
-            if (!string.IsNullOrEmpty(otherCity)) NewContactPage.OtherCity = otherCity;
-            if (!string.IsNullOrEmpty(otherState)) NewContactPage.OtherState = otherState;
-            if (!string.IsNullOrEmpty(otherPostalCode)) NewContactPage.OtherPostalCode = otherPostalCode;
-            if (!string.IsNullOrEmpty(otherCountry)) NewContactPage.OtherCountry = otherCountry;
-
-            if (!string.IsNullOrEmpty(salutation)) NewContactPage.Salutation = salutation;
-            if (!string.IsNullOrEmpty(nickname)) NewContactPage.Nickname = nickname;
-            if (!string.IsNullOrEmpty(jobTitle)) NewContactPage.JobTitle = jobTitle;
-            if (!string.IsNullOrEmpty(website)) NewContactPage.Website = website;
-            if (!string.IsNullOrEmpty(religion)) NewContactPage.Religion = religion;
-            if (!string.IsNullOrEmpty(birthdate)) NewContactPage.Birthdate = birthdate;
-            if (!string.IsNullOrEmpty(gender)) NewContactPage.Gender = gender;
-            if (!string.IsNullOrEmpty(comments)) NewContactPage.Comments = comments;
-
-            NewContactPage.AllowSMS = allowSms;
-            NewContactPage.AllowPhones = allowPhones;
-            NewContactPage.AllowEmails = allowEmails;
-
-            Driver.Wait(TimeSpan.FromSeconds(5));
-
-            Commands.ClickSave();
-
+            this.organizationName = organizationName;
+            return this;
         }
 
         /// <summary>
-        /// Sets dummy values for eveery field of the new contact
+        /// Sets the home phone for the new contact
+        /// </summary>
+        /// <param name="homePhone"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithHomePhone(string homePhone)
+        {
+            this.homePhone = homePhone;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the work phone for the new contact
+        /// </summary>
+        /// <param name="homePhone"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWorkPhone(string workPhone)
+        {
+            this.workPhone = workPhone;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the personal email for the new contact
+        /// </summary>
+        /// <param name="personalEmail"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithPersonalEmail(string personalEmail)
+        {
+            this.personalEmail = personalEmail;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the work city for the new contact
+        /// </summary>
+        /// <param name="workCity"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWorkCity(string workCity)
+        {
+            this.workCity = workCity;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the nickname for the new contact
+        /// </summary>
+        /// <param name="nickname"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithNickname(string nickname)
+        {
+            this.nickname = nickname;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets dummy values for every field of the new contact
         /// </summary>
         /// <returns></returns>
         public CreateContactCommand WithDummyValues()
@@ -941,6 +961,70 @@ namespace JPB_Framework
             this.allowEmails = DummyData.AllowEmails;
             return this;
         }
+
+        /// <summary>
+        /// Creates the new contact with given contact field values
+        /// </summary>
+        public void Create()
+        {
+
+            if (firstName != null) NewContactPage.FirstName = firstName;
+            if (lastName != null) NewContactPage.LastName = lastName;
+            if (middleName != null) NewContactPage.MiddleName = middleName;
+            if (suffix != null) NewContactPage.Suffix = suffix;
+            if (organizationName != null) NewContactPage.OrganizationName = organizationName;
+            if (department != null) NewContactPage.Department = department;
+            if (workPhone != null) NewContactPage.WorkPhone = workPhone;
+            if (workPhone2 != null) NewContactPage.WorkPhone2 = workPhone2;
+            if (mobilePhone != null) NewContactPage.MobilePhone = mobilePhone;
+            if (mobilePhone2 != null) NewContactPage.MobilePhone2 = mobilePhone2;
+            if (homePhone != null) NewContactPage.HomePhone = homePhone;
+            if (homePhone2 != null) NewContactPage.HomePhone2 = homePhone2;
+            if (workFax != null) NewContactPage.WorkFax = workFax;
+            if (homeFax != null) NewContactPage.HomeFax = homeFax;
+            if (otherPhone != null) NewContactPage.OtherPhone = otherPhone;
+            if (email != null) NewContactPage.Email = email;
+            if (personalEmail != null) NewContactPage.PersonalEmail = personalEmail;
+            if (otherEmail != null) NewContactPage.OtherEmail = otherEmail;
+
+            if (workStreet != null) NewContactPage.WorkStreet = workStreet;
+            if (workCity != null) NewContactPage.WorkCity = workCity;
+            if (workState != null) NewContactPage.WorkState = workState;
+            if (workPostalCode != null) NewContactPage.WorkPostalCode = workPostalCode;
+            if (workCountry != null) NewContactPage.WorkCountry = workCountry;
+
+            if (homeStreet != null) NewContactPage.HomeStreet = homeStreet;
+            if (homeCity != null) NewContactPage.HomeCity = homeCity;
+            if (homeState != null) NewContactPage.HomeState = homeState;
+            if (homePostalCode != null) NewContactPage.HomePostalCode = homePostalCode;
+            if (homeCountry != null) NewContactPage.HomeCountry = homeCountry;
+
+            if (otherStreet != null) NewContactPage.OtherStreet = otherStreet;
+            if (otherCity != null) NewContactPage.OtherCity = otherCity;
+            if (otherState != null) NewContactPage.OtherState = otherState;
+            if (otherPostalCode != null) NewContactPage.OtherPostalCode = otherPostalCode;
+            if (otherCountry != null) NewContactPage.OtherCountry = otherCountry;
+
+            if (salutation != null) NewContactPage.Salutation = salutation;
+            if (nickname != null) NewContactPage.Nickname = nickname;
+            if (jobTitle != null) NewContactPage.JobTitle = jobTitle;
+            if (website != null) NewContactPage.Website = website;
+            if (religion != null) NewContactPage.Religion = religion;
+            if (birthdate != null) NewContactPage.Birthdate = birthdate;
+            if (gender != null) NewContactPage.Gender = gender;
+            if (comments != null) NewContactPage.Comments = comments;
+
+            if (allowSms != null) NewContactPage.AllowSMS = (bool)allowSms;
+            if (allowPhones != null) NewContactPage.AllowPhones = (bool)allowPhones;
+            if (allowEmails != null) NewContactPage.AllowEmails = (bool)allowEmails;
+
+            Driver.Wait(TimeSpan.FromSeconds(5));
+
+            NewContactPage.IsContactSavedSuccessfully = Commands.ClickSave();
+        }
+
+
+        
     }
 
     /// <summary>

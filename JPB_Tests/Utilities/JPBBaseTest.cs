@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework;
 using JPB_Framework.Selenium;
+using JPB_Framework.Workflows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests.Utilities
@@ -40,6 +41,7 @@ namespace JPB_Tests.Utilities
         {
             Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
             Driver.Initialize(Browser.Firefox);
+            ContactCreator.Initialize();
             LoginPage.GoTo();
             LoginPage.LoginAs(Username).WithPassword(Password).Login();
         }
@@ -48,6 +50,7 @@ namespace JPB_Tests.Utilities
         public void CleanUp()
         {
             Report.Finalize(TestContext.FullyQualifiedTestClassName, TestContext.TestName, TestContext.CurrentTestOutcome);
+            ContactCreator.CleanUp();
             Driver.Close();
         }
 

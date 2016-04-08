@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework;
 using JPB_Framework.Selenium;
+using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,29 +20,66 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Create_Contact_With_All_Fields_Filled()
         {
-            NewContactPage.CreateDummyContact();
-            VerifyThat.IsTrue(ContactViewPage.AreContactFieldValuesCorrect, "Contact field values are not the ones expected.");
+            ContactCreator.CreateContactWithAllValues();
+            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
-            ContactViewPage.DeleteContact().Delete();
-            VerifyThat.IsFalse(ContactsPage.FindDummyContacts(), "Previously created dummy contact was not deleted successfully");
         }
 
         // 2. Create contact from within existing organization
 
         // 3. Create contact without assigning values in mandatory field
+        [TestMethod]
+        public void Create_Contact_Without_Values_In_Mandatory_Field()
+        {
+            ContactCreator.CreateContactWithoutLastName();
+            AssertThat.IsFalse(ContactCreator.ContactWasCreated, "Contact was created successfully though last name field was left null. Defect spotted!");
+
+        }
 
         // 4. Create contact assinging field values that exceed character overflow limit
+        [TestMethod]
+        public void Create_Contact_With_Overflown_Field_Values()
+        {
+            ContactCreator.CreateContactWithOverflowValues();
+            AssertThat.IsFalse(ContactCreator.ContactWasCreated, "Contact was created successfully though last name field was left null. Defect spotted!");
+
+        }
 
         // 5. Create contact with nonsense field values
+        [TestMethod]
+        public void Create_Contact_With_Nonsense_Field_Values()
+        {
+            ContactCreator.CreateContactWithNonsenseValues();
+            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
-        // 6. Create contact with invalid birthdate value
-
-        // 7. Create contact with random field values in combo fields
+        }
 
         // 8. Create contact linked with non-existent organization
+        [TestMethod]
+        public void Create_Contact_With_Invalid_Organization()
+        {
+            ContactCreator.CreateContactWithInvalidOrganization();
+            AssertThat.IsTrue(ContactCreator.ContactWasCreated, "Contact was not created successfully though it should. Defect spotted!");
+            AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Organization ought to be null but it has value = '{ContactViewPage.OrganizationName}' which is invalid. Defect spotted!");
+        }
 
-        // 9. Create an orphan contact
 
         // 10. Add an extra field and save contact without assigning value to the added field
+        [TestMethod]
+        public void Create_Contact_With_Extra_Null_Fields()
+        {
+            
+
+            ContactCreator.CreateContactWithNullValues();
+
+            AssertThat.IsTrue(ContactCreator.ContactWasCreated, "Contact was not created successfully though it should. Defect spotted!");
+            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+        }
+
+        [TestMethod]
+        public void testcase()
+        {
+            ContactCreator.testcase();
+        }
     }
 }

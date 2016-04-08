@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JPB_Tests.Utilities
+namespace JPB_Framework.Workflows
 {
     public class DummyData
     {
@@ -66,6 +67,7 @@ namespace JPB_Tests.Utilities
         public static bool AllowPhones { get { return false; } }
         public static bool AllowEmails { get { return true; } }
 
-
+        public static string OverflowValue { get { return "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm"; } }
+        public static string NonsenseValue { get { return "!@#123qweQWEασδΑΣΔ"; } }
     }
 }

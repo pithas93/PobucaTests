@@ -17,12 +17,22 @@ namespace JPB_Framework.UI_Utilities
         /// <summary>
         /// It clicks the save button. Save button is available through new/edit Contact And organization pages
         /// </summary>
-        public static void ClickSave()
+        /// <returns>True if  save button was clicked successfully</returns>
+        public static bool ClickSave()
         {
-            var saveBtn = Driver.Instance.FindElement(By.Id("save-entity"));
-            saveBtn.Click();
-            var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
-            Driver.Wait(TimeSpan.FromSeconds(3));
+
+            var saveBtn = Driver.Instance.FindElement(By.CssSelector("#save-entity"));
+            var attr = saveBtn.GetAttribute("disabled");
+            if (attr == null)
+            {
+                saveBtn.Click();
+                Driver.Wait(TimeSpan.FromSeconds(3));
+                return true;
+            }
+
+            Report.ToLogFile(MessageType.Message, "Save button is not active, so record cannot be saved.", null);
+            return false;
+
         }
 
         /// <summary>
@@ -214,6 +224,6 @@ namespace JPB_Framework.UI_Utilities
             return selectedContacts;
         }
 
-        
+
     }
 }
