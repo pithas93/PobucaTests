@@ -1,32 +1,25 @@
 ﻿using System;
-using JPB_Framework.Selenium;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
-namespace JPB_Framework.Pages.Contacts
+namespace JPB_Framework.Pages
 {
-    /// <summary>
-    /// Workflow class that handles the actions regarding the import contacts dialog window
-    /// </summary>
-    public class ImportContactsWindow
+    public class ImportPage
     {
-        /// <summary>
-        /// Opens the import contacts dialog window
-        /// </summary>
-        public static void GoTo()
-        {
-            Commands.ClickImport();
-        }
+        public static bool IsAt { get { return Driver.CheckIfIsAt("Import"); } }
 
         /// <summary>
         /// Defines the path that contains the files to be imported.
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static ImportFileCommand FromPath()
+        public static ImportFileCommand FromPath(string filePath)
         {
-            GoTo();
+            
             return new ImportFileCommand();
         }
 
@@ -35,11 +28,12 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         public static void DownloadTemplateFile()
         {
-            GoTo();
+            //            GoTo();
             Driver.Instance.FindElement(By.CssSelector("a[ng-href='import/Contacts.xls']")).Click();
         }
 
-        public static bool IsImportSuccessMessageShown {
+        public static bool IsImportSuccessMessageShown
+        {
             get
             {
                 var element =
@@ -47,8 +41,7 @@ namespace JPB_Framework.Pages.Contacts
                         By.CssSelector("fieldset[ng-show='wizardStepThree'] div[ng-show='showSuccessResult']"));
                 var value = element.GetAttribute("class");
 
-                if (string.Equals(value, "ng-binding")) return true;
-                return false;
+                return string.Equals(value, "ng-binding");
             }
         }
 
@@ -61,16 +54,29 @@ namespace JPB_Framework.Pages.Contacts
                         By.CssSelector("fieldset[ng-show='wizardStepThree'] div[ng-show='errorReport']"));
                 var msgIsShown = element.GetAttribute("class");
 
-                if (string.IsNullOrEmpty(msgIsShown)) return true;
-                return false;
+                return string.IsNullOrEmpty(msgIsShown);
             }
         }
 
 
-        public static void CloseImportDialogBox()
-        {           
-            ImportFileCommand.CloseImportDialogBox();
+
+
+        public static ImportFileCommand ImportFile()
+        {
+            var elements =
+                Driver.Instance.FindElements(By.CssSelector("div.radio.m-b-md label"));
+
+            foreach (var webElement in elements)
+            {
+                webElement.FindElement(By.CssSelector("span.f14"));
+                if (webElement.Text != "Excel, CSV file") continue;
+                webElement.FindElement(By.CssSelector("ng-pristine.ng-valid.ng-touched")).Click();
+            }
+
+            var nextBtn = Driver.Instance.FindElement(By.CssSelector("button[ng-click*='nextStep'][ng-click*='1']"));
+            nextBtn.Click();
+
+            return new ImportFileCommand();
         }
     }
-
 }

@@ -69,7 +69,7 @@ namespace JPB_Framework
             // wait for organization list to load
             try
             {
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(60));
                 wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
             }
             catch (WebDriverTimeoutException e)

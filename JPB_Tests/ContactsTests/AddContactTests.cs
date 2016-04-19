@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework;
+using JPB_Framework.Navigation;
+using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Selenium;
 using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
@@ -26,6 +28,16 @@ namespace JPB_Tests.ContactsTests
         }
 
         // 2. Create contact from within existing organization
+        [TestMethod]
+        public void Create_Contact_From_Within_Organization()
+        {
+            LeftSideMenu.GoToOrganizations();
+            OrganizationsPage.OpenOrganization();
+            ContactCreator.CreateSimpleContactFromWithinOrganization();
+            OrganizationViewPage.FindContactFromContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+
+        }
 
         // 3. Create contact without assigning values in mandatory field
         [TestMethod]
@@ -62,7 +74,6 @@ namespace JPB_Tests.ContactsTests
             AssertThat.IsTrue(ContactCreator.ContactWasCreated, "Contact was not created successfully though it should. Defect spotted!");
             AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Organization ought to be null but it has value = '{ContactViewPage.OrganizationName}' which is invalid. Defect spotted!");
         }
-
 
         // 10. Add an extra field and save contact without assigning value to the added field
         [TestMethod]

@@ -21,7 +21,7 @@ namespace JPB_Framework
 {
     public class Driver
     {
-        
+        public const int DriverTimeout = 10;
 
         public static IWebDriver Instance { get; set; }
         public static string BaseAddress { get { return "https://jpbstaging.azurewebsites.net"; } }
@@ -85,7 +85,7 @@ namespace JPB_Framework
         /// </summary>
         private static void TurnOnWait()
         {
-            Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+            Instance.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(DriverTimeout));
         }
 
         /// <summary>
@@ -291,13 +291,12 @@ namespace JPB_Framework
         {
             try
             {
-                var tmp = Driver.Instance.FindElement(By.Id("breadcrumb"));
-                var viewLbl = tmp.FindElement(By.LinkText(view));
-                return viewLbl.Text == view;
+                var breadcrumb = Driver.Instance.FindElement(By.CssSelector("#breadcrumb"));
+                return (breadcrumb.Text == view);
             }
             catch (NoSuchElementException e)
             {
-                Report.ToLogFile(MessageType.Exception, $"Browser was expected to be at {view} page, but was not", e);
+                Report.ToLogFile(MessageType.Exception, $"Browser was expected to be at {view} path, but was not", e);
                 return false;
             }
             catch (InvalidOperationException e)

@@ -12,7 +12,7 @@ namespace JPB_Framework.Pages.Organizations
         public static ImportFileCommand FromPath(string filePath)
         {
             GoTo();
-            return new ImportFileCommand(filePath);
+            return new ImportFileCommand();
         }
 
         public static void CloseImportDialogBox()

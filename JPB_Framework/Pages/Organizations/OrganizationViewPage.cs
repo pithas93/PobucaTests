@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 
@@ -15,8 +16,9 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static bool IsAt { get { return Driver.CheckIfIsAt("Organization View"); } }
 
-        
-        public static string OrganizationName {
+
+        public static string OrganizationName
+        {
             get
             {
                 var organizationName =
@@ -36,6 +38,31 @@ namespace JPB_Framework.Pages.Organizations
         public static DeleteRecordCommand DeleteOrganization()
         {
             return new DeleteRecordCommand();
+        }
+
+        public static SearchRecordCommand FindContactFromContactList()
+        {
+            return new SearchRecordCommand();
+        }
+
+        public static CreateContactCommand CreateContact()
+        {
+            var element = Driver.Instance.FindElement(By.CssSelector("a.dropdown-toggle.p-none"));
+            element.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
+            var str = element.GetAttribute("aria-haspopup");
+            if (str.Equals("true"))
+            {
+                var createNewContactBtn = Driver.Instance.FindElements(By.CssSelector("#related-contacts-section .dropdown-menu.animated.fadeInRight.m-t-xs a"))[1];
+                createNewContactBtn.Click();
+            }
+            else
+            {
+                Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
+                throw new Exception();
+            }
+
+            return new CreateContactCommand();
         }
     }
 

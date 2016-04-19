@@ -62,11 +62,9 @@
     <Compile Include="Class1.cs" />
     <Compile Include="ContactsTests\AddContactTests.cs" />
     <Compile Include="ContactsTests\ContactListTests.cs" />
+    <Compile Include="ContactsTests\EditContactTests.cs" />
     <Compile Include="ContactsTests\ImportContactsTests.cs" />
-    <Compile Include="Smoke Tests\CreateRecordTests.cs" />
-    <Compile Include="Smoke Tests\EditRecordTests.cs" />
-    <Compile Include="Smoke Tests\ImportRecordsTests.cs" />
-    <Compile Include="Smoke Tests\LoginTests.cs" />
+    <Compile Include="Smoke Tests\SmokeTests.cs" />
     <Compile Include="Utilities\JpbBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

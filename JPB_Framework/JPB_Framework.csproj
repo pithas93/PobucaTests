@@ -66,10 +66,13 @@
     <Compile Include="Pages\AlphabetSideBar.cs" />
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="Pages\Contacts\TakeTourWindow.cs" />
+    <Compile Include="Pages\ImportPage.cs" />
+    <Compile Include="UI Utilities\EditContactFields.cs" />
     <Compile Include="Workflows\ContactCreator.cs" />
     <Compile Include="Workflows\DummyData.cs" />
-    <Compile Include="Workflows\SortContactCommand.cs" />
-    <Compile Include="Workflows\FilterRecordCommand.cs" />
+    <Compile Include="UI Utilities\SortContactCommand.cs" />
+    <Compile Include="UI Utilities\FilterRecordCommand.cs" />
     <Compile Include="Pages\Contacts\ImportContactsWindow.cs" />
     <Compile Include="Pages\Organizations\ImportOrganizationsWindow.cs" />
     <Compile Include="Report\AssertThat.cs" />
@@ -86,10 +89,11 @@
     <Compile Include="Report\MessageType.cs" />
     <Compile Include="Report\Report.cs" />
     <Compile Include="Report\VerifyThat.cs" />
-    <Compile Include="Workflows\Commands.cs" />
-    <Compile Include="Workflows\DeleteRecordCommand.cs" />
-    <Compile Include="Workflows\ImportFileCommand.cs" />
-    <Compile Include="Workflows\SearchRecordCommand.cs" />
+    <Compile Include="UI Utilities\Commands.cs" />
+    <Compile Include="UI Utilities\DeleteRecordCommand.cs" />
+    <Compile Include="UI Utilities\ImportFileCommand.cs" />
+    <Compile Include="UI Utilities\SearchRecordCommand.cs" />
+    <Compile Include="Workflows\RecordField.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

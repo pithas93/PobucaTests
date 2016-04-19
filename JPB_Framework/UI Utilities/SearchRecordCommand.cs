@@ -1,9 +1,13 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JPB_Framework.Pages.Organizations;
+using JPB_Framework.Selenium;
 using JPB_Framework.Workflows;
+using OpenQA.Selenium;
 
 namespace JPB_Framework.UI_Utilities
 {
@@ -20,9 +24,9 @@ namespace JPB_Framework.UI_Utilities
         /// Append str to the existing value of keyword that will be used by the search command
         /// </summary>
         /// <param name="str"></param>
-        public void AppendToKeyword(string str)
+        private void AppendToKeyword(string str)
         {
-            if (String.IsNullOrEmpty(keyword)) keyword = str;
+            if (string.IsNullOrEmpty(keyword)) keyword = str;
             else keyword = keyword + ' ' + str;
         }
 
@@ -94,7 +98,7 @@ namespace JPB_Framework.UI_Utilities
         /// <summary>
         /// Applicable only for Contacts. Direct the search command to execute itself and then issue a delete command on the contacts returned by the search execution
         /// </summary>
-        public void Delete()
+        public void Delete() 
         {
             Commands.SearchFor(keyword);
             Commands.SelectRecordsMatching(keyword);
@@ -131,6 +135,24 @@ namespace JPB_Framework.UI_Utilities
 
         }
 
+        /// <summary>
+        /// Direct the search command to execute itself and then open the record matching to the keyword. 
+        /// Applicable for Contact/Organization lists and contact list within organization view page
+        /// </summary>
+        public void Open()
+        {
+            if (!OrganizationViewPage.IsAt) Commands.SearchFor(keyword);
 
+            var contacts = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            foreach (var contact in contacts)
+            {
+                var firstAndLastName = contact.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
+                if (!keyword.Equals(firstAndLastName)) continue;
+                contact.Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+                break;
+            }
+        }
     }
+
 }
