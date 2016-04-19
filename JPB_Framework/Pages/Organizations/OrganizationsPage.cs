@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JPB_Framework.Selenium;
+﻿using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.Pages.Organizations
 {
@@ -16,11 +8,10 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if browser is at contacts list page
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Organizations"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Organizations");
 
-        public static bool IsOrganizationListLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
+        public static bool IsOrganizationListLoaded => Driver.CheckIfRecordListIsLoaded();
 
-       
 
         /// <summary>
         /// Selects an organization from the list. By default selects the first one
@@ -33,7 +24,6 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if organizations exists matching given organization name
         /// </summary>
-        /// <param name="organization_name"></param>
         /// <returns>True if there is at least one such organization</returns>
         public static SearchRecordCommand FindOrganization()
         {

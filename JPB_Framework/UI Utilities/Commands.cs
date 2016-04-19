@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.UI_Utilities
 {
@@ -30,7 +26,7 @@ namespace JPB_Framework.UI_Utilities
                 return true;
             }
 
-            Report.ToLogFile(MessageType.Message, "Save button is not active, so record cannot be saved.", null);
+            Report.Report.ToLogFile(MessageType.Message, "Save button is not active, so record cannot be saved.", null);
             return false;
 
         }
@@ -42,7 +38,6 @@ namespace JPB_Framework.UI_Utilities
         {
             var editBtn = Driver.Instance.FindElement(By.Id("edit-entity"));
             editBtn.Click();
-            var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
@@ -78,7 +73,6 @@ namespace JPB_Framework.UI_Utilities
         {
             var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
             record.Click();
-            var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
@@ -90,22 +84,7 @@ namespace JPB_Framework.UI_Utilities
         private static bool SelectRecordFromListBySequence(int position)
         {
             var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
-            return Commands.SelectRecord(record);
-        }
-
-        /// <summary>
-        /// Navigates browser to the import dialog box which is available through contacts And organizations list pages
-        /// </summary>
-        public static void ClickImport()
-        {
-            var importCombo = Driver.Instance.FindElement(By.CssSelector("i.fa.fa-file-text-o.jp-light-blue.f20"));
-            importCombo.Click();
-            Driver.Wait(TimeSpan.FromSeconds(3));
-
-            var importOption =
-                Driver.Instance.FindElement(By.PartialLinkText("Import"));
-            importOption.Click();
-            Driver.Wait(TimeSpan.FromSeconds(3));
+            return SelectRecord(record);
         }
 
         /// <summary>
@@ -135,13 +114,12 @@ namespace JPB_Framework.UI_Utilities
         /// <param name="record">The web element that corresponds to the record that will be selected</param>
         public static bool SelectRecord(IWebElement record)
         {
-            IWebElement checkBox;
-            Actions action = new Actions(Driver.Instance);
+            var action = new Actions(Driver.Instance);
             action.MoveToElement(record);
             action.Perform();
-            checkBox = record.FindElement(By.CssSelector(".icheckbox"));
+            var checkBox = record.FindElement(By.CssSelector(".icheckbox"));
             checkBox.Click();
-            string tmp = checkBox.GetAttribute("class");
+            var tmp = checkBox.GetAttribute("class");
             Driver.Wait(TimeSpan.FromSeconds(1));
             if (tmp.Equals("icheckbox") || tmp.Equals("icheckbox hover")) return false;
             else if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
@@ -161,7 +139,7 @@ namespace JPB_Framework.UI_Utilities
                 var contactName = record.FindElement(By.CssSelector(".font-bold.ng-binding"));
                 if (contactName.Text.StartsWith(s))
                 {
-                    Commands.SelectRecord(record);
+                    SelectRecord(record);
                 }
                 else break;
             }
@@ -195,7 +173,7 @@ namespace JPB_Framework.UI_Utilities
         {
             // The range of records from where the selection will be
             int range;
-            int maxNumberOfRecordsToBeSelected = 40;
+            var maxNumberOfRecordsToBeSelected = 40;
 
             if (maxNumberOfRecordsToBeSelected < Driver.GetRecordListCount())
             {
@@ -213,10 +191,10 @@ namespace JPB_Framework.UI_Utilities
 
             for (var i = 0; i < numOfContactsToBeSelected; i++)
             {
-                bool isChecked;
-                int positionOfRecord = rand.Next(1, range);
 
-                isChecked = Commands.SelectRecordFromListBySequence(positionOfRecord);
+                var positionOfRecord = rand.Next(1, range);
+                var isChecked = SelectRecordFromListBySequence(positionOfRecord);
+
                 if (isChecked) selectedContacts++;
                 else selectedContacts--;
             }

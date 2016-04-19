@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\DeadCodeDetectionRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -66,15 +67,13 @@
     <Compile Include="Pages\AlphabetSideBar.cs" />
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
-    <Compile Include="Pages\Contacts\TakeTourWindow.cs" />
+    <Compile Include="Pages\TakeTourWindow.cs" />
     <Compile Include="Pages\ImportPage.cs" />
     <Compile Include="UI Utilities\EditContactFields.cs" />
     <Compile Include="Workflows\ContactCreator.cs" />
     <Compile Include="Workflows\DummyData.cs" />
     <Compile Include="UI Utilities\SortContactCommand.cs" />
     <Compile Include="UI Utilities\FilterRecordCommand.cs" />
-    <Compile Include="Pages\Contacts\ImportContactsWindow.cs" />
-    <Compile Include="Pages\Organizations\ImportOrganizationsWindow.cs" />
     <Compile Include="Report\AssertThat.cs" />
     <Compile Include="Selenium\Browser.cs" />
     <Compile Include="Selenium\Driver.cs" />

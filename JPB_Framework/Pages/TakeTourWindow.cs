@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 
-namespace JPB_Framework.Pages.Contacts
+namespace JPB_Framework.Pages
 {
     public class TakeTourWindow
     {

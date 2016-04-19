@@ -1,4 +1,4 @@
-namespace JPB_Framework.Selenium
+namespace JPB_Framework.Report
 {
     /// <summary>
     /// Enlists all types of message that are logged in report file

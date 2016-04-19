@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Threading;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using JPB_Framework.Workflows;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Remote;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Contacts
 {
     public class NewContactPage
     {
         /// <summary>
         /// Check if browser is at contact form page that allows to create a new contact
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Add Contact"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Add Contact");
 
         /// <summary>
         /// Returns whether the new contact Save button was pressed, and so the contact was saved, or not.
@@ -38,7 +30,6 @@ namespace JPB_Framework
         /// <summary>
         /// Issue a create new contact command with given first name
         /// </summary>
-        /// <param name="firstName"></param>
         /// <returns> A command upon which the parameters for the new contact are specified</returns>
         public static CreateContactCommand CreateContact()
         {
@@ -150,7 +141,7 @@ namespace JPB_Framework
         /// <summary>
         /// Sets the work phone for the new contact
         /// </summary>
-        /// <param name="homePhone"></param>
+        /// <param name="workPhone"></param>
         /// <returns></returns>
         public CreateContactCommand WithWorkPhone(string workPhone)
         {

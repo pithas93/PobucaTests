@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Framework.Selenium
+namespace JPB_Framework.Report
 {
     /// <summary>
     /// Assert without interrupting test execution and output to log file. For use to identify minor defects

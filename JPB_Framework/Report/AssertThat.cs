@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Framework.Selenium
+namespace JPB_Framework.Report
 {
     /// <summary>
     /// Sames use as the original Assert. In case of AssertionFailedException, outputs to log filee And terminates test execution.

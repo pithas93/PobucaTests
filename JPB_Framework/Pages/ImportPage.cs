@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 
@@ -10,27 +7,19 @@ namespace JPB_Framework.Pages
 {
     public class ImportPage
     {
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Import"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Import");
 
         /// <summary>
         /// Defines the path that contains the files to be imported.
         /// </summary>
         /// <param name="filePath"></param>
-        /// <returns></returns>
+        /// <returns></returns>                                                   
         public static ImportFileCommand FromPath(string filePath)
         {
             
             return new ImportFileCommand();
         }
 
-        /// <summary>
-        /// Commands the browser to download a contact template file from within the import contacts dialog window
-        /// </summary>
-        public static void DownloadTemplateFile()
-        {
-            //            GoTo();
-            Driver.Instance.FindElement(By.CssSelector("a[ng-href='import/Contacts.xls']")).Click();
-        }
 
         public static bool IsImportSuccessMessageShown
         {
@@ -75,6 +64,7 @@ namespace JPB_Framework.Pages
 
             var nextBtn = Driver.Instance.FindElement(By.CssSelector("button[ng-click*='nextStep'][ng-click*='1']"));
             nextBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
 
             return new ImportFileCommand();
         }

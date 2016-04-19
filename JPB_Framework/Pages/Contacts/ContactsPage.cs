@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Navigation;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using JPB_Framework.Workflows;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Contacts
 {
     public class ContactsPage
     {
@@ -22,42 +15,42 @@ namespace JPB_Framework
         /// <summary>
         /// Check if browser is at contacts list page
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Contacts"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Contacts");
 
         /// <summary>
         /// Check if contact list is loaded properly
         /// </summary>
-        public static bool IsContactListLoaded { get { return Driver.CheckIfRecordListIsLoaded(); } }
+        public static bool IsContactListLoaded => Driver.CheckIfRecordListIsLoaded(); 
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in ascending order
         /// </summary>
-        public static bool IsContactListSortedByFirstNameAscending { get { return Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Ascending); } }
+        public static bool IsContactListSortedByFirstNameAscending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Ascending); 
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in descending order
         /// </summary>
-        public static bool IsContactListSortedByFirstNameDescending { get { return Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Descending); } }
+        public static bool IsContactListSortedByFirstNameDescending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Descending);
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their last name, then by their first name, in ascending order
         /// </summary>
-        public static bool IsContactListSortedByLastNameAscending { get { return Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Ascending); } }
+        public static bool IsContactListSortedByLastNameAscending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Ascending);
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their last name, then by their first name, in descending order
         /// </summary>
-        public static bool IsContactListSortedByLastNameDescending { get { return Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Descending); } }
+        public static bool IsContactListSortedByLastNameDescending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Descending);
 
         /// <summary>
         /// The total number of contacts being displayed by the contact list according to the corresponding label on the page
         /// </summary>
-        public static int ContactsBeingDisplayed { get { return Driver.GetRecordListCount(); } }
+        public static int ContactsBeingDisplayed => Driver.GetRecordListCount();
 
         /// <summary>
         /// The total number of contacts being selected in the contact list according to the corresponding label on the page
         /// </summary>
-        public static int ContactsBeingSelected { get { return Driver.GetSelectedRecordsCount(); } }
+        public static int ContactsBeingSelected => Driver.GetSelectedRecordsCount();
 
         /// <summary>
         /// Checks whether or not, the Filter By options have the correct labels and are in the correct order.
@@ -106,9 +99,9 @@ namespace JPB_Framework
                 {
                     string previousDepartmentName = departmentsOptionList[i - 1].Text;
                     string currentDepartmentName = departmentsOptionList[i].Text;
-                    if (String.Compare(previousDepartmentName, currentDepartmentName) == 1)
+                    if (string.Compare(previousDepartmentName, currentDepartmentName) == 1)
                     {
-                        Report.ToLogFile(MessageType.Message,
+                        Report.Report.ToLogFile(MessageType.Message,
                                         $"Department:'{previousDepartmentName}' is before department:'{currentDepartmentName}' which is wrong. The department list must be sorted alphabetically.",
                                         null);
                         return false;
@@ -129,10 +122,10 @@ namespace JPB_Framework
         /// <summary>
         /// Issue a search command to find one or more contacts
         /// </summary>
-        /// <param name="firstName"></param>
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
         public static SearchRecordCommand FindContact()
         {
+            if (!IsAt) LeftSideMenu.GoToContacts();
             return new SearchRecordCommand();
         }    
 

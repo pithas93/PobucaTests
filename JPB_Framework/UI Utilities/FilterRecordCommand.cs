@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using JPB_Framework.UI_Utilities;
+using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 
-namespace JPB_Framework
+namespace JPB_Framework.UI_Utilities
 {
     public class FilterRecordCommand
     {

@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using JPB_Framework.Workflows;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Contacts
 {
     public class ContactViewPage
     {
         /// <summary>
         /// Check if browser is at the selected contact's detail view page
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Contact View"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Contact View");
 
         /// <summary>
         /// Issue delete command from a contact's detail view page
@@ -168,10 +162,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Phone']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Phone']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -207,10 +198,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Phone 2']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Phone 2']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -246,10 +234,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Mobile Phone 2']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Mobile Phone 2']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -285,10 +270,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Phone']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Phone']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -325,10 +307,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Phone 2']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Phone 2']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -364,10 +343,8 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Fax']")));
+
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Work Fax']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -403,10 +380,8 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Fax']")));
+
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Home Fax']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -442,10 +417,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Other']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Other']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -481,10 +453,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Personal Email']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Personal Email']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -520,10 +489,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Other Email']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Other Email']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -568,7 +534,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -612,7 +579,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -656,7 +624,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -700,7 +669,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -744,7 +714,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -789,7 +760,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -833,7 +805,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -877,7 +850,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -921,7 +895,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -965,7 +940,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -1010,7 +986,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -1054,7 +1031,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -1098,7 +1076,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -1142,7 +1121,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -1186,7 +1166,8 @@ namespace JPB_Framework
                     Driver.NoWait(
                         () =>
                             element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
-                    return true;
+                    var str = element2.GetAttribute("class");
+                    return !str.Contains("ng-hide");
                 }
                 catch (NoSuchElementException)
                 {
@@ -1222,10 +1203,8 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Salutation']")));
+
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Salutation']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1261,10 +1240,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Nickname']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Nickname']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1300,10 +1276,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Job Title']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Job Title']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1339,10 +1312,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Website']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Website']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1378,10 +1348,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Religion']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Religion']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1417,9 +1384,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Birthday']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Birthday']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1455,9 +1420,7 @@ namespace JPB_Framework
             {
                 try
                 {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Gender']")));
+                    Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector("my-extra-info[mytitle='Gender']")));
                     return true;
                 }
                 catch (NoSuchElementException)
@@ -1493,8 +1456,8 @@ namespace JPB_Framework
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowSMS']"));
                 string text = element.GetAttribute("class");
-                if (String.IsNullOrEmpty(text)) return true.ToString();
-                if (String.Equals(text, "ng-hide")) return false.ToString();
+                if (string.IsNullOrEmpty(text)) return true.ToString();
+                if (string.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
         }
@@ -1505,8 +1468,8 @@ namespace JPB_Framework
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowPhones']"));
                 string text = element.GetAttribute("class");
-                if (String.IsNullOrEmpty(text)) return true.ToString();
-                if (String.Equals(text, "ng-hide")) return false.ToString();
+                if (string.IsNullOrEmpty(text)) return true.ToString();
+                if (string.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
         }
@@ -1517,8 +1480,8 @@ namespace JPB_Framework
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowEmails']"));
                 string text = element.GetAttribute("class");
-                if (String.IsNullOrEmpty(text)) return true.ToString();
-                if (String.Equals(text, "ng-hide")) return false.ToString();
+                if (string.IsNullOrEmpty(text)) return true.ToString();
+                if (string.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
         }

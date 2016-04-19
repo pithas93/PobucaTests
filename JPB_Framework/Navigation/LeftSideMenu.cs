@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -30,16 +27,11 @@ namespace JPB_Framework.Navigation
                 var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
                 wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
             }
-            catch (WebDriverTimeoutException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
             catch (NoSuchElementException e)
             {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
+                Report.Report.ToLogFile(MessageType.Message, "Browser was expected to be in Contacts Page but is not or page is not loaded properly", e);
             }
+
         }
 
         /// <summary>
@@ -59,15 +51,9 @@ namespace JPB_Framework.Navigation
                 var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
                 wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
             }
-            catch (WebDriverTimeoutException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
             catch (NoSuchElementException e)
             {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
+                Report.Report.ToLogFile(MessageType.Message, "Browser was expected to be in Organization Page but is not or page is not loaded properly", e);
             }
         }
 
@@ -88,15 +74,9 @@ namespace JPB_Framework.Navigation
                 var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
                 wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("import-content")));
             }
-            catch (WebDriverTimeoutException e)
-            {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
-            }
             catch (NoSuchElementException e)
             {
-                Report.ToLogFile(MessageType.Message, "", e);
-                throw e;
+                Report.Report.ToLogFile(MessageType.Message, "Browser was expected to be in Imports Page but is not or page is not loaded properly", e);
             }
         }
     }

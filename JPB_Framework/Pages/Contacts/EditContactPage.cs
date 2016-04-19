@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using OpenQA.Selenium;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Contacts
 {
     public class EditContactPage
     {
         /// <summary>
         ///  Check if browser is at contact's edit page
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Edit Contact"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Edit Contact");
 
         public static bool IsContactSavedSuccessfully { get; set; }
 
@@ -129,7 +126,7 @@ namespace JPB_Framework
         /// <summary>
         /// Sets the work phone for the new contact
         /// </summary>
-        /// <param name="homePhone"></param>
+        /// <param name="workPhone"></param>
         /// <returns></returns>
         public EditContactCommand WithWorkPhone(string workPhone)
         {

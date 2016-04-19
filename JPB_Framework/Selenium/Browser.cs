@@ -1,4 +1,4 @@
-namespace JPB_Framework
+namespace JPB_Framework.Selenium
 {
     public enum Browser
     {

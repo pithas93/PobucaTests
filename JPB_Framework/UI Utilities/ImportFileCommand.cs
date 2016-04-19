@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JPB_Framework.Pages.Organizations;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -30,7 +26,7 @@ namespace JPB_Framework.UI_Utilities
         /// <returns></returns>
         public ImportFileCommand WithFileName(string fileXls)
         {
-            this.fileName = fileXls;
+            fileName = fileXls;
             return this;
 
         }
@@ -50,14 +46,15 @@ namespace JPB_Framework.UI_Utilities
             // Select whether you import file with contacts or organizations
             var fileTypeRadios = Driver.Instance.FindElements(By.CssSelector("div[ng-include*='import-inner-choices.min.html'] div[class*='radio']"));
             string dataType;
-            if (fileType == ImportFileType.Contacts) dataType = " Contacts ";
-            else dataType = " Organizations ";
+            if (fileType == ImportFileType.Contacts) dataType = "Contacts";
+            else dataType = "Organizations";
 
             foreach (var fileTypeRadio in fileTypeRadios)
             {
                 string radioText = fileTypeRadio.FindElement(By.CssSelector("span.f14")).Text;
                 if (radioText != dataType) continue;
                 fileTypeRadio.Click();
+                break;
             }
 
             // Click Next button
@@ -65,8 +62,9 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(2));
 
             // Select file to import
-            var browserBtn = Driver.Instance.FindElement(By.CssSelector("input.import-template-file"));
-            browserBtn.SendKeys(filePath + fileName);
+            var browseBtn = Driver.Instance.FindElement(By.CssSelector("input.import-template-file"));
+            browseBtn.SendKeys(filePath+fileName);
+
 
             // Click Next button
             Driver.Instance.FindElement(By.CssSelector("button[ng-click='wizardStepOne=0;wizardStepTwo=1;wizardStepThree=0;updateStats(1);']")).Click();
@@ -84,7 +82,7 @@ namespace JPB_Framework.UI_Utilities
             }
             catch (WebDriverTimeoutException e)
             {
-                Report.ToLogFile(MessageType.Message, "Failed to import file or did take too long.", e);
+                Report.Report.ToLogFile(MessageType.Message, "Failed to import file or did take too long.", e);
                 throw e;
             }
         }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -14,7 +12,7 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if browser is at the selected organization's detail view page
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Organization View"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Organization View");
 
 
         public static string OrganizationName
@@ -58,7 +56,7 @@ namespace JPB_Framework.Pages.Organizations
             }
             else
             {
-                Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
+                Report.Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
                 throw new Exception();
             }
 

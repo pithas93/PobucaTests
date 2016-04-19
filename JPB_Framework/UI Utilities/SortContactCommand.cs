@@ -1,8 +1,8 @@
 ﻿using System;
-using JPB_Framework.UI_Utilities;
+using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 
-namespace JPB_Framework
+namespace JPB_Framework.UI_Utilities
 {
     public class SortRecordsCommand
     {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using JPB_Framework;
+﻿using JPB_Framework;
 using JPB_Framework.Navigation;
 using JPB_Framework.Pages;
-using JPB_Framework.Selenium;
+using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Report;
+using JPB_Framework.UI_Utilities;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 
@@ -13,7 +10,7 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if browser is at organization form page that allows to create a new organization
         /// </summary>
-        public static bool IsAt { get { return Driver.CheckIfIsAt("Add Organization"); } }
+        public static bool IsAt => Driver.CheckIfIsAt("Add Organization");
 
         /// <summary>
         /// Navigates browser to an organization form page that allows to create a new organization
@@ -38,7 +35,7 @@ namespace JPB_Framework.Pages.Organizations
 
     public class CreateOrganizationCommand
     {
-        private string organization_name;
+        private readonly string organization_name;
 
         /// <summary>
         /// Sets the organization name for the new organization

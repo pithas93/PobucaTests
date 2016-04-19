@@ -1,75 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Dynamic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace JPB_Framework.Workflows
 {
     public class DummyData
     {
-        public static string FirstName { get { return RandomWord(3); } }
-        public static string LastName { get { return RandomWord(3); } }
-        public static string MiddleName { get { return RandomWord(2); } }
-        public static string Suffix { get { return RandomWord(1); } }
-        public static string OrganizationNameExisting { get { return RandomOrganization(); } }
-        public static string OrganizationNameNotExisting { get { return RandomWord(4); } }
-        public static string Department { get { return RandomDepartment(); } }
+        public static string FirstName => RandomWord(3);
+        public static string LastName => RandomWord(3);
+        public static string MiddleName => RandomWord(2);
+        public static string Suffix => RandomWord(1);
+        public static string OrganizationNameExisting => RandomOrganization();
+        public static string OrganizationNameNotExisting => RandomWord(4);
+        public static string Department => RandomDepartment();
 
 
-        public static string WorkPhone { get { return RandomNumber(10); } }
-        public static string WorkPhone2 { get { return RandomNumber(10); } }
-        public static string MobilePhone { get { return RandomNumber(10); } }
-        public static string MobilePhone2 { get { return RandomNumber(10); } }
-        public static string HomePhone { get { return RandomNumber(10); } }
-        public static string HomePhone2 { get { return RandomNumber(10); } }
-        public static string HomeFax { get { return RandomNumber(10); } }
-        public static string WorkFax { get { return RandomNumber(10); } }
-        public static string OtherPhone { get { return RandomNumber(10); } }
+        public static string WorkPhone => RandomNumber(10);
+        public static string WorkPhone2 => RandomNumber(10);
+        public static string MobilePhone => RandomNumber(10);
+        public static string MobilePhone2 => RandomNumber(10);
+        public static string HomePhone => RandomNumber(10);
+        public static string HomePhone2 => RandomNumber(10);
+        public static string HomeFax => RandomNumber(10);
+        public static string WorkFax => RandomNumber(10);
+        public static string OtherPhone => RandomNumber(10);
 
 
-        public static string Email { get { return RandomWord(4); } }
-        public static string PersonalEmail { get { return RandomWord(4); } }
-        public static string OtherEmail { get { return RandomWord(4); } }
+        public static string Email => RandomWord(4);
+        public static string PersonalEmail => RandomWord(4);
+        public static string OtherEmail => RandomWord(4);
 
 
-        public static string WorkStreet { get { return $"{RandomWord(3)} {RandomNumber(1)}"; } }
-        public static string WorkCity { get { return RandomWord(3); } }
-        public static string WorkState { get { return RandomWord(2); } }
-        public static string WorkPostalCode { get { return RandomNumber(5); } }
-        public static string WorkCountry { get { return RandomCountry(); } }
+        public static string WorkStreet => $"{RandomWord(3)} {RandomNumber(1)}";
+        public static string WorkCity => RandomWord(3);
+        public static string WorkState => RandomWord(2);
+        public static string WorkPostalCode => RandomNumber(5);
+        public static string WorkCountry => RandomCountry();
 
-        public static string HomeStreet { get { return $"{RandomWord(3)} {RandomNumber(1)}"; } }
-        public static string HomeCity { get { return RandomWord(3); ; } }
-        public static string HomeState { get { return RandomWord(2); ; } }
-        public static string HomePostalCode { get { return RandomNumber(5); } }
-        public static string HomeCountry { get { return RandomCountry(); } }
+        public static string HomeStreet => $"{RandomWord(3)} {RandomNumber(1)}";
+        public static string HomeCity => RandomWord(3);
+        public static string HomeState => RandomWord(2);
+        public static string HomePostalCode => RandomNumber(5);
+        public static string HomeCountry => RandomCountry();
 
-        public static string OtherStreet { get { return $"{RandomWord(3)} {RandomNumber(1)}"; } }
-        public static string OtherCity { get { return RandomWord(3); ; } }
-        public static string OtherState { get { return RandomWord(2); ; } }
-        public static string OtherPostalCode { get { return RandomNumber(5); } }
-        public static string OtherCountry { get { return RandomCountry(); } }
-
-
-        public static string Salutation { get { return RandomWord(3); } }
-        public static string Nickname { get { return RandomWord(3); } }
-        public static string JobTitle { get { return RandomWord(3); } }
-        public static string Website { get { return RandomWord(3); } }
-        public static string Religion { get { return RandomWord(3); } }
-        public static string Birthdate { get { return RandomDate(); } }
-        public static string Gender { get { return RandomGender(); } }
-        public static string Comments { get { return RandomWord(10); } }
+        public static string OtherStreet => $"{RandomWord(3)} {RandomNumber(1)}";
+        public static string OtherCity => RandomWord(3);
+        public static string OtherState => RandomWord(2);
+        public static string OtherPostalCode => RandomNumber(5);
+        public static string OtherCountry => RandomCountry();
 
 
-        public static string AllowSMS { get { return RandomBoolean(); } }
-        public static string AllowPhones { get { return RandomBoolean(); } }
-        public static string AllowEmails { get { return RandomBoolean(); } }
+        public static string Salutation => RandomWord(3);
+        public static string Nickname => RandomWord(3);
+        public static string JobTitle => RandomWord(3);
+        public static string Website => RandomWord(3);
+        public static string Religion => RandomWord(3);
+        public static string Birthdate => RandomDate();
+        public static string Gender => RandomGender();
+        public static string Comments => RandomWord(10);
 
-        public static string OverflowValue { get { return "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm"; } }
-        public static string NonsenseValue { get { return "!@#123qweQWEασδΑΣΔ"; } }
+
+        public static string AllowSMS => RandomBoolean();
+        public static string AllowPhones => RandomBoolean();
+        public static string AllowEmails => RandomBoolean();
+
+        public static string OverflowValue => "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm";
+        public static string NonsenseValue => "!@#123qweQWEασδΑΣΔ";
 
         private static string RandomWord(int size)
         {

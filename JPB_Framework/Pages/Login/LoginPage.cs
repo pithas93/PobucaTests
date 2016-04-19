@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
-namespace JPB_Framework
+namespace JPB_Framework.Pages.Login
 {
     public class LoginPage
     {
 
-        public static bool IsAt
-        {
-            get { return Driver.Instance.FindElement(By.Id("loginForm")).Displayed; }
-        }
+        public static bool IsAt => Driver.Instance.FindElement(By.Id("loginForm")).Displayed;
 
         public static void GoTo()
         {
@@ -36,7 +28,7 @@ namespace JPB_Framework
 
     public class LoginCommand
     {
-        private string username;
+        private readonly string username;
         private string password;
 
         public LoginCommand(string username)
@@ -74,8 +66,7 @@ namespace JPB_Framework
             }
             catch (WebDriverTimeoutException e)
             {
-                //Report.ToLogFile(MessageType.Message, $"Failed to login or did take too long. \n\t{e.Source} \n\t{e.Message} \n\t{e.StackTrace}");
-                Report.ToLogFile(MessageType.Exception, "Failed to login or did take too long.", e);
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to login or did take too long.", e);
                 throw e;
 
             }

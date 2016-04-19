@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -759,8 +755,8 @@ namespace JPB_Framework.UI_Utilities
                 var checkbox = element.FindElement(By.XPath(".."));
                 var val = checkbox.GetAttribute("class");
                 var isChecked = "False";
-                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = "False";
-                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = "True";
+                if (val.Equals("icheckbox-original") || val.Equals("icheckbox-original hover")) isChecked = "False";
+                else if (val.Equals("icheckbox-original checked") || val.Equals("icheckbox-original checked hover")) isChecked = "True";
 
                 if ((value.Equals("True") && isChecked.Equals("False")) || (value.Equals("False") && isChecked.Equals("True")))
                     checkbox.Click();
@@ -778,8 +774,8 @@ namespace JPB_Framework.UI_Utilities
                 var checkbox = element.FindElement(By.XPath(".."));
                 var val = checkbox.GetAttribute("class");
                 var isChecked = "False";
-                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = "False";
-                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = "True";
+                if (val.Equals("icheckbox-original") || val.Equals("icheckbox-original hover")) isChecked = "False";
+                else if (val.Equals("icheckbox-original checked") || val.Equals("icheckbox-original checked hover")) isChecked = "True";
 
                 if ((value.Equals("True") && isChecked.Equals("False")) || (value.Equals("False") && isChecked.Equals("True")))
                     checkbox.Click();
@@ -797,8 +793,8 @@ namespace JPB_Framework.UI_Utilities
                 var checkbox = element.FindElement(By.XPath(".."));
                 var val = checkbox.GetAttribute("class");
                 var isChecked = "False";
-                if (val.Equals("icheckbox-original") || (val.Equals("icheckbox-original hover"))) isChecked = "False";
-                else if (val.Equals("icheckbox-original checked") || (val.Equals("icheckbox-original checked hover"))) isChecked = "True";
+                if (val.Equals("icheckbox-original") || val.Equals("icheckbox-original hover")) isChecked = "False";
+                else if (val.Equals("icheckbox-original checked") || val.Equals("icheckbox-original checked hover")) isChecked = "True";
 
                 if ((value.Equals("True") && isChecked.Equals("False")) || (value.Equals("False") && isChecked.Equals("True")))
                     checkbox.Click();
@@ -878,9 +874,9 @@ namespace JPB_Framework.UI_Utilities
                 return;
             }
             Actions action = new Actions(Driver.Instance);
-            action.SendKeys(OpenQA.Selenium.Keys.Escape);
+            action.SendKeys(Keys.Escape);
             Driver.Wait(TimeSpan.FromSeconds(1));
-            Report.ToLogFile(MessageType.Message, $"The option {value} does not exist within the list.", null);
+            Report.Report.ToLogFile(MessageType.Message, $"The option {value} does not exist within the list.", null);
         }
     }
 

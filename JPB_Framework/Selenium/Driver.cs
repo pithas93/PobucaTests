@@ -1,30 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using JPB_Framework.Selenium;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using JPB_Framework.Report;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Opera;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Safari;
 
-namespace JPB_Framework
+namespace JPB_Framework.Selenium
 {
     public class Driver
     {
         public const int DriverTimeout = 10;
 
         public static IWebDriver Instance { get; set; }
-        public static string BaseAddress { get { return "https://jpbstaging.azurewebsites.net"; } }
+        public static string BaseAddress => "https://jpbstaging.azurewebsites.net";
 
         /// <summary>
         /// Instantiates a web driver singleton that drives the selected browser through pages
@@ -104,20 +97,20 @@ namespace JPB_Framework
         /// <returns></returns>
         public static bool CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField field, SortRecordsCommand.SortOrder order)
         {
-            var recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            var recordList =Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
             int recordListCount = GetRecordListCount();
 
             // Check if there is at least one record in the record list or else there is no point in continuing
             var recordName = recordList[0].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            if (String.IsNullOrEmpty(recordName.Text)) return true;
+            if (string.IsNullOrEmpty(recordName.Text)) return true;
 
             // Make page load every single record so that web driver can access them through their WebElements
             while (recordList.Count < recordListCount)
             {
-                Actions action = new Actions(Driver.Instance);
+                Actions action = new Actions(Instance);
                 action.MoveToElement(recordList[recordList.Count - 1]);
                 action.Perform();
-                recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+                recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
             }
 
             switch (field)
@@ -131,14 +124,14 @@ namespace JPB_Framework
                             var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
 
                             // if there is no next record, there is no point continuing;
-                            if (String.IsNullOrEmpty(nextRecordName.Text)) break;
+                            if (string.IsNullOrEmpty(nextRecordName.Text)) break;
 
                             if (order == SortRecordsCommand.SortOrder.Ascending)
                             {
 
-                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
+                                if (string.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
                                         null);
                                     return false;
@@ -148,7 +141,7 @@ namespace JPB_Framework
                             {
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
                                         null);
                                     return false;
@@ -178,7 +171,7 @@ namespace JPB_Framework
 
                                 if (String.Compare(currentRecordNameStr, nextRecordNameStr) == 1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordNameStr}' is before contact:'{nextRecordNameStr}' which is wrong. The list must be sorted first by last name, then by first name ascending.",
                                         null);
                                     return false;
@@ -188,7 +181,7 @@ namespace JPB_Framework
                             {
                                 if (String.Compare(currentRecordNameStr, nextRecordNameStr) == -1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordNameStr}' is before contact:'{nextRecordNameStr}' which is wrong. The list must be sorted first by last name, then by first name descending.",
                                         null);
                                     return false;
@@ -214,7 +207,7 @@ namespace JPB_Framework
 
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
                                         null);
                                     return false;
@@ -224,7 +217,7 @@ namespace JPB_Framework
                             {
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
                                         null);
                                     return false;
@@ -250,7 +243,7 @@ namespace JPB_Framework
 
                                 if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == 1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordCity.Text}' is before contact:'{nextRecordCity.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
                                         null);
                                     return false;
@@ -260,7 +253,7 @@ namespace JPB_Framework
                             {
                                 if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == -1)
                                 {
-                                    Report.ToLogFile(MessageType.Message,
+                                    Report.Report.ToLogFile(MessageType.Message,
                                         $"Contact:'{currentRecordCity.Text}' is before contact:'{nextRecordCity.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
                                         null);
                                     return false;
@@ -291,17 +284,17 @@ namespace JPB_Framework
         {
             try
             {
-                var breadcrumb = Driver.Instance.FindElement(By.CssSelector("#breadcrumb"));
-                return (breadcrumb.Text == view);
+                var breadcrumb = Instance.FindElement(By.CssSelector("#breadcrumb"));
+                return breadcrumb.Text == view;
             }
             catch (NoSuchElementException e)
             {
-                Report.ToLogFile(MessageType.Exception, $"Browser was expected to be at {view} path, but was not", e);
+                Report.Report.ToLogFile(MessageType.Exception, $"Browser was expected to be at {view} path, but was not", e);
                 return false;
             }
             catch (InvalidOperationException e)
             {
-                Report.ToLogFile(MessageType.Exception, $"It is probable that browser didn't loaded properly or in time all of the {view} web page elements", e);
+                Report.Report.ToLogFile(MessageType.Exception, $"It is probable that browser didn't loaded properly or in time all of the {view} web page elements", e);
                 return false;
             }
         }
@@ -314,18 +307,18 @@ namespace JPB_Framework
         {
             try
             {
-                var recordlist = Driver.Instance.FindElement(By.Id("main-content"));
+                var recordlist = Instance.FindElement(By.Id("main-content"));
                 if (recordlist.Displayed) return true;
                 else return false;
             }
             catch (NoSuchElementException e)
             {
-                Report.ToLogFile(MessageType.Exception, "Probably at wrong page Or record list is taking time to load", e);
+                Report.Report.ToLogFile(MessageType.Exception, "Probably at wrong page Or record list is taking time to load", e);
                 return false;
             }
             catch (StaleElementReferenceException e)
             {
-                Report.ToLogFile(MessageType.Exception, "", e);
+                Report.Report.ToLogFile(MessageType.Exception, "", e);
                 return false;
             }
         }
@@ -336,7 +329,7 @@ namespace JPB_Framework
         /// <returns></returns>
         public static int GetRecordListCount()
         {
-            var totalRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
+            var totalRecordsLbl = Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
             return int.Parse(totalRecordsLbl.Text);
         }
 
@@ -346,7 +339,7 @@ namespace JPB_Framework
         /// <returns></returns>
         public static int GetSelectedRecordsCount()
         {
-            var selectedRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
+            var selectedRecordsLbl = Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
             return int.Parse(selectedRecordsLbl.Text);
         }
 
@@ -356,26 +349,26 @@ namespace JPB_Framework
         /// <returns></returns>
         public static int GetTotalRecordsCount()
         {
-            var recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            var recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
 //            int recordListCount = GetRecordListCount();
 
             // Check if there is at least one record in the record list or else there is no point in continuing
             var recordName = recordList[0].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            if (String.IsNullOrEmpty(recordName.Text)) return 0;
+            if (string.IsNullOrEmpty(recordName.Text)) return 0;
 
             // Make page load every single record so that web driver can access them through their WebElements
-            int newRecordListCount = recordList.Count;
-            int previousRecordListCount = recordList.Count;
+            var newRecordListCount = recordList.Count;
+            int previousRecordListCount;
             do
             {
-                Actions action = new Actions(Driver.Instance);
+                var action = new Actions(Instance);
 
                 // Navigate to the last record list item
                 action.MoveToElement(recordList[newRecordListCount - 1]);
                 action.Perform();
 
                 // After the record list has load the extra, not shown previously records, get the new record list count
-                recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+                recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
 
                 // Save the previousRecordListCount
                 previousRecordListCount = newRecordListCount;
@@ -385,7 +378,7 @@ namespace JPB_Framework
 
                 if (previousRecordListCount > newRecordListCount)
                 {
-                    Report.ToLogFile(MessageType.Message, "It seems that there is somethign wrong while counting records from the list", null);
+                    Report.Report.ToLogFile(MessageType.Message, "It seems that there is somethign wrong while counting records from the list", null);
                     throw new Exception();
                 }
 

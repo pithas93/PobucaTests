@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JPB_Framework.Selenium
+namespace JPB_Framework.Report
 {
     /// <summary>
     /// A class to output messages Or test output to a console, file, etc
@@ -24,27 +20,27 @@ namespace JPB_Framework.Selenium
             string messageType = "";
             switch (type)
             {
-                case Selenium.MessageType.AssertionError:
+                case JPB_Framework.Report.MessageType.AssertionError:
                     {
-                        messageType = $"Assertion error, message= ";
+                        messageType = "Assertion error, message= ";
                         break;
                     }
-                case Selenium.MessageType.VerificationError:
+                case JPB_Framework.Report.MessageType.VerificationError:
                     {
-                        messageType = $"Verification error, message= ";
+                        messageType = "Verification error, message= ";
                         break;
                     }
-                case Selenium.MessageType.Exception:
+                case JPB_Framework.Report.MessageType.Exception:
                     {
-                        messageType = $"Exception thrown, message= ";
+                        messageType = "Exception thrown, message= ";
                         break;
                     }
-                case Selenium.MessageType.Message:
+                case JPB_Framework.Report.MessageType.Message:
                     {
                         messageType = "Message= ";
                         break;
                     }
-                case Selenium.MessageType.Empty:
+                case JPB_Framework.Report.MessageType.Empty:
                     {
                         messageType = "";
                         break;
@@ -71,7 +67,7 @@ namespace JPB_Framework.Selenium
             reportOutput.Append(message);
             reportOutput.Append('\n');
 
-            if (!(type == Selenium.MessageType.Empty))
+            if (type != JPB_Framework.Report.MessageType.Empty)
                 if (e != null)
                 {
                     reportOutput.Append('\t');
@@ -81,11 +77,13 @@ namespace JPB_Framework.Selenium
                 }
                 else
                 {
-                    StackTrace stack = new StackTrace(true);
-                    StackFrame frame = stack.GetFrame(2);
+                    var stack = new StackTrace(true);
+                    var frame = stack.GetFrame(2);
 
                     reportOutput.Append("\tClass = ");
-                    reportOutput.Append(frame.GetMethod().ReflectedType.FullName);
+                    var reflectedType = frame.GetMethod().ReflectedType;
+                    if (reflectedType != null)
+                        reportOutput.Append(reflectedType.FullName);
                     reportOutput.Append('\n');
                     reportOutput.Append("\tTest = ");
                     reportOutput.Append(frame.GetMethod().Name);
@@ -98,25 +96,18 @@ namespace JPB_Framework.Selenium
             File.AppendAllText("C:\\Selenium\\test_report.txt", reportOutput.ToString());
         }
 
-        /// <summary>
-        /// Open report file to show test results
-        /// </summary>
-        public static void ShowReport()
-        {
-            System.Diagnostics.Process.Start("CMD.exe", "notepad++ C:\\Selenium\\test_report.txt");
-        }
 
         /// <summary>
         /// Clear report file to output test results
         /// </summary>
         public static void Initialize(string testClassName, string testMethodName)
         {
-            Report.ToLogFile(Selenium.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest Started", null);
+            ToLogFile(JPB_Framework.Report.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest Started", null);
         }
 
         public static void Finalize(string testClassName, string testMethodName, UnitTestOutcome testOutput)
         {
-            Report.ToLogFile(Selenium.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest {testOutput}", null);
+            ToLogFile(JPB_Framework.Report.MessageType.Empty, $"{testClassName} \n{testMethodName}\nTest {testOutput}", null);
         }
     }
 }

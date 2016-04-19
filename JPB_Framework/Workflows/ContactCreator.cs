@@ -1,18 +1,11 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using JPB_Framework.Navigation;
 using JPB_Framework.Pages;
 using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
-using JPB_Framework.Selenium;
+using JPB_Framework.Report;
 using JPB_Framework.UI_Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace JPB_Framework.Workflows
@@ -21,13 +14,15 @@ namespace JPB_Framework.Workflows
     {
         private static List<RecordField> BasicContactFields;
         private static List<RecordField> ExtraContactFields;
-        private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
-        //        private const string ImportFilePath = "C:\\Users\\Panagof\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        //        private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
 
-        public static string FirstName { get { return GetFieldValue("First Name"); } }
-        public static string LastName { get { return GetFieldValue("Last Name"); } }
-        public static string OrganizationName { get { return GetFieldValue("Organization Name"); } }
+        public static string FirstName => GetFieldValue("First Name");
+        public static string LastName => GetFieldValue("Last Name");
+        public static string OrganizationName => GetFieldValue("Organization Name");
+
+        public static string Birthdate => GetFieldValue("Birthdate");
 
         /// <summary>
         /// If a contact was created during test execution, returns true.
@@ -40,11 +35,9 @@ namespace JPB_Framework.Workflows
                 var lastName = BasicContactFields.Find(x => x.Label.Contains("Last Name")).Value;
 
                 return
-                    (
                     !string.IsNullOrEmpty(lastName)
                     ||
-                    (string.IsNullOrEmpty(lastName) && !string.IsNullOrEmpty(firstName))
-                    );
+                    (string.IsNullOrEmpty(lastName) && !string.IsNullOrEmpty(firstName));
             }
         }
 
@@ -62,7 +55,7 @@ namespace JPB_Framework.Workflows
                 if (!ContactViewPage.IsAt)
                 {
                     LeftSideMenu.GoToContacts();
-                    ContactsPage.FindContact().WithFirstName(GetFieldValue("First Name")).AndLastName(GetFieldValue("Last Name")).Open();
+                    ContactsPage.FindContact().WithFirstName(FirstName).AndLastName(LastName).Open();
                 }
 
                 var notOk = false;
@@ -71,7 +64,7 @@ namespace JPB_Framework.Workflows
                 {
                     if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
                     {
-                        Report.ToLogFile(MessageType.Message,
+                        Report.Report.ToLogFile(MessageType.Message,
                             $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'",
                             null);
                         notOk = true;
@@ -82,20 +75,21 @@ namespace JPB_Framework.Workflows
                 {
                     if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
                     {
-                        Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
+                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
                         notOk = true;
                     }
-                    else if ((contactField.Value == null) && (contactField.RecordViewPageIsFieldVisible))
-                        Report.ToLogFile(MessageType.Message, $"Field: {BasicContactFields[0].Label} has no value but its field is shown in contact's detail view page'", null);
+                    else if ((contactField.Value == null) && contactField.RecordViewPageIsFieldVisible)
+                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page'", null);
                 }
 
                 return !notOk;
             }
         }
 
-        public static bool IsContactSavedAfterEdit { get { return (EditContactPage.IsContactSavedSuccessfully); } }
+        public static bool IsContactSavedAfterEdit => EditContactPage.IsContactSavedSuccessfully;
 
-        public static bool IsContactImportedSuccessfully { get { return ImportPage.IsImportSuccessMessageShown; } }
+        public static bool IsContactImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
+
 
         /// <summary>
         /// Initialize Contact Creator properties
@@ -280,7 +274,7 @@ namespace JPB_Framework.Workflows
 
             if (organizationName.Equals(string.Empty))
             {
-                Report.ToLogFile(MessageType.Message, "Something has gone wrong with return current organization view page Organization Name. Organization Name value is empty!", null);
+                Report.Report.ToLogFile(MessageType.Message, "Something has gone wrong with return current organization view page Organization Name. Organization Name value is empty!", null);
                 throw new Exception();
             }
 
@@ -397,20 +391,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateContactWithNullValues()
         {
-            var firstNameField = BasicContactFields.Find(x => x.Label.Contains("First Name"));
-            var lastNameField = BasicContactFields.Find(x => x.Label.Contains("Last Name"));
-            var homePhoneField = ExtraContactFields.Find(x => x.Label.Contains("Home Phone"));
-            var personalEmailField = ExtraContactFields.Find(x => x.Label.Contains("Personal Email"));
-            var workCityField = ExtraContactFields.Find(x => x.Label.Contains("Work City"));
-            var nicknameField = ExtraContactFields.Find(x => x.Label.Contains("Nickname"));
-
-            //            firstNameField.Value = firstNameField.DummyValue;
-            //            lastNameField.Value = lastNameField.DummyValue;
-            homePhoneField.Value = string.Empty;
-            personalEmailField.Value = string.Empty;
-            workCityField.Value = string.Empty;
-            nicknameField.Value = string.Empty;
-
             SetFieldValue("First Name", DummyData.FirstName);
             SetFieldValue("Last Name", DummyData.LastName);
             SetFieldValue("Home Phone", string.Empty);
@@ -694,7 +674,7 @@ namespace JPB_Framework.Workflows
 
             SetFieldValue("First Name", "#$@#$");
             SetFieldValue("Last Name", "#$@#$");
-            SetFieldValue("Middle Name", "Emmanouil");
+            SetFieldValue("Middle Name", "#$@#$");
             SetFieldValue("Suffix", "#$@#$");
             SetFieldValue("Organization Name", "KONICA MINOLTA");
             SetFieldValue("Mobile Phone", "#$@#$");
@@ -800,6 +780,9 @@ namespace JPB_Framework.Workflows
 
             SetFieldValue("First Name", "Panagiotis");
             SetFieldValue("Last Name", "Mavrogiannis");
+            SetFieldValue("Email", "test");
+            SetFieldValue("Work City", "test");
+            SetFieldValue("Home State", "test");
 
         }
 
