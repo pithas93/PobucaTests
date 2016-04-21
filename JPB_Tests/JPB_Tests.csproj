@@ -64,6 +64,7 @@
     <Compile Include="ContactsTests\ContactListTests.cs" />
     <Compile Include="ContactsTests\EditContactTests.cs" />
     <Compile Include="ContactsTests\ImportContactsTests.cs" />
+    <Compile Include="ContactsTests\MinorContactTests.cs" />
     <Compile Include="Smoke Tests\SmokeTests.cs" />
     <Compile Include="Utilities\JpbBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

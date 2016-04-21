@@ -13,70 +13,87 @@ namespace JPB_Tests.ContactsTests
     {
 
 
-        // 1. Create contact with all fields filled
+
+        /// <summary>
+        /// Create 1 contact that has values in all its fields
+        /// </summary>
         [TestMethod]
         public void Create_Contact_With_All_Fields_Filled()
         {
             ContactCreator.CreateContactWithAllValues();
+            AssertThat.IsTrue(ContactCreator.IsContactSavedSuccessfully,"Contact was not saved successfully but it should.");
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
-        // 2. Create contact from within existing organization
+        /// <summary>
+        /// Create 1 contact from within an organization view page. The contact has first, last and organization name field values
+        /// </summary>
         [TestMethod]
         public void Create_Contact_From_Within_Organization()
         {
             LeftSideMenu.GoToOrganizations();
             OrganizationsPage.OpenOrganization();
             ContactCreator.CreateSimpleContactFromWithinOrganization();
-            OrganizationViewPage.FindContactFromContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            AssertThat.IsTrue(ContactCreator.IsContactSavedSuccessfully, "Contact was not saved successfully but it should.");
+            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
-        // 3. Create contact without assigning values in mandatory field
+        /// <summary>
+        /// Create 1 contact that has no value assigned in last name field
+        /// </summary>
         [TestMethod]
         public void Create_Contact_Without_Values_In_Mandatory_Field()
         {
             ContactCreator.CreateContactWithoutLastName();
-            AssertThat.IsFalse(ContactCreator.ContactWasCreated, "Contact was created successfully though last name field was left null. Defect spotted!");
+            AssertThat.IsFalse(ContactCreator.IsContactSavedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
 
         }
 
-        // 4. Create contact assinging field values that exceed character overflow limit
+        /// <summary>
+        /// Create 1 contact that has values that exceed 50 characters limit
+        /// </summary>
         [TestMethod]
         public void Create_Contact_With_Overflown_Field_Values()
         {
             ContactCreator.CreateContactWithOverflowValues();
-            AssertThat.IsFalse(ContactCreator.ContactWasCreated, "Contact was created successfully though last name field was left null. Defect spotted!");
+            AssertThat.IsFalse(ContactCreator.IsContactSavedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
 
         }
 
-        // 5. Create contact with nonsense field values
+        /// <summary>
+        /// Create 1 contact that has nonsense values assigned to its fields
+        /// </summary>
         [TestMethod]
         public void Create_Contact_With_Nonsense_Field_Values()
         {
             ContactCreator.CreateContactWithNonsenseValues();
+            AssertThat.IsTrue(ContactCreator.IsContactSavedSuccessfully, "Contact was not saved successfully but it should.");
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
-        // 8. Create contact linked with non-existent organization
+        /// <summary>
+        /// Create 1 contact assigning an invalid organization name value to the respective field
+        /// </summary>
         [TestMethod]
         public void Create_Contact_With_Invalid_Organization()
         {
             ContactCreator.CreateContactWithInvalidOrganization();
-            AssertThat.IsTrue(ContactCreator.ContactWasCreated, "Contact was not created successfully though it should. Defect spotted!");
+            AssertThat.IsTrue(ContactCreator.IsContactSavedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
             AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Organization ought to be null but it has value = '{ContactViewPage.OrganizationName}' which is invalid. Defect spotted!");
         }
 
-        // 10. Add an extra field and save contact without assigning value to the added field
+        /// <summary>
+        /// Create 1 contact and before saving, add some extra fields and left them empty on save
+        /// </summary>
         [TestMethod]
         public void Create_Contact_With_Extra_Null_Fields()
         {
             ContactCreator.CreateContactWithNullValues();
-
-            AssertThat.IsTrue(ContactCreator.ContactWasCreated, "Contact was not created successfully though it should. Defect spotted!");
+            AssertThat.IsTrue(ContactCreator.IsContactSavedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
         }
 

@@ -5,67 +5,86 @@ namespace JPB_Framework.Workflows
 {
     public class DummyData
     {
-        public static string FirstName => RandomWord(3);
-        public static string LastName => RandomWord(3);
-        public static string MiddleName => RandomWord(2);
-        public static string Suffix => RandomWord(1);
-        public static string OrganizationNameExisting => RandomOrganization();
-        public static string OrganizationNameNotExisting => RandomWord(4);
-        public static string Department => RandomDepartment();
 
+        /// <summary>
+        /// Get a random, medium length word. Characters are small latin letters.
+        /// </summary>
+        public static string SimpleWord => RandomWord(3);
 
-        public static string WorkPhone => RandomNumber(10);
-        public static string WorkPhone2 => RandomNumber(10);
-        public static string MobilePhone => RandomNumber(10);
-        public static string MobilePhone2 => RandomNumber(10);
-        public static string HomePhone => RandomNumber(10);
-        public static string HomePhone2 => RandomNumber(10);
-        public static string HomeFax => RandomNumber(10);
-        public static string WorkFax => RandomNumber(10);
-        public static string OtherPhone => RandomNumber(10);
+        /// <summary>
+        /// Get a random simple text. Characters are small latin letters.
+        /// </summary>
+        public static string SimpleText => RandomWord(30);
 
+        /// <summary>
+        /// Get a random, 5-digit numeric value 
+        /// </summary>
+        public static string NumericValue => RandomNumber(5);
 
-        public static string Email => RandomWord(4);
-        public static string PersonalEmail => RandomWord(4);
-        public static string OtherEmail => RandomWord(4);
+        /// <summary>
+        /// Get a random 55-character sequence consisting of greek, 
+        /// latin letters, numerical digits and special characters like !, @, #, etc
+        /// </summary>
+        public static string OverflowValue => RandomString(55);
 
+        /// <summary>
+        /// Get a random 15-character sequence consisting of greek, 
+        /// latin letters, numerical digits and special characters like !, @, #, etc
+        /// </summary>
+        public static string NonsenseValue => RandomString(15);
 
-        public static string WorkStreet => $"{RandomWord(3)} {RandomNumber(1)}";
-        public static string WorkCity => RandomWord(3);
-        public static string WorkState => RandomWord(2);
-        public static string WorkPostalCode => RandomNumber(5);
-        public static string WorkCountry => RandomCountry();
+        /// <summary>
+        /// Get a random value between "True" and "False"
+        /// </summary>
+        public static string BooleanValue => RandomBoolean();
 
-        public static string HomeStreet => $"{RandomWord(3)} {RandomNumber(1)}";
-        public static string HomeCity => RandomWord(3);
-        public static string HomeState => RandomWord(2);
-        public static string HomePostalCode => RandomNumber(5);
-        public static string HomeCountry => RandomCountry();
+        /// <summary>
+        /// Get a random value between "Male", "Female" and "Other"
+        /// </summary>
+        public static string GenderValue => RandomGender();
 
-        public static string OtherStreet => $"{RandomWord(3)} {RandomNumber(1)}";
-        public static string OtherCity => RandomWord(3);
-        public static string OtherState => RandomWord(2);
-        public static string OtherPostalCode => RandomNumber(5);
-        public static string OtherCountry => RandomCountry();
+        /// <summary>
+        /// Get a random date
+        /// </summary>
+        public static string DateValue => RandomDate();
 
+        /// <summary>
+        /// Get a random country
+        /// </summary>
+        public static string CountryValue => RandomCountry();
 
-        public static string Salutation => RandomWord(3);
-        public static string Nickname => RandomWord(3);
-        public static string JobTitle => RandomWord(3);
-        public static string Website => RandomWord(3);
-        public static string Religion => RandomWord(3);
-        public static string Birthdate => RandomDate();
-        public static string Gender => RandomGender();
-        public static string Comments => RandomWord(10);
+        /// <summary>
+        /// Get an random, address-like character sequence. 
+        /// Sequence begins with a word, continues with a space, 
+        /// ends up with a number and looks like "blablabla 2"
+        /// </summary>
+        public static string AddressValue => $"{RandomWord(3)} {RandomNumber(1)}";
 
+        /// <summary>
+        /// Get a random valid format email
+        /// </summary>
+        public static string EmailValue => RandomEmail();
 
-        public static string AllowSMS => RandomBoolean();
-        public static string AllowPhones => RandomBoolean();
-        public static string AllowEmails => RandomBoolean();
+        /// <summary>
+        /// Get a random 10-digit numeric value 
+        /// </summary>
+        public static string PhoneValue => RandomNumber(10);
+        
+        /// <summary>
+        /// Get a random organization name. Organization name exists in organization list
+        /// </summary>
+        public static string OrganizationValue => RandomOrganization();
 
-        public static string OverflowValue => "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm";
-        public static string NonsenseValue => "!@#123qweQWEασδΑΣΔ";
+        /// <summary>
+        /// Get a random department name. Department name exists in department list
+        /// </summary>
+        public static string DepartmentValue => RandomDepartment();
 
+        /// <summary>
+        /// Get a random word consisting of latin alphabet characters. Words are the names of the greek alphabet letters like alpha, beta, etc.
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
         private static string RandomWord(int size)
         {
             var word = new StringBuilder();
@@ -73,11 +92,17 @@ namespace JPB_Framework.Workflows
             for (var i = 0; i < size; i++)
             {
                 word.Append(Words[random.Next(Words.Length)]);
+                if (i%3 == 0) word.Append(' ');
             }
 
             return word.ToString();
         }
 
+        /// <summary>
+        /// Get a random sequence of numerical characters
+        /// </summary>
+        /// <param name="digits">Character sequence length</param>
+        /// <returns></returns>
         private static string RandomNumber(int digits)
         {
             var word = new StringBuilder();
@@ -90,40 +115,105 @@ namespace JPB_Framework.Workflows
             return word.ToString();
         }
 
+        /// <summary>
+        /// Get a random character sequence. Characters belong to greek or latin alphabets, numerical digits and any special character from the keyboard
+        /// </summary>
+        /// <param name="digits">Character sequence length</param>
+        /// <returns></returns>
+        private static string RandomString(int digits)
+        {
+            var word = new StringBuilder();
+            var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+            for (var i = 0; i < digits; i++)
+            {
+                word.Append(Characters[random.Next(Characters.Length)]);
+            }
+
+            return word.ToString();
+        }
+
+        /// <summary>
+        /// Get a random existing department. The department exists in department list
+        /// </summary>
+        /// <returns></returns>
         private static string RandomDepartment()
         {
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             return Departments[random.Next(Departments.Length)];
         }
 
+        /// <summary>
+        /// Get a random existing organization name. The organization exists in organizations page
+        /// </summary>
+        /// <returns></returns>
         private static string RandomOrganization()
         {
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             return Organizations[random.Next(Organizations.Length)];
         }
 
+        /// <summary>
+        /// Get a random valid date.
+        /// </summary>
+        /// <returns></returns>
         private static string RandomDate()
         {
+            var word = new StringBuilder();
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-            return Dates[random.Next(Dates.Length)];
+
+            word.Append(random.Next(1,28));
+            word.Append('-');
+            word.Append(random.Next(1, 12));
+            word.Append('-');
+            word.Append(random.Next(1926, 2016));
+            return word.ToString();
         }
 
+        /// <summary>
+        /// Get a random value between male, female and other
+        /// </summary>
+        /// <returns></returns>
         private static string RandomGender()
         {
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             return Genders[random.Next(Genders.Length)];
         }
 
+        /// <summary>
+        /// Get randomly either True or False as a value
+        /// </summary>
+        /// <returns></returns>
         private static string RandomBoolean()
         {
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             return Booleans[random.Next(Booleans.Length)];
         }
 
+        /// <summary>
+        /// Get a random existing country
+        /// </summary>
+        /// <returns></returns>
         private static string RandomCountry()
         {
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             return Countries[random.Next(Countries.Length)];
+        }
+
+        /// <summary>
+        /// Get a random email of valid form
+        /// </summary>
+        /// <returns></returns>
+        private static string RandomEmail()
+        {
+            var word = new StringBuilder();
+            var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+
+            word.Append(Words[random.Next(Words.Length)]);
+            word.Append('@');
+            word.Append(Words[random.Next(Words.Length)]);
+            word.Append('.');
+            for (var i=0;i<3;i++) word.Append(Words[random.Next(LatinAlphabet.Length)]);
+            return word.ToString();
         }
 
         private static string[] Words =
@@ -132,16 +222,22 @@ namespace JPB_Framework.Workflows
             "ro","sigma","taf","ipsilon","phi","chi","psi","omega"
         };
 
-        private static string[] Numbers =
+        private static char[] Numbers =
         {
-            "0","1","2","3","4","5","6","7","8","9"
+            '0','1','2','3','4','5','6','7','8','9'
         };
 
-        private static string[] Dates =
+        private static char[] LatinAlphabet =
         {
-            "01-08-2004","04-01-1985","21-06-1967","30-09-1950","25-12-1945",
-            "02-09-2012","05-04-1980","22-07-1960","27-01-1990","03-02-1999",
-            "03-10-1995","06-05-1972","29-08-2000"
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        };
+
+        private static char[] Characters =
+        {
+            '0','1','2','3','4','5','6','7','8','9',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι', 'κ', 'λ', 'μ', 'ν', 'ξ', 'ο', 'π', 'ρ', 'σ', 'τ', 'υ', 'φ', 'χ', 'ψ', 'ω',
+            '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '`', '~', '=', '[', ']', '{', '}', '|', ';', ':', ',', '.', '/', '<', '>', '?'
         };
 
         private static string[] Genders =
@@ -171,5 +267,6 @@ namespace JPB_Framework.Workflows
             "KONICA MINOLTA","LUCA PRODUCTION SRL","KOSMOCAR","KNOW HOW CONSULTING",
             "MARATHON DATA SYSTEMS","MARITECH","LAWNET"
         };
+
     }
 }

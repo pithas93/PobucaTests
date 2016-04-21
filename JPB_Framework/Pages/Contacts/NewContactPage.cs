@@ -11,7 +11,7 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         /// Check if browser is at contact form page that allows to create a new contact
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Add Contact");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts  /  Add Contact");
 
         /// <summary>
         /// Returns whether the new contact Save button was pressed, and so the contact was saved, or not.
@@ -143,9 +143,9 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="workPhone"></param>
         /// <returns></returns>
-        public CreateContactCommand WithWorkPhone(string workPhone)
+        public CreateContactCommand WithMobilePhone(string mobilePhone)
         {
-            this.workPhone = workPhone;
+            this.mobilePhone = mobilePhone;
             return this;
         }
 

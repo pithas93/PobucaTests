@@ -194,7 +194,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Check_Contacts_Displayed_Is_Equal_To_Label()
         {
-            AssertThat.AreEqual(ContactsPage.GetTotalContactsCount(), ContactsPage.ContactsBeingDisplayed, "The count of contacts being displayed is not equal with the value of the corresponding label");
+            AssertThat.AreEqual(ContactsPage.TotalContactsCount, ContactsPage.ContactsBeingDisplayed, "The count of contacts being displayed is not equal with the value of the corresponding label");
         }
     }
 }

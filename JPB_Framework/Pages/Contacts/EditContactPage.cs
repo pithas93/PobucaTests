@@ -10,8 +10,11 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         ///  Check if browser is at contact's edit page
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Edit Contact");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts  /  Contact  /  Edit Contact");
 
+        /// <summary>
+        /// Returns true if a contact was saved successfully after editing 
+        /// </summary>
         public static bool IsContactSavedSuccessfully { get; set; }
 
         /// <summary>
@@ -19,6 +22,10 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         public static void GoTo() { Commands.ClickEdit(); }
 
+        /// <summary>
+        /// Issue an command that instructs browser to change the value for some or every single field within edit contact page
+        /// </summary>
+        /// <returns></returns>
         public static EditContactCommand EditContact()
         {
             GoTo();

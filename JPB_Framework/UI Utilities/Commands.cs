@@ -42,13 +42,33 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// It clicks the delete button. Delete button is available through the Contact And Organization ViewPages
+        /// It clicks the delete button. Delete button is available through the Contact View Page, Organization View Page, Contacts Page and Organizations Page
         /// </summary>
         public static void ClickDelete()
         {
             var deleteBtn = Driver.Instance.FindElement(By.CssSelector("i.fa.fa-trash-o"));
             deleteBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
+        }
+
+        /// <summary>
+        /// It clicks the share button. Share button is available through the Cotnact and Organization ViewPages
+        /// </summary>
+        public static void ClickShare()
+        {
+            var shareBtn = Driver.Instance.FindElement(By.Id("share-entity"));
+            shareBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
+        }
+
+        /// <summary>
+        /// Presses the keyboard Escape key
+        /// </summary>
+        public static void PressEscapeKey()
+        {
+            var action = new Actions(Driver.Instance);
+            action.SendKeys(Keys.Escape);
+            Driver.Wait(TimeSpan.FromSeconds(1));
         }
 
         /// <summary>
@@ -88,27 +108,6 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Checks a list of contacts Or organization to find a record matching the given title
-        /// </summary>
-        /// <param name="title">Matches either an organization name Or a first-last name</param>
-        /// <returns>Returns true if there is at list one record matching the criteria. Returns false if search reach the list end without matching records</returns>
-        public static bool FindIfRecordExists(string title)
-        {
-            // Next statement will also retrieve elements that are null. These elements are located at the end of the records collection, so when you encounter the first of them, 
-            //just break And return false, excpet if you have find at least one record matching given title
-            var records = Driver.Instance.FindElements(By.CssSelector(".font-bold.ng-binding"));
-            foreach (var record in records)
-            {
-                if (record.Text.Equals("") || record.Text == null) break;
-                if (record.Text.StartsWith(title))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
         ///  Selects/deselects a single record within a record list by checking its checkbox
         /// </summary>
         /// <param name="record">The web element that corresponds to the record that will be selected</param>
@@ -130,19 +129,19 @@ namespace JPB_Framework.UI_Utilities
         /// Selects a range of records whose name match the given string parameter
         /// </summary>
         /// <param name="s">The string criteria with which the records will be found</param>
-        public static void SelectRecordsMatching(string s)
+        public static int SelectRecordsMatching(string s)
         {
+            var recordCount = 0;
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-
             foreach (var record in records)
             {
-                var contactName = record.FindElement(By.CssSelector(".font-bold.ng-binding"));
-                if (contactName.Text.StartsWith(s))
-                {
-                    SelectRecord(record);
-                }
-                else break;
+                var recordName = record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
+                if (recordName.Equals("") || recordName == null) break;
+                if (!recordName.StartsWith(s)) continue;
+                SelectRecord(record);
+                recordCount++;
             }
+            return recordCount;
         }
 
         /// <summary>
@@ -201,6 +200,7 @@ namespace JPB_Framework.UI_Utilities
 
             return selectedContacts;
         }
+
 
 
     }

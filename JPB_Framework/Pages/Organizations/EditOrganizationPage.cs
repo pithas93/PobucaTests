@@ -8,7 +8,7 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if browser is at organization's edit page 
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Edit Organization");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization  /  Edit Organization");
 
         /// <summary>
         ///  Navigates browser through the available edit button to the organization's edit page

@@ -12,7 +12,11 @@ namespace JPB_Framework.UI_Utilities
         private string fileName;
         private ImportFileType fileType;
 
-
+        /// <summary>
+        /// Informs browser in which computer path it will search for the file to import
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public ImportFileCommand FromPath(string filePath)
         {
             this.filePath = filePath;
@@ -20,7 +24,9 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Import file of type .xls with given name, containing contact/organization records
+        /// Informs browser what is the name of the file to be imported. 
+        /// File must be of .xls type or else there will be a failure message 
+        /// and it must contain contact or organization records
         /// </summary>
         /// <param name="fileXls">The name of file containing records for import. Example "Contacts.xls"</param>
         /// <returns></returns>
@@ -31,6 +37,11 @@ namespace JPB_Framework.UI_Utilities
 
         }
 
+        /// <summary>
+        /// Informs browser which type of records will be contained inside import file.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public ImportFileCommand Containing(ImportFileType type)
         {
             fileType = type;
@@ -38,7 +49,9 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Submit for import previously selected file 
+        /// Instruct browser to execute an import file command with previously defined options.
+        /// Details rearding file path, file name and whether it contains contacts or organizations, 
+        /// must have been defined or else the command will fail.
         /// </summary>
         public void Submit()
         {
@@ -85,13 +98,6 @@ namespace JPB_Framework.UI_Utilities
                 Report.Report.ToLogFile(MessageType.Message, "Failed to import file or did take too long.", e);
                 throw e;
             }
-        }
-
-        public static void CloseImportDialogBox()
-        {
-            var finishBtn = Driver.Instance.FindElement(By.CssSelector("fieldset[ng-show='wizardStepThree'] .btn.btn-primary"));
-            finishBtn.Click();
-            Driver.Wait(TimeSpan.FromSeconds(2));
         }
 
     }

@@ -12,9 +12,11 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if browser is at the selected organization's detail view page
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Organization View");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization View");
 
-
+        /// <summary>
+        /// Returns Organization Name
+        /// </summary>
         public static string OrganizationName
         {
             get
@@ -38,11 +40,19 @@ namespace JPB_Framework.Pages.Organizations
             return new DeleteRecordCommand();
         }
 
-        public static SearchRecordCommand FindContactFromContactList()
+        /// <summary>
+        /// Issue a search command that instructs browser to search for a contact with an organization's contact list
+        /// </summary>
+        /// <returns></returns>
+        public static SearchOrganizationContactListCommand FindContactFromOrganizationContactList()
         {
-            return new SearchRecordCommand();
+            return new SearchOrganizationContactListCommand();
         }
 
+        /// <summary>
+        /// Issue a create new contact command, from within organization view page, with given first name
+        /// </summary>
+        /// <returns></returns>
         public static CreateContactCommand CreateContact()
         {
             var element = Driver.Instance.FindElement(By.CssSelector("a.dropdown-toggle.p-none"));

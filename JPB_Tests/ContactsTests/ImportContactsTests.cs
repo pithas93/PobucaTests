@@ -8,10 +8,15 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class ImportContactsTests : JpbBaseTest
     {
-        //  Test not implemented because downloading files through automation is not suggested
-        // 1. Check that contacts template is successfully downloaded. 
 
-        // 2. Import contacts - all contact fields are filled 
+        // 1. Check that contacts template is successfully downloaded. Test not implemented because downloading files through automation is not suggested
+        // 5. Import contacts - only mandatory fields are filled. Organization field takes existent value
+        // 9. Import contacts - Test the max imported contact threshold
+        // 15. Import contacts - Template contains duplicate contacts
+
+        /// <summary>
+        /// Import a contact template that contains 1 contact that has value in every contact field
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_With_All_Contact_Fields_Filled()
         {
@@ -22,7 +27,9 @@ namespace JPB_Tests.ContactsTests
         }
 
 
-        // 4. Import contacts - only mandatory fields are left unfilled
+        /// <summary>
+        /// Import a contact template that contains 1 contact which has first name value but no value in last name which is a mandatory field
+        /// </summary>
         [TestMethod]
         public void Import_Contact_Without_Values_In_Mandatory_Field()
         {
@@ -31,9 +38,10 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 5. Import contacts - only mandatory fields are filled. Organization field takes existent value
 
-        // 6. Import contacts - only mandatory fields are filled. Organization field takes nonexistent value
+        /// <summary>
+        /// Import a contact template that contains 1 contact that is linked with a non existent organization.
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_With_Nonexistent_Organization()
         {
@@ -42,7 +50,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 7. Import contacts - Fields are filled with nonsense values
+        /// <summary>
+        /// Import a contact template that contains 1 contact which has every field filled with nonsense values.
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_With_Nonsense_Values()
         {
@@ -52,7 +62,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 8. Import contacts - Fields are filled with values so that it cause field character overflow
+        /// <summary>
+        /// Import a contact that contains 1 contact which has first and last name fields filled with values that exceed 50 character limit
+        /// </summary>
         [TestMethod]
         public void Import_Contact_With_Overflow_Field_Values()
         {
@@ -61,9 +73,11 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 9. Import contacts - Test the max imported contact threshold
 
-        // 10. Import contacts - Birthdate field contains invalid for date
+
+        /// <summary>
+        /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_With_Invalid_Birthdate_Values_1()
         {
@@ -73,6 +87,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
+        /// <summary>
+        /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_With_Invalid_Birthdate_Values_2()
         {
@@ -82,6 +99,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
+        /// <summary>
+        /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_With_Invalid_Birthdate_Values_3()
         {
@@ -91,7 +111,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 11. Import contacts - Template contains less columns than the original template
+        /// <summary>
+        /// Import a contact template that contains less than normal columns
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_Template_Containing_Less_Columns_Than_Normal()
         {
@@ -101,7 +123,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 12. Import contacts - Template contains more columns that the original template
+        /// <summary>
+        /// Import a contact template that contains more than normal columns
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_Template_Containing_More_Columns_Than_Normal()
         {
@@ -111,7 +135,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 14. Immport contacts - Template does not contain the mandatory field column
+        /// <summary>
+        /// Import a contact template that does not contain the mandatory field column
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_Template_Without_Mandatory_Column()
         {
@@ -120,9 +146,11 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 15. Import contacts - Template contains duplicate contacts
 
-        // 16. Import contacts - Template contains columns in different order than that of the original template
+
+        /// <summary>
+        /// Import a contact template that contains columns in different order than that of the original template
+        /// </summary>
         [TestMethod]
         public void Import_Contacts_Template_With_Columns_In_Random_Order()
         {

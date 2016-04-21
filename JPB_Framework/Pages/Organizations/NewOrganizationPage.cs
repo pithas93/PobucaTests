@@ -10,7 +10,7 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         /// Check if browser is at organization form page that allows to create a new organization
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Add Organization");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Add Organization");
 
         /// <summary>
         /// Navigates browser to an organization form page that allows to create a new organization

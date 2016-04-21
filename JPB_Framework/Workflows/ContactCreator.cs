@@ -12,10 +12,13 @@ namespace JPB_Framework.Workflows
 {
     public class ContactCreator
     {
+
+        // Maybe create a mechanism to create/import more than 1 contacts at a test and then check all values
+
         private static List<RecordField> BasicContactFields;
         private static List<RecordField> ExtraContactFields;
-        //        private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
-        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+                private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+//        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
 
         public static string FirstName => GetFieldValue("First Name");
@@ -86,9 +89,21 @@ namespace JPB_Framework.Workflows
             }
         }
 
+        /// <summary>
+        /// Returns true if contact was saved successfully on its creation.
+        /// </summary>
+        public static bool IsContactSavedSuccessfully => NewContactPage.IsContactSavedSuccessfully;
+
+        /// <summary>
+        /// Returns true if contact was saved successfully after edit.
+        /// </summary>
         public static bool IsContactSavedAfterEdit => EditContactPage.IsContactSavedSuccessfully;
 
+        /// <summary>
+        /// Returns true if contact was imported successfully.
+        /// </summary>
         public static bool IsContactImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
+
 
 
         /// <summary>
@@ -241,25 +256,27 @@ namespace JPB_Framework.Workflows
             throw new Exception();
         }
 
+
+
+
         /// <summary>
         /// Create a simple contact with dummy first and last name
         /// </summary>
         public static void CreateSimpleContact()
         {
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
-            var lastName = SetFieldValue("Last Name", DummyData.LastName);
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
+            var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
+            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
+            var mobilePhone = SetFieldValue("Mobile Phone", DummyData.PhoneValue);
 
-            NewContactPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
 
-        }
+            NewContactPage.CreateContact()
+                .WithFirstName(firstName)
+                .WithLastName(lastName)
+                .WithOrganizationName(organizationName)
+                .WithMobilePhone(mobilePhone)
+                .Create();
 
-        public static void CreateSimpleContactWithOrganization()
-        {
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
-            var lastName = SetFieldValue("Last Name", DummyData.LastName);
-            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationNameExisting);
-
-            NewContactPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).WithOrganizationName(organizationName).Create();
         }
 
         /// <summary>
@@ -268,8 +285,8 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateSimpleContactFromWithinOrganization()
         {
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
-            var lastName = SetFieldValue("Last Name", DummyData.LastName);
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
+            var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
             var organizationName = SetFieldValue("Organization Name", OrganizationViewPage.OrganizationName);
 
             if (organizationName.Equals(string.Empty))
@@ -287,51 +304,51 @@ namespace JPB_Framework.Workflows
         public static void CreateContactWithAllValues()
         {
 
-            SetFieldValue("First Name", DummyData.FirstName);
-            SetFieldValue("Last Name", DummyData.LastName);
-            SetFieldValue("Middle Name", DummyData.MiddleName);
-            SetFieldValue("Suffix", DummyData.Suffix);
-            SetFieldValue("Organization Name", DummyData.OrganizationNameExisting);
-            SetFieldValue("Mobile Phone", DummyData.MobilePhone);
-            SetFieldValue("Email", DummyData.Email);
-            SetFieldValue("Allow SMS", DummyData.AllowSMS);
-            SetFieldValue("Allow Phones", DummyData.AllowPhones);
-            SetFieldValue("Allow Emails", DummyData.AllowEmails);
+            SetFieldValue("First Name", DummyData.SimpleWord);
+            SetFieldValue("Last Name", DummyData.SimpleWord);
+            SetFieldValue("Middle Name", DummyData.SimpleWord);
+            SetFieldValue("Suffix", DummyData.SimpleWord);
+            SetFieldValue("Organization Name", DummyData.OrganizationValue);
+            SetFieldValue("Mobile Phone", DummyData.PhoneValue);
+            SetFieldValue("Email", DummyData.EmailValue);
+            SetFieldValue("Allow SMS", DummyData.BooleanValue);
+            SetFieldValue("Allow Phones", DummyData.BooleanValue);
+            SetFieldValue("Allow Emails", DummyData.BooleanValue);
 
-            SetFieldValue("Department", DummyData.Department);
-            SetFieldValue("Work Phone", DummyData.WorkPhone);
-            SetFieldValue("Work Phone 2", DummyData.WorkPhone2);
-            SetFieldValue("Mobile Phone 2", DummyData.MobilePhone2);
-            SetFieldValue("Home Phone", DummyData.HomePhone);
-            SetFieldValue("Home Phone 2", DummyData.HomePhone2);
-            SetFieldValue("Home Fax", DummyData.HomeFax);
-            SetFieldValue("Work Fax", DummyData.WorkFax);
-            SetFieldValue("Other Phone", DummyData.OtherPhone);
-            SetFieldValue("Personal Email", DummyData.PersonalEmail);
-            SetFieldValue("Other Email", DummyData.OtherEmail);
-            SetFieldValue("Work Street", DummyData.WorkStreet);
-            SetFieldValue("Work City", DummyData.WorkCity);
-            SetFieldValue("Work State", DummyData.WorkState);
-            SetFieldValue("Work Postal Code", DummyData.WorkPostalCode);
-            SetFieldValue("Work Country", DummyData.WorkCountry);
-            SetFieldValue("Home Street", DummyData.HomeStreet);
-            SetFieldValue("Home City", DummyData.HomeCity);
-            SetFieldValue("Home State", DummyData.HomeState);
-            SetFieldValue("Home Postal Code", DummyData.HomePostalCode);
-            SetFieldValue("Home Country", DummyData.HomeCountry);
-            SetFieldValue("Other Street", DummyData.OtherStreet);
-            SetFieldValue("Other City", DummyData.OtherCity);
-            SetFieldValue("Other State", DummyData.OtherState);
-            SetFieldValue("Other Postal Code", DummyData.OtherPostalCode);
-            SetFieldValue("Other Country", DummyData.OtherCountry);
-            SetFieldValue("Salutation", DummyData.Salutation);
-            SetFieldValue("Nickname", DummyData.Nickname);
-            SetFieldValue("Job Title", DummyData.JobTitle);
-            SetFieldValue("Website", DummyData.Website);
-            SetFieldValue("Religion", DummyData.Religion);
-            SetFieldValue("Birthdate", DummyData.Birthdate);
-            SetFieldValue("Gender", DummyData.Gender);
-            SetFieldValue("Comments", DummyData.Comments);
+            SetFieldValue("Department", DummyData.DepartmentValue);
+            SetFieldValue("Work Phone", DummyData.PhoneValue);
+            SetFieldValue("Work Phone 2", DummyData.PhoneValue);
+            SetFieldValue("Mobile Phone 2", DummyData.PhoneValue);
+            SetFieldValue("Home Phone", DummyData.PhoneValue);
+            SetFieldValue("Home Phone 2", DummyData.PhoneValue);
+            SetFieldValue("Home Fax", DummyData.PhoneValue);
+            SetFieldValue("Work Fax", DummyData.PhoneValue);
+            SetFieldValue("Other Phone", DummyData.PhoneValue);
+            SetFieldValue("Personal Email", DummyData.EmailValue);
+            SetFieldValue("Other Email", DummyData.EmailValue);
+            SetFieldValue("Work Street", DummyData.AddressValue);
+            SetFieldValue("Work City", DummyData.SimpleWord);
+            SetFieldValue("Work State", DummyData.SimpleWord);
+            SetFieldValue("Work Postal Code", DummyData.NumericValue);
+            SetFieldValue("Work Country", DummyData.CountryValue);
+            SetFieldValue("Home Street", DummyData.AddressValue);
+            SetFieldValue("Home City", DummyData.SimpleWord);
+            SetFieldValue("Home State", DummyData.SimpleWord);
+            SetFieldValue("Home Postal Code", DummyData.NumericValue);
+            SetFieldValue("Home Country", DummyData.CountryValue);
+            SetFieldValue("Other Street", DummyData.AddressValue);
+            SetFieldValue("Other City", DummyData.SimpleWord);
+            SetFieldValue("Other State", DummyData.SimpleWord);
+            SetFieldValue("Other Postal Code", DummyData.NumericValue);
+            SetFieldValue("Other Country", DummyData.CountryValue);
+            SetFieldValue("Salutation", DummyData.SimpleWord);
+            SetFieldValue("Nickname", DummyData.SimpleWord);
+            SetFieldValue("Job Title", DummyData.SimpleWord);
+            SetFieldValue("Website", DummyData.SimpleWord);
+            SetFieldValue("Religion", DummyData.SimpleWord);
+            SetFieldValue("Birthdate", DummyData.DateValue);
+            SetFieldValue("Gender", DummyData.GenderValue);
+            SetFieldValue("Comments", DummyData.SimpleText);
 
             NewContactPage.CreateContact().WithMultipleValues(BasicContactFields, ExtraContactFields).Create();
 
@@ -342,7 +359,7 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateContactWithoutLastName()
         {
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
 
             NewContactPage.CreateContact().WithFirstName(firstName).Create();
         }
@@ -374,9 +391,9 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateContactWithInvalidOrganization()
         {
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
-            var lastName = SetFieldValue("Last Name", DummyData.LastName);
-            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationNameNotExisting);
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
+            var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
+            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
 
             NewContactPage.CreateContact()
                 .WithFirstName(firstName)
@@ -391,8 +408,8 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateContactWithNullValues()
         {
-            SetFieldValue("First Name", DummyData.FirstName);
-            SetFieldValue("Last Name", DummyData.LastName);
+            SetFieldValue("First Name", DummyData.SimpleWord);
+            SetFieldValue("Last Name", DummyData.SimpleWord);
             SetFieldValue("Home Phone", string.Empty);
             SetFieldValue("Personal Email", string.Empty);
             SetFieldValue("Work City", string.Empty);
@@ -409,8 +426,8 @@ namespace JPB_Framework.Workflows
             SetFieldPreviousValue("First Name", GetFieldValue("First Name"));
             SetFieldPreviousValue("Last Name", GetFieldValue("Last Name"));
 
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
-            var lastName = SetFieldValue("Last Name", DummyData.LastName);
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
+            var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
 
             EditContactPage.EditContact().WithFirstName(firstName).WithLastName(lastName).Edit();
 
@@ -428,9 +445,9 @@ namespace JPB_Framework.Workflows
             SetFieldPreviousValue("Last Name", GetFieldValue("Last Name"));
             SetFieldPreviousValue("Organization Name", GetFieldValue("Organization Name"));
 
-            var firstName = SetFieldValue("First Name", DummyData.FirstName);
-            var lastName = SetFieldValue("Last Name", DummyData.LastName);
-            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationNameExisting);
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
+            var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
+            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
 
             EditContactPage.EditContact().WithFirstName(firstName).WithLastName(lastName).WithOrganizationName(organizationName).Edit();
 
@@ -496,7 +513,7 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void EditContactAssigningInvalidOrganization()
         {
-            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationNameNotExisting);
+            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
 
             EditContactPage.EditContact().WithOrganizationName(organizationName).WithHomePhone("123").Edit();
         }
@@ -519,51 +536,51 @@ namespace JPB_Framework.Workflows
             SetFieldPreviousValue("First Name", GetFieldValue("First Name"));
             SetFieldPreviousValue("Last Name", GetFieldValue("Last Name"));
 
-            SetFieldValue("First Name", DummyData.FirstName);
-            SetFieldValue("Last Name", DummyData.LastName);
-            SetFieldValue("Middle Name", DummyData.MiddleName);
-            SetFieldValue("Suffix", DummyData.Suffix);
-            SetFieldValue("Organization Name", DummyData.OrganizationNameExisting);
-            SetFieldValue("Mobile Phone", DummyData.MobilePhone);
-            SetFieldValue("Email", DummyData.Email);
-            SetFieldValue("Allow SMS", DummyData.AllowSMS);
-            SetFieldValue("Allow Phones", DummyData.AllowPhones);
-            SetFieldValue("Allow Emails", DummyData.AllowEmails);
+            SetFieldValue("First Name", DummyData.SimpleWord);
+            SetFieldValue("Last Name", DummyData.SimpleWord);
+            SetFieldValue("Middle Name", DummyData.SimpleWord);
+            SetFieldValue("Suffix", DummyData.SimpleWord);
+            SetFieldValue("Organization Name", DummyData.OrganizationValue);
+            SetFieldValue("Mobile Phone", DummyData.PhoneValue);
+            SetFieldValue("Email", DummyData.EmailValue);
+            SetFieldValue("Allow SMS", DummyData.BooleanValue);
+            SetFieldValue("Allow Phones", DummyData.BooleanValue);
+            SetFieldValue("Allow Emails", DummyData.BooleanValue);
 
-            SetFieldValue("Department", DummyData.Department);
-            SetFieldValue("Work Phone", DummyData.WorkPhone);
-            SetFieldValue("Work Phone 2", DummyData.WorkPhone2);
-            SetFieldValue("Mobile Phone 2", DummyData.MobilePhone2);
-            SetFieldValue("Home Phone", DummyData.HomePhone);
-            SetFieldValue("Home Phone 2", DummyData.HomePhone2);
-            SetFieldValue("Home Fax", DummyData.HomeFax);
-            SetFieldValue("Work Fax", DummyData.WorkFax);
-            SetFieldValue("Other Phone", DummyData.OtherPhone);
-            SetFieldValue("Personal Email", DummyData.PersonalEmail);
-            SetFieldValue("Other Email", DummyData.OtherEmail);
-            SetFieldValue("Work Street", DummyData.WorkStreet);
-            SetFieldValue("Work City", DummyData.WorkCity);
-            SetFieldValue("Work State", DummyData.WorkState);
-            SetFieldValue("Work Postal Code", DummyData.WorkPostalCode);
-            SetFieldValue("Work Country", DummyData.WorkCountry);
-            SetFieldValue("Home Street", DummyData.HomeStreet);
-            SetFieldValue("Home City", DummyData.HomeCity);
-            SetFieldValue("Home State", DummyData.HomeState);
-            SetFieldValue("Home Postal Code", DummyData.HomePostalCode);
-            SetFieldValue("Home Country", DummyData.HomeCountry);
-            SetFieldValue("Other Street", DummyData.OtherStreet);
-            SetFieldValue("Other City", DummyData.OtherCity);
-            SetFieldValue("Other State", DummyData.OtherState);
-            SetFieldValue("Other Postal Code", DummyData.OtherPostalCode);
-            SetFieldValue("Other Country", DummyData.OtherCountry);
-            SetFieldValue("Salutation", DummyData.Salutation);
-            SetFieldValue("Nickname", DummyData.Nickname);
-            SetFieldValue("Job Title", DummyData.JobTitle);
-            SetFieldValue("Website", DummyData.Website);
-            SetFieldValue("Religion", DummyData.Religion);
-            SetFieldValue("Birthdate", DummyData.Birthdate);
-            SetFieldValue("Gender", DummyData.Gender);
-            SetFieldValue("Comments", DummyData.Comments);
+            SetFieldValue("Department", DummyData.DepartmentValue);
+            SetFieldValue("Work Phone", DummyData.PhoneValue);
+            SetFieldValue("Work Phone 2", DummyData.PhoneValue);
+            SetFieldValue("Mobile Phone 2", DummyData.PhoneValue);
+            SetFieldValue("Home Phone", DummyData.PhoneValue);
+            SetFieldValue("Home Phone 2", DummyData.PhoneValue);
+            SetFieldValue("Home Fax", DummyData.PhoneValue);
+            SetFieldValue("Work Fax", DummyData.PhoneValue);
+            SetFieldValue("Other Phone", DummyData.PhoneValue);
+            SetFieldValue("Personal Email", DummyData.EmailValue);
+            SetFieldValue("Other Email", DummyData.EmailValue);
+            SetFieldValue("Work Street", DummyData.AddressValue);
+            SetFieldValue("Work City", DummyData.SimpleWord);
+            SetFieldValue("Work State", DummyData.SimpleWord);
+            SetFieldValue("Work Postal Code", DummyData.NumericValue);
+            SetFieldValue("Work Country", DummyData.CountryValue);
+            SetFieldValue("Home Street", DummyData.AddressValue);
+            SetFieldValue("Home City", DummyData.SimpleWord);
+            SetFieldValue("Home State", DummyData.SimpleWord);
+            SetFieldValue("Home Postal Code", DummyData.NumericValue);
+            SetFieldValue("Home Country", DummyData.CountryValue);
+            SetFieldValue("Other Street", DummyData.AddressValue);
+            SetFieldValue("Other City", DummyData.SimpleWord);
+            SetFieldValue("Other State", DummyData.SimpleWord);
+            SetFieldValue("Other Postal Code", DummyData.NumericValue);
+            SetFieldValue("Other Country", DummyData.CountryValue);
+            SetFieldValue("Salutation", DummyData.SimpleWord);
+            SetFieldValue("Nickname", DummyData.SimpleWord);
+            SetFieldValue("Job Title", DummyData.SimpleWord);
+            SetFieldValue("Website", DummyData.SimpleWord);
+            SetFieldValue("Religion", DummyData.SimpleWord);
+            SetFieldValue("Birthdate", DummyData.DateValue);
+            SetFieldValue("Gender", DummyData.GenderValue);
+            SetFieldValue("Comments", DummyData.SimpleText);
 
             EditContactPage.EditContact().WithMultipleValues(BasicContactFields, ExtraContactFields).Edit();
 
@@ -572,6 +589,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Last Name", GetFieldPreviousValue("Last Name"));
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Only first and last name fields have values
+        /// </summary>
         public static void ImportSimpleContact()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -584,6 +604,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Last Name", "Mavrogiannis");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Every contact field has assigned value.
+        /// </summary>
         public static void ImportContactWithAllValues()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -640,6 +663,9 @@ namespace JPB_Framework.Workflows
 
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Only first name field has value. Last name field is left null 
+        /// </summary>
         public static void ImportContactWithoutLastName()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -651,6 +677,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("First Name", "Panagiotis");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. First and last name have assigned values. Organization name has an non-existent organization as value
+        /// </summary>
         public static void ImportContactWithInvalidOrganization()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -664,6 +693,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Organization Name", "Rivendale Corp");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Every contact field has non-sense value assigned except for the combo ones and the organization name.
+        /// </summary>
         public static void ImportContactWithNonsenseValues()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -719,6 +751,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Comments", "#$@#$");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. First and last name fields have assigned values that exceed the 50 characters
+        /// </summary>
         public static void ImportContactWithOverflowValues()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -731,6 +766,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Last Name", "qwertyuiopasdfghjklzxcvbnmςερτυθιοπασδφγηξκλζχψωβνμ1234567890");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Beside first and last name, birthdate field has assigned value 32/1/2000
+        /// </summary>
         public static void ImportContactWithInvalidBirthdate1()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -744,6 +782,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Birthdate", "32/1/2000");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Beside first and last name, birthdate field has assigned value 29/2/2001
+        /// </summary>
         public static void ImportContactWithInvalidBirthdate2()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -757,6 +798,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Birthdate", "29/2/2001");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Beside first and last name, birthdate field has assigned value 12/13/2000
+        /// </summary>
         public static void ImportContactWithInvalidBirthdate3()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -770,6 +814,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Birthdate", "12/13/2000");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Template contains less columns than original
+        /// </summary>
         public static void ImportTemplateWithLessColumns()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -786,6 +833,9 @@ namespace JPB_Framework.Workflows
 
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Template contains 1 more column than original
+        /// </summary>
         public static void ImportTemplateWithMoreColumns()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -798,6 +848,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Last Name", "Mavrogiannis");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Template does not contain the mandatory field column
+        /// </summary>
         public static void ImportTemplateWithoutMandatoryColumn()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -809,6 +862,9 @@ namespace JPB_Framework.Workflows
             SetFieldValue("First Name", "Panagiotis");
         }
 
+        /// <summary>
+        /// Import file with 1 contact. Template columns are placed in random order
+        /// </summary>
         public static void ImportTemplateWithColumnsInRandomOrder()
         {
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();

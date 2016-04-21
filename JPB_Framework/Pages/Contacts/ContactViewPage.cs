@@ -1,4 +1,5 @@
 ﻿using System;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -10,7 +11,56 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         /// Check if browser is at the selected contact's detail view page
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Contact View");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts  /  Contact View");
+
+        /// <summary>
+        /// Returns true if contact mobile number field value can be dialed. 
+        /// System is supposed to ask user to execute the task with an app from a given list, or just executes the dialing command.
+        /// </summary>
+        public static bool IsMobileNumberCallable
+        {
+            get
+            {
+                var element =
+                    Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Mobile Phone'] a.ng-scope"));
+                var href = element.GetAttribute("href");
+                var expectedTelephoneLink = $"tel:{MobilePhone}";
+                return (href == expectedTelephoneLink);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the input for the share window email address field complies with the email format. 
+        /// Returns true if the Share button is enabled.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool IsContactShareableTo(string email)
+        {
+
+            var shareModalWindow = Driver.Instance.FindElement(By.CssSelector("div#showShareVCardModal"));
+            var isModalShown = shareModalWindow.GetAttribute("class");
+            if (isModalShown == "modal fade ng-scope in")
+            {
+                shareModalWindow.FindElement(By.CssSelector("button.btn.btn-default")).Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+            }
+            Commands.ClickShare();
+
+            var shareEmailField = shareModalWindow.FindElement(By.CssSelector("input#shareVcardInput"));
+            
+            if (shareEmailField.GetAttribute("value") != "")
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Share contact input email field was not empty.", null);
+                shareEmailField.Clear();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+            }
+
+            shareEmailField.SendKeys(email);
+            var shareBtn = shareModalWindow.FindElement(By.CssSelector("button#shareBtn"));
+            Driver.Wait(TimeSpan.FromSeconds(2));
+            return (shareBtn.Enabled);
+        }
 
         /// <summary>
         /// Issue delete command from a contact's detail view page
@@ -1486,7 +1536,10 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+
+
         // EXTRA FIELDS END ////////////////////////////////////////////////
+
 
 
     }

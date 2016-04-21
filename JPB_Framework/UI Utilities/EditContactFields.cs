@@ -4,13 +4,11 @@ using System.Globalization;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 
 namespace JPB_Framework.UI_Utilities
 {
     internal class EditContactFields
     {
-
 
         /// <summary>
         /// Sets the value for the First Name field
@@ -873,55 +871,56 @@ namespace JPB_Framework.UI_Utilities
             {
                 return;
             }
-            Actions action = new Actions(Driver.Instance);
-            action.SendKeys(Keys.Escape);
-            Driver.Wait(TimeSpan.FromSeconds(1));
+            Commands.PressEscapeKey();
             Report.Report.ToLogFile(MessageType.Message, $"The option {value} does not exist within the list.", null);
         }
-    }
 
-    internal static class ContactFields
-    {
-        public const string Phone = "Phone";
-        public const string Email = "Email";
-        public const string Address = "Address";
-        public const string OtherInfo = "Other Info";
 
-        public static class PhoneFields
+        private static class ContactFields
         {
-            public const string WorkPhone = "Work Phone";
-            public const string WorkPhone2 = "Work Phone 2";
-            public const string MobilePhone = "Mobile Phone";
-            public const string MobilePhone2 = "Mobile Phone 2";
-            public const string HomePhone = "Home Phone";
-            public const string HomePhone2 = "Home Phone 2";
-            public const string HomeFax = "Home Fax";
-            public const string WorkFax = "Work Fax";
-            public const string OtherPhone = "Other Phone";
-
-        }
-
-        public static class EmailFields
-        {
+            public const string Phone = "Phone";
             public const string Email = "Email";
-            public const string PersonalEmail = "Personal Email";
-            public const string OtherEmail = "Other Email";
-        }
+            public const string Address = "Address";
+            public const string OtherInfo = "Other Info";
 
-        public static class AddressFields
-        {
-            public const string Work = "Work";
-            public const string Home = "Home";
-            public const string Other = "Other";
-        }
+            public static class PhoneFields
+            {
+                public const string WorkPhone = "Work Phone";
+                public const string WorkPhone2 = "Work Phone 2";
+                public const string MobilePhone = "Mobile Phone";
+                public const string MobilePhone2 = "Mobile Phone 2";
+                public const string HomePhone = "Home Phone";
+                public const string HomePhone2 = "Home Phone 2";
+                public const string HomeFax = "Home Fax";
+                public const string WorkFax = "Work Fax";
+                public const string OtherPhone = "Other Phone";
 
-        public static class OtherInfoFields
-        {
-            public const string Salutation = "Title / Salutation";
-            public const string Nickname = "Nickname";
-            public const string JobTitle = "Job Title";
-            public const string Website = "Website";
-            public const string Religion = "Religion";
+            }
+
+            public static class EmailFields
+            {
+                public const string Email = "Email";
+                public const string PersonalEmail = "Personal Email";
+                public const string OtherEmail = "Other Email";
+            }
+
+            public static class AddressFields
+            {
+                public const string Work = "Work";
+                public const string Home = "Home";
+                public const string Other = "Other";
+            }
+
+            public static class OtherInfoFields
+            {
+                public const string Salutation = "Title / Salutation";
+                public const string Nickname = "Nickname";
+                public const string JobTitle = "Job Title";
+                public const string Website = "Website";
+                public const string Religion = "Religion";
+            }
         }
     }
+
+    
 }

@@ -7,7 +7,7 @@ namespace JPB_Framework.Pages
 {
     public class ImportPage
     {
-        public static bool IsAt => Driver.CheckIfIsAt("Import");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Import");
 
         /// <summary>
         /// Defines the path that contains the files to be imported.
@@ -20,7 +20,9 @@ namespace JPB_Framework.Pages
             return new ImportFileCommand();
         }
 
-
+        /// <summary>
+        /// Returns true if the successful import message is being shown
+        /// </summary>
         public static bool IsImportSuccessMessageShown
         {
             get
@@ -34,6 +36,9 @@ namespace JPB_Framework.Pages
             }
         }
 
+        /// <summary>
+        /// Returns true if the failed import message is being shown
+        /// </summary>
         public static bool IsImportFailedMessageShown
         {
             get
@@ -49,7 +54,10 @@ namespace JPB_Framework.Pages
 
 
 
-
+        /// <summary>
+        /// Issue an import file command. The file can either contain contacts or organizations
+        /// </summary>
+        /// <returns></returns>
         public static ImportFileCommand ImportFile()
         {
             var elements =

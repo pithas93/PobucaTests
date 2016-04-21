@@ -15,17 +15,23 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         /// Check if browser is at contacts list page
         /// </summary>
-        public static bool IsAt => Driver.CheckIfIsAt("Contacts");
+        public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts");
+
+        /// <summary>
+        /// Returns the total number of contacts being displayed in the record list currently displayed.
+        /// </summary>
+        /// <returns></returns>
+        public static int TotalContactsCount => Driver.GetTotalRecordsCount();
 
         /// <summary>
         /// Check if contact list is loaded properly
         /// </summary>
-        public static bool IsContactListLoaded => Driver.CheckIfRecordListIsLoaded(); 
+        public static bool IsContactListLoaded => Driver.CheckIfRecordListIsLoaded();
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in ascending order
         /// </summary>
-        public static bool IsContactListSortedByFirstNameAscending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Ascending); 
+        public static bool IsContactListSortedByFirstNameAscending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Ascending);
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in descending order
@@ -95,7 +101,7 @@ namespace JPB_Framework.Pages.Contacts
 
                 int departmentsCount = departmentsOptionList.Count;
 
-                for (int i=1; i<departmentsCount; i++)
+                for (int i = 1; i < departmentsCount; i++)
                 {
                     string previousDepartmentName = departmentsOptionList[i - 1].Text;
                     string currentDepartmentName = departmentsOptionList[i].Text;
@@ -114,7 +120,7 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         /// Selects a contact from the list. By default selects the first one
         /// </summary>
-        public static void OpenContact()
+        public static void OpenFirstContact()
         {
             Commands.OpenRecordFromListBySequence(1);
         }
@@ -123,11 +129,11 @@ namespace JPB_Framework.Pages.Contacts
         /// Issue a search command to find one or more contacts
         /// </summary>
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
-        public static SearchRecordCommand FindContact()
+        public static SearchContactCommand FindContact()
         {
             if (!IsAt) LeftSideMenu.GoToContacts();
-            return new SearchRecordCommand();
-        }    
+            return new SearchContactCommand();
+        }
 
         /// <summary>
         /// Issue a FilterBy command. Selects the filterby button from contact list page to reveal the filterby options
@@ -158,24 +164,8 @@ namespace JPB_Framework.Pages.Contacts
             return Commands.SelectRandomNumberOfRecords();
         }
 
-        /// <summary>
-        /// Returns the total number of contacts being displayed in the record list currently displayed.
-        /// </summary>
-        /// <returns></returns>
-        public static int GetTotalContactsCount()
-        {
-            return Driver.GetTotalRecordsCount();
-        }
 
-        public static bool FindDummyContacts()
-        {
-            return FindContact().WithFirstName(DummyData.FirstName).AndLastName(DummyData.LastName).Find();
-        }
 
-        public static void DeleteDummyContacts()
-        {
-            FindContact().WithFirstName(DummyData.FirstName).AndLastName(DummyData.LastName).Delete();
-        }
     }
 
 }
