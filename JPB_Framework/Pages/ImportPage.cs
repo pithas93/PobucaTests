@@ -1,4 +1,5 @@
 ﻿using System;
+using JPB_Framework.Navigation;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -60,6 +61,8 @@ namespace JPB_Framework.Pages
         /// <returns></returns>
         public static ImportFileCommand ImportFile()
         {
+            if (!IsAt) LeftSideMenu.GoToImports();
+
             var elements =
                 Driver.Instance.FindElements(By.CssSelector("div.radio.m-b-md label"));
 

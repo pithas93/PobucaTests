@@ -91,7 +91,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns></returns>
-        public EditContactCommand WithFirstName(string firstName)
+        public EditContactCommand WithNewFirstName(string firstName)
         {
             this.firstName = firstName;
             return this;
@@ -102,7 +102,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="lastName"></param>
         /// <returns></returns>
-        public EditContactCommand WithLastName(string lastName)
+        public EditContactCommand WithNewLastName(string lastName)
         {
             this.lastName = lastName;
             return this;
@@ -113,7 +113,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="organizationName"></param>
         /// <returns></returns>
-        public EditContactCommand WithOrganizationName(string organizationName)
+        public EditContactCommand WithNewOrganizationName(string organizationName)
         {
             this.organizationName = organizationName;
             return this;
@@ -124,7 +124,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="homePhone"></param>
         /// <returns></returns>
-        public EditContactCommand WithHomePhone(string homePhone)
+        public EditContactCommand WithNewHomePhone(string homePhone)
         {
             this.homePhone = homePhone;
             return this;
@@ -135,7 +135,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="workPhone"></param>
         /// <returns></returns>
-        public EditContactCommand WithWorkPhone(string workPhone)
+        public EditContactCommand WithNewWorkPhone(string workPhone)
         {
             this.workPhone = workPhone;
             return this;
@@ -146,7 +146,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="personalEmail"></param>
         /// <returns></returns>
-        public EditContactCommand WithPersonalEmail(string personalEmail)
+        public EditContactCommand WithNewPersonalEmail(string personalEmail)
         {
             this.personalEmail = personalEmail;
             return this;
@@ -157,7 +157,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="workCity"></param>
         /// <returns></returns>
-        public EditContactCommand WithWorkCity(string workCity)
+        public EditContactCommand WithNewWorkCity(string workCity)
         {
             this.workCity = workCity;
             return this;
@@ -168,7 +168,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="nickname"></param>
         /// <returns></returns>
-        public EditContactCommand WithNickname(string nickname)
+        public EditContactCommand WithNewNickname(string nickname)
         {
             this.nickname = nickname;
             return this;
@@ -178,7 +178,7 @@ namespace JPB_Framework.Pages.Contacts
         /// Sets dummy values for every field of the new contact
         /// </summary>
         /// <returns></returns>
-        internal EditContactCommand WithMultipleValues(List<Workflows.RecordField> basicContactFields, List<Workflows.RecordField> extraContactFields)
+        internal EditContactCommand WithMultipleNewValues(List<Workflows.RecordField> basicContactFields, List<Workflows.RecordField> extraContactFields)
         {
             firstName = basicContactFields.Find(x => x.Label.Contains("First Name")).Value;
             lastName = basicContactFields.Find(x => x.Label.Contains("Last Name")).Value;

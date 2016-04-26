@@ -95,7 +95,7 @@ namespace JPB_Framework.Selenium
         /// <param name="field">Defines the field according to which the record list should be sorted. It must be present on record list sort by filters</param>
         /// <param name="order">Defines if the record list should be sorted ascendingly or descendingly</param>
         /// <returns></returns>
-        public static bool CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField field, SortRecordsCommand.SortOrder order)
+        public static bool CheckIfRecordListIsSortedBy(SortContactsCommand.SortField field, SortContactsCommand.SortOrder order)
         {
             var recordList =Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
             int recordListCount = GetRecordListCount();
@@ -115,7 +115,7 @@ namespace JPB_Framework.Selenium
 
             switch (field)
             {
-                case SortRecordsCommand.SortField.FirstName:
+                case SortContactsCommand.SortField.FirstName:
                     {
                         for (var i = 0; i < recordListCount; i++)
                         {
@@ -126,7 +126,7 @@ namespace JPB_Framework.Selenium
                             // if there is no next record, there is no point continuing;
                             if (string.IsNullOrEmpty(nextRecordName.Text)) break;
 
-                            if (order == SortRecordsCommand.SortOrder.Ascending)
+                            if (order == SortContactsCommand.SortOrder.Ascending)
                             {
 
                                 if (string.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
@@ -137,7 +137,7 @@ namespace JPB_Framework.Selenium
                                     return false;
                                 }
                             }
-                            else if (order == SortRecordsCommand.SortOrder.Descending)
+                            else if (order == SortContactsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
@@ -151,7 +151,7 @@ namespace JPB_Framework.Selenium
                         }
                         return true;
                     }
-                case SortRecordsCommand.SortField.LastName:
+                case SortContactsCommand.SortField.LastName:
                     {
                         for (var i = 0; i < recordListCount; i++)
                         {
@@ -166,7 +166,7 @@ namespace JPB_Framework.Selenium
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordName.Text)) break;
 
-                            if (order == SortRecordsCommand.SortOrder.Ascending)
+                            if (order == SortContactsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordNameStr, nextRecordNameStr) == 1)
@@ -177,7 +177,7 @@ namespace JPB_Framework.Selenium
                                     return false;
                                 }
                             }
-                            else if (order == SortRecordsCommand.SortOrder.Descending)
+                            else if (order == SortContactsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordNameStr, nextRecordNameStr) == -1)
                                 {
@@ -191,7 +191,7 @@ namespace JPB_Framework.Selenium
                         }
                         return true;
                     }
-                case SortRecordsCommand.SortField.OrganizationName:
+                case SortContactsCommand.SortField.OrganizationName:
                     {
                         for (var i = 0; i < recordListCount; i++)
                         {
@@ -202,7 +202,7 @@ namespace JPB_Framework.Selenium
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordName.Text)) break;
 
-                            if (order == SortRecordsCommand.SortOrder.Ascending)
+                            if (order == SortContactsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
@@ -213,7 +213,7 @@ namespace JPB_Framework.Selenium
                                     return false;
                                 }
                             }
-                            else if (order == SortRecordsCommand.SortOrder.Descending)
+                            else if (order == SortContactsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
@@ -227,7 +227,7 @@ namespace JPB_Framework.Selenium
                         }
                         return true;
                     }
-                case SortRecordsCommand.SortField.City:
+                case SortContactsCommand.SortField.City:
                     {
                         for (var i = 0; i < recordListCount; i++)
                         {
@@ -238,7 +238,7 @@ namespace JPB_Framework.Selenium
                             // if there is no next record, there is no point continuing;
                             if (String.IsNullOrEmpty(nextRecordCity.Text)) break;
 
-                            if (order == SortRecordsCommand.SortOrder.Ascending)
+                            if (order == SortContactsCommand.SortOrder.Ascending)
                             {
 
                                 if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == 1)
@@ -249,7 +249,7 @@ namespace JPB_Framework.Selenium
                                     return false;
                                 }
                             }
-                            else if (order == SortRecordsCommand.SortOrder.Descending)
+                            else if (order == SortContactsCommand.SortOrder.Descending)
                             {
                                 if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == -1)
                                 {

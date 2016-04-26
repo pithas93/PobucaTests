@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 
 namespace JPB_Framework.UI_Utilities
 {
-    public class FilterRecordCommand
+    public class FilterContactsCommand
     {
         private bool favorites;
         private bool department;
@@ -15,7 +15,7 @@ namespace JPB_Framework.UI_Utilities
         private bool orphans;
         private List<Department> selectedDepartments;
 
-        public FilterRecordCommand()
+        public FilterContactsCommand()
         {
             favorites = false;
             department = false;
@@ -31,7 +31,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the allow email criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterRecordCommand AllowEmail()
+        public FilterContactsCommand AllowEmail()
         {
             allowEmail = true;
             return this;
@@ -41,7 +41,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the allow sms criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterRecordCommand AllowSMS()
+        public FilterContactsCommand AllowSMS()
         {
             allowSMS = true;
             return this;
@@ -51,7 +51,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the allow phones criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterRecordCommand AllowPhones()
+        public FilterContactsCommand AllowPhones()
         {
             allowPhones = true;
             return this;
@@ -61,7 +61,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the orphan criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterRecordCommand Orphans()
+        public FilterContactsCommand Orphans()
         {
             orphans = true;
             return this;
@@ -72,7 +72,7 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         /// <param name="department"></param>
         /// <returns></returns>
-        public FilterRecordCommand DepartmentIs(Department department)
+        public FilterContactsCommand DepartmentIs(Department department)
         {
             this.department = true;
             selectedDepartments.Add(department);
@@ -166,7 +166,7 @@ namespace JPB_Framework.UI_Utilities
         /// Exists just to improve test code readability
         /// </summary>
         /// <returns></returns>
-        public FilterRecordCommand And()
+        public FilterContactsCommand And()
         {
             return this;
         }
@@ -175,7 +175,7 @@ namespace JPB_Framework.UI_Utilities
         /// Exists just to improve test code readability
         /// </summary>
         /// <returns></returns>
-        public FilterRecordCommand Or()
+        public FilterContactsCommand Or()
         {
             return this;
         }

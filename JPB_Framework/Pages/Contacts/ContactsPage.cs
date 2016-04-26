@@ -30,22 +30,22 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in ascending order
         /// </summary>
-        public static bool IsContactListSortedByFirstNameAscending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Ascending);
+        public static bool IsContactListSortedByFirstNameAscending => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.FirstName, SortContactsCommand.SortOrder.Ascending);
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their first name, then by their last name, in descending order
         /// </summary>
-        public static bool IsContactListSortedByFirstNameDescending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.FirstName, SortRecordsCommand.SortOrder.Descending);
+        public static bool IsContactListSortedByFirstNameDescending => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.FirstName, SortContactsCommand.SortOrder.Descending);
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their last name, then by their first name, in ascending order
         /// </summary>
-        public static bool IsContactListSortedByLastNameAscending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Ascending);
+        public static bool IsContactListSortedByLastNameAscending => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.LastName, SortContactsCommand.SortOrder.Ascending);
 
         /// <summary>
         /// Checks whether or not, the contacts are sorted firstly by their last name, then by their first name, in descending order
         /// </summary>
-        public static bool IsContactListSortedByLastNameDescending => Driver.CheckIfRecordListIsSortedBy(SortRecordsCommand.SortField.LastName, SortRecordsCommand.SortOrder.Descending);
+        public static bool IsContactListSortedByLastNameDescending => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.LastName, SortContactsCommand.SortOrder.Descending);
 
         /// <summary>
         /// The total number of contacts being displayed by the contact list according to the corresponding label on the page
@@ -121,6 +121,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         public static void OpenFirstContact()
         {
+            if (!IsAt) LeftSideMenu.GoToContacts();
             Commands.OpenRecordFromListBySequence(1);
         }
 
@@ -138,20 +139,22 @@ namespace JPB_Framework.Pages.Contacts
         /// Issue a FilterBy command. Selects the filterby button from contact list page to reveal the filterby options
         /// </summary>
         /// <returns>A command upon which the filterby criteria are being build</returns>
-        public static FilterRecordCommand FilterBy()
+        public static FilterContactsCommand FilterBy()
         {
+            if (!IsAt) LeftSideMenu.GoToContacts();
             Commands.ClickFilterBy();
-            return new FilterRecordCommand();
+            return new FilterContactsCommand();
         }
 
         /// <summary>
         /// Issue a SortBy command. Selects the sortby button from contact list page to reveal the sortby options
         /// </summary>
         /// <returns>A command upon which the sortby criteria are being build</returns>
-        public static SortRecordsCommand SortBy()
+        public static SortContactsCommand SortBy()
         {
+            if (!IsAt) LeftSideMenu.GoToContacts();
             Commands.ClickSortBy();
-            return new SortRecordsCommand();
+            return new SortContactsCommand();
         }
 
         /// <summary>
@@ -160,6 +163,7 @@ namespace JPB_Framework.Pages.Contacts
         /// <returns>The count of contacts that where selected</returns>
         public static int SelectRandomNumberOfContacts()
         {
+            if (!IsAt) LeftSideMenu.GoToContacts();
             return Commands.SelectRandomNumberOfRecords();
         }
 

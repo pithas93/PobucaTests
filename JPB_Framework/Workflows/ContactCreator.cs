@@ -45,8 +45,6 @@ namespace JPB_Framework.Workflows
             }
         }
 
-
-
         /// <summary>
         /// Determines whether the newly created contact has all its field values saved correctly.
         /// Checks only the fields that were given a value when the contact was created.
@@ -76,14 +74,6 @@ namespace JPB_Framework.Workflows
                         null);
                     notOk = true;
 
-//
-//                    if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
-//                    {
-//                        Report.Report.ToLogFile(MessageType.Message,
-//                            $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'",
-//                            null);
-//                        notOk = true;
-//                    }
                 }
 
                 foreach (var contactField in ExtraContactFields)
@@ -99,15 +89,6 @@ namespace JPB_Framework.Workflows
                     else if (valuesAreBothEmpty && contactField.RecordViewPageIsFieldVisible)
                         Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page with value '{contactField.RecordViewPageFieldValue}'", null);
 
-
-
-//                    if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
-//                    {
-//                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
-//                        notOk = true;
-//                    }
-//                    else if ((contactField.Value == null) && contactField.RecordViewPageIsFieldVisible)
-//                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page'", null);
                 }
 
                 foreach (var contactField in BooleanOrganizationFields)
@@ -202,7 +183,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Delete every contact created by the test
+        /// If a contact was created by ContactCreator, it is deleted if it hasn't been already
         /// </summary>
         public static void CleanUp()
         {
@@ -298,7 +279,7 @@ namespace JPB_Framework.Workflows
 
 
         /// <summary>
-        /// Create a simple contact with dummy first and last name
+        /// Create a simple contact with dummy first and last name values.
         /// </summary>
         public static void CreateSimpleContact()
         {
@@ -467,7 +448,7 @@ namespace JPB_Framework.Workflows
             var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
             var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
 
-            EditContactPage.EditContact().WithFirstName(firstName).WithLastName(lastName).Edit();
+            EditContactPage.EditContact().WithNewFirstName(firstName).WithNewLastName(lastName).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("First Name", GetFieldPreviousValue("First Name"));
@@ -487,7 +468,7 @@ namespace JPB_Framework.Workflows
             var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
             var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
 
-            EditContactPage.EditContact().WithFirstName(firstName).WithLastName(lastName).WithOrganizationName(organizationName).Edit();
+            EditContactPage.EditContact().WithNewFirstName(firstName).WithNewLastName(lastName).WithNewOrganizationName(organizationName).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("First Name", GetFieldPreviousValue("First Name"));
@@ -503,7 +484,7 @@ namespace JPB_Framework.Workflows
 
             var lastName = SetFieldValue("Last Name", string.Empty);
 
-            EditContactPage.EditContact().WithLastName(lastName).Edit();
+            EditContactPage.EditContact().WithNewLastName(lastName).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("Last Name", GetFieldPreviousValue("Last Name"));
@@ -521,7 +502,7 @@ namespace JPB_Framework.Workflows
             var firstName = SetFieldValue("First Name", DummyData.OverflowValue);
             var lastName = SetFieldValue("Last Name", DummyData.OverflowValue);
 
-            EditContactPage.EditContact().WithFirstName(firstName).WithLastName(lastName).Edit();
+            EditContactPage.EditContact().WithNewFirstName(firstName).WithNewLastName(lastName).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("First Name", GetFieldPreviousValue("First Name"));
@@ -539,7 +520,7 @@ namespace JPB_Framework.Workflows
             var firstName = SetFieldValue("First Name", DummyData.NonsenseValue);
             var lastName = SetFieldValue("Last Name", DummyData.NonsenseValue);
 
-            EditContactPage.EditContact().WithFirstName(firstName).WithLastName(lastName).Edit();
+            EditContactPage.EditContact().WithNewFirstName(firstName).WithNewLastName(lastName).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("First Name", GetFieldPreviousValue("First Name"));
@@ -553,7 +534,7 @@ namespace JPB_Framework.Workflows
         {
             var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
 
-            EditContactPage.EditContact().WithOrganizationName(organizationName).WithHomePhone("123").Edit();
+            EditContactPage.EditContact().WithNewOrganizationName(organizationName).WithNewHomePhone("123").Edit();
         }
 
         /// <summary>
@@ -563,7 +544,7 @@ namespace JPB_Framework.Workflows
         {
             var organizationName = SetFieldValue("Organization Name", string.Empty);
 
-            EditContactPage.EditContact().WithOrganizationName(organizationName).Edit();
+            EditContactPage.EditContact().WithNewOrganizationName(organizationName).Edit();
         }
 
         /// <summary>
@@ -620,7 +601,7 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Gender", DummyData.GenderValue);
             SetFieldValue("Comments", DummyData.SimpleText);
 
-            EditContactPage.EditContact().WithMultipleValues(BasicContactFields, ExtraContactFields).Edit();
+            EditContactPage.EditContact().WithMultipleNewValues(BasicContactFields, ExtraContactFields).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("First Name", GetFieldPreviousValue("First Name"));
@@ -631,9 +612,7 @@ namespace JPB_Framework.Workflows
         /// Import file with 1 contact. Only first and last name fields have values
         /// </summary>
         public static void ImportSimpleContact()
-        {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
+        {          
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts1.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -647,8 +626,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithAllValues()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts2.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -706,8 +683,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithoutLastName()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts4.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -736,8 +711,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithNonsenseValues()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts7.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -794,8 +767,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithOverflowValues()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts8.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -809,8 +780,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithInvalidBirthdate1()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts100.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -825,8 +794,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithInvalidBirthdate2()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts101.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -841,8 +808,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportContactWithInvalidBirthdate3()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts102.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -857,8 +822,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportTemplateWithLessColumns()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts11.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -876,8 +839,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportTemplateWithMoreColumns()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts12.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -891,8 +852,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportTemplateWithoutMandatoryColumn()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts14.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
@@ -905,8 +864,6 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void ImportTemplateWithColumnsInRandomOrder()
         {
-            if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
-
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts16.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;

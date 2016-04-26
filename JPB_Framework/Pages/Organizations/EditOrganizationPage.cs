@@ -13,7 +13,7 @@ namespace JPB_Framework.Pages.Organizations
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization  /  Edit Organization");
 
         /// <summary>
-        /// Returns true if a contact was saved successfully after editing 
+        /// Returns true if an organization was saved successfully after editing 
         /// </summary>
         public static bool IsOrganizationSavedSuccessfully { get; set; }
 
@@ -23,10 +23,10 @@ namespace JPB_Framework.Pages.Organizations
         public static void GoTo() { Commands.ClickEdit(); }
 
         /// <summary>
-        /// Issue an command that instructs browser to change the value for some or every single field within edit contact page
+        /// Issue an command that instructs browser to change the value for some or every single field within edit organization page
         /// </summary>
         /// <returns></returns>
-        public static EditOrganizationCommand EditContact()
+        public static EditOrganizationCommand EditOrganization()
         {
             GoTo();
             return new EditOrganizationCommand();
@@ -68,19 +68,19 @@ namespace JPB_Framework.Pages.Organizations
         private string allowPhones;
         private string allowEmails;
 
-        public EditOrganizationCommand WithOrganizationName(string organizationName)
+        public EditOrganizationCommand WithNewOrganizationName(string organizationName)
         {
             this.organizationName = organizationName;
             return this;
         }
 
-        public EditOrganizationCommand WithPhone(string phone)
+        public EditOrganizationCommand WithNewPhone(string phone)
         {
             this.phone = phone;
             return this;
         }
 
-        internal EditOrganizationCommand WithMultipleValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields)
+        internal EditOrganizationCommand WithMultipleNewValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields)
         {
             organizationName = basicOrganizationFields.Find(x => x.Label.Contains("Organization Name")).Value;
             phone = basicOrganizationFields.Find(x => x.Label.Contains("Phone")).Value;
@@ -149,7 +149,7 @@ namespace JPB_Framework.Pages.Organizations
             if (allowEmails != null) EditOrganizationFields.AllowEmails = allowEmails;
 
             Driver.Wait(TimeSpan.FromSeconds(5));
-            NewOrganizationPage.IsOrganizationSavedSuccessfully = Commands.ClickSave();
+            EditOrganizationPage.IsOrganizationSavedSuccessfully = Commands.ClickSave();
         }
     }
 }

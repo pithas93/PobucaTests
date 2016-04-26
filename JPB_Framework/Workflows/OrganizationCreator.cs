@@ -24,6 +24,9 @@ namespace JPB_Framework.Workflows
 
         public static string OrganizationName => GetFieldValue("Organization Name");
 
+        /// <summary>
+        /// If an organization was created during test execution, returns true. 
+        /// </summary>
         public static bool OrganizationWasCreated
         {
             get
@@ -35,10 +38,10 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Determines whether the newly created contact has all its field values saved correctly.
-        /// Checks only the fields that were given a value when the contact was created.
+        /// Determines whether the newly created organization has all its field values saved correctly.
+        /// Checks every field that was given a value when the contact was created and asserts that fields that were not given values, are null or have the default values
         /// </summary>
-        /// <returns>True if all contact fields have the expected values. Returns false if at least one field does not have the expected value</returns>
+        /// <returns>True if all contact fields have the expected values. Returns false otherwise</returns>
         public static bool AreOrganizationFieldValuesSavedCorrectly
         {
             get
@@ -96,17 +99,17 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Returns true if contact was saved successfully on its creation.
+        /// Returns true if organization was saved successfully on its creation.
         /// </summary>
         public static bool IsOrganizationCreatedSuccessfully => NewOrganizationPage.IsOrganizationSavedSuccessfully;
 
         /// <summary>
-        /// Returns true if contact was saved successfully after edit.
+        /// Returns true if organization was saved successfully after edit.
         /// </summary>
         public static bool IsOrganizationSavedAfterEdit => EditOrganizationPage.IsOrganizationSavedSuccessfully;
 
         /// <summary>
-        /// Returns true if contact was imported successfully.
+        /// Returns true if organization was imported successfully.
         /// </summary>
         public static bool IsOrganizationImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
 
@@ -151,7 +154,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Delete every organization created by the test
+        /// If an organization was created by OrganizationCreator, it is deleted if it hasn't been already.
         /// </summary>
         public static void CleanUp()
         {
@@ -174,7 +177,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Sets the new value for a field of ContactCreator and then returns that value.
+        /// Sets the new value for a field of OrganizationCreator and then returns that value.
         /// </summary>
         /// <param name="fieldLabel">The field label of field that will have its value changed</param>
         /// <param name="newValue">The new value that will be assigned to the fields value property</param>
@@ -211,7 +214,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Sets the previous value for a field of ContactCreator and then returns that value.
+        /// Sets the previous value for a field of OrganizationCreator and then returns that value.
         /// </summary>
         /// <param name="fieldLabel">The field label of field that will have its value changed</param>
         /// <param name="previousValue">The previous value that will be assigned to the fields previous value property</param>
@@ -247,6 +250,12 @@ namespace JPB_Framework.Workflows
             throw new Exception();
         }
 
+
+        
+
+        /// <summary>
+        /// Create a simple organization with dummy organization name and phone values. 
+        /// </summary>
         public static void CreateSimpleOrganization()
         {
             var organizationName = SetFieldValue("Organization Name", DummyData.SimpleWord);
@@ -256,6 +265,40 @@ namespace JPB_Framework.Workflows
                 .WithOrganizationName(organizationName)
                 .WithPhone(phone)
                 .Create();
+        }
+
+        /// <summary>
+        /// Edit a simple organization changing its name and phone values to new dummy ones.
+        /// </summary>
+        public static void EditSimpleOrganization()
+        {
+            SetFieldPreviousValue("Organization Name", GetFieldValue("Organization Name"));
+            SetFieldPreviousValue("Phone", GetFieldValue("Phone"));
+
+            var organizationName = SetFieldValue("Organization Name", DummyData.SimpleWord);
+            var phone = SetFieldValue("Phone", DummyData.PhoneValue);
+
+            EditOrganizationPage.EditOrganization()
+                .WithNewOrganizationName(organizationName)
+                .WithNewPhone(phone)
+                .Edit();
+
+            if (EditOrganizationPage.IsOrganizationSavedSuccessfully) return;
+            SetFieldValue("Organization Name", GetFieldPreviousValue("Organization Name"));
+            SetFieldValue("Phone", GetFieldPreviousValue("Phone"));
+        }
+
+        /// <summary>
+        /// Import a simple organization with dummy organization and phone values.
+        /// </summary>
+        public static void ImportSimpleContact()
+        {
+            ImportPage.ImportFile().Containing(ImportFileType.Organizations).FromPath(ImportFilePath).WithFileName("Organizations1.xls").Submit();
+
+            if(!ImportPage.IsImportSuccessMessageShown) return;
+
+            SetFieldValue("Organization Name", "SiEBEN");
+            SetFieldValue("Phone", "2130179000");
         }
     }
 }

@@ -4,38 +4,38 @@ using OpenQA.Selenium;
 
 namespace JPB_Framework.UI_Utilities
 {
-    public class SortRecordsCommand
+    public class SortContactsCommand
     {
         private SortField field;
         private SortOrder order;
         private const string AscendindOrder = "f10 fa fa-arrow-up";
         private const string DescendindOrder = "f10 fa fa-arrow-down";
 
-        public SortRecordsCommand()
+        public SortContactsCommand()
         {
             field = SortField.FirstName;
             order = SortOrder.Ascending;
         }
 
-        public SortRecordsCommand FirstName()
+        public SortContactsCommand FirstName()
         {
             field = SortField.FirstName;
             return this;
         }
 
-        public SortRecordsCommand LastName()
+        public SortContactsCommand LastName()
         {
             field = SortField.LastName;
             return this;
         }
 
-        public SortRecordsCommand Ascending()
+        public SortContactsCommand Ascending()
         {
             order = SortOrder.Ascending;
             return this;
         }
 
-        public SortRecordsCommand Descending()
+        public SortContactsCommand Descending()
         {
             order = SortOrder.Descending;
             return this;

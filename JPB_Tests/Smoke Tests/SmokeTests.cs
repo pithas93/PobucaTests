@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.Smoke_Tests
 {
     [TestClass]
-    public class SmokeTests : JpbBaseTest
+    public class SmokeGeneralTests : JpbBaseTest
     {
         [TestMethod]
         public void Can_Login()
@@ -40,17 +40,16 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Edit_Contact()
         {
             ContactCreator.CreateSimpleContact();
-            AssertThat.IsTrue(ContactViewPage.IsAt, "Failed to open contact view");
             ContactCreator.EditSimpleContact();
-            AssertThat.IsTrue(ContactViewPage.IsAt, "Failed to open contact view");
+            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not saved successfully after edit");
+            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly after edit");
 
         }
 
-        
+
         [TestMethod]
         public void Can_Import_Contact_Template()
-        {
-            
+        {          
             ContactCreator.ImportSimpleContact();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported successfully");
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
@@ -77,14 +76,10 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Edit_Organization()
         {
-
-            LeftSideMenu.GoToOrganizations();
-            AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations page");
-
-            OrganizationsPage.OpenOrganization();
-            AssertThat.IsTrue(OrganizationViewPage.IsAt, "Failed to open organization view");
-            EditOrganizationPage.GoTo();
-            AssertThat.IsTrue(EditOrganizationPage.IsAt, "Failed to open organization for edit");
+            OrganizationCreator.CreateSimpleOrganization();
+            OrganizationCreator.EditSimpleOrganization();
+            AssertThat.IsTrue(OrganizationCreator.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit");
+            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
 
         }
 
@@ -92,14 +87,10 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Import_Organization_Template()
         {
-            LeftSideMenu.GoToImports();
-            ImportPage.ImportFile().Containing(ImportFileType.Organizations).FromPath(ImportFilePath).WithFileName("Organizations1.xls").Submit();
+            OrganizationCreator.ImportSimpleContact();
+            AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully");
+            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
 
-            OrganizationsPage.FindOrganization().WithOrganizationName("SiEBEN").Delete(DeleteType.OnlyOrganization);
-
-            LeftSideMenu.GoToOrganizations();
-            AssertThat.IsTrue(OrganizationsPage.IsAt, "Failed to show organizations list page");
-            VerifyThat.IsFalse(OrganizationsPage.FindOrganization().WithOrganizationName("SiEBEN").Find(), "Previously imported organization failed to be deleted");
-        }
+       }
     }
 }
