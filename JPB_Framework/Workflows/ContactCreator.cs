@@ -17,6 +17,7 @@ namespace JPB_Framework.Workflows
 
         private static List<RecordField> BasicContactFields;
         private static List<RecordField> ExtraContactFields;
+        private static List<RecordField> BooleanOrganizationFields;
         private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
         //        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
@@ -65,24 +66,60 @@ namespace JPB_Framework.Workflows
 
                 foreach (var contactField in BasicContactFields)
                 {
-                    if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
-                    {
-                        Report.Report.ToLogFile(MessageType.Message,
-                            $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'",
-                            null);
-                        notOk = true;
-                    }
+                    var valuesAreEqual = contactField.Value == contactField.RecordViewPageFieldValue;
+                    var valuesAreBothEmpty = (contactField.Value == null) && string.IsNullOrEmpty(contactField.RecordViewPageFieldValue);
+
+                    if (valuesAreEqual || valuesAreBothEmpty) continue;
+
+                    Report.Report.ToLogFile(MessageType.Message,
+                        $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'",
+                        null);
+                    notOk = true;
+
+//
+//                    if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
+//                    {
+//                        Report.Report.ToLogFile(MessageType.Message,
+//                            $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'",
+//                            null);
+//                        notOk = true;
+//                    }
                 }
 
                 foreach (var contactField in ExtraContactFields)
                 {
-                    if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
+                    var valuesAreEqual = contactField.Value == contactField.RecordViewPageFieldValue;
+                    var valuesAreBothEmpty = (contactField.Value == null) && string.IsNullOrEmpty(contactField.RecordViewPageFieldValue);
+
+                    if (!valuesAreEqual && !valuesAreBothEmpty)
                     {
                         Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
                         notOk = true;
                     }
-                    else if ((contactField.Value == null) && contactField.RecordViewPageIsFieldVisible)
-                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page'", null);
+                    else if (valuesAreBothEmpty && contactField.RecordViewPageIsFieldVisible)
+                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page with value '{contactField.RecordViewPageFieldValue}'", null);
+
+
+
+//                    if ((contactField.Value != null) && (contactField.Value != contactField.RecordViewPageFieldValue))
+//                    {
+//                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
+//                        notOk = true;
+//                    }
+//                    else if ((contactField.Value == null) && contactField.RecordViewPageIsFieldVisible)
+//                        Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page'", null);
+                }
+
+                foreach (var contactField in BooleanOrganizationFields)
+                {
+                    if (contactField.Value == null  && contactField.RecordViewPageFieldValue == "True") continue;
+                    string  expectedValue;
+                    if (string.IsNullOrEmpty(contactField.Value))
+                        expectedValue = "True";
+                    else
+                        expectedValue = contactField.Value;
+                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{expectedValue}'", null);
+                    notOk = true;
                 }
 
                 return !notOk;
@@ -113,6 +150,7 @@ namespace JPB_Framework.Workflows
         {
             BasicContactFields = new List<RecordField>();
             ExtraContactFields = new List<RecordField>();
+            BooleanOrganizationFields = new List<RecordField>();
 
             BasicContactFields.Add(new RecordField("First Name", null, () => ContactViewPage.FirstName, null));
             BasicContactFields.Add(new RecordField("Last Name", null, () => ContactViewPage.LastName, null));
@@ -121,10 +159,7 @@ namespace JPB_Framework.Workflows
             BasicContactFields.Add(new RecordField("Organization Name", null, () => ContactViewPage.OrganizationName, null));
             BasicContactFields.Add(new RecordField("Mobile Phone", null, () => ContactViewPage.MobilePhone, null));
             BasicContactFields.Add(new RecordField("Email", null, () => ContactViewPage.Email, null));
-            BasicContactFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSms, null));
-            BasicContactFields.Add(new RecordField("Allow Phones", null, () => ContactViewPage.AllowPhones, null));
-            BasicContactFields.Add(new RecordField("Allow Emails", null, () => ContactViewPage.AllowEmails, null));
-
+            
             ExtraContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, () => ContactViewPage.IsDepartmentFieldVisible));
             ExtraContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, () => ContactViewPage.IsWorkPhoneFieldVisible));
             ExtraContactFields.Add(new RecordField("Work Phone 2", null, () => ContactViewPage.WorkPhone2, () => ContactViewPage.IsWorkPhone2FieldVisible));
@@ -160,6 +195,9 @@ namespace JPB_Framework.Workflows
             ExtraContactFields.Add(new RecordField("Gender", null, () => ContactViewPage.Gender, () => ContactViewPage.IsGenderFieldVisible));
             ExtraContactFields.Add(new RecordField("Comments", null, () => ContactViewPage.Comments, () => ContactViewPage.IsCommentsFieldVisible));
 
+            BooleanOrganizationFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSms, null));
+            BooleanOrganizationFields.Add(new RecordField("Allow Phones", null, () => ContactViewPage.AllowPhones, null));
+            BooleanOrganizationFields.Add(new RecordField("Allow Emails", null, () => ContactViewPage.AllowEmails, null));
 
         }
 

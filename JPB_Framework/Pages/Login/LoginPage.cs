@@ -14,8 +14,18 @@ namespace JPB_Framework.Pages.Login
         public static void GoTo()
         {
             Driver.Instance.Navigate().GoToUrl(Driver.BaseAddress);
-            
 
+            try
+            {
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(15));
+                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector("form#loginForm")));
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to load login screen on time.", e);
+                throw e;
+
+            }
         }
 
         public static LoginCommand LoginAs(string username)
@@ -61,7 +71,7 @@ namespace JPB_Framework.Pages.Login
             // wait for organization list to load
             try
             {
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(60));
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(15));
                 wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
             }
             catch (WebDriverTimeoutException e)

@@ -75,14 +75,19 @@ namespace JPB_Framework.Workflows
                         Report.Report.ToLogFile(MessageType.Message, $"Field: {organizationField.Label} has value='{organizationField.RecordViewPageFieldValue}' but was expected to have value='{organizationField.Value}'", null);
                         notOk = true;
                     }
-                    else if ((organizationField.Value == null) && organizationField.RecordViewPageIsFieldVisible)
+                    else if (valuesAreBothEmpty && organizationField.RecordViewPageIsFieldVisible)
                         Report.Report.ToLogFile(MessageType.Message, $"Field: {organizationField.Label} has no value but its field is shown in contact's detail view page with value '{organizationField.RecordViewPageFieldValue}'", null);
                 }
 
                 foreach (var organizationField in BooleanOrganizationFields)
                 {
-                    if (organizationField.Value == null) continue;
-                    Report.Report.ToLogFile(MessageType.Message, $"Field: {organizationField.Label} has value='{organizationField.RecordViewPageFieldValue}' but was expected to have value='{organizationField.Value}'", null);
+                    if (organizationField.Value == null && organizationField.RecordViewPageFieldValue == "True") continue;
+                    string expectedValue;
+                    if (string.IsNullOrEmpty(organizationField.Value))
+                        expectedValue = "True";
+                    else
+                        expectedValue = organizationField.Value;
+                    Report.Report.ToLogFile(MessageType.Message, $"Field: {organizationField.Label} has value='{organizationField.RecordViewPageFieldValue}' but was expected to have value='{expectedValue}'", null);
                     notOk = true;
                 }
 
