@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JPB_Framework.Selenium;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 
 namespace JPB_Framework.UI_Utilities
@@ -13,7 +14,7 @@ namespace JPB_Framework.UI_Utilities
         private bool allowSMS;
         private bool allowPhones;
         private bool orphans;
-        private List<Department> selectedDepartments;
+        private List<string> selectedDepartments;
 
         public FilterContactsCommand()
         {
@@ -23,7 +24,7 @@ namespace JPB_Framework.UI_Utilities
             allowSMS = false;
             allowPhones = false;
             orphans = false;
-            selectedDepartments = new List<Department>();
+            selectedDepartments = new List<string>();
         }
 
 
@@ -31,7 +32,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the allow email criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterContactsCommand AllowEmail()
+        public FilterContactsCommand SelectingAllowEmail()
         {
             allowEmail = true;
             return this;
@@ -41,7 +42,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the allow sms criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterContactsCommand AllowSMS()
+        public FilterContactsCommand SelectingAllowSMS()
         {
             allowSMS = true;
             return this;
@@ -51,7 +52,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the allow phones criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterContactsCommand AllowPhones()
+        public FilterContactsCommand SelectingAllowPhones()
         {
             allowPhones = true;
             return this;
@@ -61,7 +62,7 @@ namespace JPB_Framework.UI_Utilities
         /// Set the orphan criteria true
         /// </summary>
         /// <returns></returns>
-        public FilterContactsCommand Orphans()
+        public FilterContactsCommand SelectingOrphans()
         {
             orphans = true;
             return this;
@@ -72,7 +73,7 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         /// <param name="department"></param>
         /// <returns></returns>
-        public FilterContactsCommand DepartmentIs(Department department)
+        public FilterContactsCommand SelectingDepartment(string department)
         {
             this.department = true;
             selectedDepartments.Add(department);
@@ -109,84 +110,108 @@ namespace JPB_Framework.UI_Utilities
                 Driver.Wait(TimeSpan.FromSeconds(1));
 
                 var departmentsOptionList =
-                    Driver.Instance.FindElements(By.CssSelector("div#department-dropdown .checkBoxContainer .multiSelectItem.ng-scope.vertical"));
+                    Driver.Instance.FindElements(By.CssSelector("div#department-dropdown .checkBoxContainer .multiSelectItem.ng-scope.vertical div label span"));
 
                 if (selectedDepartments.Count > 0)
                 {
-                    foreach (var dep in selectedDepartments)
+                    // Select the Department option
+                    foreach (var selectedDepartment in selectedDepartments)
                     {
-                        IWebElement departmentOption;
-                        switch (dep)
+                        foreach (var webElement in departmentsOptionList)
                         {
-                            case Department.Administration:
-                            {
-                                departmentOption = departmentsOptionList[0];
-                                break;
-                            }
-                            case Department.Consulting:
-                            {
-                                departmentOption = departmentsOptionList[1];
-                                break;
-                            }
-                            case Department.Logistics:
-                            {
-                                departmentOption = departmentsOptionList[6];
-                                break;
-                            }
-                            case Department.RnD:
-                            {
-                                departmentOption = departmentsOptionList[13];
-                                break;
-                            }
-                            case Department.Sales:
-                            {
-                                departmentOption = departmentsOptionList[14];
-                                break;
-                            }
-                            default:
-                            {
-                                departmentOption = departmentsOptionList[0];
-                                break;
-                            }
+                            if (webElement.Text != selectedDepartment) continue;
+                            webElement.FindElement(By.XPath("../../..")).Click();
+                            Driver.Wait(TimeSpan.FromSeconds(1));
+                            break;
                         }
-                        departmentOption.Click();
-                        Driver.Wait(TimeSpan.FromSeconds(1));
+
                     }
 
                     departmentListBtn.Click();
                     Driver.Wait(TimeSpan.FromSeconds(1));
-                }                
+                }
             }
 
             Driver.Wait(TimeSpan.FromSeconds(3));
 
         }
 
-        /// <summary>
-        /// Exists just to improve test code readability
-        /// </summary>
-        /// <returns></returns>
-        public FilterContactsCommand And()
-        {
-            return this;
-        }
-
-        /// <summary>
-        /// Exists just to improve test code readability
-        /// </summary>
-        /// <returns></returns>
-        public FilterContactsCommand Or()
-        {
-            return this;
-        }
     }
 
-    public enum Department
+    public class FilterOrganizationsCommand
     {
-        Logistics,
-        RnD,
-        Administration,
-        Consulting,
-        Sales
+        private List<string> selectedAccountTypes;
+
+        public FilterOrganizationsCommand()
+        {
+            selectedAccountTypes = new List<string>();
+        }
+
+        /// <summary>
+        /// Add an account type to the existing filter by criteria
+        /// </summary>
+        /// <param name="accountType"></param>
+        /// <returns></returns>
+        public FilterOrganizationsCommand SelectingAccountType(string accountType)
+        {
+            selectedAccountTypes.Add(accountType);
+            return this;
+        }
+
+        /// <summary>
+        /// Execute the filter command with the given options
+        /// </summary>
+        public void Filter()
+        {
+            var accountTypeOptionList =
+                Driver.Instance.FindElements(By.CssSelector(".checkboxLayer.show .checkBoxContainer .multiSelectItem.ng-scope.vertical div label span"));
+
+            // Select the Account Type options 
+            if (selectedAccountTypes.Count > 0)
+            {
+                foreach (var selectedAccountType in selectedAccountTypes)
+                {
+                    foreach (var webElement in accountTypeOptionList)
+                    {
+                        if (webElement.Text != selectedAccountType) continue;
+                        webElement.FindElement(By.XPath("../../..")).Click();
+                        Driver.Wait(TimeSpan.FromSeconds(1));
+                        break;
+                    }
+
+                }
+            }
+
+            Commands.ClickAccountTypeFilter();
+            Driver.Wait(TimeSpan.FromSeconds(1));
+        }
+
     }
+
+    public class Department
+    {
+        public static readonly string Logistics = " Logistics";
+        public static readonly string RnD = " Research and Development";
+        public static readonly string Administration = " Administration";
+        public static readonly string Consulting = " Consulting";
+        public static readonly string Sales = " Sales";
+    }
+
+    public class AccountType
+    {
+        public static readonly string Consultant = " Consultant";
+        public static readonly string Customer = " Customer";
+        public static readonly string Influencer = " Influencer";
+        public static readonly string Investor = " Investor";
+        public static readonly string Lead = " Lead";
+        public static readonly string Other = " Other";
+        public static readonly string Partner = " Partner";
+        public static readonly string Press = " Press";
+        public static readonly string Prospect = " Prospect";
+        public static readonly string Reseller = " Reseller";
+        public static readonly string Supplier = " Supplier";
+        public static readonly string Vendor = " Vendor";
+
+    }
+
 }

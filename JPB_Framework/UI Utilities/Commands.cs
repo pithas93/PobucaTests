@@ -145,11 +145,21 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// It clicks the "Filter By" button which is located above the contact/organization lists
+        /// It clicks the "Filter By" button located above the contact list in contact list page
         /// </summary>
         public static void ClickFilterBy()
         {
             var filterByBtn = Driver.Instance.FindElement(By.CssSelector("div#contacts-filters button.button.multiSelectButton.ng-binding"));
+            filterByBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
+        }
+
+        /// <summary>
+        /// It clicks the "Account Type" filter button located above the organization list in organization list page
+        /// </summary>
+        public static void ClickAccountTypeFilter()
+        {
+            var filterByBtn = Driver.Instance.FindElement(By.CssSelector("div#filter-account-type button.button.multiSelectButton.ng-binding"));
             filterByBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(1));
         }
@@ -200,7 +210,6 @@ namespace JPB_Framework.UI_Utilities
 
             return selectedContacts;
         }
-
 
 
     }

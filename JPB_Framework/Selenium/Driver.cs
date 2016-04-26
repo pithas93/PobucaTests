@@ -208,7 +208,7 @@ namespace JPB_Framework.Selenium
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
                                 {
                                     Report.Report.ToLogFile(MessageType.Message,
-                                        $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
+                                        $"Organization:'{currentRecordName.Text}' is before organization:'{nextRecordName.Text}' which is wrong. The list must be sorted by organization name ascending.",
                                         null);
                                     return false;
                                 }
@@ -218,7 +218,7 @@ namespace JPB_Framework.Selenium
                                 if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
                                 {
                                     Report.Report.ToLogFile(MessageType.Message,
-                                        $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
+                                        $"Organization:'{currentRecordName.Text}' is before organization:'{nextRecordName.Text}' which is wrong. The list must be sorted organization name descending.",
                                         null);
                                     return false;
                                 }

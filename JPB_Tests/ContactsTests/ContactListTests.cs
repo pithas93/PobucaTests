@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class ContactListTests : ContactsBaseTest
+    public class ContactListTests : JpbBaseTest
     {
         // Tests to be added
         /*
@@ -30,49 +30,46 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Filter_Using_Filter_By()
         {
-            ContactsPage.FilterBy().AllowEmail().Filter();
+            ContactsPage.FilterBy().SelectingAllowEmail().Filter();
             int expectedResult1 = 85;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
             LeftSideMenu.GoToContacts();
 
-            ContactsPage.FilterBy().AllowSMS().Filter();
+            ContactsPage.FilterBy().SelectingAllowSMS().Filter();
             int expectedResult2 = 75;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
             LeftSideMenu.GoToContacts();
 
-            ContactsPage.FilterBy().AllowPhones().Filter();
+            ContactsPage.FilterBy().SelectingAllowPhones().Filter();
             int expectedResult3 = 49;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
             LeftSideMenu.GoToContacts();
 
-            ContactsPage.FilterBy().Orphans().Filter();
+            ContactsPage.FilterBy().SelectingOrphans().Filter();
             int expectedResult4 = 17;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
             LeftSideMenu.GoToContacts();
 
-            ContactsPage.FilterBy().DepartmentIs(Department.Logistics).Filter();
+            ContactsPage.FilterBy().SelectingDepartment(Department.Logistics).Filter();
             int expectedResult5 = 13;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
             LeftSideMenu.GoToContacts();
 
-            ContactsPage.FilterBy().DepartmentIs(Department.Consulting).Filter();
+            ContactsPage.FilterBy().SelectingDepartment(Department.Consulting).Filter();
             int expectedResult6 = 57;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
             LeftSideMenu.GoToContacts();
 
-            ContactsPage.FilterBy().AllowEmail().And().DepartmentIs(Department.RnD).Filter();
+            ContactsPage.FilterBy().SelectingAllowEmail().SelectingDepartment(Department.RnD).Filter();
             int expectedResult7 = 7;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult7, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult7}");
             LeftSideMenu.GoToContacts();
 
             ContactsPage.FilterBy()
-                .AllowSMS()
-                .Or()
-                .AllowEmail()
-                .And()
-                .DepartmentIs(Department.Sales)
-                .Or()
-                .DepartmentIs(Department.Administration)
+                .SelectingAllowSMS()
+                .SelectingAllowEmail()
+                .SelectingDepartment(Department.Sales)
+                .SelectingDepartment(Department.Administration)
                 .Filter();
             int expectedResult8 = 22;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult8, $"The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult8}");
