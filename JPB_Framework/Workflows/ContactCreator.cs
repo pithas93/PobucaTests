@@ -17,8 +17,8 @@ namespace JPB_Framework.Workflows
 
         private static List<RecordField> BasicContactFields;
         private static List<RecordField> ExtraContactFields;
-                private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
-//        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        //        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
 
         public static string FirstName => GetFieldValue("First Name");
@@ -92,7 +92,7 @@ namespace JPB_Framework.Workflows
         /// <summary>
         /// Returns true if contact was saved successfully on its creation.
         /// </summary>
-        public static bool IsContactSavedSuccessfully => NewContactPage.IsContactSavedSuccessfully;
+        public static bool IsContactCreatedSuccessfully => NewContactPage.IsContactSavedSuccessfully;
 
         /// <summary>
         /// Returns true if contact was saved successfully after edit.
@@ -121,7 +121,7 @@ namespace JPB_Framework.Workflows
             BasicContactFields.Add(new RecordField("Organization Name", null, () => ContactViewPage.OrganizationName, null));
             BasicContactFields.Add(new RecordField("Mobile Phone", null, () => ContactViewPage.MobilePhone, null));
             BasicContactFields.Add(new RecordField("Email", null, () => ContactViewPage.Email, null));
-            BasicContactFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSMS, null));
+            BasicContactFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSms, null));
             BasicContactFields.Add(new RecordField("Allow Phones", null, () => ContactViewPage.AllowPhones, null));
             BasicContactFields.Add(new RecordField("Allow Emails", null, () => ContactViewPage.AllowEmails, null));
 

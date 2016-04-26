@@ -2,7 +2,6 @@
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
-using JPB_Framework.Workflows;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
@@ -213,7 +212,7 @@ namespace JPB_Framework.UI_Utilities
                 action.Perform();
                 record.FindElement(By.CssSelector("div[action='removeRelatedContact(contact)']")).Click();
                 Driver.Wait(TimeSpan.FromSeconds(2));
-                break;
+                return;
             }
             Report.Report.ToLogFile(MessageType.Message,
                 $"Contact with name {keyword} does not exist and so it cannot be removed from organization contact list",

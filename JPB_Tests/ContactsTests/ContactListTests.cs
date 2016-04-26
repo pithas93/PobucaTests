@@ -1,5 +1,4 @@
-﻿using JPB_Framework;
-using JPB_Framework.Navigation;
+﻿using JPB_Framework.Navigation;
 using JPB_Framework.Pages;
 using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
@@ -11,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class ContactListTests : JpbBaseTest
+    public class ContactListTests : ContactsBaseTest
     {
         // Tests to be added
         /*

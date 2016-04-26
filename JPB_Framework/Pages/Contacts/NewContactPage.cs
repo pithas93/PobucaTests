@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JPB_Framework.Navigation;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -33,6 +34,7 @@ namespace JPB_Framework.Pages.Contacts
         /// <returns> A command upon which the parameters for the new contact are specified</returns>
         public static CreateContactCommand CreateContact()
         {
+            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
             GoTo();
             return new CreateContactCommand();
         }

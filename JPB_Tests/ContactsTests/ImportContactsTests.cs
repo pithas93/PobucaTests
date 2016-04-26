@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class ImportContactsTests : JpbBaseTest
+    public class ImportContactsTests : ContactsBaseTest
     {
 
         // 1. Check that contacts template is successfully downloaded. Test not implemented because downloading files through automation is not suggested

@@ -65,9 +65,16 @@
     <Compile Include="ContactsTests\EditContactTests.cs" />
     <Compile Include="ContactsTests\ImportContactsTests.cs" />
     <Compile Include="ContactsTests\MinorContactTests.cs" />
+    <Compile Include="Organizations Tests\AddOrganizationTests.cs" />
+    <Compile Include="Organizations Tests\EditOrganizationTests.cs" />
+    <Compile Include="Organizations Tests\ImportOrganizationTests.cs" />
+    <Compile Include="Organizations Tests\MinorOrganizationTests.cs" />
+    <Compile Include="Organizations Tests\OrganizationListTests.cs" />
     <Compile Include="Smoke Tests\SmokeTests.cs" />
+    <Compile Include="Utilities\ContactsBaseTest.cs" />
     <Compile Include="Utilities\JpbBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\OrganizationsBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JPB_Framework\JPB_Framework.csproj">

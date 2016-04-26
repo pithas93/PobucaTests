@@ -1500,7 +1500,7 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
-        public static string AllowSMS
+        public static string AllowSms
         {
             get
             {

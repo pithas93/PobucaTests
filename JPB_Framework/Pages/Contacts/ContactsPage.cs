@@ -3,7 +3,6 @@ using JPB_Framework.Navigation;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
-using JPB_Framework.Workflows;
 using OpenQA.Selenium;
 
 namespace JPB_Framework.Pages.Contacts

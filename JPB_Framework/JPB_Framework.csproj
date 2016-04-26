@@ -70,6 +70,7 @@
     <Compile Include="Pages\TakeTourWindow.cs" />
     <Compile Include="Pages\ImportPage.cs" />
     <Compile Include="UI Utilities\EditContactFields.cs" />
+    <Compile Include="UI Utilities\EditOrganizationFields.cs" />
     <Compile Include="Workflows\ContactCreator.cs" />
     <Compile Include="Workflows\DummyData.cs" />
     <Compile Include="UI Utilities\SortContactCommand.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="UI Utilities\DeleteRecordCommand.cs" />
     <Compile Include="UI Utilities\ImportFileCommand.cs" />
     <Compile Include="UI Utilities\SearchRecordCommand.cs" />
+    <Compile Include="Workflows\OrganizationCreator.cs" />
     <Compile Include="Workflows\RecordField.cs" />
   </ItemGroup>
   <ItemGroup>

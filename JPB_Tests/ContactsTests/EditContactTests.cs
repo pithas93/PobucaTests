@@ -2,7 +2,6 @@
 using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
-using JPB_Framework.UI_Utilities;
 using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,7 +10,7 @@ namespace JPB_Tests.ContactsTests
 {
 
     [TestClass]
-    public class EditContactTests : JpbBaseTest
+    public class EditContactTests : ContactsBaseTest
     {
 
 

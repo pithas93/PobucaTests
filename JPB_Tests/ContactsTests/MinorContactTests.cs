@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JPB_Framework.Pages.Contacts;
+﻿using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
 using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
@@ -12,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class MinorContactTests : JpbBaseTest
+    public class MinorContactTests : ContactsBaseTest
     {
 
 //        Inside contact create/edit there is a comment field and below that there is a text length indicator.Check that it works correctly
