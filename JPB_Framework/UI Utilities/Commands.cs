@@ -113,9 +113,7 @@ namespace JPB_Framework.UI_Utilities
         /// <param name="record">The web element that corresponds to the record that will be selected</param>
         public static bool SelectRecord(IWebElement record)
         {
-            var action = new Actions(Driver.Instance);
-            action.MoveToElement(record);
-            action.Perform();
+            Driver.MoveToElement(record);
             var checkBox = record.FindElement(By.CssSelector(".icheckbox"));
             checkBox.Click();
             var tmp = checkBox.GetAttribute("class");

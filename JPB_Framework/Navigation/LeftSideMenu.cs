@@ -2,7 +2,6 @@
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.Navigation
@@ -18,9 +17,7 @@ namespace JPB_Framework.Navigation
             try
             {
                 var contactsBtn = Driver.Instance.FindElement(By.CssSelector("#Contacts"));
-                var action = new Actions(Driver.Instance);
-                action.MoveToElement(contactsBtn);
-                action.Perform();
+                Driver.MoveToElement(contactsBtn);
                 contactsBtn.Click();
 
                 // wait for organization list to load
@@ -29,7 +26,13 @@ namespace JPB_Framework.Navigation
             }
             catch (NoSuchElementException e)
             {
-                Report.Report.ToLogFile(MessageType.Message, "Browser was expected to be in Contacts Page but is not or page is not loaded properly", e);
+                Report.Report.ToLogFile(MessageType.Exception, "Browser was expected to be in Contacts Page but is not or page is not loaded properly", e);
+                throw e;
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to load Contacts Page on time.", e);
+                throw e;
             }
 
         }
@@ -42,9 +45,7 @@ namespace JPB_Framework.Navigation
             try
             {
                 var organizationsBtn = Driver.Instance.FindElement(By.CssSelector("#Companies"));
-                var action = new Actions(Driver.Instance);
-                action.MoveToElement(organizationsBtn);
-                action.Perform();
+                Driver.MoveToElement(organizationsBtn);
                 organizationsBtn.Click();
 
                 // wait for organization list to load
@@ -53,7 +54,14 @@ namespace JPB_Framework.Navigation
             }
             catch (NoSuchElementException e)
             {
-                Report.Report.ToLogFile(MessageType.Message, "Browser was expected to be in Organization Page but is not or page is not loaded properly", e);
+                Report.Report.ToLogFile(MessageType.Exception,
+                    "Browser was expected to be in Organization Page but is not or page is not loaded properly", e);
+                throw e;
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to load Organizations page on time.", e);
+                throw e;
             }
         }
 
@@ -65,9 +73,7 @@ namespace JPB_Framework.Navigation
             try
             {
                 var importsBtn = Driver.Instance.FindElement(By.CssSelector("#importEntButton"));
-                var action = new Actions(Driver.Instance);
-                action.MoveToElement(importsBtn);
-                action.Perform();
+                Driver.MoveToElement(importsBtn);
                 importsBtn.Click();
 
                 // wait for organization list to load
@@ -76,7 +82,13 @@ namespace JPB_Framework.Navigation
             }
             catch (NoSuchElementException e)
             {
-                Report.Report.ToLogFile(MessageType.Message, "Browser was expected to be in Imports Page but is not or page is not loaded properly", e);
+                Report.Report.ToLogFile(MessageType.Exception, "Browser was expected to be in Imports Page but is not or page is not loaded properly", e);
+                throw e;
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to load Imports Page on time.", e);
+                throw e;
             }
         }
     }

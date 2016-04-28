@@ -178,7 +178,7 @@ namespace JPB_Framework.Pages.Contacts
         /// Sets dummy values for every field of the new contact
         /// </summary>
         /// <returns></returns>
-        internal EditContactCommand WithMultipleNewValues(List<Workflows.RecordField> basicContactFields, List<Workflows.RecordField> extraContactFields)
+        internal EditContactCommand WithMultipleNewValues(List<Workflows.RecordField> basicContactFields, List<Workflows.RecordField> extraContactFields, List<Workflows.RecordField> booleanContactFields)
         {
             firstName = basicContactFields.Find(x => x.Label.Contains("First Name")).Value;
             lastName = basicContactFields.Find(x => x.Label.Contains("Last Name")).Value;
@@ -187,9 +187,6 @@ namespace JPB_Framework.Pages.Contacts
             organizationName = basicContactFields.Find(x => x.Label.Contains("Organization Name")).Value;
             mobilePhone = basicContactFields.Find(x => x.Label.Contains("Mobile Phone")).Value;
             email = basicContactFields.Find(x => x.Label.Contains("Email")).Value;
-            allowSms = basicContactFields.Find(x => x.Label.Contains("Allow SMS")).Value;
-            allowPhones = basicContactFields.Find(x => x.Label.Contains("Allow Phones")).Value;
-            allowEmails = basicContactFields.Find(x => x.Label.Contains("Allow Emails")).Value;
 
             department = extraContactFields.Find(x => x.Label.Contains("Department")).Value;
             workPhone = extraContactFields.Find(x => x.Label.Contains("Work Phone")).Value;
@@ -225,6 +222,10 @@ namespace JPB_Framework.Pages.Contacts
             birthdate = extraContactFields.Find(x => x.Label.Contains("Birthdate")).Value;
             gender = extraContactFields.Find(x => x.Label.Contains("Gender")).Value;
             comments = extraContactFields.Find(x => x.Label.Contains("Comments")).Value;
+
+            allowSms = booleanContactFields.Find(x => x.Label.Contains("Allow SMS")).Value;
+            allowPhones = booleanContactFields.Find(x => x.Label.Contains("Allow Phones")).Value;
+            allowEmails = booleanContactFields.Find(x => x.Label.Contains("Allow Emails")).Value;
 
             return this;
         }

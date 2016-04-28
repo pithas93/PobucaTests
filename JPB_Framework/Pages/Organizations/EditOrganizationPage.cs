@@ -80,16 +80,13 @@ namespace JPB_Framework.Pages.Organizations
             return this;
         }
 
-        internal EditOrganizationCommand WithMultipleNewValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields)
+        internal EditOrganizationCommand WithMultipleNewValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields, List<Workflows.RecordField> booleanOrganizationFields)
         {
             organizationName = basicOrganizationFields.Find(x => x.Label.Contains("Organization Name")).Value;
             phone = basicOrganizationFields.Find(x => x.Label.Contains("Phone")).Value;
             email = basicOrganizationFields.Find(x => x.Label.Contains("Email")).Value;
             fax = basicOrganizationFields.Find(x => x.Label.Contains("Fax")).Value;
             website = basicOrganizationFields.Find(x => x.Label.Contains("Website")).Value;
-            allowSms = basicOrganizationFields.Find(x => x.Label.Contains("Allow SMS")).Value;
-            allowPhones = basicOrganizationFields.Find(x => x.Label.Contains("Allow Phones")).Value;
-            allowEmails = basicOrganizationFields.Find(x => x.Label.Contains("Allow Emails")).Value;
 
             industry = extraOrganizationFields.Find(x => x.Label.Contains("Industry")).Value;
             accountType = extraOrganizationFields.Find(x => x.Label.Contains("Account Type")).Value;
@@ -110,6 +107,10 @@ namespace JPB_Framework.Pages.Organizations
             otherState = extraOrganizationFields.Find(x => x.Label.Contains("Other State")).Value;
             otherPostalCode = extraOrganizationFields.Find(x => x.Label.Contains("Other Postal Code")).Value;
             otherCountry = extraOrganizationFields.Find(x => x.Label.Contains("Other Country")).Value;
+
+            allowSms = booleanOrganizationFields.Find(x => x.Label.Contains("Allow SMS")).Value;
+            allowPhones = booleanOrganizationFields.Find(x => x.Label.Contains("Allow Phones")).Value;
+            allowEmails = booleanOrganizationFields.Find(x => x.Label.Contains("Allow Emails")).Value;
 
             return this;
         }

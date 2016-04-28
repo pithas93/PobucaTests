@@ -84,13 +84,11 @@ namespace JPB_Framework.Workflows
 
                 foreach (var organizationField in BooleanOrganizationFields)
                 {
-                    if (organizationField.Value == null && organizationField.RecordViewPageFieldValue == "True") continue;
                     string expectedValue;
-                    if (string.IsNullOrEmpty(organizationField.Value))
-                        expectedValue = "True";
-                    else
-                        expectedValue = organizationField.Value;
-                    Report.Report.ToLogFile(MessageType.Message, $"Field: {organizationField.Label} has value='{organizationField.RecordViewPageFieldValue}' but was expected to have value='{expectedValue}'", null);
+                    if (organizationField.Value == null && organizationField.RecordViewPageFieldValue == "True") continue;
+                    if (organizationField.Value == organizationField.RecordViewPageFieldValue) continue;
+
+                    Report.Report.ToLogFile(MessageType.Message, $"Field: {organizationField.Label} has value='{organizationField.RecordViewPageFieldValue}' but was expected to have value='{organizationField.Value}'", null);
                     notOk = true;
                 }
 
@@ -268,6 +266,45 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
+        /// Create an organization that has values assigned in every single field.
+        /// </summary>
+        public static void CreateOrganizationWithAllValues()
+        {
+            SetFieldValue("Organization Name", DummyData.SimpleWord);
+            SetFieldValue("Phone", DummyData.PhoneValue);
+            SetFieldValue("Email", DummyData.EmailValue);
+            SetFieldValue("Fax", DummyData.PhoneValue);
+            SetFieldValue("Website", DummyData.SimpleWord);
+            SetFieldValue("Allow SMS", DummyData.BooleanValue);
+            SetFieldValue("Allow Phones", DummyData.BooleanValue);
+            SetFieldValue("Allow Emails", DummyData.BooleanValue);
+
+            SetFieldValue("Industry", DummyData.IndustryValue);
+            SetFieldValue("Account Type", DummyData.AccountTypeValue);
+            SetFieldValue("Profession", DummyData.SimpleWord);
+            SetFieldValue("Comments", DummyData.SimpleText);
+            SetFieldValue("Billing Street", DummyData.AddressValue);
+            SetFieldValue("Billing City", DummyData.SimpleWord);
+            SetFieldValue("Billing State", DummyData.SimpleWord);
+            SetFieldValue("Billing Postal Code", DummyData.NumericValue);
+            SetFieldValue("Billing Country", DummyData.CountryValue);
+            SetFieldValue("Shipping Street", DummyData.AddressValue);
+            SetFieldValue("Shipping City", DummyData.SimpleWord);
+            SetFieldValue("Shipping State", DummyData.SimpleWord);
+            SetFieldValue("Shipping Postal Code", DummyData.NumericValue);
+            SetFieldValue("Shipping Country", DummyData.CountryValue);
+            SetFieldValue("Other Street", DummyData.AddressValue);
+            SetFieldValue("Other City", DummyData.SimpleWord);
+            SetFieldValue("Other State", DummyData.SimpleWord);
+            SetFieldValue("Other Postal Code", DummyData.NumericValue);
+            SetFieldValue("Other Country", DummyData.CountryValue);
+
+            NewOrganizationPage.CreateOrganization()
+                .WithMultipleValues(BasicOrganizationFields, ExtraOrganizationFields, BooleanOrganizationFields)
+                .Create();
+        }
+
+        /// <summary>
         /// Edit a simple organization changing its name and phone values to new dummy ones.
         /// </summary>
         public static void EditSimpleOrganization()
@@ -300,5 +337,7 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Organization Name", "SiEBEN");
             SetFieldValue("Phone", "2130179000");
         }
+
+       
     }
 }

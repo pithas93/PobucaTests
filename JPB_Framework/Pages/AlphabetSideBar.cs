@@ -7,9 +7,9 @@ namespace JPB_Framework.Pages
     public class AlphabetSideBar
     {
         /// <summary>
-        /// Selects a letter from the given alphabet at the alphabet side bar
+        /// Selects a letter from the given alphabet at the alphabet side bar.
         /// </summary>
-        /// <param name="character"></param>
+        /// <param name="character">The character which will be selected from the side bar, i.e.: LatinAlphabet.A or GreekAlphabet.Φ e.t.c.</param>
         public static void SelectLetter(object character)
         {
             SelectAlphabet(character.GetType().Name);
@@ -76,6 +76,7 @@ namespace JPB_Framework.Pages
         
 
     }
+
 
     /// <summary>
     /// The characters of the latin alphabet from the alphabet side bar. RestChars stands for the '#' character

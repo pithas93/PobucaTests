@@ -3,7 +3,6 @@ using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 
 namespace JPB_Framework.UI_Utilities
 {
@@ -207,9 +206,7 @@ namespace JPB_Framework.UI_Utilities
                 var firstAndLastName =
                     record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
                 if (!keyword.Equals(firstAndLastName)) continue;
-                var action = new Actions(Driver.Instance);
-                action.MoveToElement(record);
-                action.Perform();
+                Driver.MoveToElement(record);
                 record.FindElement(By.CssSelector("div[action='removeRelatedContact(contact)']")).Click();
                 Driver.Wait(TimeSpan.FromSeconds(2));
                 return;

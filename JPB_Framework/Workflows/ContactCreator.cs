@@ -17,7 +17,7 @@ namespace JPB_Framework.Workflows
 
         private static List<RecordField> BasicContactFields;
         private static List<RecordField> ExtraContactFields;
-        private static List<RecordField> BooleanOrganizationFields;
+        private static List<RecordField> BooleanContactFields;
         private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
         //        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
@@ -91,7 +91,7 @@ namespace JPB_Framework.Workflows
 
                 }
 
-                foreach (var contactField in BooleanOrganizationFields)
+                foreach (var contactField in BooleanContactFields)
                 {
                     if (contactField.Value == null  && contactField.RecordViewPageFieldValue == "True") continue;
                     string  expectedValue;
@@ -131,7 +131,7 @@ namespace JPB_Framework.Workflows
         {
             BasicContactFields = new List<RecordField>();
             ExtraContactFields = new List<RecordField>();
-            BooleanOrganizationFields = new List<RecordField>();
+            BooleanContactFields = new List<RecordField>();
 
             BasicContactFields.Add(new RecordField("First Name", null, () => ContactViewPage.FirstName, null));
             BasicContactFields.Add(new RecordField("Last Name", null, () => ContactViewPage.LastName, null));
@@ -176,9 +176,9 @@ namespace JPB_Framework.Workflows
             ExtraContactFields.Add(new RecordField("Gender", null, () => ContactViewPage.Gender, () => ContactViewPage.IsGenderFieldVisible));
             ExtraContactFields.Add(new RecordField("Comments", null, () => ContactViewPage.Comments, () => ContactViewPage.IsCommentsFieldVisible));
 
-            BooleanOrganizationFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSms, null));
-            BooleanOrganizationFields.Add(new RecordField("Allow Phones", null, () => ContactViewPage.AllowPhones, null));
-            BooleanOrganizationFields.Add(new RecordField("Allow Emails", null, () => ContactViewPage.AllowEmails, null));
+            BooleanContactFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSms, null));
+            BooleanContactFields.Add(new RecordField("Allow Phones", null, () => ContactViewPage.AllowPhones, null));
+            BooleanContactFields.Add(new RecordField("Allow Emails", null, () => ContactViewPage.AllowEmails, null));
 
         }
 
@@ -369,7 +369,7 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Gender", DummyData.GenderValue);
             SetFieldValue("Comments", DummyData.SimpleText);
 
-            NewContactPage.CreateContact().WithMultipleValues(BasicContactFields, ExtraContactFields).Create();
+            NewContactPage.CreateContact().WithMultipleValues(BasicContactFields, ExtraContactFields, BooleanContactFields).Create();
 
         }
 
@@ -434,7 +434,7 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Work City", string.Empty);
             SetFieldValue("Nickname", string.Empty);
 
-            NewContactPage.CreateContact().WithMultipleValues(BasicContactFields, ExtraContactFields).Create();
+            NewContactPage.CreateContact().WithMultipleValues(BasicContactFields, ExtraContactFields, BooleanContactFields).Create();
         }
 
         /// <summary>
@@ -601,7 +601,7 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Gender", DummyData.GenderValue);
             SetFieldValue("Comments", DummyData.SimpleText);
 
-            EditContactPage.EditContact().WithMultipleNewValues(BasicContactFields, ExtraContactFields).Edit();
+            EditContactPage.EditContact().WithMultipleNewValues(BasicContactFields, ExtraContactFields, BooleanContactFields).Edit();
 
             if (EditContactPage.IsContactSavedSuccessfully) return;
             SetFieldValue("First Name", GetFieldPreviousValue("First Name"));

@@ -81,6 +81,16 @@ namespace JPB_Framework.Workflows
         public static string DepartmentValue => RandomDepartment();
 
         /// <summary>
+        /// Get a random account type. Account type exists in account type list
+        /// </summary>
+        public static string AccountTypeValue => RandomAccountType();
+
+        /// <summary>
+        /// Get a random industry. Industry exists in industry list
+        /// </summary>
+        public static string IndustryValue => RandomIndustry();
+
+        /// <summary>
         /// Get a random word consisting of latin alphabet characters. Words are the names of the greek alphabet letters like alpha, beta, etc.
         /// </summary>
         /// <param name="size"></param>
@@ -212,8 +222,28 @@ namespace JPB_Framework.Workflows
             word.Append('@');
             word.Append(Words[random.Next(Words.Length)]);
             word.Append('.');
-            for (var i=0;i<3;i++) word.Append(Words[random.Next(LatinAlphabet.Length)]);
+            for (var i=0;i<3;i++) word.Append(LatinAlphabet[random.Next(LatinAlphabet.Length)]);
             return word.ToString();
+        }
+
+        /// <summary>
+        /// Get a random account type. The account type exists in account type list
+        /// </summary>
+        /// <returns></returns>
+        private static string RandomAccountType()
+        {
+            var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+            return AccountType[random.Next(AccountType.Length)];
+        }
+
+        /// <summary>
+        /// Get a random industry. The industry exists in industry list
+        /// </summary>
+        /// <returns></returns>
+        private static string RandomIndustry()
+        {
+            var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+            return Industry[random.Next(Industry.Length)];
         }
 
         private static string[] Words =
@@ -266,6 +296,17 @@ namespace JPB_Framework.Workflows
         {
             "KONICA MINOLTA","LUCA PRODUCTION SRL","KOSMOCAR","KNOW HOW CONSULTING",
             "MARATHON DATA SYSTEMS","MARITECH","LAWNET"
+        };
+
+        private static string[] Industry =
+        {
+            "Advertising & Media Services", "Agriculture", "Apparel", "Consumer Services", "Engineering Services", "Food & Beverage", "Machinery & Equipment",
+            "Office Supplies & Equipment", "Telecommunications", "Real Estate", "Other", "Medical & Healthcare", "Transportation & Logistics", "Wholesale"
+        };
+
+        private static string[] AccountType =
+        {
+            "Consultant", "Customer", "Influencer", "Partner", "Investor", "Prospect", "Reseller", "Supplier"
         };
 
     }

@@ -16,11 +16,27 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static bool IsOrganizationListLoaded => Driver.CheckIfRecordListIsLoaded();
 
-        public static bool IsOrganizationListSortedByNameAsceding => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.OrganizationName,SortContactsCommand.SortOrder.Ascending);
+        public static bool IsOrganizationListSortedByNameAscending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.OrganizationName, SortOrganizationsCommand.SortOrder.Ascending);
 
-        public static bool IsOrganizationListSortedByNameDesceding => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.OrganizationName, SortContactsCommand.SortOrder.Descending);
+        public static bool IsOrganizationListSortedByNameDescending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.OrganizationName, SortOrganizationsCommand.SortOrder.Descending);
 
+        public static bool IsOrganizationListSortedByCityAscending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.City, SortOrganizationsCommand.SortOrder.Ascending);
+
+        public static bool IsOrganizationListSortedByCityDescending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.City, SortOrganizationsCommand.SortOrder.Descending);
+
+        public static bool IsOrganizationListSortedByProfessionAscending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.Profession, SortOrganizationsCommand.SortOrder.Ascending);
+
+        public static bool IsOrganizationListSortedByProfessionDescending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.Profession, SortOrganizationsCommand.SortOrder.Descending);
+
+        /// <summary>
+        /// The total number of organizations being displayed by the organization list according to the corresponding label on the page
+        /// </summary>
         public static int OrganizationsBeingDisplayed => Driver.GetRecordListCount();
+
+        /// <summary>
+        /// The total number of organizations being selected in the organization list according to the corresponding label on the page
+        /// </summary>
+        public static int OrganizationsBeingSelected => Driver.GetSelectedRecordsCount();
 
         /// <summary>
         /// Selects an organization from the list. By default selects the first one
@@ -50,6 +66,23 @@ namespace JPB_Framework.Pages.Organizations
             if (!IsAt) LeftSideMenu.GoToOrganizations();
             Commands.ClickAccountTypeFilter();
             return new FilterOrganizationsCommand();
+        }
+
+        public static SortOrganizationsCommand SortBy()
+        {
+            if (!IsAt) LeftSideMenu.GoToOrganizations();
+            Commands.ClickSortBy();
+            return new SortOrganizationsCommand();
+        }
+
+        /// <summary>
+        /// Selects a random number of up to 20 organizations from a list of no more than 40 organizations. 
+        /// </summary>
+        /// <returns>The count of contacts that where selected</returns>
+        public static int SelectRandomNumberOfOrganizations()
+        {
+            if (!IsAt) LeftSideMenu.GoToOrganizations();
+            return Commands.SelectRandomNumberOfRecords();
         }
     }
 

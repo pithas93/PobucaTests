@@ -128,7 +128,8 @@ namespace JPB_Framework.Pages.Organizations
                 if (!string.IsNullOrEmpty(element.Text))
                 {
                     string str = element.Text;
-                    return str.Split(':')[1];
+                    
+                    return str.Split(':')[1].Trim();
                 }
                 return string.Empty;
             }
@@ -151,7 +152,7 @@ namespace JPB_Framework.Pages.Organizations
                 if (!string.IsNullOrEmpty(element.Text))
                 {
                     string str = element.Text;
-                    return str.Split(':')[1];
+                    return str.Split(':')[1].Trim();
                 }
                 return string.Empty;
             }
@@ -174,7 +175,7 @@ namespace JPB_Framework.Pages.Organizations
                 if (!string.IsNullOrEmpty(element.Text))
                 {
                     string str = element.Text;
-                    return str.Split(':')[1];
+                    return str.Split(':')[1].Trim();
                 }
                 return string.Empty;
             }
@@ -440,7 +441,7 @@ namespace JPB_Framework.Pages.Organizations
                     IWebElement element = null;
                     Driver.NoWait(
                         () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']"));
+                    var element2 = element.FindElement(By.CssSelector("div[ng-show='myaddresscountry']"));
                     string text = element2.Text;
                     if (text != null)
                         return text;
@@ -670,7 +671,7 @@ namespace JPB_Framework.Pages.Organizations
                     IWebElement element = null;
                     Driver.NoWait(
                         () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']"));
+                    var element2 = element.FindElement(By.CssSelector("div[ng-show='myaddresscountry']"));
                     string text = element2.Text;
                     if (text != null)
                         return text;
@@ -900,7 +901,7 @@ namespace JPB_Framework.Pages.Organizations
                     IWebElement element = null;
                     Driver.NoWait(
                         () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']"));
+                    var element2 = element.FindElement(By.CssSelector("div[ng-show='myaddresscountry']"));
                     string text = element2.Text;
                     if (text != null)
                         return text;
