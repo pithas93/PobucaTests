@@ -1,4 +1,5 @@
 ﻿using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
@@ -19,7 +20,6 @@ namespace JPB_Tests.ContactsTests
         public void Call_A_Contact_Telephone_Number()
         {
             ContactCreator.CreateSimpleContact();
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
             AssertThat.IsTrue(ContactViewPage.IsMobileNumberCallable, "Contact mobile phone is not callable");
         }
 
@@ -47,7 +47,18 @@ namespace JPB_Tests.ContactsTests
 
         }
 
+        [TestMethod]
+        public void Make_A_Contact_Primary_From_Within_Organization()
+        {
+            ContactCreator.CreateSimpleContact();
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
+            OrganizationViewPage.FindContactFromOrganizationContactList()
+                .WithFirstName(ContactCreator.FirstName)
+                .AndLastName(ContactCreator.LastName)
+                .MakePrimaryContact();
 
+            AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, ContactCreator.FullName, $"Contact '{ContactCreator.FullName}' was expected to be primary but instead contact {OrganizationViewPage.PrimaryContact} was found");
+        }
 
     }
 }

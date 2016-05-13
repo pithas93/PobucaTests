@@ -24,6 +24,7 @@ namespace JPB_Framework.Workflows
 
         public static string FirstName => GetFieldValue("First Name");
         public static string LastName => GetFieldValue("Last Name");
+        public static string FullName => $"{GetFieldValue("First Name")} {GetFieldValue("Last Name")}";
         public static string OrganizationName => GetFieldValue("Organization Name");
 
         public static string Birthdate => GetFieldValue("Birthdate");

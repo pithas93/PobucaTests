@@ -248,7 +248,25 @@ namespace JPB_Framework.UI_Utilities
                 return;
             }
             Report.Report.ToLogFile(MessageType.Message,
-                $"Contact with name {keyword} does not exist and so it cannot be removed from organization contact list",
+                $"Contact with name {keyword} does not exist within organization contact list and so it cannot be removed",
+                null);
+        }
+
+        public void MakePrimaryContact()
+        {
+            var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            foreach (var record in records)
+            {
+                var firstAndLastName =
+                    record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
+                if (!keyword.Equals(firstAndLastName)) continue;
+                Driver.MoveToElement(record);
+                record.FindElement(By.CssSelector("div[action='makePrimary(group, contact)']")).Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+                return;
+            }
+            Report.Report.ToLogFile(MessageType.Message,
+                $"Contact with name {keyword} does not exist within organization contact list and so it cannot be made primary",
                 null);
         }
     }

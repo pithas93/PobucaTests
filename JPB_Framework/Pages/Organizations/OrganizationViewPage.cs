@@ -14,6 +14,18 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization View");
 
+        public static bool IsPhoneNumberCallable { get
+            {
+                var element =
+                    Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Phone'] a.ng-scope"));
+                var href = element.GetAttribute("href");
+                var expectedTelephoneLink = $"tel:{Phone}";
+                return (href == expectedTelephoneLink);
+            }
+        }
+
+        
+
         /// <summary>
         /// Issue delete command from an organization's detail view page
         /// </summary>
@@ -955,6 +967,7 @@ namespace JPB_Framework.Pages.Organizations
             }
         }
 
+        
     }
 
 }

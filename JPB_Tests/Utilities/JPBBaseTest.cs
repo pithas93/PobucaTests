@@ -48,6 +48,7 @@ namespace JPB_Tests.Utilities
             }
             catch (WebDriverTimeoutException)
             {
+                Report.ToLogFile(MessageType.Message, "Reseting browser because the test failed to initialize properly.", null);
                 Driver.Reinitialize(Browser.Firefox);
                 LoginPage.GoTo();
                 LoginPage.LoginAs(Username).WithPassword(Password).Login();
