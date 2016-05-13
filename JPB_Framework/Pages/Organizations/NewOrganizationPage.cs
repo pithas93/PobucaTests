@@ -93,6 +93,18 @@ namespace JPB_Framework.Pages.Organizations
             return this;
         }
 
+        public CreateOrganizationCommand WithBillingStreet(string billingStreet)
+        {
+            this.billingStreet = billingStreet;
+            return this;
+        }
+
+        public CreateOrganizationCommand WithProfession(string profession)
+        {
+            this.profession = profession;
+            return this;
+        }
+
         internal CreateOrganizationCommand WithMultipleValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields, List<Workflows.RecordField> booleanOrganizationFields)
         {
             organizationName = basicOrganizationFields.Find(x => x.Label.Contains("Organization Name")).Value;

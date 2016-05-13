@@ -4,6 +4,7 @@ using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.Workflows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 
 namespace JPB_Tests.Utilities
 {
@@ -41,7 +42,17 @@ namespace JPB_Tests.Utilities
             Driver.Initialize(Browser.Firefox);
 
             LoginPage.GoTo();
-            LoginPage.LoginAs(Username).WithPassword(Password).Login();
+            try
+            {
+                LoginPage.LoginAs(Username).WithPassword(Password).Login();
+            }
+            catch (WebDriverTimeoutException)
+            {
+                Driver.Reinitialize(Browser.Firefox);
+                LoginPage.GoTo();
+                LoginPage.LoginAs(Username).WithPassword(Password).Login();
+            }
+            
             TakeTourWindow.Close();
         }
 

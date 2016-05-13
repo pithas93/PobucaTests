@@ -185,6 +185,17 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
+        /// Sets the birthdate for the new contact
+        /// </summary>
+        /// <param name="birthdate"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithBirthdate(string birthdate)
+        {
+            this.birthdate = birthdate;
+            return this;
+        }
+
+        /// <summary>
         /// Sets dummy values for every field of the new contact
         /// </summary>
         /// <returns></returns>

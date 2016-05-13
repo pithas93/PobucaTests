@@ -54,6 +54,16 @@ namespace JPB_Framework.Selenium
         }
 
         /// <summary>
+        /// Instructs web driver to restart itself
+        /// </summary>
+        /// <param name="type"></param>
+        public static void Reinitialize(Browser type)
+        {
+            Close();
+            Initialize(type);
+        }
+
+        /// <summary>
         /// Deactivate driver wait timeout for a specific action
         /// </summary>
         /// <param name="action"></param>

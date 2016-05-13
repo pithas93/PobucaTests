@@ -131,7 +131,6 @@ namespace JPB_Framework.Pages.Contacts
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
         public static SearchContactCommand FindContact()
         {
-            if (!IsAt) LeftSideMenu.GoToContacts();
             return new SearchContactCommand();
         }
 

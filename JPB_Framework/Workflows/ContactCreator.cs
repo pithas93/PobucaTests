@@ -65,7 +65,7 @@ namespace JPB_Framework.Workflows
                 foreach (var contactField in BasicContactFields)
                 {
                     var valuesAreEqual = contactField.Value == contactField.RecordViewPageFieldValue;
-                    var valuesAreBothEmpty = (contactField.Value == null) && string.IsNullOrEmpty(contactField.RecordViewPageFieldValue);
+                    var valuesAreBothEmpty = string.IsNullOrEmpty(contactField.Value) && string.IsNullOrEmpty(contactField.RecordViewPageFieldValue);
 
                     if (valuesAreEqual || valuesAreBothEmpty) continue;
 
@@ -93,13 +93,10 @@ namespace JPB_Framework.Workflows
 
                 foreach (var contactField in BooleanContactFields)
                 {
-                    if (contactField.Value == null  && contactField.RecordViewPageFieldValue == "True") continue;
-                    string  expectedValue;
-                    if (string.IsNullOrEmpty(contactField.Value))
-                        expectedValue = "True";
-                    else
-                        expectedValue = contactField.Value;
-                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{expectedValue}'", null);
+                    if (contactField.Value == null && contactField.RecordViewPageFieldValue == "True") continue;
+                    if (contactField.Value == contactField.RecordViewPageFieldValue) continue;
+
+                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
                     notOk = true;
                 }
 
@@ -221,6 +218,8 @@ namespace JPB_Framework.Workflows
                 BasicContactFields.Find(x => x.Label.Contains(fieldLabel)).Value = newValue;
             else if (ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)).Value = newValue;
+            else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
+                BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).Value = newValue;
             else
                 throw new Exception();
 
@@ -238,6 +237,8 @@ namespace JPB_Framework.Workflows
                 return BasicContactFields.Find(x => x.Label.Contains(fieldLabel)).Value;
             else if (ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)).Value;
+            else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
+                return BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).Value;
 
             throw new Exception();
         }
@@ -254,6 +255,8 @@ namespace JPB_Framework.Workflows
                 BasicContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue = previousValue;
             else if (ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue = previousValue;
+            else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
+                BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue = previousValue;
             else
                 throw new Exception();
 
@@ -271,7 +274,8 @@ namespace JPB_Framework.Workflows
                 return BasicContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
             else if (ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
-
+            else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
+                return BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
             throw new Exception();
         }
 
@@ -374,7 +378,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Create a contact without value in last name field
+        /// Create a contact with first name value but without value in last name field
         /// </summary>
         public static void CreateContactWithoutLastName()
         {
@@ -412,20 +416,21 @@ namespace JPB_Framework.Workflows
         {
             var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
             var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
-            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
+            var organizationName = SetFieldValue("Organization Name", DummyData.SimpleWord);
+            var homePhone = SetFieldValue("Home Phone", DummyData.PhoneValue);
 
             NewContactPage.CreateContact()
                 .WithFirstName(firstName)
                 .WithLastName(lastName)
                 .WithOrganizationName(organizationName)
-                .WithHomePhone("123")
+                .WithHomePhone(homePhone)
                 .Create();
         }
 
         /// <summary>
         /// Create a contact with null string values in extra fields. Each extra field belongs to one of the extra fields categories
         /// </summary>
-        public static void CreateContactWithNullValues()
+        public static void CreateContactWithNullValuesInExtraFields()
         {
             SetFieldValue("First Name", DummyData.SimpleWord);
             SetFieldValue("Last Name", DummyData.SimpleWord);
@@ -532,9 +537,10 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void EditContactAssigningInvalidOrganization()
         {
-            var organizationName = SetFieldValue("Organization Name", DummyData.OrganizationValue);
+            var organizationName = SetFieldValue("Organization Name", DummyData.SimpleWord);
+            var homePhone = SetFieldValue("Home Phone", DummyData.PhoneValue);
 
-            EditContactPage.EditContact().WithNewOrganizationName(organizationName).WithNewHomePhone("123").Edit();
+            EditContactPage.EditContact().WithNewOrganizationName(organizationName).WithNewHomePhone(homePhone).Edit();
         }
 
         /// <summary>

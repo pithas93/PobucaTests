@@ -1,4 +1,5 @@
 ﻿using System;
+using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
@@ -8,6 +9,14 @@ namespace JPB_Framework.UI_Utilities
 {
     public class SearchRecordCommand
     {
+        /// <summary>
+        /// The action that navigate browser to a given page in order to execute the search command
+        /// </summary>
+        protected Action navigateCommand { get; set; }
+
+        /// <summary>
+        /// The search criteria with which the records will be identified
+        /// </summary>
         protected string keyword;
 
         public SearchRecordCommand()
@@ -42,6 +51,8 @@ namespace JPB_Framework.UI_Utilities
         /// <returns>Returns true if at least one record exists in the record list after the search execution</returns>
         public bool Find()
         {
+            navigateCommand?.Invoke();
+
             if (!OrganizationViewPage.IsAt) Commands.SearchFor(keyword);
 
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
@@ -56,11 +67,13 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Direct the search command to execute itself and then open the record matching to the keyword. 
+        /// Direct the search command to execute itself and then open the first record matching to the keyword. 
         /// Applicable for Contact/Organization lists and contact list within organization view page
         /// </summary>
         public void Open()
         {
+            navigateCommand?.Invoke();
+
             if (!OrganizationViewPage.IsAt) Commands.SearchFor(keyword);
 
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
@@ -82,6 +95,14 @@ namespace JPB_Framework.UI_Utilities
 
     public class SearchContactCommand : SearchRecordCommand
     {
+
+        /// <summary>
+        /// Instructs the search command that the search command will be executed on contact list page
+        /// </summary>
+        public SearchContactCommand()
+        {
+            navigateCommand = LeftSideMenu.GoToContacts;
+        }
 
         /// <summary>
         /// Direct the search command to search for contacts with specific first name
@@ -110,6 +131,8 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         public void Delete()
         {
+            navigateCommand?.Invoke();
+
             Commands.SearchFor(keyword);
             var selecteddRecordsCount = Commands.SelectRecordsMatching(keyword);
             if (selecteddRecordsCount > 0) new DeleteRecordCommand().Delete();
@@ -123,6 +146,14 @@ namespace JPB_Framework.UI_Utilities
 
     public class SearchOrganizationCommand : SearchRecordCommand
     {
+
+        /// <summary>
+        /// Instructs the search command that the search command will be executed on organization list page
+        /// </summary>
+        public SearchOrganizationCommand()
+        {
+            navigateCommand = LeftSideMenu.GoToOrganizations;
+        }
 
         /// <summary>
         /// Direct the search command to search for organizations with specific organization name
@@ -141,6 +172,8 @@ namespace JPB_Framework.UI_Utilities
         /// <param name="option"> Defines if contacts linked to the organization will be also deleted or if the will become orphan</param>
         public void Delete(DeleteType option)
         {
+            navigateCommand();
+
             Commands.SearchFor(keyword);
             var selecteddRecordsCount = Commands.SelectRecordsMatching(keyword);
             if (selecteddRecordsCount > 0)
@@ -198,6 +231,9 @@ namespace JPB_Framework.UI_Utilities
             return this;
         }
 
+        /// <summary>
+        /// Applicable only for contacts within organization view page contact list. Directs the search command to be executed and remove any contacts matching the search criteria.
+        /// </summary>
         public void Remove()
         {
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));

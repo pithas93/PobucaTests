@@ -64,9 +64,9 @@ namespace JPB_Framework.UI_Utilities
 
             foreach (var fileTypeRadio in fileTypeRadios)
             {
-                string radioText = fileTypeRadio.FindElement(By.CssSelector("span.f14")).Text;
+                string radioText = fileTypeRadio.FindElement(By.CssSelector("label")).Text;
                 if (radioText != dataType) continue;
-                fileTypeRadio.Click();
+                fileTypeRadio.FindElement(By.CssSelector("label")).Click();
                 break;
             }
 

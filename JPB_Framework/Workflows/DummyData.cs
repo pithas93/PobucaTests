@@ -102,7 +102,7 @@ namespace JPB_Framework.Workflows
             for (var i = 0; i < size; i++)
             {
                 word.Append(Words[random.Next(Words.Length)]);
-                if (i%3 == 0) word.Append(' ');
+                if (i>0 && i%3 == 0) word.Append(' ');
             }
 
             return word.ToString();
@@ -173,7 +173,9 @@ namespace JPB_Framework.Workflows
 
             word.Append(random.Next(1,28));
             word.Append('-');
-            word.Append(random.Next(1, 12));
+            var month = random.Next(1, 12);
+            if (month < 10) word.Append('0');
+            word.Append(month);
             word.Append('-');
             word.Append(random.Next(1926, 2016));
             return word.ToString();

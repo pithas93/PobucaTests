@@ -120,6 +120,24 @@ namespace JPB_Framework.Pages.Organizations
 
         // REQUIRED FIELDS END ///////////////////////////////////////////////////////////
 
+        public static string PrimaryContact
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("div#primary-contact-box"));
+                if (!element.Displayed) return string.Empty;
+                return element.FindElement(By.CssSelector("font.name.font-regular.m-b-sm.ng-binding")).Text;
+            }
+        }
+        public static bool IsPrimaryContactFieldVisible
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("div#primary-contact-box"));
+                return element.Displayed;
+            }
+        }
+
         public static string Industry
         {
             get

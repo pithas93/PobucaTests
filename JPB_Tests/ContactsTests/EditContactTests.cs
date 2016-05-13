@@ -42,7 +42,7 @@ namespace JPB_Tests.ContactsTests
 
         // Edit contact with mandatory field value deletion
         [TestMethod]
-        public void Edit_Contact_And_Delete_Mandatory_Field_Value()
+        public void Cannot_Save_Contact_After_Leaving_Mandatory_Fields_Empty()
         {
             ContactCreator.CreateSimpleContact();
             ContactCreator.EditContactRemovingLastName();
@@ -52,7 +52,7 @@ namespace JPB_Tests.ContactsTests
 
         // Edit contact and assign character overflow values
         [TestMethod]
-        public void Edit_Contact_And_Assign_Overflow_Values()
+        public void Cannot_Save_Contact_After_Assigning_OverFlown_Field_Values()
         {
             ContactCreator.CreateSimpleContact();
             ContactCreator.EditContactAssigningOverflowValues();
@@ -73,7 +73,7 @@ namespace JPB_Tests.ContactsTests
 
         // Edit contact and link contact with non existant organization
         [TestMethod]
-        public void Edit_Contact_And_Assign_Invalid_Organization()
+        public void Cannot_Assign_Invalid_Organization_After_Edit()
         {
             ContactCreator.CreateSimpleContact();
             ContactCreator.EditContactAssigningInvalidOrganization();
@@ -97,11 +97,9 @@ namespace JPB_Tests.ContactsTests
         public void Remove_Contact_From_Organization_Contact_List()
         {
             ContactCreator.CreateSimpleContact();
-            LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
             OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Remove();
 
-            LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
             AssertThat.IsFalse(
                 OrganizationViewPage.

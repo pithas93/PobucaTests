@@ -26,6 +26,12 @@ namespace JPB_Tests.ContactsTests
 
         }
 
+        [TestMethod]
+        public void tester()
+        {
+            NewContactPage.CreateContact().WithBirthdate("27-01-1990").Create();
+        }
+
         /// <summary>
         /// Create 1 contact from within an organization view page. The contact has first, last and organization name field values
         /// </summary>
@@ -45,7 +51,7 @@ namespace JPB_Tests.ContactsTests
         /// Assert that is not possible to create a contact without assinging value to last name field which is mandatory
         /// </summary>
         [TestMethod]
-        public void Create_Contact_Without_Values_In_Mandatory_Field()
+        public void Cannot_Leave_Contact_Mandatory_Fields_Empty()
         {
             ContactCreator.CreateContactWithoutLastName();
             AssertThat.IsFalse(ContactCreator.IsContactCreatedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
@@ -56,7 +62,7 @@ namespace JPB_Tests.ContactsTests
         /// Assert that is not possible to create a contact if at least one field contains a value that exceeds 50 characters
         /// </summary>
         [TestMethod]
-        public void Create_Contact_With_Overflown_Field_Values()
+        public void Cannot_Save_Contact_With_Overflown_Field_Values()
         {
             ContactCreator.CreateContactWithOverflowValues();
             AssertThat.IsFalse(ContactCreator.IsContactCreatedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
@@ -79,7 +85,7 @@ namespace JPB_Tests.ContactsTests
         /// Assert that during contact creation, assigning a non-existant organization to the respective field, results in the field value being auto-cleared
         /// </summary>
         [TestMethod]
-        public void Create_Contact_With_Invalid_Organization()
+        public void Cannot_Assign_Invalid_Organization_Field_Value()
         {
             ContactCreator.CreateContactWithInvalidOrganization();
             AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
@@ -92,7 +98,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Create_Contact_With_Extra_Null_Fields()
         {
-            ContactCreator.CreateContactWithNullValues();
+            ContactCreator.CreateContactWithNullValuesInExtraFields();
             AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
             AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
         }

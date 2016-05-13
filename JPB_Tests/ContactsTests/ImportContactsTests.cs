@@ -1,4 +1,5 @@
-﻿using JPB_Framework.Report;
+﻿using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Report;
 using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -83,7 +84,8 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithInvalidBirthdate1();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.AreEqual(ContactCreator.Birthdate,"", $"Contact birthdate value is {ContactCreator.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            AssertThat.AreEqual(ContactViewPage.Birthdate,"", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.Birthdate} which is invalid.");
 
         }
 
@@ -95,7 +97,8 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithInvalidBirthdate2();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.AreEqual(ContactCreator.Birthdate, "", $"Contact birthdate value is {ContactCreator.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.Birthdate} which is invalid.");
 
         }
 
@@ -107,7 +110,8 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithInvalidBirthdate3();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.AreEqual(ContactCreator.Birthdate, "", $"Contact birthdate value is {ContactCreator.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.Birthdate} which is invalid.");
 
         }
 
