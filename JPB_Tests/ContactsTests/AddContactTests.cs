@@ -11,7 +11,7 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class AddContactTests : ContactsBaseTest
     {
-
+        // oti otan mpaineis na dimiourgiseis contact apo organization, oti to organization einai kleidwmeno
 
 
         /// <summary>
@@ -26,12 +26,6 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        [TestMethod]
-        public void tester()
-        {
-            NewContactPage.CreateContact().WithBirthdate("27-01-1990").Create();
-        }
-
         /// <summary>
         /// Create 1 contact from within an organization view page. The contact has first, last and organization name field values
         /// </summary>
@@ -39,7 +33,7 @@ namespace JPB_Tests.ContactsTests
         public void Create_Contact_From_Within_Organization()
         {
             LeftSideMenu.GoToOrganizations();
-            OrganizationsPage.OpenOrganization();
+            OrganizationsPage.OpenFirstOrganization();
             ContactCreator.CreateSimpleContactFromWithinOrganization();
             AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not saved successfully but it should.");
             OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();

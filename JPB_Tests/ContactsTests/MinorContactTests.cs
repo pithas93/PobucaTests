@@ -1,4 +1,5 @@
-﻿using JPB_Framework.Pages.Contacts;
+﻿using JPB_Framework.Navigation;
+using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Workflows;
@@ -12,6 +13,11 @@ namespace JPB_Tests.ContactsTests
     {
 
 //        Inside contact create/edit there is a comment field and below that there is a text length indicator.Check that it works correctly
+//        Oti de otan eisageis hmeromhnia me to datepicker, exei th swsth morfh kai einai egkyrh h hmeromhnia
+//          Oti sta combo fields de fernei guid times
+//          Oti sta combo oi times einai alphabitika topo8ethmenes
+//          Oti otan mpaineis se ena contact mesa apo to organization contact list, to path einai swsto
+//          oti mporeis na kaneis call apo thl ths epafh ston contact list
 
         /// <summary>
         /// Check that clicking a telephone number within a contact, results in showing a dialog to select an app to dial the number or automatically calls the number.
@@ -47,18 +53,8 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        [TestMethod]
-        public void Make_A_Contact_Primary_From_Within_Organization()
-        {
-            ContactCreator.CreateSimpleContact();
-            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
-            OrganizationViewPage.FindContactFromOrganizationContactList()
-                .WithFirstName(ContactCreator.FirstName)
-                .AndLastName(ContactCreator.LastName)
-                .MakePrimaryContact();
 
-            AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, ContactCreator.FullName, $"Contact '{ContactCreator.FullName}' was expected to be primary but instead contact {OrganizationViewPage.PrimaryContact} was found");
-        }
+
 
     }
 }

@@ -11,9 +11,11 @@ namespace JPB_Tests.ContactsTests
     {
 
         // 1. Check that contacts template is successfully downloaded. Test not implemented because downloading files through automation is not suggested
-        // 5. Import contacts - only mandatory fields are filled. Organization field takes existent value
         // 9. Import contacts - Test the max imported contact threshold
         // 15. Import contacts - Template contains duplicate contacts
+        //          -an h timh einai idia gia dyo epafes tote 8a eisagetai h mia apo tis 2 kai oles oi ypoloipes epityxws
+        // oti mporw na kanw export apo to outlook kai gmail ta contacts mou kai na ta kanw import me thn epilogh csv.file
+
 
         /// <summary>
         /// Import a contact template that contains 1 contact that has value in every contact field

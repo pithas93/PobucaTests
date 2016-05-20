@@ -38,6 +38,7 @@ namespace JPB_Tests.Utilities
         [TestInitialize]
         public void SetUpTest()
         {
+            Report.InitializeReportFile();
             Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
             Driver.Initialize(Browser.Firefox);
 
@@ -63,6 +64,7 @@ namespace JPB_Tests.Utilities
             
             Driver.Close();
             Report.Finalize(TestContext.FullyQualifiedTestClassName, TestContext.TestName, TestContext.CurrentTestOutcome);
+//            Report.FinalizeReportFile();
         }
     }
 }

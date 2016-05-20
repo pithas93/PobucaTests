@@ -91,6 +91,19 @@ namespace JPB_Framework.UI_Utilities
                 $"Record with name {keyword} does not exist and so it cannot be opened.", null);
         }
 
+        /// <summary>
+        /// Direct the search command to execute itself and then select the records matching to the keyword. 
+        /// Applicable for Contact/Organization list pages.
+        /// </summary>
+        public void Select()
+        {
+            navigateCommand?.Invoke();
+
+            Commands.SearchFor(keyword);
+
+            Commands.SelectRecordsMatching(keyword);
+
+        }
     }
 
     public class SearchContactCommand : SearchRecordCommand
@@ -99,9 +112,9 @@ namespace JPB_Framework.UI_Utilities
         /// <summary>
         /// Instructs the search command that the search command will be executed on contact list page
         /// </summary>
-        public SearchContactCommand()
+        public SearchContactCommand(Action navigateAction)
         {
-            navigateCommand = LeftSideMenu.GoToContacts;
+            navigateCommand = navigateAction;
         }
 
         /// <summary>
@@ -150,9 +163,9 @@ namespace JPB_Framework.UI_Utilities
         /// <summary>
         /// Instructs the search command that the search command will be executed on organization list page
         /// </summary>
-        public SearchOrganizationCommand()
+        public SearchOrganizationCommand(Action navigateAction)
         {
-            navigateCommand = LeftSideMenu.GoToOrganizations;
+            navigateCommand = navigateAction;
         }
 
         /// <summary>
@@ -182,20 +195,20 @@ namespace JPB_Framework.UI_Utilities
                 switch (option)
                 {
                     case DeleteType.OnlyOrganization:
-                    {
-                        command.OnlyOrganization();
-                        break;
-                    }
+                        {
+                            command.OnlyOrganization();
+                            break;
+                        }
                     case DeleteType.WithContacts:
-                    {
-                        command.WithContacts();
-                        break;
-                    }
+                        {
+                            command.WithContacts();
+                            break;
+                        }
                     default:
-                    {
-                        command.OnlyOrganization();
-                        break;
-                    }
+                        {
+                            command.OnlyOrganization();
+                            break;
+                        }
                 }
             }
             else
@@ -208,6 +221,7 @@ namespace JPB_Framework.UI_Utilities
 
     public class SearchOrganizationContactListCommand : SearchRecordCommand
     {
+        private int sequence;
 
         /// <summary>
         /// Direct the search command to search for contacts with specific first name
@@ -232,19 +246,42 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
+        /// Direct the search command to find a contact from its position inside the contact list
+        /// </summary>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
+        public SearchOrganizationContactListCommand BySequence(int sequence)
+        {
+            this.sequence = sequence;
+            return this;
+        }
+
+        /// <summary>
         /// Applicable only for contacts within organization view page contact list. Directs the search command to be executed and remove any contacts matching the search criteria.
         /// </summary>
         public void Remove()
         {
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+            try
+            {
+                if (!sequence.Equals(null))
+                {
+                    Commands.ClickContactRemoveButton(records[sequence - 1]);
+                    return;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "You choose to remove a contact that does not exist, probably because there are not that many contacts in the list.", null);
+            }
+
             foreach (var record in records)
             {
                 var firstAndLastName =
                     record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
                 if (!keyword.Equals(firstAndLastName)) continue;
-                Driver.MoveToElement(record);
-                record.FindElement(By.CssSelector("div[action='removeRelatedContact(contact)']")).Click();
-                Driver.Wait(TimeSpan.FromSeconds(2));
+                Commands.ClickContactRemoveButton(record);
                 return;
             }
             Report.Report.ToLogFile(MessageType.Message,
@@ -252,23 +289,40 @@ namespace JPB_Framework.UI_Utilities
                 null);
         }
 
+        /// <summary>
+        /// Applicable only for contacts within organization view page contact list. Directs the search command to be executed and make primary the contact that matches the search criteria.
+        /// </summary>
         public void MakePrimaryContact()
         {
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+            try
+            {
+                if (!sequence.Equals(null))
+                {
+                    Commands.ClickContactPrimaryButton(records[sequence - 1]);
+                    return;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "You choose to make primary a contact that does not exist, probably because there are not that many contacts in the list.", null);
+            }
+
             foreach (var record in records)
             {
                 var firstAndLastName =
                     record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
                 if (!keyword.Equals(firstAndLastName)) continue;
-                Driver.MoveToElement(record);
-                record.FindElement(By.CssSelector("div[action='makePrimary(group, contact)']")).Click();
-                Driver.Wait(TimeSpan.FromSeconds(2));
+                Commands.ClickContactPrimaryButton(record);
                 return;
             }
             Report.Report.ToLogFile(MessageType.Message,
                 $"Contact with name {keyword} does not exist within organization contact list and so it cannot be made primary",
                 null);
         }
+
+
     }
 }
 

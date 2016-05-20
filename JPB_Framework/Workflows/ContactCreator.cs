@@ -284,7 +284,7 @@ namespace JPB_Framework.Workflows
 
 
         /// <summary>
-        /// Create a simple contact with dummy first and last name values.
+        /// Create a simple contact with dummy first, last and organization name and phone values.
         /// </summary>
         public static void CreateSimpleContact()
         {
@@ -298,6 +298,23 @@ namespace JPB_Framework.Workflows
                 .WithFirstName(firstName)
                 .WithLastName(lastName)
                 .WithOrganizationName(organizationName)
+                .WithMobilePhone(mobilePhone)
+                .Create();
+
+        }
+
+        /// <summary>
+        /// Create a simple contact with dummy first, last name and phone values.
+        /// </summary>
+        public static void CreateSimpleOrphanContact()
+        {
+            var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
+            var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
+            var mobilePhone = SetFieldValue("Mobile Phone", DummyData.PhoneValue);
+
+            NewContactPage.CreateContact()
+                .WithFirstName(firstName)
+                .WithLastName(lastName)
                 .WithMobilePhone(mobilePhone)
                 .Create();
 

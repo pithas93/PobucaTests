@@ -12,7 +12,7 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class EditContactTests : ContactsBaseTest
     {
-
+        // oti otan mpaineis na kaneis edit contact mesa apo to organization, ta pedia einai prosymplhrwmena swsta
 
         // Edit every contact field of a contact - normal case
         [TestMethod]
@@ -31,7 +31,7 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.CreateSimpleContact();
             OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Find();
-            OrganizationsPage.OpenOrganization();
+            OrganizationsPage.OpenFirstOrganization();
             OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
 
             ContactCreator.EditSimpleContactWithOrganization();

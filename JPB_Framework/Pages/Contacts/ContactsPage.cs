@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using JPB_Framework.Navigation;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
@@ -117,7 +118,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Selects a contact from the list. By default selects the first one
+        /// Opens the first contact from the contact list, to view its details
         /// </summary>
         public static void OpenFirstContact()
         {
@@ -131,7 +132,7 @@ namespace JPB_Framework.Pages.Contacts
         /// <returns>A search command with upon which you can search additional fields that match first name</returns>
         public static SearchContactCommand FindContact()
         {
-            return new SearchContactCommand();
+            return new SearchContactCommand(LeftSideMenu.GoToContacts);
         }
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace JPB_Framework.Pages.Contacts
         public static int SelectRandomNumberOfContacts()
         {
             if (!IsAt) LeftSideMenu.GoToContacts();
-            return Commands.SelectRandomNumberOfRecords();
+            return Commands.SelectRandomNumberOfRecords(0);
         }
 
 

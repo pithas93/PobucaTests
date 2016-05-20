@@ -35,32 +35,9 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public static bool IsContactShareableTo(string email)
-        {
+        public static bool IsContactShareableTo(string email) => Commands.IsRecordShareableTo(email);
 
-            var shareModalWindow = Driver.Instance.FindElement(By.CssSelector("div#showShareVCardModal"));
-            var isModalShown = shareModalWindow.GetAttribute("class");
-            if (isModalShown == "modal fade ng-scope in")
-            {
-                shareModalWindow.FindElement(By.CssSelector("button.btn.btn-default")).Click();
-                Driver.Wait(TimeSpan.FromSeconds(2));
-            }
-            Commands.ClickShare();
 
-            var shareEmailField = shareModalWindow.FindElement(By.CssSelector("input#shareVcardInput"));
-            
-            if (shareEmailField.GetAttribute("value") != "")
-            {
-                Report.Report.ToLogFile(MessageType.Message, "Share contact input email field was not empty.", null);
-                shareEmailField.Clear();
-                Driver.Wait(TimeSpan.FromSeconds(2));
-            }
-
-            shareEmailField.SendKeys(email);
-            var shareBtn = shareModalWindow.FindElement(By.CssSelector("button#shareBtn"));
-            Driver.Wait(TimeSpan.FromSeconds(2));
-            return (shareBtn.Enabled);
-        }
 
         /// <summary>
         /// Issue delete command from a contact's detail view page

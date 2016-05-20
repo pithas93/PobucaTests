@@ -14,7 +14,12 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization View");
 
-        public static bool IsPhoneNumberCallable { get
+        /// <summary>
+        /// Returns true if the organization phone number is callable when it is clicked
+        /// </summary>
+        public static bool IsPhoneNumberCallable
+        {
+            get
             {
                 var element =
                     Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Phone'] a.ng-scope"));
@@ -24,7 +29,26 @@ namespace JPB_Framework.Pages.Organizations
             }
         }
 
-        
+        /// <summary>
+        /// Checks if the input for the share window email address field complies with the email format. 
+        /// Returns true if the Share button is enabled.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool IsOrganizationShareableTo(string email) => Commands.IsRecordShareableTo(email);
+
+        /// <summary>
+        /// Get the full name for a contact specified by its position within contact list
+        /// </summary>
+        /// <param name="sequence">The position of the contact within contact list</param>
+        /// <returns></returns>
+        public static string GetContactFullNameBySequence(int sequence)
+        {
+            var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+            Driver.MoveToElement(records[sequence - 1]);
+            return records[sequence - 1].FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
+        }
 
         /// <summary>
         /// Issue delete command from an organization's detail view page
@@ -45,27 +69,22 @@ namespace JPB_Framework.Pages.Organizations
         }
 
         /// <summary>
-        /// Issue a create new contact command, from within organization view page, with given first name
+        /// Issue a create new contact command, from within organization view page
         /// </summary>
         /// <returns></returns>
         public static CreateContactCommand CreateContact()
         {
-            var element = Driver.Instance.FindElement(By.CssSelector("a.dropdown-toggle.p-none"));
-            element.Click();
-            Driver.Wait(TimeSpan.FromSeconds(1));
-            var str = element.GetAttribute("aria-haspopup");
-            if (str.Equals("true"))
-            {
-                var createNewContactBtn = Driver.Instance.FindElements(By.CssSelector("#related-contacts-section .dropdown-menu.animated.fadeInRight.m-t-xs a"))[1];
-                createNewContactBtn.Click();
-            }
-            else
-            {
-                Report.Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
-                throw new Exception();
-            }
-
+            Commands.ClickCreateNewContactForOrganizationButton();
             return new CreateContactCommand();
+        }
+
+        /// <summary>
+        /// Issue an add existing contact to organization contact list command, from within organization view page
+        /// </summary>
+        /// <returns></returns>
+        public static AddContactsToContactListCommand AddContactsToContactList()
+        {
+            return new AddContactsToContactListCommand();
         }
 
         // REQUIRED FIELDS START ///////////////////////////////////////////////////////////
@@ -158,7 +177,7 @@ namespace JPB_Framework.Pages.Organizations
                 if (!string.IsNullOrEmpty(element.Text))
                 {
                     string str = element.Text;
-                    
+
                     return str.Split(':')[1].Trim();
                 }
                 return string.Empty;
@@ -967,7 +986,71 @@ namespace JPB_Framework.Pages.Organizations
             }
         }
 
-        
+
+
     }
 
+
+    public class AddContactsToContactListCommand
+    {
+        private int numberOfContactsToBeAdded;
+        private bool random;
+        private string firstName;
+        private string lastName;
+
+        /// <summary>
+        /// Defines that the existing contacts to be added, will be selected randomly
+        /// </summary>
+        /// <param name="i"> Defines the number of randomly selected contacts to be added</param>
+        public AddContactsToContactListCommand Randomly(int i)
+        {
+            numberOfContactsToBeAdded = i;
+            random = true;
+            return this;
+        }
+
+        /// <summary>
+        /// Defines the first name of the existing contact to be added
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
+        public AddContactsToContactListCommand WithFirstName(string firstName)
+        {
+            this.firstName = firstName;
+            return this;
+        }
+
+        /// <summary>
+        /// Defines the last name of the existing contact to be added
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public AddContactsToContactListCommand AndLastName(string lastName)
+        {
+            this.lastName = lastName;
+            return this;
+        }
+
+        /// <summary>
+        /// Executes the add existing contact command. Contacts to be added will be searched by the previously defined criteria or else the will be selected randomly
+        /// </summary>
+        public void Add()
+        {
+            if (random)
+            {
+                Commands.ClickAddExistingContactsToOrganizationButton();
+                Commands.SelectRandomNumberOfRecords(numberOfContactsToBeAdded);
+            }
+            else
+                new SearchContactCommand(Commands.ClickAddExistingContactsToOrganizationButton)
+                    .WithFirstName(firstName)
+                    .AndLastName(lastName)
+                    .Select();
+
+            Driver.Instance.FindElement(By.CssSelector("i[title='Αdd Contacts to Organization']")).Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+        }
+
+
+    }
 }

@@ -173,10 +173,11 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Selects a random number of up to 20 records from a list of no more than 40 records. 
+        /// Selects a given or a random number of up to 20 records from a list. If records are more than 40, the selected are among the first 40. 
         /// </summary>
+        /// <param name="num">Defines the number of records to be selected. If it is zero, method chooses a random number of records</param>
         /// <returns>The count of records that where selected</returns>
-        public static int SelectRandomNumberOfRecords()
+        public static int SelectRandomNumberOfRecords(int num)
         {
             // The range of records from where the selection will be
             int range;
@@ -193,8 +194,10 @@ namespace JPB_Framework.UI_Utilities
 
             Random rand = new Random();
             int selectedContacts = 0;
+            int numOfContactsToBeSelected;
 
-            int numOfContactsToBeSelected = rand.Next(1, 20);
+            if (num==0) numOfContactsToBeSelected = rand.Next(1, 20);
+            else numOfContactsToBeSelected = num;
 
             for (var i = 0; i < numOfContactsToBeSelected; i++)
             {
@@ -209,6 +212,96 @@ namespace JPB_Framework.UI_Utilities
             return selectedContacts;
         }
 
+        /// <summary>
+        /// Applicable only within organization view page. Clicks the 'Add Existing Contacts' button from organization's contact list
+        /// </summary>
+        public static void ClickAddExistingContactsToOrganizationButton()
+        {
+            var element = Driver.Instance.FindElement(By.CssSelector("a.dropdown-toggle.p-none"));
+            element.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
+            var str = element.GetAttribute("aria-haspopup");
+            if (str.Equals("true"))
+            {
+                var addNewContactBtn = Driver.Instance.FindElements(By.CssSelector("#related-contacts-section .dropdown-menu.animated.fadeInRight.m-t-xs a"))[0];
+                addNewContactBtn.Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+            }
+            else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
+                throw new Exception();
+            }
+        }
 
+        /// <summary>
+        /// Applicable only within organization view page. Clicks the 'Create New Contact' button from organization's contact list
+        /// </summary>
+        public static void ClickCreateNewContactForOrganizationButton()
+        {
+            var element = Driver.Instance.FindElement(By.CssSelector("a.dropdown-toggle.p-none"));
+            element.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
+            var str = element.GetAttribute("aria-haspopup");
+            if (str.Equals("true"))
+            {
+                var addNewContactBtn = Driver.Instance.FindElements(By.CssSelector("#related-contacts-section .dropdown-menu.animated.fadeInRight.m-t-xs a"))[0];
+                addNewContactBtn.Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+            }
+            else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
+                throw new Exception();
+            }
+        }
+
+        /// <summary>
+        /// Applicable only within organization view page. Make a contact primary for the currently viewed organization
+        /// </summary>
+        /// <param name="record">Contact to be made primary</param>
+        public static void ClickContactPrimaryButton(IWebElement record)
+        {
+            Driver.MoveToElement(record);
+            record.FindElement(By.CssSelector("div[action='makePrimary(group, contact)']")).Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+        }
+
+        /// <summary>
+        /// Applicable only within organization view page. Remove a contact from currently viewed organization's contact list.
+        /// </summary>
+        /// <param name="record">Contact to be removed from organization's contact list</param>
+        public static void ClickContactRemoveButton(IWebElement record)
+        {
+            Driver.MoveToElement(record);
+            record.FindElement(By.CssSelector("div[action='removeRelatedContact(contact)']")).Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+        }
+
+        public static bool IsRecordShareableTo(string email)
+        {
+            var shareModalWindow = Driver.Instance.FindElement(By.CssSelector("div#showShareVCardModal"));
+            var isModalShown = shareModalWindow.GetAttribute("class");
+            if (isModalShown == "modal fade ng-scope in")
+            {
+                shareModalWindow.FindElement(By.CssSelector("button.btn.btn-default")).Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+            }
+            Commands.ClickShare();
+
+            var shareEmailField = shareModalWindow.FindElement(By.CssSelector("input#shareVcardInput"));
+
+            if (shareEmailField.GetAttribute("value") != "")
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Share contact input email field was not empty.", null);
+                shareEmailField.Clear();
+                Driver.Wait(TimeSpan.FromSeconds(2));
+            }
+
+            shareEmailField.SendKeys(email);
+            var shareBtn = shareModalWindow.FindElement(By.CssSelector("button#shareBtn"));
+            Driver.Wait(TimeSpan.FromSeconds(2));
+            return (shareBtn.Enabled);
+        }
     }
 }

@@ -57,10 +57,11 @@ namespace JPB_Framework.Pages.Organizations
         public static int OrganizationsBeingSelected => Driver.GetSelectedRecordsCount();
 
         /// <summary>
-        /// Selects an organization from the list. By default selects the first one
+        /// Opens the first organization from the list to view its details
         /// </summary>
-        public static void OpenOrganization()
+        public static void OpenFirstOrganization()
         {
+            if (!IsAt) LeftSideMenu.GoToOrganizations();
             Commands.OpenRecordFromListBySequence(1);
         }
 
@@ -70,7 +71,7 @@ namespace JPB_Framework.Pages.Organizations
         /// <returns>True if there is at least one such organization</returns>
         public static SearchOrganizationCommand FindOrganization()
         {
-            return new SearchOrganizationCommand();
+            return new SearchOrganizationCommand(LeftSideMenu.GoToOrganizations);
         }
 
         /// <summary>
@@ -102,7 +103,7 @@ namespace JPB_Framework.Pages.Organizations
         public static int SelectRandomNumberOfOrganizations()
         {
             if (!IsAt) LeftSideMenu.GoToOrganizations();
-            return Commands.SelectRandomNumberOfRecords();
+            return Commands.SelectRandomNumberOfRecords(0);
         }
     }
 
