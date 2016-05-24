@@ -324,8 +324,8 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateOrganizationWithOverflowValues()
         {
-            var organizationName = SetFieldValue("Organization Name", DummyData.OverflowValue);
-            var phone = SetFieldValue("Phone", DummyData.OverflowValue);
+            var organizationName = SetFieldValue("Organization Name", DummyData.OverflowWordValue);
+            var phone = SetFieldValue("Phone", DummyData.OverflowWordValue);
 
             NewOrganizationPage.CreateOrganization()
                 .WithOrganizationName(organizationName)
@@ -409,8 +409,8 @@ namespace JPB_Framework.Workflows
         {
             SetFieldPreviousValue("Organization Name", GetFieldValue("Organization Name"));
 
-            var organizationName = SetFieldValue("Organization Name", DummyData.OverflowValue);
-            var phone = SetFieldValue("Phone", DummyData.OverflowValue);
+            var organizationName = SetFieldValue("Organization Name", DummyData.OverflowWordValue);
+            var phone = SetFieldValue("Phone", DummyData.OverflowWordValue);
 
             EditOrganizationPage.EditOrganization()
                 .WithNewOrganizationName(organizationName)

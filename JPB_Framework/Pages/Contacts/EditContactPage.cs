@@ -13,6 +13,11 @@ namespace JPB_Framework.Pages.Contacts
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts  /  Contact  /  Edit Contact");
 
         /// <summary>
+        /// Check if browser is at the selected page when it is open for a contact from within an organization view page
+        /// </summary>
+        public static bool IsAtFromWithinOrganizationViewPage => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization  /  Contact  /  Edit Contact");
+
+        /// <summary>
         /// Returns true if a contact was saved successfully after editing 
         /// </summary>
         public static bool IsContactSavedSuccessfully { get; set; }
@@ -31,6 +36,11 @@ namespace JPB_Framework.Pages.Contacts
             GoTo();
             return new EditContactCommand();
         }
+
+        /// <summary>
+        /// Click the save button located in edit contact page
+        /// </summary>
+        public static void ClickSaveContactButton() { Commands.ClickSave(); }
     }
 
     public class EditContactCommand
@@ -231,7 +241,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Creates the new contact with given contact field values
+        /// Saves the changes for the contact with given contact field values
         /// </summary>
         public void Edit()
         {

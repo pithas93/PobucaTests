@@ -11,8 +11,6 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class AddContactTests : ContactsBaseTest
     {
-        // oti otan mpaineis na dimiourgiseis contact apo organization, oti to organization einai kleidwmeno
-
 
         /// <summary>
         /// Create 1 contact that has values in all its fields

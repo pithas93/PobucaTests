@@ -697,7 +697,8 @@ namespace JPB_Framework.UI_Utilities
                 {
                 }
 
-                Driver.Instance.FindElement(By.Id("birthday")).Click();
+                var birthDayField = Driver.Instance.FindElement(By.Id("birthday"));
+                birthDayField.Click();
 
                 DateTime birthdate = Convert.ToDateTime(value);
 
@@ -714,6 +715,15 @@ namespace JPB_Framework.UI_Utilities
                 var dateList = Driver.Instance.FindElements(By.CssSelector("table.ui-datepicker-calendar a.ui-state-default"));
                 SelectFromListByName(dateList, birthdate.Day.ToString());
 
+                var givenBirthday = birthDayField.GetAttribute("value");
+                try
+                {
+                    Convert.ToDateTime(givenBirthday);
+                }
+                catch (FormatException)
+                {
+                    Report.Report.ToLogFile(MessageType.Message, "Datepicker assigned a birthday value of invalid format", null);
+                }
             }
         }
 

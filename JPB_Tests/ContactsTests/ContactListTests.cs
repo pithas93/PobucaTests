@@ -12,13 +12,11 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class ContactListTests : JpbBaseTest
     {
-        // Tests to be added
-        /*
 
-        */
-        
-
-        // 1. Check that default sorting works properly
+           
+        /// <summary>
+        /// Check that default sorting works properly
+        /// </summary>
         [TestMethod]
         public void Default_Sorting()
         {
@@ -26,7 +24,9 @@ namespace JPB_Tests.ContactsTests
             AssertThat.IsTrue(ContactsPage.IsContactListSortedByFirstNameAscending, "Contacts are not sorted by default according to their first/last name.");
         }
 
-        // 2. Check that search filter 'Filter By' works properly
+        /// <summary>
+        /// Check that search filter 'Filter By' works properly
+        /// </summary>
         [TestMethod]
         public void Filter_Using_Filter_By()
         {
@@ -76,7 +76,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 3. Check that search filter 'Search for Contact' works properly
+        /// <summary>
+        /// Check that search filter 'Search for Contact' works properly
+        /// </summary>
         [TestMethod]
         public void Search_Using_Searchbox()
         {
@@ -114,7 +116,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // 4. Check that sorting works ok when using 'Sort By'
+        /// <summary>
+        /// Check that sorting works ok when using 'Sort By'
+        /// </summary>
         [TestMethod]
         public void Sort_Contacts_Using_Sort_By()
         {
@@ -131,18 +135,19 @@ namespace JPB_Tests.ContactsTests
             VerifyThat.IsTrue(ContactsPage.IsContactListSortedByLastNameDescending, "Contact list was expected to be sorted by last name descending but, is not");
         }
 
-        // 5. Check that multiple selection works properly
+
+        /// <summary>
+        /// Check that multiple selection works properly
+        /// </summary>
         [TestMethod]
         public void Select_Multiple_Contacts()
         {
             AssertThat.AreEqual(ContactsPage.SelectRandomNumberOfContacts(), ContactsPage.ContactsBeingSelected, "The count of selected contacts is not equal with the value of the corresponding label");
         }
-
-        // 6. Check that multiple selection works properly in conjuction with sorting
-
-        // 7. Check that multiple selection works properly in conjuction with search filters
-
-        // 8. Check that search using side alphabet bar works properly
+ 
+        /// <summary>
+        /// Check that search using side alphabet bar works properly
+        /// </summary>
         [TestMethod]
         public void Search_Using_Side_Alphabet_Bar()
         {
@@ -171,22 +176,28 @@ namespace JPB_Tests.ContactsTests
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
 
         }
-
-        // 9. Check that "filter by" options are not checked and they are in the correct order
+ 
+        /// <summary>
+        /// Check that "filter by" options are not checked and they are in the correct order
+        /// </summary>
         [TestMethod]
         public void Filter_By_Options_Are_In_Correct_Initial_State()
         {
             AssertThat.IsTrue(ContactsPage.AreFilterByOptionsInCorrectState, "Filter By filters are not in the correct initial state");
         }
-
-        // 10. Check that departments from filterby are placed alphabetically And in the correct order
+ 
+        /// <summary>
+        /// Check that departments from filterby are placed alphabetically And in the correct order
+        /// </summary>
         [TestMethod]
         public void Filter_By_Departments_In_Correct_Initial_State()
         {
             AssertThat.IsTrue(ContactsPage.AreFilterByDepartmentsInCorrectState, "Filter By departments list is not in the correct initial state");
         }
 
-        // 11. Check that the contacts displayed count is the same with the value displayed in the corresponding label
+        /// <summary>
+        /// Check that the contacts displayed count is the same with the value displayed in the corresponding label
+        /// </summary>
         [TestMethod]
         public void Check_Contacts_Displayed_Is_Equal_To_Label()
         {

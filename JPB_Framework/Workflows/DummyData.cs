@@ -25,7 +25,9 @@ namespace JPB_Framework.Workflows
         /// Get a random 55-character sequence consisting of greek, 
         /// latin letters, numerical digits and special characters like !, @, #, etc
         /// </summary>
-        public static string OverflowValue => RandomString(55);
+        public static string OverflowWordValue => RandomString(55);
+
+        public static string OverflowTextValue => RandomWord(100);
 
         /// <summary>
         /// Get a random 15-character sequence consisting of greek, 

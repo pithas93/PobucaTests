@@ -330,12 +330,6 @@ namespace JPB_Framework.Workflows
             var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
             var organizationName = SetFieldValue("Organization Name", OrganizationViewPage.OrganizationName);
 
-            if (organizationName.Equals(string.Empty))
-            {
-                Report.Report.ToLogFile(MessageType.Message, "Something has gone wrong with return current organization view page Organization Name. Organization Name value is empty!", null);
-                throw new Exception();
-            }
-
             OrganizationViewPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
         }
 
@@ -410,8 +404,8 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void CreateContactWithOverflowValues()
         {
-            var firstName = SetFieldValue("First Name", DummyData.OverflowValue);
-            var lastName = SetFieldValue("Last Name", DummyData.OverflowValue);
+            var firstName = SetFieldValue("First Name", DummyData.OverflowWordValue);
+            var lastName = SetFieldValue("Last Name", DummyData.OverflowWordValue);
 
             NewContactPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
         }
@@ -522,8 +516,8 @@ namespace JPB_Framework.Workflows
             SetFieldPreviousValue("First Name", GetFieldValue("First Name"));
             SetFieldPreviousValue("Last Name", GetFieldValue("Last Name"));
 
-            var firstName = SetFieldValue("First Name", DummyData.OverflowValue);
-            var lastName = SetFieldValue("Last Name", DummyData.OverflowValue);
+            var firstName = SetFieldValue("First Name", DummyData.OverflowWordValue);
+            var lastName = SetFieldValue("Last Name", DummyData.OverflowWordValue);
 
             EditContactPage.EditContact().WithNewFirstName(firstName).WithNewLastName(lastName).Edit();
 

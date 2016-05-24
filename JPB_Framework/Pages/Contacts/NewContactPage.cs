@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JPB_Framework.Navigation;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -18,6 +19,78 @@ namespace JPB_Framework.Pages.Contacts
         /// Returns whether the new contact Save button was pressed, and so the contact was saved, or not.
         /// </summary>
         public static bool IsContactSavedSuccessfully { get; set; }
+
+        /// <summary>
+        /// Returns true if the organization name field is editable
+        /// </summary>
+        public static bool IsOrganizationNameEditable
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("my-auto-complete[myname='Organization'] input"));
+                var str = element.GetAttribute("disabled");
+                return (string.IsNullOrEmpty(str));
+            }
+
+        }
+
+        public static bool IsDepartmentComboListSorted
+        {
+            get
+            {
+                var departmentList =
+                    Driver.Instance.FindElements(
+                        By.CssSelector("my-select[myname='Department'] div select option.ng-binding.ng-scope"));
+
+                return Driver.CheckIfListIsSorted(departmentList);
+            }
+        }
+
+        public static bool AreCountryComboListsSorted
+        {
+            get
+            {
+                var workCountryIsSorted = Driver.CheckIfListIsSorted(
+                    Driver.Instance.FindElements(By.CssSelector("#workAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
+                    );
+
+                var homeCountryIsSorted = Driver.CheckIfListIsSorted(
+                    Driver.Instance.FindElements(By.CssSelector("#homeAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
+                    );
+
+                var otherCountryIsSorted = Driver.CheckIfListIsSorted(
+                    Driver.Instance.FindElements(By.CssSelector("#otherAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
+                    );
+
+                if (workCountryIsSorted == false) Report.Report.ToLogFile(MessageType.Message, "Work country combo field values are not sorted correctly", null);
+                if (homeCountryIsSorted == false) Report.Report.ToLogFile(MessageType.Message, "Home country combo field values are not sorted correctly", null);
+                if (otherCountryIsSorted == false) Report.Report.ToLogFile(MessageType.Message, "Other country combo field values are not sorted correctly", null);
+
+                return (workCountryIsSorted && homeCountryIsSorted && otherCountryIsSorted);
+            }
+        }
+
+        public static int CommentsTextLength
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("#textboxid"));
+                string str = element.GetAttribute("value");
+                return str.Length;
+            }
+        }
+
+        public static int CommentsLimitIndicator
+        {
+            get
+            {
+                var indicatorText = Driver.Instance.FindElement(By.CssSelector("span[ng-show='contact.comments.length && contact.comments.length <= 500']")).Text;
+                return int.Parse(indicatorText.Split(' ')[2]);
+            }
+        }
+
+
+
 
         /// <summary>
         /// Navigates browser, through the available button, to a contact form page that allows to create a new contact
@@ -39,7 +112,7 @@ namespace JPB_Framework.Pages.Contacts
             return new CreateContactCommand();
         }
 
-       
+        public static void SetContactComments(string v) { EditContactFields.Comments = v; }
     }
 
     public class CreateContactCommand
@@ -313,7 +386,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
 
-        
+
     }
 
 

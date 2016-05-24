@@ -14,6 +14,11 @@ namespace JPB_Framework.Pages.Contacts
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts  /  Contact View");
 
         /// <summary>
+        /// Check if browser is at the selected page when it is open for a contact from within an organization view page
+        /// </summary>
+        public static bool IsAtFromWithinOrganizationViewPage => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization  /  Contact View");
+
+        /// <summary>
         /// Returns true if contact mobile number field value can be dialed. 
         /// System is supposed to ask user to execute the task with an app from a given list, or just executes the dialing command.
         /// </summary>

@@ -117,6 +117,18 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+        public static bool IsContactPhoneCallable
+        {
+            get
+            {
+                var element =
+                    Driver.Instance.FindElement(By.CssSelector("font[ng-click='tracePhoneCallsOrganizations()'] a"));
+                var href = element.GetAttribute("href");
+                var expectedTelephoneLink ="tel:";
+                return (href.StartsWith(expectedTelephoneLink));
+            }
+        }
+
         /// <summary>
         /// Opens the first contact from the contact list, to view its details
         /// </summary>
@@ -166,8 +178,6 @@ namespace JPB_Framework.Pages.Contacts
             if (!IsAt) LeftSideMenu.GoToContacts();
             return Commands.SelectRandomNumberOfRecords(0);
         }
-
-
 
     }
 
