@@ -10,6 +10,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests.Smoke_Tests
 {
+    // oti leitourgei to search
+
     [TestClass]
     public class SmokeGeneralTests : JpbBaseTest
     {
@@ -29,9 +31,8 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Create_A_Simple_Contact()
         {
             ContactCreator.CreateSimpleContact();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not created successfully but it should");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
-
+//            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not created successfully but it should");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
         }
 
         
@@ -41,8 +42,8 @@ namespace JPB_Tests.Smoke_Tests
         {
             ContactCreator.CreateSimpleContact();
             ContactCreator.EditSimpleContact();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not saved successfully after edit");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly after edit");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not saved successfully after edit");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly after edit");
 
         }
 
@@ -52,7 +53,7 @@ namespace JPB_Tests.Smoke_Tests
         {          
             ContactCreator.ImportSimpleContact();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported successfully");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 

@@ -12,7 +12,12 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class MinorContactTests : ContactsBaseTest
     {
-
+        // link existing contact from an organization, to another organization throught 'add existing contact to organization contact list'
+        // to organization name prepei na se phgainei sto organization view
+        // to email leitoyrgei sa link gia na steileis email (opws me ta thl gia na pairneis thlewfwno)
+        // to address leitoyrgei ws link sto google maps
+        // otan dhmioyrgw ena neo contact mesa apo to organization, 8a prepei to billing address tou organization na symplhrw8ei automata sto work address tou neou contact
+        // se periptwsh pou symplhrwseis full name idio me mias yparxousas epafhs, se enhmerwnei alla se afhnei na apo8hkeuseis
 
         /// <summary>
         /// Check that clicking a telephone number within a contact, results in showing a dialog to select an app to dial the number or automatically calls the number.
@@ -69,8 +74,8 @@ namespace JPB_Tests.ContactsTests
             ContactCreator.CreateSimpleContact();
             LeftSideMenu.GoToContacts();
             ContactsPage.FindContact()
-                .WithFirstName(ContactCreator.FirstName)
-                .AndLastName(ContactCreator.LastName)
+                .WithFirstName(ContactCreator.FirstContact.FirstName)
+                .AndLastName(ContactCreator.FirstContact.LastName)
                 .Find();
 
             AssertThat.IsTrue(ContactsPage.IsContactPhoneCallable, "Contact phone is not callable from within contact list page");
@@ -99,8 +104,8 @@ namespace JPB_Tests.ContactsTests
             VerifyThat.IsTrue(NewContactPage.IsAt, "New contact page path is not the expected one");
 
             ContactCreator.CreateSimpleContact();
-            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
-            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
+            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
             VerifyThat.IsTrue(ContactViewPage.IsAtFromWithinOrganizationViewPage, "Contact view page path from within organization view page is not the expected one");
             
             EditContactPage.GoTo();

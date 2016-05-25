@@ -12,8 +12,7 @@ namespace JPB_Tests.ContactsTests
 
         // 1. Check that contacts template is successfully downloaded. Test not implemented because downloading files through automation is not suggested
         // 9. Import contacts - Test the max imported contact threshold
-        // 15. Import contacts - Template contains duplicate contacts
-        //          -an h timh einai idia gia dyo epafes tote 8a eisagetai h mia apo tis 2 kai oles oi ypoloipes epityxws
+        
         // oti mporw na kanw export apo to outlook kai gmail ta contacts mou kai na ta kanw import me thn epilogh csv.file
 
 
@@ -25,7 +24,7 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithAllValues();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported successfully");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
@@ -61,7 +60,7 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithNonsenseValues();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
@@ -77,7 +76,6 @@ namespace JPB_Tests.ContactsTests
         }
 
 
-
         /// <summary>
         /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
         /// </summary>
@@ -86,8 +84,8 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithInvalidBirthdate1();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
-            AssertThat.AreEqual(ContactViewPage.Birthdate,"", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
+            AssertThat.AreEqual(ContactViewPage.Birthdate,"", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
 
         }
 
@@ -99,8 +97,8 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithInvalidBirthdate2();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
-            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
+            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
 
         }
 
@@ -112,8 +110,8 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportContactWithInvalidBirthdate3();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
-            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
+            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
 
         }
 
@@ -125,7 +123,7 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportTemplateWithLessColumns();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
@@ -137,7 +135,7 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportTemplateWithMoreColumns();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
@@ -152,8 +150,6 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-
-
         /// <summary>
         /// Import a contact template that contains columns in different order than that of the original template
         /// </summary>
@@ -162,9 +158,16 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.ImportTemplateWithColumnsInRandomOrder();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }
 
+        // 15. Import contacts - Template contains duplicate contacts
+        //          -an h timh einai idia gia dyo epafes tote 8a eisagetai h mia apo tis 2 kai oles oi ypoloipes epityxws
+        [TestMethod]
+        public void Import_Contacts_With_Duplicate_First_And_Last_Name()
+        {
+//            ContactCreator.ImportContacts
+        }
     }
 }

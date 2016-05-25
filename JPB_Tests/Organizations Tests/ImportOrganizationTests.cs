@@ -17,6 +17,7 @@ namespace JPB_Tests.Organizations_Tests
     {
         // 15. Import organizations - Template contains duplicate organizations
         //          -an h timh einai idia gia dyo epafes tote 8a eisagetai h mia apo tis 2 kai oles oi ypoloipes epityxws
+        // oti de dexetai arxeia me koukoutoukou times se combo box
 
         /// <summary>
         /// Import 1 organization that has values to every field
@@ -106,21 +107,21 @@ namespace JPB_Tests.Organizations_Tests
         /// <summary>
         /// Import 1 organization with value for Primary Contact field that belongs to another organization
         /// </summary>
-        [TestMethod]
-        public void Import_Organization_With_Primary_Contact_That_Belongs_To_Another_Organization()
-        {
-            OrganizationCreator.ImportOrganizationWithPrimaryContactThatBelongsToAnotherOrganization();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-
-            OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.OrganizationName).Open();
-            AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, "", "Previously imported organization has as primary contact, a contact that is linked to another existing organization");
-
-            ContactsPage.FindContact().ContainingKeyword(OrganizationCreator.PrimaryContact).Open();
-            OrganizationsPage.FindOrganization().WithOrganizationName(ContactViewPage.OrganizationName).Open();
-
-            AssertThat.AreEqual(OrganizationCreator.PrimaryContact, OrganizationViewPage.PrimaryContact, $"Previously imported organization should have set contact '{OrganizationCreator.PrimaryContact}' as primary in its organization, but it did not.");
-
-        }
+//        [TestMethod]
+//        public void Import_Organization_With_Primary_Contact_That_Belongs_To_Another_Organization()
+//        {
+//            OrganizationCreator.ImportOrganizationWithPrimaryContactThatBelongsToAnotherOrganization();
+//            AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
+//
+//            OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.OrganizationName).Open();
+//            AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, "", "Previously imported organization has as primary contact, a contact that is linked to another existing organization");
+//
+//            ContactsPage.FindContact().ContainingKeyword(OrganizationCreator.PrimaryContact).Open();
+//            OrganizationsPage.FindOrganization().WithOrganizationName(ContactViewPage.OrganizationName).Open();
+//
+//            AssertThat.AreEqual(OrganizationCreator.PrimaryContact, OrganizationViewPage.PrimaryContact, $"Previously imported organization should have set contact '{OrganizationCreator.PrimaryContact}' as primary in its organization, but it did not.");
+//
+//        }
 
         /// <summary>
         /// Import 1 organization with value for Primary Contact field that does not exist in contact list

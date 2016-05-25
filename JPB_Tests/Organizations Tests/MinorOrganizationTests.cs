@@ -15,6 +15,9 @@ namespace JPB_Tests.Organizations_Tests
     [TestClass]
     public class MinorOrganizationTests : ContactsOrganizationsBaseTest
     {
+        // delete organization along with its linked contacts
+
+
         /// <summary>
         /// Assert that inside organization view page, the organization's field value is a link that drives browser to prompt user for a telephone call
         /// </summary>
@@ -49,36 +52,36 @@ namespace JPB_Tests.Organizations_Tests
         {
             ContactCreator.CreateSimpleOrphanContact();
             OrganizationCreator.CreateSimpleOrganization();
-            OrganizationViewPage.AddContactsToContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Add();
+            OrganizationViewPage.AddContactsToContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Add();
 
             OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.OrganizationName).Open();
 
             AssertThat.IsTrue(
                 OrganizationViewPage.FindContactFromOrganizationContactList()
-                    .WithFirstName(ContactCreator.FirstName)
-                    .AndLastName(ContactCreator.LastName)
+                    .WithFirstName(ContactCreator.FirstContact.FirstName)
+                    .AndLastName(ContactCreator.FirstContact.LastName)
                     .Find(),
-                $"Contact {ContactCreator.FullName} does not exist within organization {OrganizationCreator.OrganizationName} contacts, although it was added previously");
+                $"Contact {ContactCreator.FirstContact.FullName} does not exist within organization {OrganizationCreator.OrganizationName} contacts, although it was added previously");
 
             OrganizationViewPage.FindContactFromOrganizationContactList().BySequence(1).Remove();
 
             AssertThat.IsFalse(
                 OrganizationViewPage.FindContactFromOrganizationContactList()
-                    .WithFirstName(ContactCreator.FirstName)
-                    .AndLastName(ContactCreator.LastName)
+                    .WithFirstName(ContactCreator.FirstContact.FirstName)
+                    .AndLastName(ContactCreator.FirstContact.LastName)
                     .Find(),
-                $"Contact {ContactCreator.FullName} exists within organization {OrganizationCreator.OrganizationName} contacts, although it was removed previously");
+                $"Contact {ContactCreator.FirstContact.FullName} exists within organization {OrganizationCreator.OrganizationName} contacts, although it was removed previously");
 
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
 
-            AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Contact {ContactCreator.FullName} is not orphan though it should because it was removed from organization '{OrganizationCreator.OrganizationName}' contacts");
+            AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Contact {ContactCreator.FirstContact.FullName} is not orphan though it should because it was removed from organization '{OrganizationCreator.OrganizationName}' contacts");
         }
 
         /// <summary>
         /// Check that a contact can be shared with a valid email and that the share button enabled.
         /// </summary>
         [TestMethod]
-        public void Check_Contact_Is_Shareable_With_Valid_Email()
+        public void Check_Organization_Is_Shareable_With_Valid_Email()
         {
             OrganizationsPage.OpenFirstOrganization();
             AssertThat.IsTrue(OrganizationViewPage.IsOrganizationShareableTo(DummyData.EmailValue), "Though email inserted is of valid syntax, Share button is not enabled.");
@@ -89,7 +92,7 @@ namespace JPB_Tests.Organizations_Tests
         /// Check that the filter that checks the validity of the email input in share contact dialog box, prevents the input of invalid format values
         /// </summary>
         [TestMethod]
-        public void Check_Share_Contact_Email_Input_Filter()
+        public void Check_Share_Organization_Email_Input_Filter()
         {
             OrganizationsPage.OpenFirstOrganization();
             VerifyThat.IsFalse(OrganizationViewPage.IsOrganizationShareableTo(DummyData.NonsenseValue), "Email field input does not follows email syntaxt but, it was accepted by the filter.");

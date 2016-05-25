@@ -12,7 +12,7 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class ContactListTests : JpbBaseTest
     {
-
+        // na tsekarw oti leitoyrgei h anazhthsh se lekseis pou exoun tonous (ellhnikous, gallikous klp)
            
         /// <summary>
         /// Check that default sorting works properly

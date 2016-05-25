@@ -19,8 +19,8 @@ namespace JPB_Tests.ContactsTests
         public void Create_Contact_With_All_Fields_Filled()
         {
             ContactCreator.CreateContactWithAllValues();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully,"Contact was not saved successfully but it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully,"Contact was not saved successfully but it should.");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
 
         }
 
@@ -33,9 +33,9 @@ namespace JPB_Tests.ContactsTests
             LeftSideMenu.GoToOrganizations();
             OrganizationsPage.OpenFirstOrganization();
             ContactCreator.CreateSimpleContactFromWithinOrganization();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not saved successfully but it should.");
-            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not saved successfully but it should.");
+            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
 
         }
 
@@ -46,7 +46,7 @@ namespace JPB_Tests.ContactsTests
         public void Cannot_Leave_Contact_Mandatory_Fields_Empty()
         {
             ContactCreator.CreateContactWithoutLastName();
-            AssertThat.IsFalse(ContactCreator.IsContactCreatedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
+            AssertThat.IsFalse(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
 
         }
 
@@ -57,7 +57,7 @@ namespace JPB_Tests.ContactsTests
         public void Cannot_Save_Contact_With_Overflown_Field_Values()
         {
             ContactCreator.CreateContactWithOverflowValues();
-            AssertThat.IsFalse(ContactCreator.IsContactCreatedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
+            AssertThat.IsFalse(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was created successfully though last name field was left null. Defect spotted!");
 
         }
 
@@ -68,8 +68,8 @@ namespace JPB_Tests.ContactsTests
         public void Create_Contact_With_Nonsense_Field_Values()
         {
             ContactCreator.CreateContactWithNonsenseValues();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not saved successfully but it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not saved successfully but it should.");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
 
         }
 
@@ -80,7 +80,7 @@ namespace JPB_Tests.ContactsTests
         public void Cannot_Assign_Invalid_Organization_Field_Value()
         {
             ContactCreator.CreateContactWithInvalidOrganization();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
             AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Organization ought to be null but it has value = '{ContactViewPage.OrganizationName}' which is invalid. Defect spotted!");
         }
 
@@ -91,8 +91,8 @@ namespace JPB_Tests.ContactsTests
         public void Create_Contact_With_Extra_Null_Fields()
         {
             ContactCreator.CreateContactWithNullValuesInExtraFields();
-            AssertThat.IsTrue(ContactCreator.IsContactCreatedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not created successfully though it should. Defect spotted!");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values were not saved correctly");
         }
 
     }
