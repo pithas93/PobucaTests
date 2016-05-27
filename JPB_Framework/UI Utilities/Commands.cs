@@ -245,7 +245,7 @@ namespace JPB_Framework.UI_Utilities
             var str = element.GetAttribute("aria-haspopup");
             if (str.Equals("true"))
             {
-                var addNewContactBtn = Driver.Instance.FindElements(By.CssSelector("#related-contacts-section .dropdown-menu.animated.fadeInRight.m-t-xs a"))[0];
+                var addNewContactBtn = Driver.Instance.FindElements(By.CssSelector("#related-contacts-section .dropdown-menu.animated.fadeInRight.m-t-xs a"))[1];
                 addNewContactBtn.Click();
                 Driver.Wait(TimeSpan.FromSeconds(2));
             }

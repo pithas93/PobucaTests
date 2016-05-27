@@ -328,13 +328,14 @@ namespace JPB_Framework.Workflows
         {
             var firstName = SetFieldValue("First Name", DummyData.SimpleWord);
             var lastName = SetFieldValue("Last Name", DummyData.SimpleWord);
-            var organizationName = SetFieldValue("Organization Name", OrganizationViewPage.OrganizationName);
+            SetFieldValue("Organization Name", OrganizationViewPage.OrganizationName);
+            SetFieldValue("Website", OrganizationViewPage.Website); ;
+            SetFieldValue("Work Street", OrganizationViewPage.BillingStreet); ;
+            SetFieldValue("Work City", OrganizationViewPage.BillingCity); ;
+            SetFieldValue("Work State", OrganizationViewPage.BillingState); ;
+            SetFieldValue("Work Postal Code", OrganizationViewPage.BillingPostalCode); ;
+            SetFieldValue("Work Country", OrganizationViewPage.BillingCountry); ;
 
-            if (organizationName.Equals(string.Empty))
-            {
-                Report.Report.ToLogFile(MessageType.Message, "Something has gone wrong with return current organization view page Organization Name. Organization Name value is empty!", null);
-                throw new Exception();
-            }
 
             OrganizationViewPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
         }
