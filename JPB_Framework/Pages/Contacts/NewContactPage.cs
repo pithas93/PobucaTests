@@ -269,6 +269,61 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
+        /// Sets the workStreet for the new contact
+        /// </summary>
+        /// <param name="workStreet"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWorkStreet(string workStreet)
+        {
+            this.workStreet = workStreet;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the workState for the new contact
+        /// </summary>
+        /// <param name="workState"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWorkState(string workState)
+        {
+            this.workState = workState;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the workPostalCode for the new contact
+        /// </summary>
+        /// <param name="workPostalCode"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWorkPostalCode(string workPostalCode)
+        {
+            this.workPostalCode = workPostalCode;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the workCountry for the new contact
+        /// </summary>
+        /// <param name="workCountry"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWorkCountry(string workCountry)
+        {
+            this.workCountry = workCountry;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the website for the new contact
+        /// </summary>
+        /// <param name="website"></param>
+        /// <returns></returns>
+        public CreateContactCommand WithWebsite(string website)
+        {
+            this.website = website;
+            return this;
+        }
+
+        /// <summary>
         /// Sets dummy values for every field of the new contact
         /// </summary>
         /// <returns></returns>

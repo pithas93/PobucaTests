@@ -151,7 +151,7 @@ namespace JPB_Framework.UI_Utilities
             if (selecteddRecordsCount > 0) new DeleteRecordCommand().Delete();
             else
                 Report.Report.ToLogFile(MessageType.Message,
-                    $"There are no records matching given keywords and so no records deleted.", null);
+                    $"There are no records matching given keywords '{keyword}' and so no records deleted.", null);
 
         }
 

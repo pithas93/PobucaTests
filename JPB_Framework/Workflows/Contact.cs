@@ -50,7 +50,12 @@ namespace JPB_Framework.Workflows
         {
             get
             {
-                ContactsPage.FindContact().WithFirstName(FirstName).AndLastName(LastName).Open();
+
+                if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != FirstName) || (ContactViewPage.LastName != LastName))))
+                {
+                    if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
+                    ContactsPage.FindContact().WithFirstName(FirstName).AndLastName(LastName).Open();
+                }
 
                 var notOk = false;
 

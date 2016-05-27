@@ -23,7 +23,7 @@ namespace JPB_Framework.Report
             "			.results_table{" +
             "				border-collapse: collapse;" +
             "				table-layout: fixed;" +
-            "				width: 1500px;" +
+            "				width: 2000px;" +
             "				text-align: left;" +
             "				overflow-x:auto;" +
             "			}" +
@@ -50,7 +50,7 @@ namespace JPB_Framework.Report
             "			}			" +
             "			.medium_text {" +
             "				margin: 0 auto;" +
-            "				width: 125px;" +
+            "				width: 200px;" +
             "				word-break:break-all;" +
             "			}			" +
             "			.long_text {" +
@@ -66,8 +66,8 @@ namespace JPB_Framework.Report
             "			<table class='results_table'>" +
             "               <thead>" +
             "   				<tr>" +
-            "   					<th class='long_text'>Scenario</th>" +
-            "   					<th class='medium_text'>Case</th>" +
+            "   					<th class='medium_text'>Scenario</th>" +
+            "   					<th class='long_text'>Case</th>" +
             "   					<th class='short_text'>Date</th>" +
             "	    				<th class='short_text'>Time</th>" +
             "	    				<th class='medium_text'>Step/Result</th>" +
@@ -130,7 +130,7 @@ namespace JPB_Framework.Report
             var firstLine = new StringBuilder();
             firstLine.Append("<tbody class='groove'>");
             firstLine.Append("<tr>");
-            firstLine.Append($"<td class='long_text' rowspan='{TestCaseReportLines.Count}'>{Scenario}</td>");
+            firstLine.Append($"<td class='medium_text' rowspan='{TestCaseReportLines.Count}'>{Scenario}</td>");
             firstLine.Append($"<td class='long_text' rowspan='{TestCaseReportLines.Count}'>{Case}</td>");
             firstLine.Append($"<td class='short_text'>{TestCaseReportLines[0].Date}</td>");
             firstLine.Append($"<td class='short_text'>{TestCaseReportLines[0].Time}</td>");
@@ -168,7 +168,7 @@ namespace JPB_Framework.Report
             {
                 reportLine.Step = MessageType(type, reportLine);
                 reportLine.Message = message;
-                if (e != null)
+                if (type == JPB_Framework.Report.MessageType.Exception)
                 {
                     reportLine.Message = $"{reportLine.Message} {e.Message} {e.StackTrace}";
                 }
@@ -214,7 +214,8 @@ namespace JPB_Framework.Report
         public static void Initialize(string testClassName, string testMethodName)
         {
             TestCaseReportLines = new List<ReportLine>();
-            Scenario = testClassName;
+            var str = testClassName.Split('.');
+            Scenario = str[str.Length-1];
             Case = testMethodName;
 
             ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Started", null);
@@ -226,10 +227,8 @@ namespace JPB_Framework.Report
         /// <param name="testClassName"></param>
         /// <param name="testMethodName"></param>
         /// <param name="testOutput"></param>
-        public static void Finalize(string testClassName, string testMethodName, UnitTestOutcome testOutput)
+        public static void Finalize(UnitTestOutcome testOutput)
         {
-            Scenario = testClassName;
-            Case = testMethodName;
             ToLogFile(JPB_Framework.Report.MessageType.Empty, $"Test {testOutput}", null);
             WriteReportFile();
         }
@@ -248,7 +247,8 @@ namespace JPB_Framework.Report
                 else text.Append("<tr>");
                 text.Append($"<td class='short_text'>{Date}</td>");
                 text.Append($"<td class='short_text'>{Time}</td>");
-                text.Append($"<td class='medium_text'>{Step}</td>");
+                if (Step.Equals("Test Failed")) text.Append($"<td class='medium_text error'>{Step}</td>");
+                else text.Append($"<td class='medium_text'>{Step}</td>");
                 text.Append($"<td class='long_text'>{Message}</td>");
                 text.Append($"<td class='medium_text'>{Class}</td>");
                 text.Append($"<td class='medium_text'>{Method}</td>");

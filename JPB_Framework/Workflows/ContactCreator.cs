@@ -14,6 +14,7 @@ namespace JPB_Framework.Workflows
     {
 
         // Maybe create a mechanism to create/import more than 1 contacts at a test and then check all values
+//        public static int InitialContactsCount { get; set; }
 
         public static Contact FirstContact { get; set; }
         public static Contact SecondContact { get; set; }
@@ -26,6 +27,7 @@ namespace JPB_Framework.Workflows
 
         public static void Initialize()
         {
+//            InitialContactsCount = ContactsPage.ContactsBeingDisplayed;
             FirstContact = new Contact();
             SecondContact = new Contact();
 
@@ -95,7 +97,7 @@ namespace JPB_Framework.Workflows
                 .WithMobilePhone(mobilePhone)
                 .Create();
 
-//            CurrentContact.IsContactCreatedSuccessfully = IsContactCreatedSuccessfully;
+            CurrentContact.IsContactCreatedSuccessfully = IsContactCreatedSuccessfully;
         }
 
 
@@ -131,8 +133,17 @@ namespace JPB_Framework.Workflows
             var firstName = CurrentContact.SetFieldValue("First Name", DummyData.SimpleWord);
             var lastName = CurrentContact.SetFieldValue("Last Name", DummyData.SimpleWord);
             var organizationName = CurrentContact.SetFieldValue("Organization Name", OrganizationViewPage.OrganizationName);
+            var website = CurrentContact.SetFieldValue("Website", OrganizationViewPage.Website);
+            var workStreet = CurrentContact.SetFieldValue("Work Street", OrganizationViewPage.BillingStreet);
+            var workCity = CurrentContact.SetFieldValue("Work City", OrganizationViewPage.BillingCity);
+            var workState = CurrentContact.SetFieldValue("Work State", OrganizationViewPage.BillingState);
+            var workPostalCode = CurrentContact.SetFieldValue("Work Postal Code", OrganizationViewPage.BillingPostalCode);
+            var workCountry = CurrentContact.SetFieldValue("Work Country", OrganizationViewPage.BillingCountry);
 
-            OrganizationViewPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
+            OrganizationViewPage.CreateContact()
+                .WithFirstName(firstName)
+                .WithLastName(lastName)
+                .Create();
 
             CurrentContact.IsContactCreatedSuccessfully = IsContactCreatedSuccessfully;
         }

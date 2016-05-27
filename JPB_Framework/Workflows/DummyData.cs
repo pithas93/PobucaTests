@@ -173,7 +173,9 @@ namespace JPB_Framework.Workflows
             var word = new StringBuilder();
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
 
-            word.Append(random.Next(1,28));
+            var day = random.Next(1,28);
+            if (day < 10) word.Append('0');
+            word.Append(day);
             word.Append('-');
             var month = random.Next(1, 12);
             if (month < 10) word.Append('0');

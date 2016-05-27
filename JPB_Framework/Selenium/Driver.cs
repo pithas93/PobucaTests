@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using JPB_Framework.Report;
@@ -110,6 +111,7 @@ namespace JPB_Framework.Selenium
             var action = new Actions(Instance);
             action.MoveToElement(element);
             action.Perform();
+            Wait(TimeSpan.FromSeconds(2));
         }
 
         /// <summary>
@@ -141,7 +143,7 @@ namespace JPB_Framework.Selenium
                 recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
             }
 
-            for (var i = 0; i < recordListCount; i++)
+            for (var i = 0; i < recordListCount - 1; i++)
             {
                 string currentRecordLabel, nextRecordLabel;
                 try
@@ -165,9 +167,9 @@ namespace JPB_Framework.Selenium
 
                 if (field.Equals(SortRecordsCommand.SortField.LastName))
                 {
-                    // Break the string in first and last name and revert their position
-                    currentRecordLabel = currentRecordLabel.Split(' ')[1] + ' ' + currentRecordLabel.Split(' ')[0];
-                    nextRecordLabel = nextRecordLabel.Split(' ')[1] + ' ' + nextRecordLabel.Split(' ')[0];
+                    // break the string in first and last name and revert their position
+                    currentRecordLabel = RevertFirstLastName(currentRecordLabel);
+                    nextRecordLabel = RevertFirstLastName(nextRecordLabel);
                 }
 
                 // if the field examined is the record name (first/last/organization name) AND is empty, there is no next record and so there is no point continuing;
@@ -188,6 +190,15 @@ namespace JPB_Framework.Selenium
 
         }
 
+        private static string RevertFirstLastName(string fullName)
+        {
+            var finalString = new StringBuilder();
+            var str = fullName.Split(' ');
+            var firstName = str[0];
+            for (var i = 1; i < str.Length; i++) finalString.Append(str[i] + ' ');
+            finalString.Append(firstName);
+            return finalString.ToString();
+        }
 
 
         /// <summary>

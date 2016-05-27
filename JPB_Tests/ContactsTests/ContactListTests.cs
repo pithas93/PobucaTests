@@ -31,39 +31,39 @@ namespace JPB_Tests.ContactsTests
         public void Filter_Using_Filter_By()
         {
             ContactsPage.FilterBy().SelectingAllowEmail().Filter();
-            int expectedResult1 = 85;
+            var expectedResult1 = 85;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"The sum of contacts being displayed, with Allow Emails = True, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingAllowSMS().Filter();
-            int expectedResult2 = 75;
+            var expectedResult2 = 75;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"The sum of contacts being displayed, with Allow SMS = True, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingAllowPhones().Filter();
-            int expectedResult3 = 49;
+            var expectedResult3 = 49;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"The sum of contacts being displayed, with Allow Phones = True, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingOrphans().Filter();
-            int expectedResult4 = 17;
+            var expectedResult4 = 17;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"The sum of orphan contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingDepartment(Department.Logistics).Filter();
-            int expectedResult5 = 13;
+            var expectedResult5 = 13;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"The sum of contacts being displayed and belong to Logistics department, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingDepartment(Department.Consulting).Filter();
-            int expectedResult6 = 57;
+            var expectedResult6 = 57;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"The sum of contacts being displayed and belong to Consulting department, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingAllowEmail().SelectingDepartment(Department.RnD).Filter();
-            int expectedResult7 = 7;
+            var expectedResult7 = 7;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult7, $"The sum of contacts being displayed, with Allow Email = True and belong to RnD department, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult7}");
-            LeftSideMenu.GoToContacts();
+            ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy()
                 .SelectingAllowSMS()
@@ -71,7 +71,7 @@ namespace JPB_Tests.ContactsTests
                 .SelectingDepartment(Department.Sales)
                 .SelectingDepartment(Department.Administration)
                 .Filter();
-            int expectedResult8 = 22;
+            var expectedResult8 = 22;
             VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult8, $"The sum of contacts being displayed, with Allow SMS and Emails and belong either to the Sales or Administration departments, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult8}");
 
         }

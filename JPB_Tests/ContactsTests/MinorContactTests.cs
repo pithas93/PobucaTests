@@ -72,7 +72,7 @@ namespace JPB_Tests.ContactsTests
         public void Call_A_Contact_Telephone_From_Contact_List_Page()
         {
             ContactCreator.CreateSimpleContact();
-            LeftSideMenu.GoToContacts();
+            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
             ContactsPage.FindContact()
                 .WithFirstName(ContactCreator.FirstContact.FirstName)
                 .AndLastName(ContactCreator.FirstContact.LastName)
@@ -87,7 +87,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Assert_That_Page_Paths_Are_Correct()
         {
-            LeftSideMenu.GoToContacts();
+            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
             VerifyThat.IsTrue(ContactsPage.IsAt, "Contact page path is not the expected one");
 
             ContactsPage.OpenFirstContact();
@@ -99,7 +99,7 @@ namespace JPB_Tests.ContactsTests
             EditContactPage.ClickSaveContactButton();
             VerifyThat.IsTrue(ContactViewPage.IsAt, "Contact view page path is not the expected one");
 
-            LeftSideMenu.GoToContacts();
+            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
             NewContactPage.GoTo();
             VerifyThat.IsTrue(NewContactPage.IsAt, "New contact page path is not the expected one");
 

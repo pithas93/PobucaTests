@@ -1,4 +1,7 @@
 ﻿using System;
+using JPB_Framework.Pages;
+using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
@@ -14,6 +17,8 @@ namespace JPB_Framework.Navigation
         /// </summary>
         public static void GoToContacts()
         {
+            if (ContactsPage.IsAt) return;
+
             try
             {
                 var contactsBtn = Driver.Instance.FindElement(By.CssSelector("#Contacts"));
@@ -42,6 +47,8 @@ namespace JPB_Framework.Navigation
         /// </summary>
         public static void GoToOrganizations()
         {
+            if (OrganizationsPage.IsAt) return;
+
             try
             {
                 var organizationsBtn = Driver.Instance.FindElement(By.CssSelector("#Companies"));
@@ -70,6 +77,8 @@ namespace JPB_Framework.Navigation
         /// </summary>
         public static void GoToImports()
         {
+            if (ImportPage.IsAt) return;
+
             try
             {
                 var importsBtn = Driver.Instance.FindElement(By.CssSelector("#importEntButton"));

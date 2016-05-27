@@ -31,7 +31,7 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Create_A_Simple_Contact()
         {
             ContactCreator.CreateSimpleContact();
-//            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not created successfully but it should");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not created successfully but it should");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
         }
 
