@@ -265,8 +265,9 @@ namespace JPB_Framework.UI_Utilities
 
             try
             {
-                if (!sequence.Equals(null))
+                if (!sequence.Equals(null) && sequence != 0)
                 {
+                    Driver.MoveToElement(records[sequence - 1]);
                     Commands.ClickContactRemoveButton(records[sequence - 1]);
                     return;
                 }
@@ -298,7 +299,7 @@ namespace JPB_Framework.UI_Utilities
 
             try
             {
-                if (!sequence.Equals(null))
+                if (!sequence.Equals(null) && sequence != 0)
                 {
                     Commands.ClickContactPrimaryButton(records[sequence - 1]);
                     return;
