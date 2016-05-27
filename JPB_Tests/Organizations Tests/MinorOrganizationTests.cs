@@ -42,10 +42,10 @@ namespace JPB_Tests.Organizations_Tests
         }
 
         /// <summary>
-        /// Assert that a contact can be removed from an organization's contact list thus becoming orphan
+        /// Assert that an orphan contact can be added to an organization's contact list
         /// </summary>
         [TestMethod]
-        public void Remove_Contact_From_Organization_Contact_List()
+        public void Add_Contact_To_Organization_Contact_List()
         {
             ContactCreator.CreateSimpleOrphanContact();
             OrganizationCreator.CreateSimpleOrganization();
@@ -78,7 +78,7 @@ namespace JPB_Tests.Organizations_Tests
         /// Check that a contact can be shared with a valid email and that the share button enabled.
         /// </summary>
         [TestMethod]
-        public void Check_Contact_Is_Shareable_With_Valid_Email()
+        public void Check_Organization_Is_Shareable_With_Valid_Email()
         {
             OrganizationsPage.OpenFirstOrganization();
             AssertThat.IsTrue(OrganizationViewPage.IsOrganizationShareableTo(DummyData.EmailValue), "Though email inserted is of valid syntax, Share button is not enabled.");
@@ -89,7 +89,7 @@ namespace JPB_Tests.Organizations_Tests
         /// Check that the filter that checks the validity of the email input in share contact dialog box, prevents the input of invalid format values
         /// </summary>
         [TestMethod]
-        public void Check_Share_Contact_Email_Input_Filter()
+        public void Check_Share_Organization_Email_Input_Filter()
         {
             OrganizationsPage.OpenFirstOrganization();
             VerifyThat.IsFalse(OrganizationViewPage.IsOrganizationShareableTo(DummyData.NonsenseValue), "Email field input does not follows email syntaxt but, it was accepted by the filter.");

@@ -301,6 +301,7 @@ namespace JPB_Framework.UI_Utilities
             {
                 if (!sequence.Equals(null) && sequence != 0)
                 {
+                    Driver.MoveToElement(records[sequence - 1]);
                     Commands.ClickContactPrimaryButton(records[sequence - 1]);
                     return;
                 }

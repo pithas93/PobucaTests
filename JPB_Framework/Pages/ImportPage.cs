@@ -33,7 +33,7 @@ namespace JPB_Framework.Pages
                         By.CssSelector("fieldset[ng-show='wizardStepThree'] div[ng-show='showSuccessResult']"));
                 var value = element.GetAttribute("class");
 
-                return string.Equals(value, "ng-binding");
+                return string.Equals(value, "");
             }
         }
 

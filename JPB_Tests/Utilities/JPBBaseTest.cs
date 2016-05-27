@@ -40,7 +40,7 @@ namespace JPB_Tests.Utilities
         {
             Report.InitializeReportFile();
             Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
-            Driver.Initialize(Browser.Firefox);
+            Driver.Initialize(Browser.Chrome);
 
             LoginPage.GoTo();
             try
@@ -50,7 +50,7 @@ namespace JPB_Tests.Utilities
             catch (WebDriverTimeoutException)
             {
                 Report.ToLogFile(MessageType.Message, "Reseting browser because the test failed to initialize properly.", null);
-                Driver.Reinitialize(Browser.Firefox);
+                Driver.Reinitialize(Browser.Chrome);
                 LoginPage.GoTo();
                 LoginPage.LoginAs(Username).WithPassword(Password).Login();
             }

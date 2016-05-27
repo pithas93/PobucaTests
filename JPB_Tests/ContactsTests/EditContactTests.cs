@@ -107,7 +107,7 @@ namespace JPB_Tests.ContactsTests
                 .WithFirstName(ContactCreator.FirstName)
                 .AndLastName(ContactCreator.LastName)
                 .Find(),
-                $"Contact {ContactCreator.FirstName} {ContactCreator.LastName} was supposed to be removed but is still a contact of organization {ContactCreator.OrganizationName}."
+                $"Contact {ContactCreator.FullName} was supposed to be removed but is still a contact of organization {ContactCreator.OrganizationName}."
                 );
         }
     }
