@@ -45,10 +45,10 @@ namespace JPB_Tests.Organizations_Tests
         }
 
         /// <summary>
-        /// Assert that a contact can be removed from an organization's contact list thus becoming orphan
+        /// Assert that an orphan contact can be added to an organization's contact list
         /// </summary>
         [TestMethod]
-        public void Remove_Contact_From_Organization_Contact_List()
+        public void Add_Contact_To_Organization_Contact_List()
         {
             ContactCreator.CreateSimpleOrphanContact();
             OrganizationCreator.CreateSimpleOrganization();

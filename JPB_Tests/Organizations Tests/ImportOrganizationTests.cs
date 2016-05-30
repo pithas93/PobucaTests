@@ -126,15 +126,15 @@ namespace JPB_Tests.Organizations_Tests
         /// <summary>
         /// Import 1 organization with value for Primary Contact field that does not exist in contact list
         /// </summary>
-        [TestMethod]
-        public void Import_Organization_With_Primary_Contact_That_Does_Not_Exist()
-        {
-            OrganizationCreator.ImportOrganizationWithPrimaryContactThatDoesNotExist();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-
-            OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.OrganizationName).Open();
-            AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, "", "Previously imported organization has as primary contact, a contact that is linked to another existing organization");
-
-        }
+//        [TestMethod]
+//        public void Import_Organization_With_Primary_Contact_That_Does_Not_Exist()
+//        {
+//            OrganizationCreator.ImportOrganizationWithPrimaryContactThatDoesNotExist();
+//            AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
+//
+//            OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.OrganizationName).Open();
+//            AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, "", "Previously imported organization has as primary contact, a contact that is linked to another existing organization");
+//
+//        }
     }
 }

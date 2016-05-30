@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using JPB_Framework.Report;
 using JPB_Framework.UI_Utilities;
@@ -111,7 +109,6 @@ namespace JPB_Framework.Selenium
             var action = new Actions(Instance);
             action.MoveToElement(element);
             action.Perform();
-            Wait(TimeSpan.FromSeconds(2));
         }
 
         /// <summary>
@@ -170,6 +167,7 @@ namespace JPB_Framework.Selenium
                     // break the string in first and last name and revert their position
                     currentRecordLabel = RevertFirstLastName(currentRecordLabel);
                     nextRecordLabel = RevertFirstLastName(nextRecordLabel);
+
                 }
 
                 // if the field examined is the record name (first/last/organization name) AND is empty, there is no next record and so there is no point continuing;
@@ -188,17 +186,166 @@ namespace JPB_Framework.Selenium
             }
             return true;
 
+
+            //
+            //            switch (field)
+            //            {
+            //                case SortRecordsCommand.SortField.FirstName:
+            //                    {
+            //                        for (var i = 0; i < recordListCount; i++)
+            //                        {
+            //
+            //                            var currentRecordName = recordList[i].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            //                            var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            //
+            //
+            //                            // if there is no next record, there is no point continuing;
+            //                            if (string.IsNullOrEmpty(nextRecordName.Text)) break;
+            //
+            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
+            //                            {
+            //
+            //                                if (string.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
+            //                            {
+            //                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //
+            //                        }
+            //                        return true;
+            //                    }
+            //                case SortRecordsCommand.SortField.LastName:
+            //                    {
+            //                        for (var i = 0; i < recordListCount; i++)
+            //                        {
+            //
+            //                            var currentRecordName = recordList[i].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            //                            var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            //
+            //                            // Break the string in first and last name and revert their position
+            //                            string currentRecordNameStr = currentRecordName.Text.Split(' ')[1] + ' ' + currentRecordName.Text.Split(' ')[0];
+            //                            string nextRecordNameStr = nextRecordName.Text.Split(' ')[1] + ' ' + nextRecordName.Text.Split(' ')[0];
+            //
+            //                            // if there is no next record, there is no point continuing;
+            //                            if (String.IsNullOrEmpty(nextRecordName.Text)) break;
+            //
+            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
+            //                            {
+            //
+            //                                if (String.Compare(currentRecordNameStr, nextRecordNameStr) == 1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Contact:'{currentRecordNameStr}' is before contact:'{nextRecordNameStr}' which is wrong. The list must be sorted first by last name, then by first name ascending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
+            //                            {
+            //                                if (String.Compare(currentRecordNameStr, nextRecordNameStr) == -1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Contact:'{currentRecordNameStr}' is before contact:'{nextRecordNameStr}' which is wrong. The list must be sorted first by last name, then by first name descending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //
+            //                        }
+            //                        return true;
+            //                    }
+            //                case SortRecordsCommand.SortField.OrganizationName:
+            //                    {
+            //                        for (var i = 0; i < recordListCount; i++)
+            //                        {
+            //
+            //                            var currentRecordName = recordList[i].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            //                            var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
+            //
+            //
+            //
+            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
+            //                            {
+            //
+            //                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Organization:'{currentRecordName.Text}' is before organization:'{nextRecordName.Text}' which is wrong. The list must be sorted by organization name ascending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
+            //                            {
+            //                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Organization:'{currentRecordName.Text}' is before organization:'{nextRecordName.Text}' which is wrong. The list must be sorted organization name descending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //
+            //                        }
+            //                        return true;
+            //                    }
+            //                case SortContactsCommand.SortField.City:
+            //                    {
+            //                        for (var i = 0; i < recordListCount; i++)
+            //                        {
+            //
+            //                            var currentRecordCity = recordList[i].FindElement(By.CssSelector(".details.font-light.ng-binding.ng-scope"));
+            //                            var nextRecordCity = recordList[i + 1].FindElement(By.CssSelector(".details.font-light.ng-binding.ng-scope"));
+            //
+            //                            // if there is no next record, there is no point continuing;
+            //                            if (String.IsNullOrEmpty(nextRecordCity.Text)) break;
+            //
+            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
+            //                            {
+            //
+            //                                if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == 1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Contact:'{currentRecordCity.Text}' is before contact:'{nextRecordCity.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
+            //                            {
+            //                                if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == -1)
+            //                                {
+            //                                    Report.Report.ToLogFile(MessageType.Message,
+            //                                        $"Contact:'{currentRecordCity.Text}' is before contact:'{nextRecordCity.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
+            //                                        null);
+            //                                    return false;
+            //                                }
+            //                            }
+            //
+            //                        }
+            //                        return true;
+            //                    }
+            //                default:
+            //                    {
+            //                        return false;
+            //                    }
+            //            }
+
         }
 
-        private static string RevertFirstLastName(string fullName)
-        {
-            var finalString = new StringBuilder();
-            var str = fullName.Split(' ');
-            var firstName = str[0];
-            for (var i = 1; i < str.Length; i++) finalString.Append(str[i] + ' ');
-            finalString.Append(firstName);
-            return finalString.ToString();
-        }
 
 
         /// <summary>
@@ -315,38 +462,15 @@ namespace JPB_Framework.Selenium
             return newRecordListCount;
         }
 
-        /// <summary>
-        /// Returns true if the given list of text values is sorted alphabetically.
-        /// Method also returns false in case one of the text values is a GUID.
-        /// </summary>
-        /// <param name="valuesList"></param>
-        /// <returns></returns>
-        public static bool CheckIfListIsSorted(ReadOnlyCollection<IWebElement> valuesList)
+        private static string RevertFirstLastName(string fullName)
         {
-            string guid_pattern = @"\A\{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}\z";
-            Regex reg = new Regex(guid_pattern, RegexOptions.IgnoreCase);
-            Match match;
-            match = reg.Match(valuesList[0].Text);
-            if (match.Success)
-            {
-                Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
-                return false;
-            }
-
-            for (var i = 1; i < valuesList.Count; i++)
-            {
-                var previousDepartment = valuesList[i - 1].Text;
-                var currentDepartment = valuesList[i].Text;
-                match = reg.Match(currentDepartment);
-                if (match.Success)
-                {
-                    Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
-                    return false;
-                }
-
-                if (string.Compare(previousDepartment, currentDepartment) == 1) return false;
-            }
-            return true;
+            var finalString = new StringBuilder();
+            var str = fullName.Split(' ');
+            var firstName = str[0];
+            for (var i = 1; i < str.Length; i++) finalString.Append(str[i] + ' ');
+            finalString.Append(firstName);
+            return finalString.ToString();
         }
+
     }
 }
