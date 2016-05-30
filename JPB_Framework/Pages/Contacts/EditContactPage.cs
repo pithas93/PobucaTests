@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JPB_Framework.Navigation;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 

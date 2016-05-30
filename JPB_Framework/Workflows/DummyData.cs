@@ -254,7 +254,7 @@ namespace JPB_Framework.Workflows
 
         private static string[] Words =
         {
-            "alpha", "beta","gama","delta","epsilon","zeta","eta","theta","yiota","kapa","lamba","mi","ni","ksi","omikron","pi",
+            "alpha", "beta","gama","delta","epsilon","zeta","eta","theta","yiota","kapa","lamda","mi","ni","ksi","omikron","pi",
             "ro","sigma","taf","ipsilon","phi","chi","psi","omega"
         };
 

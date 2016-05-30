@@ -12,12 +12,7 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class MinorContactTests : ContactsBaseTest
     {
-        // link existing contact from an organization, to another organization throught 'add existing contact to organization contact list'
-        // to organization name prepei na se phgainei sto organization view
-        // to email leitoyrgei sa link gia na steileis email (opws me ta thl gia na pairneis thlewfwno)
-        // to address leitoyrgei ws link sto google maps
-        // otan dhmioyrgw ena neo contact mesa apo to organization, 8a prepei to billing address tou organization na symplhrw8ei automata sto work address tou neou contact
-        // se periptwsh pou symplhrwseis full name idio me mias yparxousas epafhs, se enhmerwnei alla se afhnei na apo8hkeuseis
+        
 
         /// <summary>
         /// Check that clicking a telephone number within a contact, results in showing a dialog to select an app to dial the number or automatically calls the number.

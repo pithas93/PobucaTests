@@ -10,6 +10,7 @@ namespace JPB_Tests.Utilities
 {
     public class JpbBaseTest
     {
+        public const Browser browser = Browser.Firefox;
         public const string Username = "panagiotis@panagof1.com";
         public const string Password = "6AB10F93";
         public const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
@@ -40,7 +41,7 @@ namespace JPB_Tests.Utilities
         {
             Report.InitializeReportFile();
             Report.Initialize(TestContext.FullyQualifiedTestClassName,TestContext.TestName);
-            Driver.Initialize(Browser.Chrome);
+            Driver.Initialize(browser);
 
             LoginPage.GoTo();
             try
@@ -50,7 +51,7 @@ namespace JPB_Tests.Utilities
             catch (WebDriverTimeoutException)
             {
                 Report.ToLogFile(MessageType.Message, "Reseting browser because the test failed to initialize properly.", null);
-                Driver.Reinitialize(Browser.Chrome);
+                Driver.Reinitialize(browser);
                 LoginPage.GoTo();
                 LoginPage.LoginAs(Username).WithPassword(Password).Login();
             }

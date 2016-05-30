@@ -41,7 +41,7 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Edit_Contact()
         {
             ContactCreator.CreateSimpleContact();
-            ContactCreator.EditSimpleContact();
+            ContactCreator.EditSimpleContact(ContactCreator.FirstContact);
             AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not saved successfully after edit");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly after edit");
 

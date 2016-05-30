@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using JPB_Framework.Report;
 using JPB_Framework.UI_Utilities;
@@ -472,5 +474,38 @@ namespace JPB_Framework.Selenium
             return finalString.ToString();
         }
 
+        /// <summary>
+        /// Returns true if the given list of text values is sorted alphabetically.
+        /// Method also returns false in case one of the text values is a GUID.
+        /// </summary>
+        /// <param name="valuesList"></param>
+        /// <returns></returns>
+        public static bool CheckIfListIsSorted(ReadOnlyCollection<IWebElement> valuesList)
+        {
+            string guid_pattern = @"\A\{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}\z";
+            Regex reg = new Regex(guid_pattern, RegexOptions.IgnoreCase);
+            Match match;
+            match = reg.Match(valuesList[0].Text);
+            if (match.Success)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
+                return false;
+            }
+
+            for (var i = 1; i < valuesList.Count; i++)
+            {
+                var previousDepartment = valuesList[i - 1].Text;
+                var currentDepartment = valuesList[i].Text;
+                match = reg.Match(currentDepartment);
+                if (match.Success)
+                {
+                    Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
+                    return false;
+                }
+
+                if (string.Compare(previousDepartment, currentDepartment) == 1) return false;
+            }
+            return true;
+        }
     }
 }

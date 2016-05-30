@@ -25,8 +25,6 @@ namespace JPB_Framework.UI_Utilities
                 Driver.Wait(TimeSpan.FromSeconds(3));
                 return true;
             }
-
-            Report.Report.ToLogFile(MessageType.Message, "Save button is not active, so record cannot be saved.", null);
             return false;
 
         }

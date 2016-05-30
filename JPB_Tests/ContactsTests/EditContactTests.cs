@@ -19,9 +19,9 @@ namespace JPB_Tests.ContactsTests
         public void Edit_Every_Contact_Field_From_Existing_Contact()
         {
             ContactCreator.CreateContactWithAllValues();
-            ContactCreator.EditContactAlteringAllValues();
-            AssertThat.IsTrue(ContactCreator.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
+            ContactCreator.EditContactAlteringAllValues(ContactCreator.FirstContact);
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
 
         }
         
@@ -30,13 +30,12 @@ namespace JPB_Tests.ContactsTests
         public void Edit_Contact_From_Within_Organization_Contact_List()
         {
             ContactCreator.CreateSimpleContact();
-            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Find();
-            OrganizationsPage.OpenFirstOrganization();
-            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Open();
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
+            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
 
-            ContactCreator.EditSimpleContactWithOrganization();
-            AssertThat.IsTrue(ContactCreator.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
+            ContactCreator.EditSimpleContactWithOrganization(ContactCreator.FirstContact);
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
 
         }
 
@@ -45,8 +44,8 @@ namespace JPB_Tests.ContactsTests
         public void Cannot_Save_Contact_After_Leaving_Mandatory_Fields_Empty()
         {
             ContactCreator.CreateSimpleContact();
-            ContactCreator.EditContactRemovingLastName();
-            AssertThat.IsFalse(ContactCreator.IsContactSavedAfterEdit, "Contact was saved after edit, without last name which is mandatory.");
+            ContactCreator.EditContactRemovingLastName(ContactCreator.FirstContact);
+            AssertThat.IsFalse(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was saved after edit, without last name which is mandatory.");
 
         }
 
@@ -55,8 +54,8 @@ namespace JPB_Tests.ContactsTests
         public void Cannot_Save_Contact_After_Assigning_OverFlown_Field_Values()
         {
             ContactCreator.CreateSimpleContact();
-            ContactCreator.EditContactAssigningOverflowValues();
-            AssertThat.IsFalse(ContactCreator.IsContactSavedAfterEdit, "Contact was saved after edit but, it has values in first and last name that exceed the 50 character limit.");
+            ContactCreator.EditContactAssigningOverflowValues(ContactCreator.FirstContact);
+            AssertThat.IsFalse(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was saved after edit but, it has values in first and last name that exceed the 50 character limit.");
 
         }
 
@@ -65,9 +64,9 @@ namespace JPB_Tests.ContactsTests
         public void Edit_Contact_And_Assign_Nonsense_Values()
         {
             ContactCreator.CreateSimpleContact();
-            ContactCreator.EditContactAssigningNonsenseValues();
-            AssertThat.IsTrue(ContactCreator.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
+            ContactCreator.EditContactAssigningNonsenseValues(ContactCreator.FirstContact);
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
 
         }
 
@@ -76,8 +75,8 @@ namespace JPB_Tests.ContactsTests
         public void Cannot_Assign_Invalid_Organization_After_Edit()
         {
             ContactCreator.CreateSimpleContact();
-            ContactCreator.EditContactAssigningInvalidOrganization();
-            AssertThat.IsTrue(ContactCreator.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
+            ContactCreator.EditContactAssigningInvalidOrganization(ContactCreator.FirstContact);
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
             AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Organization ought to be null but it has value = '{ContactViewPage.OrganizationName}' which is invalid. Defect spotted!");
 
         }
@@ -87,9 +86,9 @@ namespace JPB_Tests.ContactsTests
         public void Edit_Contact_And_Delete_Organization_Value()
         {
             ContactCreator.CreateSimpleContact();
-            ContactCreator.EditContactRemovingOrganization();
-            AssertThat.IsTrue(ContactCreator.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
-            AssertThat.IsTrue(ContactCreator.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
+            ContactCreator.EditContactRemovingOrganization(ContactCreator.FirstContact);
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was not saved after edit but, it should.");
+            AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
         }
 
         // Remove a contact from within an organization contact list thus rendering it orphan
@@ -97,17 +96,17 @@ namespace JPB_Tests.ContactsTests
         public void Remove_Contact_From_Organization_Contact_List()
         {
             ContactCreator.CreateSimpleContact();
-            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
-            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstName).AndLastName(ContactCreator.LastName).Remove();
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
+            OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Remove();
 
-            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.OrganizationName).Open();
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
             AssertThat.IsFalse(
                 OrganizationViewPage.
                 FindContactFromOrganizationContactList()
-                .WithFirstName(ContactCreator.FirstName)
-                .AndLastName(ContactCreator.LastName)
+                .WithFirstName(ContactCreator.FirstContact.FirstName)
+                .AndLastName(ContactCreator.FirstContact.LastName)
                 .Find(),
-                $"Contact {ContactCreator.FullName} was supposed to be removed but is still a contact of organization {ContactCreator.OrganizationName}."
+                $"Contact {ContactCreator.FirstContact.FullName} was supposed to be removed but is still a contact of organization {ContactCreator.FirstContact.OrganizationName}."
                 );
         }
     }

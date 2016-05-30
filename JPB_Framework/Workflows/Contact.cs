@@ -113,9 +113,10 @@ namespace JPB_Framework.Workflows
 
 
         /// <summary>
-        /// Initialize Contact properties
+        /// Initializes contact properties
         /// </summary>
-        public void Initialize()
+        /// <param name="order">Sets the contact order that distincts one contact from another</param>
+        public Contact()
         {
             BasicContactFields = new List<RecordField>();
             ExtraContactFields = new List<RecordField>();
