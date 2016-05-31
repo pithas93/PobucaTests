@@ -22,7 +22,7 @@ namespace JPB_Framework.Pages.Login
             }
             catch (WebDriverTimeoutException e)
             {
-                Report.Report.ToLogFile(MessageType.Exception, "Failed to load login screen on time.", e);
+                Report.Report.ToLogFile(MessageType.Message, "Failed to load login screen on time.", null);
                 throw e;
 
             }

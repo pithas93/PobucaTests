@@ -12,7 +12,6 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class ContactListTests : JpbBaseTest
     {
-        // na tsekarw oti leitoyrgei h anazhthsh se lekseis pou exoun tonous (ellhnikous, gallikous klp)
            
         /// <summary>
         /// Check that default sorting works properly
@@ -32,37 +31,37 @@ namespace JPB_Tests.ContactsTests
         {
             ContactsPage.FilterBy().SelectingAllowEmail().Filter();
             var expectedResult1 = 85;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"The sum of contacts being displayed, with Allow Emails = True, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult1, $"The sum of contacts being displayed, with Allow Emails = True, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingAllowSMS().Filter();
             var expectedResult2 = 75;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"The sum of contacts being displayed, with Allow SMS = True, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult2, $"The sum of contacts being displayed, with Allow SMS = True, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingAllowPhones().Filter();
             var expectedResult3 = 49;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"The sum of contacts being displayed, with Allow Phones = True, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult3, $"The sum of contacts being displayed, with Allow Phones = True, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingOrphans().Filter();
             var expectedResult4 = 17;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"The sum of orphan contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult4, $"The sum of orphan contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult4}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingDepartment(Department.Logistics).Filter();
             var expectedResult5 = 13;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"The sum of contacts being displayed and belong to Logistics department, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult5, $"The sum of contacts being displayed and belong to Logistics department, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult5}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingDepartment(Department.Consulting).Filter();
             var expectedResult6 = 57;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"The sum of contacts being displayed and belong to Consulting department, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult6, $"The sum of contacts being displayed and belong to Consulting department, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult6}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy().SelectingAllowEmail().SelectingDepartment(Department.RnD).Filter();
             var expectedResult7 = 7;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult7, $"The sum of contacts being displayed, with Allow Email = True and belong to RnD department, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult7}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult7, $"The sum of contacts being displayed, with Allow Email = True and belong to RnD department, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult7}");
             ContactsPage.ResetFilters();
 
             ContactsPage.FilterBy()
@@ -72,7 +71,7 @@ namespace JPB_Tests.ContactsTests
                 .SelectingDepartment(Department.Administration)
                 .Filter();
             var expectedResult8 = 22;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult8, $"The sum of contacts being displayed, with Allow SMS and Emails and belong either to the Sales or Administration departments, is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult8}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult8, $"The sum of contacts being displayed, with Allow SMS and Emails and belong either to the Sales or Administration departments, is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult8}");
 
         }
 
@@ -84,35 +83,35 @@ namespace JPB_Tests.ContactsTests
         {
             ContactsPage.FindContact().ContainingKeyword("lavi").Find();
             int expectedResult1 = 1;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"Search using organization field, with keyword = 'lavi', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult1, $"Search using organization field, with keyword = 'lavi', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
 
             ContactsPage.FindContact().ContainingKeyword("παπα").Find();
             int expectedResult2 = 9;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"Search using surname field, with keyword = 'παπα', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult2, $"Search using surname field, with keyword = 'παπα', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
 
             ContactsPage.FindContact().ContainingKeyword("21066").Find();
             int expectedResult3 = 1;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"Search using phone field, with keyword = '21066', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult3, $"Search using phone field, with keyword = '21066', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
 
             ContactsPage.FindContact().ContainingKeyword("αργυρουπ").Find();
             int expectedResult4 = 18;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"Search using city field, with keyword = 'αργυρουπ', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult4, $"Search using city field, with keyword = 'αργυρουπ', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult4}");
 
             ContactsPage.FindContact().ContainingKeyword("βουλιαγμ").Find();
             int expectedResult5 = 13;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"Search using street field, with keyword = 'βουλιαγμ', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult5, $"Search using street field, with keyword = 'βουλιαγμ', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult5}");
 
             ContactsPage.FindContact().ContainingKeyword("roma").Find();
             int expectedResult6 = 21;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"Search using country field, with keyword = 'roma', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult6, $"Search using country field, with keyword = 'roma', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult6}");
 
             ContactsPage.FindContact().ContainingKeyword("director").Find();
             int expectedResult7 = 7;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult7, $"Search using job title field, with keyword = 'director', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult7}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult7, $"Search using job title field, with keyword = 'director', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult7}");
 
             ContactsPage.FindContact().ContainingKeyword("kosmocar.gr").Find();
             int expectedResult8 = 17;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult8, $"Search using website field, with keyword = 'kosmocar.gr', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult8}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult8, $"Search using website field, with keyword = 'kosmocar.gr', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult8}");
 
         }
 
@@ -142,7 +141,8 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Select_Multiple_Contacts()
         {
-            AssertThat.AreEqual(ContactsPage.SelectRandomNumberOfContacts(), ContactsPage.ContactsBeingSelected, "The count of selected contacts is not equal with the value of the corresponding label");
+            ContactsPage.SelectRandomNumberOfContacts();
+            AssertThat.AreEqual(ContactsPage.SelectedContactsCount, ContactsPage.SelectedContactsCountByLabel, "The count of selected contacts is not equal with the value of the corresponding label");
         }
  
         /// <summary>
@@ -153,27 +153,27 @@ namespace JPB_Tests.ContactsTests
         {
             AlphabetSideBar.SelectLetter(LatinAlphabet.RestChars);
             int expectedResult1 = 168;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.Z);
             int expectedResult2 = 0;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.P);
             int expectedResult3 = 2;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.RestChars);
             int expectedResult4 = 35;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult4}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.Α);
             int expectedResult5 = 4;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult5}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.Β);
             int expectedResult6 = 2;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult6}");
 
         }
  
@@ -201,7 +201,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Check_Contacts_Displayed_Is_Equal_To_Label()
         {
-            AssertThat.AreEqual(ContactsPage.TotalContactsCount, ContactsPage.ContactsBeingDisplayed, "The count of contacts being displayed is not equal with the value of the corresponding label");
+            AssertThat.AreEqual(ContactsPage.TotalContactsCountByLabel, ContactsPage.TotalContactsCount, "The count of contacts being displayed is not equal with the value of the corresponding label");
         }
     }
 }

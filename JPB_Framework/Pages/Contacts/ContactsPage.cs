@@ -18,10 +18,26 @@ namespace JPB_Framework.Pages.Contacts
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts");
 
         /// <summary>
-        /// Returns the total number of contacts being displayed in the record list currently displayed.
+        /// Returns the value of label showing the total number of contacts currently displayed
         /// </summary>
         /// <returns></returns>
-        public static int TotalContactsCount => Driver.GetTotalRecordsCount();
+        public static int TotalContactsCountByLabel => Commands.TotalRecordsCount();
+
+        /// <summary>
+        /// Returns the value of label showing the number of selected contacts
+        /// </summary>
+        public static int SelectedContactsCountByLabel => Commands.SelectedRecordsCountByLabel();
+
+        /// <summary>
+        /// Returns the total number of contacts currently being displayed
+        /// </summary>
+        public static int TotalContactsCount => Commands.TotalRecordsCount();
+
+        /// <summary>
+        /// Returns the number of selected contacts currently being displayed
+        /// </summary>
+        public static int SelectedContactsCount => Commands.SelectedRecordsCount();
+
 
         /// <summary>
         /// Check if contact list is loaded properly
@@ -48,15 +64,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         public static bool IsContactListSortedByLastNameDescending => Driver.CheckIfRecordListIsSortedBy(SortContactsCommand.SortField.LastName, SortContactsCommand.SortOrder.Descending);
 
-        /// <summary>
-        /// The total number of contacts being displayed by the contact list according to the corresponding label on the page
-        /// </summary>
-        public static int ContactsBeingDisplayed => Driver.GetRecordListCount();
 
-        /// <summary>
-        /// The total number of contacts being selected in the contact list according to the corresponding label on the page
-        /// </summary>
-        public static int ContactsBeingSelected => Driver.GetSelectedRecordsCount();
 
         /// <summary>
         /// Checks whether or not, the Filter By options have the correct labels and are in the correct order.
@@ -173,10 +181,10 @@ namespace JPB_Framework.Pages.Contacts
         /// Selects a random number of up to 20 contacts from a list of no more than 40 contacts. 
         /// </summary>
         /// <returns>The count of contacts that where selected</returns>
-        public static int SelectRandomNumberOfContacts()
+        public static void SelectRandomNumberOfContacts()
         {
             if (!IsAt) LeftSideMenu.GoToContacts();
-            return Commands.SelectRandomNumberOfRecords(0);
+            Commands.SelectRandomNumberOfRecords(0);
         }
 
         /// <summary>

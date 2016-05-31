@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
@@ -9,6 +11,23 @@ namespace JPB_Framework.UI_Utilities
 
     public class Commands
     {
+
+
+        /// <summary>
+        /// Presses the keyboard Escape key
+        /// </summary>
+        public static void PressEscapeKey()
+        {
+            var action = new Actions(Driver.Instance);
+            action.SendKeys(Keys.Escape);
+            Driver.Wait(TimeSpan.FromSeconds(1));
+        }
+
+
+        //////////////////////////////////////
+        ///  Click a UI Button
+        //////////////////////////////////////
+
 
         /// <summary>
         /// It clicks the save button. Save button is available through new/edit Contact And organization pages
@@ -59,86 +78,10 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
-        /// <summary>
-        /// Presses the keyboard Escape key
-        /// </summary>
-        public static void PressEscapeKey()
-        {
-            var action = new Actions(Driver.Instance);
-            action.SendKeys(Keys.Escape);
-            Driver.Wait(TimeSpan.FromSeconds(1));
-        }
+        //////////////////////////////////////
+        ///  Click a record list filter
+        //////////////////////////////////////
 
-        /// <summary>
-        /// It clicks searchbox And inputs given text for search. It can only be used on pages with the searchbox field
-        /// </summary>
-        public static void SearchFor(string keyword)
-        {
-            var searchbox = Driver.Instance.FindElement(By.Id("search-input-related"));
-            var searchBoxField =
-                searchbox.FindElement(
-                    By.TagName("input"));
-            searchBoxField.Clear();
-            searchBoxField.SendKeys(keyword);
-            Driver.Wait(TimeSpan.FromSeconds(5));
-        }
-
-        /// <summary>
-        /// Selects a record from a list page, identified by its position in the list
-        /// </summary>
-        /// <param name="position"></param>
-        public static void OpenRecordFromListBySequence(int position)
-        {
-            var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
-            record.Click();
-            Driver.Wait(TimeSpan.FromSeconds(3));
-        }
-
-        /// <summary>
-        /// Selects the record from the list that corresponds to the given position
-        /// </summary>
-        /// <param name="position">The position of the record to be selected inside the record list</param>
-        /// <returns>Returns true if the record was selected and false if it was deselected</returns>
-        private static bool SelectRecordFromListBySequence(int position)
-        {
-            var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
-            return SelectRecord(record);
-        }
-
-        /// <summary>
-        ///  Selects/deselects a single record within a record list by checking its checkbox
-        /// </summary>
-        /// <param name="record">The web element that corresponds to the record that will be selected</param>
-        public static bool SelectRecord(IWebElement record)
-        {
-            Driver.MoveToElement(record);
-            var checkBox = record.FindElement(By.CssSelector(".icheckbox"));
-            checkBox.Click();
-            var tmp = checkBox.GetAttribute("class");
-            Driver.Wait(TimeSpan.FromSeconds(1));
-            if (tmp.Equals("icheckbox") || tmp.Equals("icheckbox hover")) return false;
-            else if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
-            else throw new Exception();
-        }
-
-        /// <summary>
-        /// Selects a range of records whose name match the given string parameter
-        /// </summary>
-        /// <param name="s">The string criteria with which the records will be found</param>
-        public static int SelectRecordsMatching(string s)
-        {
-            var recordCount = 0;
-            var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-            foreach (var record in records)
-            {
-                var recordName = record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
-                if (recordName.Equals("") || recordName == null) break;
-                if (!recordName.StartsWith(s)) continue;
-                SelectRecord(record);
-                recordCount++;
-            }
-            return recordCount;
-        }
 
         /// <summary>
         /// It clicks the "Filter By" button located above the contact list in contact list page
@@ -170,45 +113,10 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(1));
         }
 
-        /// <summary>
-        /// Selects a given or a random number of up to 20 records from a list. If records are more than 40, the selected are among the first 40. 
-        /// </summary>
-        /// <param name="num">Defines the number of records to be selected. If it is zero, method chooses a random number of records</param>
-        /// <returns>The count of records that where selected</returns>
-        public static int SelectRandomNumberOfRecords(int num)
-        {
-            // The range of records from where the selection will be
-            int range;
-            var maxNumberOfRecordsToBeSelected = 40;
+        //////////////////////////////////////
+        ///  Organization view contact list commands
+        //////////////////////////////////////
 
-            if (maxNumberOfRecordsToBeSelected < Driver.GetRecordListCount())
-            {
-                range = maxNumberOfRecordsToBeSelected;
-            }
-            else
-            {
-                range = Driver.GetRecordListCount();
-            }
-
-            Random rand = new Random();
-            int selectedContacts = 0;
-            int numOfContactsToBeSelected;
-
-            if (num==0) numOfContactsToBeSelected = rand.Next(1, 20);
-            else numOfContactsToBeSelected = num;
-
-            for (var i = 0; i < numOfContactsToBeSelected; i++)
-            {
-
-                var positionOfRecord = rand.Next(1, range);
-                var isChecked = SelectRecordFromListBySequence(positionOfRecord);
-
-                if (isChecked) selectedContacts++;
-                else selectedContacts--;
-            }
-
-            return selectedContacts;
-        }
 
         /// <summary>
         /// Applicable only within organization view page. Clicks the 'Add Existing Contacts' button from organization's contact list
@@ -276,6 +184,113 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(2));
         }
 
+
+        //////////////////////////////////////
+        ///  Search - Select - Open records commands
+        //////////////////////////////////////
+
+
+        /// <summary>
+        /// It clicks searchbox And inputs given text for search. It can only be used on pages with the searchbox field
+        /// </summary>
+        public static void SearchFor(string keyword)
+        {
+            var searchbox = Driver.Instance.FindElement(By.Id("search-input-related"));
+            var searchBoxField =
+                searchbox.FindElement(
+                    By.TagName("input"));
+            searchBoxField.Clear();
+            searchBoxField.SendKeys(keyword);
+            Driver.Wait(TimeSpan.FromSeconds(5));
+        }
+
+        /// <summary>
+        /// Selects a record from a list page, identified by its position in the list
+        /// </summary>
+        /// <param name="position"></param>
+        public static void OpenRecordFromListBySequence(int position)
+        {
+            var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
+            record.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
+        }
+
+
+
+
+        /// <summary>
+        ///  Selects/deselects a single record within a record list by checking its checkbox
+        /// Method returns true if checkbox is checked and false if it is unchecked
+        /// </summary>
+        /// <param name="record">The web element that corresponds to the record that will be selected</param>
+        public static bool SelectRecord(IWebElement record)
+        {
+            Driver.MoveToElement(record);
+            var checkBox = record.FindElement(By.CssSelector(".icheckbox"));
+            checkBox.Click();
+            var tmp = checkBox.GetAttribute("class");
+            Driver.Wait(TimeSpan.FromSeconds(1));
+            if (tmp.Equals("icheckbox") || tmp.Equals("icheckbox hover")) return false;
+            else if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
+            else throw new Exception();
+        }
+
+        /// <summary>
+        /// Selects a range of records whose name match the given string parameter
+        /// </summary>
+        /// <param name="s">The string criteria with which the records will be found</param>
+        public static int SelectRecordsMatching(string s)
+        {
+            var recordCount = 0;
+            var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            foreach (var record in records)
+            {
+                var recordName = record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
+                if (recordName.Equals("") || recordName == null) break;
+                if (!recordName.StartsWith(s)) continue;
+                SelectRecord(record);
+                recordCount++;
+            }
+            return recordCount;
+        }
+
+
+        /// <summary>
+        /// Selects a given or a random number of up to 20 records from a list. If records are more than 40, the selected are among the first 40. 
+        /// </summary>
+        /// <param name="num">Defines the number of records to be selected. If it is zero, method chooses a random number of records</param>
+        /// <returns>The count of records that where selected</returns>
+        public static void SelectRandomNumberOfRecords(int num)
+        {
+            // The range of records from where the selection will be
+            int range;
+            // How many times driver will check contact checkboxes. A contact can be also unchecked if it is already checked
+            int numOfChecks;
+            var rand = new Random();
+            var records = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+            // Do not use a range greater than 40 for the selection
+            if (40 < TotalRecordsCount()) range = 40;
+            else range = TotalRecordsCount();
+
+
+            // If there is no defined number for the num of contacts to be selected, choose one randomly
+            if (num==0) numOfChecks = rand.Next(1, 20);
+            else numOfChecks = num;
+
+            for (var i = 0; i < numOfChecks; i++)
+            { 
+                
+                SelectRecord(records[rand.Next(1, range) - 1]);
+            }
+        }
+
+
+        //////////////////////////////////////
+        ///  Get value - status for something commands
+        //////////////////////////////////////
+
+
         public static bool IsRecordShareableTo(string email)
         {
             var shareModalWindow = Driver.Instance.FindElement(By.CssSelector("div#showShareVCardModal"));
@@ -300,6 +315,139 @@ namespace JPB_Framework.UI_Utilities
             var shareBtn = shareModalWindow.FindElement(By.CssSelector("button#shareBtn"));
             Driver.Wait(TimeSpan.FromSeconds(2));
             return (shareBtn.Enabled);
+        }
+
+        /// <summary>
+        /// Returns the number of records contained in the record list currently displayed
+        /// </summary>
+        /// <returns></returns>
+        public static int TotalRecordsCount()
+        {
+            var recordList = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+
+            // Check if there is at least one record displayed in the record list or else there is no point in continuing
+            var recordName = recordList[0].GetAttribute("style");
+            if (recordName.Equals("display: none;")) return 0;
+
+            // Count how many records are displayed
+            var recordListCount = 0;
+            foreach (var record in recordList)
+            {
+                var tmp = record.GetAttribute("style");
+                if (!string.IsNullOrEmpty(tmp)) break;
+                recordListCount++;
+            }
+
+            // Make page load every single record so that web driver can access them through their WebElements
+            int previousRecordListCount;
+            do
+            {
+                // Navigate to the last record list item
+                Driver.MoveToElement(recordList[recordListCount - 1]);
+
+                // After the record list has load the extra, not shown previously records, get the new record list count
+                recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+                // Count how many records are displayed
+                recordListCount = 0;
+                foreach (var record in recordList)
+                {
+                    var tmp = record.GetAttribute("style");
+                    if (!string.IsNullOrEmpty(tmp)) break;
+                    recordListCount++;
+                }
+
+                // Save the previousRecordListCount
+                previousRecordListCount = recordListCount;
+
+                if (previousRecordListCount > recordListCount)
+                {
+                    Report.Report.ToLogFile(MessageType.Message, "It seems that there is somethign wrong while counting records from the list", null);
+                    throw new Exception();
+                }
+
+                // There is no change in the newRecordListCount, we have probably reached its bottom
+            } while (previousRecordListCount != recordListCount);
+
+
+            return recordListCount;
+        }
+
+        /// <summary>
+        /// Returns the number of selected records contained in the record list currently displayed
+        /// </summary>
+        /// <returns></returns>
+        public static int SelectedRecordsCount()
+        {
+            var selectedRecords = 0;
+
+            // We call TotalRecordsCount to load all the contacts
+            TotalRecordsCount();
+
+            var recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+
+            foreach (var record in recordList)
+            {
+                var checkBox = record.FindElement(By.CssSelector(".icheckbox"));
+                var tmp = checkBox.GetAttribute("class");
+                if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) selectedRecords++;
+            }
+            return selectedRecords;
+        }
+
+        /// <summary>
+        /// Returns the value of label showing the total number of records currently displayed
+        /// </summary>
+        /// <returns></returns>
+        public static int TotalRecordsCountByLabel()
+        {
+            var totalRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
+            return Int32.Parse(totalRecordsLbl.Text);
+        }
+
+        /// <summary>
+        /// Returns the value of label showing the number of selected records
+        /// </summary>
+        /// <returns></returns>
+        public static int SelectedRecordsCountByLabel()
+        {
+            var selectedRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
+            return Int32.Parse(selectedRecordsLbl.Text);
+        }
+
+        /// <summary>
+        /// Returns true if the given list of text values is sorted alphabetically.
+        /// Method also returns false in case one of the text values is a GUID.
+        /// </summary>
+        /// <param name="valuesList"></param>
+        /// <returns></returns>
+        public static bool CheckIfListIsSorted(ReadOnlyCollection<IWebElement> valuesList)
+        {
+            string guid_pattern = @"\A\{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}\z";
+            Regex reg = new Regex(guid_pattern, RegexOptions.IgnoreCase);
+            Match match;
+            match = reg.Match(valuesList[0].Text);
+            if (match.Success)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
+                return false;
+            }
+
+            for (var i = 1; i < valuesList.Count; i++)
+            {
+                var previousDepartment = valuesList[i - 1].Text;
+                var currentDepartment = valuesList[i].Text;
+                match = reg.Match(currentDepartment);
+                if (match.Success)
+                {
+                    Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
+                    return false;
+                }
+
+                if (string.Compare(previousDepartment, currentDepartment) == 1) return false;
+            }
+            return true;
         }
     }
 }

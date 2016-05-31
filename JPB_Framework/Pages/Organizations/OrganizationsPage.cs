@@ -1,6 +1,8 @@
-﻿using JPB_Framework.Navigation;
+﻿using System;
+using JPB_Framework.Navigation;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
+using OpenQA.Selenium;
 
 namespace JPB_Framework.Pages.Organizations
 {
@@ -10,6 +12,26 @@ namespace JPB_Framework.Pages.Organizations
         /// Check if browser is at contacts list page
         /// </summary>
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations");
+
+        /// <summary>
+        /// Returns the number of organizations contained in the organization list currently displayed
+        /// </summary>
+        public static int TotalOrganizationsCount => Commands.TotalRecordsCount();
+
+        /// <summary>
+        /// Returns the number of selected organizations contained in the organization list currently displayed
+        /// </summary>
+        public static int SelectedOrganizationsCount => Commands.SelectedRecordsCount();
+
+        /// <summary>
+        /// Returns the value of label showing the total number of organizations currently displayed
+        /// </summary>
+        public static int TotalOrganizationsCountByLabel => Commands.TotalRecordsCountByLabel();
+
+        /// <summary>
+        /// Returns the value of label showing the number of selected organizations
+        /// </summary>
+        public static int SelectedOrganizationsCountByLabel => Commands.SelectedRecordsCountByLabel();
 
         /// <summary>
         /// Returns true if organizations list is loaded properly
@@ -46,15 +68,7 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static bool IsOrganizationListSortedByProfessionDescending => Driver.CheckIfRecordListIsSortedBy(SortOrganizationsCommand.SortField.Profession, SortOrganizationsCommand.SortOrder.Descending);
 
-        /// <summary>
-        /// The total number of organizations being displayed by the organization list according to the corresponding label on the page
-        /// </summary>
-        public static int OrganizationsBeingDisplayed => Driver.GetRecordListCount();
-
-        /// <summary>
-        /// The total number of organizations being selected in the organization list according to the corresponding label on the page
-        /// </summary>
-        public static int OrganizationsBeingSelected => Driver.GetSelectedRecordsCount();
+        
 
         /// <summary>
         /// Opens the first organization from the list to view its details
@@ -100,10 +114,35 @@ namespace JPB_Framework.Pages.Organizations
         /// Selects a random number of up to 20 organizations from a list of no more than 40 organizations. 
         /// </summary>
         /// <returns>The count of contacts that where selected</returns>
-        public static int SelectRandomNumberOfOrganizations()
+        public static void SelectRandomNumberOfOrganizations()
         {
             if (!IsAt) LeftSideMenu.GoToOrganizations();
-            return Commands.SelectRandomNumberOfRecords(0);
+            Commands.SelectRandomNumberOfRecords(0);
+        }
+
+        /// <summary>
+        /// If browser is at Contact List Page and there are filters set, it clears those filters
+        /// </summary>
+        public static void ResetFilters()
+        {
+            if (IsAt)
+                try
+                {
+                    IWebElement element = null;
+                    Driver.NoWait(
+                        () => element = Driver.Instance.FindElement(By.CssSelector("img[ng-click='resetFilters();']"))
+                        );
+                    element.Click();
+                    Driver.Wait(TimeSpan.FromSeconds(1));
+                }
+                catch (NoSuchElementException)
+                {
+                }
+
+            else
+            {
+                throw new Exception();
+            }
         }
     }
 

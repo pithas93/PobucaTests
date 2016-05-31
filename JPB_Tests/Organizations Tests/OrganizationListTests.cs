@@ -38,27 +38,27 @@ namespace JPB_Tests.Organizations_Tests
             LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FilterBy().SelectingAccountType(AccountType.Consultant).Filter();
             int expectedResult1 = 0;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult1, $"The sum of organizations being displayed with Account Type = {AccountType.Consultant} is different from the expected. OrganizationsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult1, $"The sum of organizations being displayed with Account Type = {AccountType.Consultant} is different from the expected. OrganizationsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult1}");
 
-            LeftSideMenu.GoToOrganizations();
+            OrganizationsPage.ResetFilters();
             OrganizationsPage.FilterBy().SelectingAccountType(AccountType.Reseller).Filter();
             int expectedResult2 = 10;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult2, $"The sum of organizations being displayed with Account Type = {AccountType.Reseller} is different from the expected. OrganizationsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult2, $"The sum of organizations being displayed with Account Type = {AccountType.Reseller} is different from the expected. OrganizationsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult2}");
 
-            LeftSideMenu.GoToOrganizations();
+            OrganizationsPage.ResetFilters();
             OrganizationsPage.FilterBy().SelectingAccountType(AccountType.Customer).Filter();
             int expectedResult3 = 82;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult3, $"The sum of organizations being displayed with Account Type = {AccountType.Customer} is different from the expected. OrganizationsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult3, $"The sum of organizations being displayed with Account Type = {AccountType.Customer} is different from the expected. OrganizationsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult3}");
 
-            LeftSideMenu.GoToOrganizations();
+            OrganizationsPage.ResetFilters();
             OrganizationsPage.FilterBy().SelectingAccountType(AccountType.Supplier).Filter();
             int expectedResult4 = 7;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult4, $"The sum of organizations being displayed with Account Type = {AccountType.Supplier} is different from the expected. OrganizationsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult4}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult4, $"The sum of organizations being displayed with Account Type = {AccountType.Supplier} is different from the expected. OrganizationsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult4}");
 
-            LeftSideMenu.GoToOrganizations();
+            OrganizationsPage.ResetFilters();
             OrganizationsPage.FilterBy().SelectingAccountType(AccountType.Partner).Filter();
             int expectedResult5 = 1;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult5, $"The sum of organizations being displayed with Account Type = {AccountType.Partner} is different from the expected. OrganizationsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult5}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult5, $"The sum of organizations being displayed with Account Type = {AccountType.Partner} is different from the expected. OrganizationsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult5}");
 
         }
 
@@ -71,27 +71,23 @@ namespace JPB_Tests.Organizations_Tests
             LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().ContainingKeyword("koro").Find();
             int expectedResult1 = 2;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult1, $"Search using organization name field, with keyword = 'koro', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult1, $"Search using organization name field, with keyword = 'koro', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult1}");
 
-            LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().ContainingKeyword("21066").Find();
             int expectedResult2 = 3;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult2, $"Search using phone field, with keyword = '21066', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult2, $"Search using phone field, with keyword = '21066', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult2}");
 
-            LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().ContainingKeyword("@la").Find();
             int expectedResult3 = 6;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult3, $"Search using website name field, with keyword = '@la', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult3, $"Search using website name field, with keyword = '@la', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult3}");
 
-            LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().ContainingKeyword("γο").Find();
-            int expectedResult4 = 2;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult4, $"Search using street name field, with keyword = 'γο', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult4}");
+            int expectedResult4 = 3;
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult4, $"Search using street name field, with keyword = 'γο', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult4}");
 
-            LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FindOrganization().ContainingKeyword("Καλλιθε").Find();
-            int expectedResult5 = 1;
-            VerifyThat.AreEqual(OrganizationsPage.OrganizationsBeingDisplayed, expectedResult5, $"Search using city name field, with keyword = 'Καλλιθε', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.OrganizationsBeingDisplayed}, Expected={expectedResult5}");
+            int expectedResult5 = 4;
+            VerifyThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, expectedResult5, $"Search using city name field, with keyword = 'Καλλιθε', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={OrganizationsPage.TotalOrganizationsCountByLabel}, Expected={expectedResult5}");
 
         }
 
@@ -131,7 +127,8 @@ namespace JPB_Tests.Organizations_Tests
         [TestMethod]
         public void Select_Multiple_Organizations()
         {
-            AssertThat.AreEqual(OrganizationsPage.SelectRandomNumberOfOrganizations(), OrganizationsPage.OrganizationsBeingSelected, "The count of selected organizations is not equal with the value of the corresponding label");
+            OrganizationsPage.SelectRandomNumberOfOrganizations();
+            AssertThat.AreEqual(OrganizationsPage.SelectedOrganizationsCountByLabel, OrganizationsPage.SelectedOrganizationsCount, "The count of selected organizations is not equal with the value of the corresponding label");
         }
 
         // Check that multiple selection works correctly no matter which sort by options are selected
@@ -148,27 +145,27 @@ namespace JPB_Tests.Organizations_Tests
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.RestChars);
             int expectedResult1 = 0;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.Z);
             int expectedResult2 = 0;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.L);
             int expectedResult3 = 93;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.RestChars);
             int expectedResult4 = 200;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult4}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult4}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.Α);
             int expectedResult5 = 0;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult5}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult5}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.Β);
             int expectedResult6 = 0;
-            VerifyThat.AreEqual(ContactsPage.ContactsBeingDisplayed, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.ContactsBeingDisplayed}, Expected={expectedResult6}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult6}");
 
         }
 

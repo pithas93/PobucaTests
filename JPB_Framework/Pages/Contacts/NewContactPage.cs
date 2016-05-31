@@ -42,7 +42,7 @@ namespace JPB_Framework.Pages.Contacts
                     Driver.Instance.FindElements(
                         By.CssSelector("my-select[myname='Department'] div select option.ng-binding.ng-scope"));
 
-                return Driver.CheckIfListIsSorted(departmentList);
+                return Commands.CheckIfListIsSorted(departmentList);
             }
         }
 
@@ -50,15 +50,15 @@ namespace JPB_Framework.Pages.Contacts
         {
             get
             {
-                var workCountryIsSorted = Driver.CheckIfListIsSorted(
+                var workCountryIsSorted = Commands.CheckIfListIsSorted(
                     Driver.Instance.FindElements(By.CssSelector("#workAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
                     );
 
-                var homeCountryIsSorted = Driver.CheckIfListIsSorted(
+                var homeCountryIsSorted = Commands.CheckIfListIsSorted(
                     Driver.Instance.FindElements(By.CssSelector("#homeAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
                     );
 
-                var otherCountryIsSorted = Driver.CheckIfListIsSorted(
+                var otherCountryIsSorted = Commands.CheckIfListIsSorted(
                     Driver.Instance.FindElements(By.CssSelector("#otherAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
                     );
 

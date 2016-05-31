@@ -83,6 +83,7 @@ namespace JPB_Framework.Report
         private static List<ReportLine> TestCaseReportLines;
         private static string Scenario { get; set; }
         private static string Case { get; set; }
+        private static bool CaseFailed { get; set; }
 
         /// <summary>
         /// Collect info about the class And the method that threw the assertion error
@@ -97,18 +98,21 @@ namespace JPB_Framework.Report
                     {
                         messageType = "Assertion error";
                         reportLine.Error = true;
+                        CaseFailed = true;
                         break;
                     }
                 case JPB_Framework.Report.MessageType.VerificationError:
                     {
                         messageType = "Verification error";
                         reportLine.Error = true;
+                        CaseFailed = true;
                         break;
                     }
                 case JPB_Framework.Report.MessageType.Exception:
                     {
                         messageType = "Exception thrown";
                         reportLine.Error = true;
+                        CaseFailed = true;
                         break;
                     }
                 case JPB_Framework.Report.MessageType.Message:
@@ -227,9 +231,10 @@ namespace JPB_Framework.Report
         /// <param name="testClassName"></param>
         /// <param name="testMethodName"></param>
         /// <param name="testOutput"></param>
-        public static void Finalize(UnitTestOutcome testOutput)
+        public static void Finalize()
         {
-            ToLogFile(JPB_Framework.Report.MessageType.Empty, $"Test {testOutput}", null);
+            if (CaseFailed) ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Failed", null);
+            else ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Passed", null);
             WriteReportFile();
         }
     }

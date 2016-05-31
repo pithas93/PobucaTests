@@ -703,14 +703,14 @@ namespace JPB_Framework.UI_Utilities
 
                 var birthdate = Convert.ToDateTime(value);
 
+                var yearList = Driver.Instance.FindElements(By.CssSelector("select.ui-datepicker-year option"));
                 Driver.Instance.FindElement(By.CssSelector("select.ui-datepicker-year")).Click();
                 Driver.Wait(TimeSpan.FromSeconds(1));
-                var yearList = Driver.Instance.FindElements(By.CssSelector("select.ui-datepicker-year option"));
                 SelectFromListByName(yearList, birthdate.ToString("yyyy"));
 
+                var monthList = Driver.Instance.FindElements(By.CssSelector("select.ui-datepicker-month option"));
                 Driver.Instance.FindElement(By.CssSelector("select.ui-datepicker-month")).Click();
                 Driver.Wait(TimeSpan.FromSeconds(1));
-                var monthList = Driver.Instance.FindElements(By.CssSelector("select.ui-datepicker-month option"));
                 SelectFromListByName(monthList, birthdate.ToString("MMM", new CultureInfo("en-US")));
 
                 var dateList = Driver.Instance.FindElements(By.CssSelector("table.ui-datepicker-calendar a.ui-state-default"));

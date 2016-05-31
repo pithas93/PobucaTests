@@ -122,7 +122,7 @@ namespace JPB_Framework.Selenium
         public static bool CheckIfRecordListIsSortedBy(string field, string order)
         {
             var recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-            int recordListCount = GetRecordListCount();
+            int recordListCount = Commands.TotalRecordsCount();
 
             string labelCssSelector = string.Empty;
             if (field.Equals(SortRecordsCommand.SortField.FirstName) ||
@@ -402,68 +402,10 @@ namespace JPB_Framework.Selenium
             }
         }
 
-        /// <summary>
-        /// Returns the number of records contained in the record list currently displayed
-        /// </summary>
-        /// <returns></returns>
-        public static int GetRecordListCount()
-        {
-            var totalRecordsLbl = Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
-            return int.Parse(totalRecordsLbl.Text);
-        }
 
-        /// <summary>
-        /// Returns the value of label displaying the number of records selected in the record list currently displayed
-        /// </summary>
-        /// <returns></returns>
-        public static int GetSelectedRecordsCount()
-        {
-            var selectedRecordsLbl = Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
-            return int.Parse(selectedRecordsLbl.Text);
-        }
+      
 
-        /// <summary>
-        ///  Returns the total number of records being displayed in the record list currently displayed.
-        /// </summary>
-        /// <returns></returns>
-        public static int GetTotalRecordsCount()
-        {
-            var recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-            //            int recordListCount = GetRecordListCount();
-
-            // Check if there is at least one record in the record list or else there is no point in continuing
-            var recordName = recordList[0].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            if (string.IsNullOrEmpty(recordName.Text)) return 0;
-
-            // Make page load every single record so that web driver can access them through their WebElements
-            var newRecordListCount = recordList.Count;
-            int previousRecordListCount;
-            do
-            {
-                // Navigate to the last record list item
-                Driver.MoveToElement(recordList[newRecordListCount - 1]);
-
-                // After the record list has load the extra, not shown previously records, get the new record list count
-                recordList = Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
-
-                // Save the previousRecordListCount
-                previousRecordListCount = newRecordListCount;
-
-                // Save the newRecordListCount
-                newRecordListCount = recordList.Count;
-
-                if (previousRecordListCount > newRecordListCount)
-                {
-                    Report.Report.ToLogFile(MessageType.Message, "It seems that there is somethign wrong while counting records from the list", null);
-                    throw new Exception();
-                }
-
-                // There is no change in the newRecordListCount, we have probably reached its bottom
-            } while (previousRecordListCount != newRecordListCount);
-
-            return newRecordListCount;
-        }
-
+      
         private static string RevertFirstLastName(string fullName)
         {
             var finalString = new StringBuilder();
@@ -474,38 +416,6 @@ namespace JPB_Framework.Selenium
             return finalString.ToString();
         }
 
-        /// <summary>
-        /// Returns true if the given list of text values is sorted alphabetically.
-        /// Method also returns false in case one of the text values is a GUID.
-        /// </summary>
-        /// <param name="valuesList"></param>
-        /// <returns></returns>
-        public static bool CheckIfListIsSorted(ReadOnlyCollection<IWebElement> valuesList)
-        {
-            string guid_pattern = @"\A\{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}\z";
-            Regex reg = new Regex(guid_pattern, RegexOptions.IgnoreCase);
-            Match match;
-            match = reg.Match(valuesList[0].Text);
-            if (match.Success)
-            {
-                Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
-                return false;
-            }
-
-            for (var i = 1; i < valuesList.Count; i++)
-            {
-                var previousDepartment = valuesList[i - 1].Text;
-                var currentDepartment = valuesList[i].Text;
-                match = reg.Match(currentDepartment);
-                if (match.Success)
-                {
-                    Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);
-                    return false;
-                }
-
-                if (string.Compare(previousDepartment, currentDepartment) == 1) return false;
-            }
-            return true;
-        }
+       
     }
 }
