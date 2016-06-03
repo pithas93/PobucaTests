@@ -94,6 +94,7 @@
     <Compile Include="UI Utilities\DeleteRecordCommand.cs" />
     <Compile Include="UI Utilities\ImportFileCommand.cs" />
     <Compile Include="UI Utilities\SearchRecordCommand.cs" />
+    <Compile Include="Workflows\Organization.cs" />
     <Compile Include="Workflows\OrganizationCreator.cs" />
     <Compile Include="Workflows\RecordField.cs" />
   </ItemGroup>

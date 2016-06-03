@@ -27,7 +27,7 @@ namespace JPB_Tests.Organizations_Tests
         {
             OrganizationCreator.ImportOrganizationWithAllValues();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace JPB_Tests.Organizations_Tests
         {
             OrganizationCreator.ImportOrganizationWithNonsenseValues();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace JPB_Tests.Organizations_Tests
         {
             OrganizationCreator.ImportTemplateWithLessColumns();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace JPB_Tests.Organizations_Tests
         {
             OrganizationCreator.ImportTemplateWithMoreColumns();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace JPB_Tests.Organizations_Tests
         {
             OrganizationCreator.ImportTemplateWithColumnsInRandomOrder();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully thought it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
         /// <summary>

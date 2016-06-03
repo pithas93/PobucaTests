@@ -98,7 +98,7 @@ namespace JPB_Framework.Pages.Contacts
         private string allowEmails;
 
         /// <summary>
-        /// Sets the first name for the new contact
+        /// Sets the new first name for the contact
         /// </summary>
         /// <param name="firstName"></param>
         /// <returns></returns>
@@ -109,7 +109,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets the last name for the new contact
+        /// Sets the new last name for the contact
         /// </summary>
         /// <param name="lastName"></param>
         /// <returns></returns>
@@ -120,7 +120,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets the organization for the new contact
+        /// Sets the new organization for the contact
         /// </summary>
         /// <param name="organizationName"></param>
         /// <returns></returns>
@@ -131,18 +131,18 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets the home phone for the new contact
+        /// Sets the new mobile phone for the contact
         /// </summary>
         /// <param name="homePhone"></param>
         /// <returns></returns>
-        public EditContactCommand WithNewHomePhone(string homePhone)
+        public EditContactCommand WithNewMobilePhone(string mobilePhone)
         {
-            this.homePhone = homePhone;
+            this.mobilePhone = mobilePhone;
             return this;
         }
 
         /// <summary>
-        /// Sets the work phone for the new contact
+        /// Sets the new work phone for the contact
         /// </summary>
         /// <param name="workPhone"></param>
         /// <returns></returns>
@@ -153,7 +153,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets the personal email for the new contact
+        /// Sets the new personal email for the contact
         /// </summary>
         /// <param name="personalEmail"></param>
         /// <returns></returns>
@@ -164,7 +164,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets the work city for the new contact
+        /// Sets the new work city for the contact
         /// </summary>
         /// <param name="workCity"></param>
         /// <returns></returns>
@@ -175,7 +175,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets the nickname for the new contact
+        /// Sets the new nickname for the contact
         /// </summary>
         /// <param name="nickname"></param>
         /// <returns></returns>
@@ -186,7 +186,7 @@ namespace JPB_Framework.Pages.Contacts
         }
 
         /// <summary>
-        /// Sets dummy values for every field of the new contact
+        /// Sets new dummy values for every field of the contact
         /// </summary>
         /// <returns></returns>
         internal EditContactCommand WithMultipleNewValues(List<Workflows.RecordField> basicContactFields, List<Workflows.RecordField> extraContactFields, List<Workflows.RecordField> booleanContactFields)

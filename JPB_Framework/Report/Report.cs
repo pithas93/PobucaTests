@@ -221,6 +221,7 @@ namespace JPB_Framework.Report
             var str = testClassName.Split('.');
             Scenario = str[str.Length-1];
             Case = testMethodName;
+            CaseFailed = false;
 
             ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Started", null);
         }
@@ -228,12 +229,10 @@ namespace JPB_Framework.Report
         /// <summary>
         /// Log test finalization to test results file
         /// </summary>
-        /// <param name="testClassName"></param>
-        /// <param name="testMethodName"></param>
         /// <param name="testOutput"></param>
-        public static void Finalize()
+        public static void Finalize(UnitTestOutcome testOutput)
         {
-            if (CaseFailed) ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Failed", null);
+            if (CaseFailed || testOutput.ToString().Equals("Failed")) ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Failed", null);
             else ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Passed", null);
             WriteReportFile();
         }

@@ -54,14 +54,14 @@ namespace JPB_Tests.Organizations_Tests
             OrganizationCreator.CreateSimpleOrganization();
             OrganizationViewPage.AddContactsToContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Add();
 
-            OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.OrganizationName).Open();
+            OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.FirstOrganization.OrganizationName).Open();
 
             AssertThat.IsTrue(
                 OrganizationViewPage.FindContactFromOrganizationContactList()
                     .WithFirstName(ContactCreator.FirstContact.FirstName)
                     .AndLastName(ContactCreator.FirstContact.LastName)
                     .Find(),
-                $"Contact {ContactCreator.FirstContact.FullName} does not exist within organization {OrganizationCreator.OrganizationName} contacts, although it was added previously");
+                $"Contact {ContactCreator.FirstContact.FullName} does not exist within organization {OrganizationCreator.FirstOrganization.OrganizationName} contacts, although it was added previously");
 
             OrganizationViewPage.FindContactFromOrganizationContactList().BySequence(1).Remove();
 
@@ -70,11 +70,11 @@ namespace JPB_Tests.Organizations_Tests
                     .WithFirstName(ContactCreator.FirstContact.FirstName)
                     .AndLastName(ContactCreator.FirstContact.LastName)
                     .Find(),
-                $"Contact {ContactCreator.FirstContact.FullName} exists within organization {OrganizationCreator.OrganizationName} contacts, although it was removed previously");
+                $"Contact {ContactCreator.FirstContact.FullName} exists within organization {OrganizationCreator.FirstOrganization.OrganizationName} contacts, although it was removed previously");
 
             ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
 
-            AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Contact {ContactCreator.FirstContact.FullName} is not orphan though it should because it was removed from organization '{OrganizationCreator.OrganizationName}' contacts");
+            AssertThat.AreEqual(ContactViewPage.OrganizationName, "", $"Contact {ContactCreator.FirstContact.FullName} is not orphan though it should because it was removed from organization '{OrganizationCreator.FirstOrganization.OrganizationName}' contacts");
         }
 
         /// <summary>

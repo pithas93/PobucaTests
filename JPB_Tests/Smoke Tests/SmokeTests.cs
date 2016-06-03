@@ -42,7 +42,7 @@ namespace JPB_Tests.Smoke_Tests
         {
             ContactCreator.CreateSimpleContact();
             ContactCreator.EditSimpleContact(ContactCreator.FirstContact);
-            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactCreatedSuccessfully, "Contact was not saved successfully after edit");
+            AssertThat.IsTrue(ContactCreator.FirstContact.IsContactSavedAfterEdit, "Contact was not saved successfully after edit");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly after edit");
 
         }
@@ -58,7 +58,6 @@ namespace JPB_Tests.Smoke_Tests
         }
 
 
-        
     }
 
     [TestClass]
@@ -69,8 +68,8 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Create_A_Simple_Organization()
         {
             OrganizationCreator.CreateSimpleOrganization();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationCreatedSuccessfully, "Organization was not created successfully but it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationCreatedSuccessfully, "Organization was not created successfully but it should");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
 
         }
 
@@ -78,9 +77,9 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Edit_Organization()
         {
             OrganizationCreator.CreateSimpleOrganization();
-            OrganizationCreator.EditSimpleOrganization();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
+            OrganizationCreator.EditSimpleOrganization(OrganizationCreator.FirstOrganization);
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
 
         }
 
@@ -90,8 +89,10 @@ namespace JPB_Tests.Smoke_Tests
         {
             OrganizationCreator.ImportSimpleContact();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
 
        }
+
+
     }
 }

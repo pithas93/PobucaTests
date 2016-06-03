@@ -21,8 +21,8 @@ namespace JPB_Tests.Organizations_Tests
         public void Create_Organization_With_All_Fields_Filled()
         {
             OrganizationCreator.CreateOrganizationWithAllValues();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationCreatedSuccessfully, "Organization was not saved successfully though it should have.");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationCreatedSuccessfully, "Organization was not saved successfully though it should have.");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
  
         /// <summary>
@@ -32,7 +32,7 @@ namespace JPB_Tests.Organizations_Tests
         public void Cannot_Leave_Organization_Mandatory_Fields_Empty()
         {
             OrganizationCreator.CreateOrganizationWithoutOrganizationName();
-            AssertThat.IsFalse(OrganizationCreator.IsOrganizationCreatedSuccessfully, "Organization was created successfully though it should not.");
+            AssertThat.IsFalse(OrganizationCreator.FirstOrganization.IsOrganizationCreatedSuccessfully, "Organization was created successfully though it should not.");
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace JPB_Tests.Organizations_Tests
         public void Cannot_Save_Organization_With_Overflown_Values()
         {
             OrganizationCreator.CreateOrganizationWithOverflowValues();
-            AssertThat.IsFalse(OrganizationCreator.IsOrganizationCreatedSuccessfully, "Organization was created successfully though it should not.");
+            AssertThat.IsFalse(OrganizationCreator.FirstOrganization.IsOrganizationCreatedSuccessfully, "Organization was created successfully though it should not.");
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace JPB_Tests.Organizations_Tests
         public void Create_Organization_With_Nonsense_Field_Values()
         {
             OrganizationCreator.CreateOrganizationWithNonsenseValues();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationCreatedSuccessfully, "Organization was not saved successfully though it should have.");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationCreatedSuccessfully, "Organization was not saved successfully though it should have.");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace JPB_Tests.Organizations_Tests
         public void Create_Organization_With_Extra_Null_Fields()
         {
             OrganizationCreator.CreateOrganizationWithNullValuesInExtraFields();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationCreatedSuccessfully, "Organization was not saved successfully though it should have.");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationCreatedSuccessfully, "Organization was not saved successfully though it should have.");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
     }

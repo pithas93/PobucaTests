@@ -24,9 +24,9 @@ namespace JPB_Tests.Organizations_Tests
         public void Edit_Organization_And_Assign_Nonsense_Values()
         {
             OrganizationCreator.CreateSimpleOrganization();
-            OrganizationCreator.EditOrganizationAssigningNonsenseValues();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit though, it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
+            OrganizationCreator.EditOrganizationAssigningNonsenseValues(OrganizationCreator.FirstOrganization);
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit though, it should");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace JPB_Tests.Organizations_Tests
         public void Edit_Every_Organization_Field_From_Existing_Organization()
         {
             OrganizationCreator.CreateOrganizationWithAllValues();
-            OrganizationCreator.EditOrganizationAlteringAllValues();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit though, it should");
-            AssertThat.IsTrue(OrganizationCreator.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
+            OrganizationCreator.EditOrganizationAlteringAllValues(OrganizationCreator.FirstOrganization);
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.IsOrganizationSavedAfterEdit, "Organization was not saved successfully after edit though, it should");
+            AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly after edit");
         }
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace JPB_Tests.Organizations_Tests
         public void Cannot_Save_Organization_After_Leaving_Mandatory_Fields_Empty()
         {
             OrganizationCreator.CreateSimpleOrganization();
-            OrganizationCreator.EditOrganizationRemovingOrganizationName();
-            AssertThat.IsFalse(OrganizationCreator.IsOrganizationSavedAfterEdit, "Organization was saved successfully after edit though it should not because its name was left empty");
+            OrganizationCreator.EditOrganizationRemovingOrganizationName(OrganizationCreator.FirstOrganization);
+            AssertThat.IsFalse(OrganizationCreator.FirstOrganization.IsOrganizationSavedAfterEdit, "Organization was saved successfully after edit though it should not because its name was left empty");
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace JPB_Tests.Organizations_Tests
         public void Cannot_Save_Organization_After_Assigning_Overflown_Values()
         {
             OrganizationCreator.CreateSimpleOrganization();
-            OrganizationCreator.EditOrganizationAssigningOverflowValues();
-            AssertThat.IsFalse(OrganizationCreator.IsOrganizationSavedAfterEdit, "Organization was saved successfully after edit though it should not because its field values exceed the character limit");
+            OrganizationCreator.EditOrganizationAssigningOverflowValues(OrganizationCreator.FirstOrganization);
+            AssertThat.IsFalse(OrganizationCreator.FirstOrganization.IsOrganizationSavedAfterEdit, "Organization was saved successfully after edit though it should not because its field values exceed the character limit");
         }
 
 

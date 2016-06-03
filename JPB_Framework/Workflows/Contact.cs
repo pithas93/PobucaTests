@@ -34,10 +34,10 @@ namespace JPB_Framework.Workflows
                 var firstName = BasicContactFields.Find(x => x.Label.Contains("First Name")).Value;
                 var lastName = BasicContactFields.Find(x => x.Label.Contains("Last Name")).Value;
 
-                return
-                    !string.IsNullOrEmpty(lastName)
-                    ||
-                    (string.IsNullOrEmpty(lastName) && !string.IsNullOrEmpty(firstName));
+                var firstNameHasValue = !string.IsNullOrEmpty(firstName);
+                var lastNameHasValue = !string.IsNullOrEmpty(lastName);
+
+                return (lastNameHasValue || firstNameHasValue);
             }
         }
 
@@ -111,11 +111,62 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public bool IsContactSavedAfterEdit { get; set; }
 
+        /// <summary>
+        /// Copies field values from a given object to the object that calls the method
+        /// </summary>
+        /// <param name="tmp">The object to be copied</param>
+        public void Clone(Contact tmp)
+        {
+            SetFieldValue("First Name", tmp.GetFieldValue("First Name"));
+            SetFieldValue("Last Name", tmp.GetFieldValue("Last Name"));
+            SetFieldValue("Middle Name", tmp.GetFieldValue("Middle Name"));
+            SetFieldValue("Suffix", tmp.GetFieldValue("Suffix"));
+            SetFieldValue("Organization Name", tmp.GetFieldValue("Organization Name"));
+            SetFieldValue("Mobile Phone", tmp.GetFieldValue("Mobile Phone"));
+            SetFieldValue("Email", tmp.GetFieldValue("Email"));
+            SetFieldValue("Allow SMS", tmp.GetFieldValue("Allow SMS"));
+            SetFieldValue("Allow Phones", tmp.GetFieldValue("Allow Phones"));
+            SetFieldValue("Allow Emails", tmp.GetFieldValue("Allow Emails"));
+
+            SetFieldValue("Department", tmp.GetFieldValue("Department"));
+            SetFieldValue("Work Phone", tmp.GetFieldValue("Work Phone"));
+            SetFieldValue("Work Phone 2", tmp.GetFieldValue("Work Phone 2"));
+            SetFieldValue("Mobile Phone 2", tmp.GetFieldValue("Mobile Phone 2"));
+            SetFieldValue("Home Phone", tmp.GetFieldValue("Home Phone"));
+            SetFieldValue("Home Phone 2", tmp.GetFieldValue("Home Phone 2"));
+            SetFieldValue("Home Fax", tmp.GetFieldValue("Home Fax"));
+            SetFieldValue("Work Fax", tmp.GetFieldValue("Work Fax"));
+            SetFieldValue("Other Phone", tmp.GetFieldValue("Other Phone"));
+            SetFieldValue("Personal Email", tmp.GetFieldValue("Personal Email"));
+            SetFieldValue("Other Email", tmp.GetFieldValue("Other Email"));
+            SetFieldValue("Work Street", tmp.GetFieldValue("Work Street"));
+            SetFieldValue("Work City", tmp.GetFieldValue("Work City"));
+            SetFieldValue("Work State", tmp.GetFieldValue("Work State"));
+            SetFieldValue("Work Postal Code", tmp.GetFieldValue("Work Postal Code"));
+            SetFieldValue("Work Country", tmp.GetFieldValue("Work Country"));
+            SetFieldValue("Home Street", tmp.GetFieldValue("Home Street"));
+            SetFieldValue("Home City", tmp.GetFieldValue("Home City"));
+            SetFieldValue("Home State", tmp.GetFieldValue("Home State"));
+            SetFieldValue("Home Postal Code", tmp.GetFieldValue("Home Postal Code"));
+            SetFieldValue("Home Country", tmp.GetFieldValue("Home Country"));
+            SetFieldValue("Other Street", tmp.GetFieldValue("Other Street"));
+            SetFieldValue("Other City", tmp.GetFieldValue("Other City"));
+            SetFieldValue("Other State", tmp.GetFieldValue("Other State"));
+            SetFieldValue("Other Postal Code", tmp.GetFieldValue("Other Postal Code"));
+            SetFieldValue("Other Country", tmp.GetFieldValue("Other Country"));
+            SetFieldValue("Salutation", tmp.GetFieldValue("Salutation"));
+            SetFieldValue("Nickname", tmp.GetFieldValue("Nickname"));
+            SetFieldValue("Job Title", tmp.GetFieldValue("Job Title"));
+            SetFieldValue("Website", tmp.GetFieldValue("Website"));
+            SetFieldValue("Religion", tmp.GetFieldValue("Religion"));
+            SetFieldValue("Birthdate", tmp.GetFieldValue("Birthdate"));
+            SetFieldValue("Gender", tmp.GetFieldValue("Gender"));
+            SetFieldValue("Comments", tmp.GetFieldValue("Comments"));
+        }
 
         /// <summary>
         /// Initializes contact properties
         /// </summary>
-        /// <param name="order">Sets the contact order that distincts one contact from another</param>
         public Contact()
         {
             BasicContactFields = new List<RecordField>();

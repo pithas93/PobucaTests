@@ -264,8 +264,8 @@ namespace JPB_Framework.UI_Utilities
         {
             // The range of records from where the selection will be
             int range;
-            // How many times driver will check contact checkboxes. A contact can be also unchecked if it is already checked
-            int numOfChecks;
+            // How many records will be selected
+            int numOfRecordsToBeSelected;
             var rand = new Random();
             var records = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"));
 
@@ -275,13 +275,15 @@ namespace JPB_Framework.UI_Utilities
 
 
             // If there is no defined number for the num of contacts to be selected, choose one randomly
-            if (num==0) numOfChecks = rand.Next(1, 20);
-            else numOfChecks = num;
+            if (num==0) numOfRecordsToBeSelected = rand.Next(1, 20);
+            else numOfRecordsToBeSelected = num;
 
-            for (var i = 0; i < numOfChecks; i++)
-            { 
-                
-                SelectRecord(records[rand.Next(1, range) - 1]);
+            for (var i = 0; i < numOfRecordsToBeSelected; i++)
+            {
+                var tmp = rand.Next(1, range) - 1;
+                var isChecked = SelectRecord(records[tmp]);
+                if (!isChecked) i-=2;
+
             }
         }
 

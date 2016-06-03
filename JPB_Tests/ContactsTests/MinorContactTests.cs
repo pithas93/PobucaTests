@@ -73,7 +73,7 @@ namespace JPB_Tests.ContactsTests
                 .AndLastName(ContactCreator.FirstContact.LastName)
                 .Find();
 
-            AssertThat.IsTrue(ContactsPage.IsContactPhoneCallable, "Contact phone is not callable from within contact list page");
+            AssertThat.IsTrue(ContactsPage.IsContactMobilePhoneCallable, "Contact mobile phone is not callable from within contact list page");
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace JPB_Tests.ContactsTests
         public void Assert_That_Country_Combo_List_Is_Sorted_Alphabetically()
         {
             NewContactPage.GoTo();
-            AssertThat.IsTrue(NewContactPage.AreCountryComboListsSorted, "Department combo list is not sorted alphabetically");
+            AssertThat.IsTrue(NewContactPage.AreCountryComboListsSorted, "Country combo list is not sorted alphabetically");
         }
 
         /// <summary>
@@ -140,11 +140,11 @@ namespace JPB_Tests.ContactsTests
             NewContactPage.GoTo();
             NewContactPage.SetContactComments(" " + DummyData.SimpleText);
             VerifyThat.AreEqual(500 - NewContactPage.CommentsTextLength, NewContactPage.CommentsLimitIndicator,
-                "Comments text length is not equal with the value indicator is displaying");
+            $"Comments text length is {500 - NewContactPage.CommentsTextLength} the value indicator is displaying is {NewContactPage.CommentsLimitIndicator}");
 
             NewContactPage.SetContactComments(DummyData.SimpleText);
             VerifyThat.AreEqual(500 - NewContactPage.CommentsTextLength, NewContactPage.CommentsLimitIndicator,
-                "Comments text length is not equal with the value indicator is displaying");
+                $"Comments text length is {500 - NewContactPage.CommentsTextLength} the value indicator is displaying is {NewContactPage.CommentsLimitIndicator}");
 
         }
 

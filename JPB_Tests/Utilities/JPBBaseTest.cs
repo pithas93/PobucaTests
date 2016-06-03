@@ -64,7 +64,7 @@ namespace JPB_Tests.Utilities
         {
             
             Driver.Close();
-            Report.Finalize();
+            Report.Finalize(TestContext.CurrentTestOutcome);
 //            Report.FinalizeReportFile();
         }
     }
