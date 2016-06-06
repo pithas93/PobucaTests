@@ -21,7 +21,7 @@ namespace JPB_Framework.Pages.Contacts
         /// Returns the value of label showing the total number of contacts currently displayed
         /// </summary>
         /// <returns></returns>
-        public static int TotalContactsCountByLabel => Commands.TotalRecordsCount();
+        public static int TotalContactsCountByLabel => Commands.TotalRecordsCountByLabel();
 
         /// <summary>
         /// Returns the value of label showing the number of selected contacts

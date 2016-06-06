@@ -15,7 +15,7 @@ namespace JPB_Framework.Workflows
 {
     public class OrganizationCreator
     {
-
+        private static int InitialOrganizationCount { get; set; }
         public static Organization FirstOrganization { get; set; }
         public static Organization SecondOrganization { get; set; }
 
@@ -29,12 +29,16 @@ namespace JPB_Framework.Workflows
         {
             FirstOrganization = new Organization();
             SecondOrganization = new Organization();
+            InitialOrganizationCount = OrganizationsPage.TotalOrganizationsCountByLabel;
         }
 
         public static void CleanUp()
         {
             FirstOrganization.CleanUp();
             SecondOrganization.CleanUp();
+            LeftSideMenu.GoToContacts();
+            VerifyThat.AreEqual(InitialOrganizationCount, OrganizationsPage.TotalOrganizationsCountByLabel,
+                $"Total organizations count is not the same as in the test initiation (Expected={InitialOrganizationCount}, Actual={OrganizationsPage.TotalOrganizationsCountByLabel}). Some organizations may have not been cleaned up at the end of test.");
         }
 
         /// <summary>

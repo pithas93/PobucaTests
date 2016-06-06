@@ -15,7 +15,7 @@ namespace JPB_Framework.Workflows
 
         // Maybe create a mechanism to create/import more than 1 contacts at a test and then check all values
         //        public static int InitialContactsCount { get; set; }
-
+        private static int InitialContactCount { get; set; }
         public static Contact FirstContact { get; set; }
         public static Contact SecondContact { get; set; }
 
@@ -32,6 +32,7 @@ namespace JPB_Framework.Workflows
             FirstContact = new Contact();
             SecondContact = new Contact();
             ThirdContact = new Contact();
+            InitialContactCount = ContactsPage.TotalContactsCountByLabel;
         }
 
         public static void CleanUp()
@@ -39,6 +40,8 @@ namespace JPB_Framework.Workflows
             FirstContact.CleanUp();
             SecondContact.CleanUp();
             ThirdContact.CleanUp();
+            LeftSideMenu.GoToContacts();
+            VerifyThat.AreEqual(InitialContactCount,ContactsPage.TotalContactsCountByLabel, "Total contacts count is not the same as in the test initiation. Some contacts may have been created/imported but were not cleaned up at the end of test.");
         }
 
         /// <summary>
