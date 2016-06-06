@@ -14,9 +14,6 @@ namespace JPB_Tests.Organizations_Tests
     public class EditOrganizationTests : OrganizationsBaseTest
     {
 
-        // na metaferei contact apo ena organization se ena allo enw ston prwto organization to contact htan primary
-        // genikotera senaria gia th metafora epafwn apo ena organization se ena allo
-
         /// <summary>
         /// Edit an existing organization, assigning values to its fields that are nonsense
         /// </summary>

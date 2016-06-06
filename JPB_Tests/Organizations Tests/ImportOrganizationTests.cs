@@ -15,9 +15,6 @@ namespace JPB_Tests.Organizations_Tests
     [TestClass]
     public class ImportOrganizationTests : OrganizationsBaseTest
     {
-        // 15. Import organizations - Template contains duplicate organizations
-        //          -an h timh einai idia gia dyo epafes tote 8a eisagetai h mia apo tis 2 kai oles oi ypoloipes epityxws
-        // oti de dexetai arxeia me koukoutoukou times se combo box
 
         /// <summary>
         /// Import 1 organization that has values to every field

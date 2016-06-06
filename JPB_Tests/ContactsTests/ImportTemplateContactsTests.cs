@@ -7,14 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class ImportContactsTests : ContactsBaseTest
+    public class ImportTemplateContactsTests : ContactsBaseTest
     {
-
-        // 1. Check that contacts template is successfully downloaded. Test not implemented because downloading files through automation is not suggested
-        // 9. Import contacts - Test the max imported contact threshold
-        
-        // oti mporw na kanw export apo to outlook kai gmail ta contacts mou kai na ta kanw import me thn epilogh csv.file
-
 
         /// <summary>
         /// Import a contact template that contains 1 contact that has value in every contact field
@@ -22,7 +16,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Import_Contacts_With_All_Contact_Fields_Filled()
         {
-            ContactCreator.ImportContactWithAllValues();
+            ContactCreator.ImportTemplateContactWithAllValues();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported successfully");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
@@ -35,7 +29,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Import_Contact_Without_Values_In_Mandatory_Field()
         {
-            ContactCreator.ImportContactWithoutLastName();
+            ContactCreator.ImportTemplateContactWithoutLastName();
             AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully though last name field was left null. Defect spotted!");
 
         }
@@ -47,7 +41,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Import_Contacts_With_Nonexistent_Organization()
         {
-            ContactCreator.ImportContactWithInvalidOrganization();
+            ContactCreator.ImportTemplateContactWithInvalidOrganization();
             AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully though organization name value contains a non existent organization. Defect spotted!"); 
 
         }
@@ -58,7 +52,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Import_Contacts_With_Nonsense_Values()
         {
-            ContactCreator.ImportContactWithNonsenseValues();
+            ContactCreator.ImportTemplateContactWithNonsenseValues();
             AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
@@ -70,7 +64,7 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Import_Contact_With_Overflow_Field_Values()
         {
-            ContactCreator.ImportContactWithOverflowValues();
+            ContactCreator.ImportTemplateContactWithOverflowValues();
             AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully though first and last name values exceed character limit. Defect spotted!");
 
         }
@@ -80,38 +74,18 @@ namespace JPB_Tests.ContactsTests
         /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
         /// </summary>
         [TestMethod]
-        public void Import_Contacts_With_Invalid_Birthdate_Values_1()
+        public void Import_Contacts_With_Invalid_Birthdate_Values()
         {
-            ContactCreator.ImportContactWithInvalidBirthdate1();
-            AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
+            ContactCreator.ImportTemplateContactWithInvalidBirthdate();
+            AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact were not imported but they should.");
             ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
-            AssertThat.AreEqual(ContactViewPage.Birthdate,"", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
+            VerifyThat.AreEqual(ContactViewPage.Birthdate,"", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
 
-        }
+            ContactsPage.FindContact().WithFirstName(ContactCreator.SecondContact.FirstName).AndLastName(ContactCreator.SecondContact.LastName).Open();
+            VerifyThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.SecondContact.Birthdate} which is invalid.");
 
-        /// <summary>
-        /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
-        /// </summary>
-        [TestMethod]
-        public void Import_Contacts_With_Invalid_Birthdate_Values_2()
-        {
-            ContactCreator.ImportContactWithInvalidBirthdate2();
-            AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
-            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
-
-        }
-
-        /// <summary>
-        /// Import a contact template that contains 1 contact with invalid date format value in birthdate field
-        /// </summary>
-        [TestMethod]
-        public void Import_Contacts_With_Invalid_Birthdate_Values_3()
-        {
-            ContactCreator.ImportContactWithInvalidBirthdate3();
-            AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported but it should.");
-            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
-            AssertThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.FirstContact.Birthdate} which is invalid.");
+            ContactsPage.FindContact().WithFirstName(ContactCreator.ThirdContact.FirstName).AndLastName(ContactCreator.ThirdContact.LastName).Open();
+            VerifyThat.AreEqual(ContactViewPage.Birthdate, "", $"Contact birthdate should be empty because imported contact's birthdate value is {ContactCreator.ThirdContact.Birthdate} which is invalid.");
 
         }
 

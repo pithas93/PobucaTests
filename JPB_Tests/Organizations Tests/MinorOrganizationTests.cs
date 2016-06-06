@@ -15,8 +15,6 @@ namespace JPB_Tests.Organizations_Tests
     [TestClass]
     public class MinorOrganizationTests : ContactsOrganizationsBaseTest
     {
-        // delete organization along with its linked contacts
-
 
         /// <summary>
         /// Assert that inside organization view page, the organization's field value is a link that drives browser to prompt user for a telephone call

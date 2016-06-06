@@ -19,6 +19,8 @@ namespace JPB_Framework.Workflows
         public static Contact FirstContact { get; set; }
         public static Contact SecondContact { get; set; }
 
+        public static Contact ThirdContact { get; set; }
+
         private static Contact CurrentContact { get; set; }
 
         private const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
@@ -29,12 +31,14 @@ namespace JPB_Framework.Workflows
         {
             FirstContact = new Contact();
             SecondContact = new Contact();
+            ThirdContact = new Contact();
         }
 
         public static void CleanUp()
         {
             FirstContact.CleanUp();
             SecondContact.CleanUp();
+            ThirdContact.CleanUp();
         }
 
         /// <summary>
@@ -563,9 +567,9 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Only first and last name fields have values
+        /// Import template file with 1 contact. Only first and last name fields have values
         /// </summary>
-        public static void ImportSimpleContact()
+        public static void ImportTemplateSimpleContact()
         {
 
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts1.xls").Submit();
@@ -577,9 +581,9 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Every contact field has assigned value.
+        /// Import template file with 1 contact. Every contact field has assigned value.
         /// </summary>
-        public static void ImportContactWithAllValues()
+        public static void ImportTemplateContactWithAllValues()
         {
 
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts2.xls").Submit();
@@ -635,9 +639,9 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Only first name field has value. Last name field is left null 
+        /// Import template file with 1 contact. Only first name field has value. Last name field is left null 
         /// </summary>
-        public static void ImportContactWithoutLastName()
+        public static void ImportTemplateContactWithoutLastName()
         {
 
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts4.xls").Submit();
@@ -648,9 +652,9 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. First and last name have assigned values. Organization name has an non-existent organization as value
+        /// Import template file with 1 contact. First and last name have assigned values. Organization name has an non-existent organization as value
         /// </summary>
-        public static void ImportContactWithInvalidOrganization()
+        public static void ImportTemplateContactWithInvalidOrganization()
         {
 
             if (!ImportPage.IsAt) LeftSideMenu.GoToImports();
@@ -665,9 +669,9 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Every contact field has non-sense value assigned except for the combo ones and the organization name.
+        /// Import template file with 1 contact. Every contact field has non-sense value assigned except for the combo ones and the organization name.
         /// </summary>
-        public static void ImportContactWithNonsenseValues()
+        public static void ImportTemplateContactWithNonsenseValues()
         {
 
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts7.xls").Submit();
@@ -722,9 +726,9 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. First and last name fields have assigned values that exceed the 50 characters
+        /// Import template file with 1 contact. First and last name fields have assigned values that exceed the 50 characters
         /// </summary>
-        public static void ImportContactWithOverflowValues()
+        public static void ImportTemplateContactWithOverflowValues()
         {
 
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts8.xls").Submit();
@@ -736,51 +740,29 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Beside first and last name, birthdate field has assigned value 32/1/2000
+        /// Import template file with 3 contacts. Beside first and last name, birthdate fields contain invalid date values
         /// </summary>
-        public static void ImportContactWithInvalidBirthdate1()
+        public static void ImportTemplateContactWithInvalidBirthdate()
         {
-            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts100.xls").Submit();
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts10.xls").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
             FirstContact.SetFieldValue("First Name", "Panagiotis");
-            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis1");
             FirstContact.SetFieldValue("Birthdate", "32/1/2000");
+
+            SecondContact.SetFieldValue("First Name", "Panagiotis");
+            SecondContact.SetFieldValue("Last Name", "Mavrogiannis2");
+            SecondContact.SetFieldValue("Birthdate", "29/2/2001");
+
+            ThirdContact.SetFieldValue("First Name", "Panagiotis");
+            ThirdContact.SetFieldValue("Last Name", "Mavrogiannis3");
+            ThirdContact.SetFieldValue("Birthdate", "12/13/2000");
         }
 
         /// <summary>
-        /// Import file with 1 contact. Beside first and last name, birthdate field has assigned value 29/2/2001
-        /// </summary>
-        public static void ImportContactWithInvalidBirthdate2()
-        {
-
-            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts101.xls").Submit();
-
-            if (!ImportPage.IsImportSuccessMessageShown) return;
-
-            FirstContact.SetFieldValue("First Name", "Panagiotis");
-            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
-            FirstContact.SetFieldValue("Birthdate", "29/2/2001");
-        }
-
-        /// <summary>
-        /// Import file with 1 contact. Beside first and last name, birthdate field has assigned value 12/13/2000
-        /// </summary>
-        public static void ImportContactWithInvalidBirthdate3()
-        {
-
-            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts102.xls").Submit();
-
-            if (!ImportPage.IsImportSuccessMessageShown) return;
-
-            FirstContact.SetFieldValue("First Name", "Panagiotis");
-            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
-            FirstContact.SetFieldValue("Birthdate", "12/13/2000");
-        }
-
-        /// <summary>
-        /// Import file with 1 contact. Template contains less columns than original
+        /// Import template file with 1 contact. Template contains less columns than original
         /// </summary>
         public static void ImportTemplateWithLessColumns()
         {
@@ -798,7 +780,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Template contains 1 more column than original
+        /// Import template file with 1 contact. Template contains 1 more column than original
         /// </summary>
         public static void ImportTemplateWithMoreColumns()
         {
@@ -812,7 +794,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Template does not contain the mandatory field column
+        /// Import template file with 1 contact. Template does not contain the mandatory field column
         /// </summary>
         public static void ImportTemplateWithoutMandatoryColumn()
         {
@@ -825,7 +807,7 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
-        /// Import file with 1 contact. Template columns are placed in random order
+        /// Import template file with 1 contact. Template columns are placed in random order
         /// </summary>
         public static void ImportTemplateWithColumnsInRandomOrder()
         {
@@ -846,6 +828,79 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Home City", "ΗΡΑΚΛΕΙΟ");
             FirstContact.SetFieldValue("Home Postal Code", "71304");
 
+        }
+
+        /// <summary>
+        /// Import gmail csv file with 1 contact. Every contact field has assigned value.
+        /// </summary>
+        public static void ImportGmailCsvContactWithAllValues()
+        {
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts1.csv").Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+            FirstContact.SetFieldValue("Middle Name", "Emmanouil");
+            FirstContact.SetFieldValue("Suffix", "Sir");
+            FirstContact.SetFieldValue("Mobile Phone", "6949585690");
+
+            FirstContact.SetFieldValue("Email", "p.mavrogiannis@sieben.gr");
+
+            FirstContact.SetFieldValue("Work Phone", "2130179000");
+
+
+            FirstContact.SetFieldValue("Home Phone", "2294048550");
+
+            FirstContact.SetFieldValue("Home Fax", "2294048551");
+            FirstContact.SetFieldValue("Work Fax", "2130179001");
+
+            FirstContact.SetFieldValue("Personal Email", "p.mavrogiannis@outlook.com");
+            FirstContact.SetFieldValue("Other Email", "apaixtoos@hotmail.com");
+
+            FirstContact.SetFieldValue("Work Street", "Aristomenous 3");
+            FirstContact.SetFieldValue("Work City", "Gerakas");
+            FirstContact.SetFieldValue("Work State", "Attica");
+            FirstContact.SetFieldValue("Work Postal Code", "10613");
+            FirstContact.SetFieldValue("Work Country", "Greece");
+
+            FirstContact.SetFieldValue("Home Street", "Papachristou 4");
+            FirstContact.SetFieldValue("Home City", "Artemida");
+            FirstContact.SetFieldValue("Home State", "Attica");
+            FirstContact.SetFieldValue("Home Postal Code", "19016");
+            FirstContact.SetFieldValue("Home Country", "Greece");
+
+            FirstContact.SetFieldValue("Other Street", "Karavan Serai 2");
+            FirstContact.SetFieldValue("Other City", "Constantinople");
+            FirstContact.SetFieldValue("Other State", "Thrace");
+            FirstContact.SetFieldValue("Other Postal Code", "12345");
+            FirstContact.SetFieldValue("Other Country", "Greece");
+            FirstContact.SetFieldValue("Salutation", "Mr.");
+            FirstContact.SetFieldValue("Nickname", "Panagof");
+
+            FirstContact.SetFieldValue("Website", "www.sieben.gr");
+
+            FirstContact.SetFieldValue("Birthdate", "27/1/1990");
+            FirstContact.SetFieldValue("Comments", "His majesty sir tester of the United Kingodom of Testingburg");
+        }
+
+        public static void ImportGmailCsvContactWithoutLastName()
+        {
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts2.csv").Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+        }
+
+        public static void ImportGmailCsvContactWithOverflowValues()
+        {
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts3.xls").Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+
+            FirstContact.SetFieldValue("First Name", "MRPanagiotisPanagiotisPanagiotisPanagiotisMRPanagiotisPanagiotis");
+            FirstContact.SetFieldValue("Last Name", "MRPanagiotisPanagiotisPanagiotisPanagiotisMRPanagiotisPanagiotis");
         }
     }
 }
