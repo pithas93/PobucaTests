@@ -905,5 +905,68 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("First Name", "MRPanagiotisPanagiotisPanagiotisPanagiotisMRPanagiotisPanagiotis");
             FirstContact.SetFieldValue("Last Name", "MRPanagiotisPanagiotisPanagiotisPanagiotisMRPanagiotisPanagiotis");
         }
+
+        public static void ImportOutlookCsvContactWithAllValues()
+        {
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts2.xls").Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+            FirstContact.SetFieldValue("Middle Name", "Emmanouil");
+            FirstContact.SetFieldValue("Suffix", "Mr");
+            FirstContact.SetFieldValue("Organization Name", "KONICA MINOLTA");
+            FirstContact.SetFieldValue("Mobile Phone", "6912345678");
+            FirstContact.SetFieldValue("Email", "email@email.com");
+            FirstContact.SetFieldValue("Allow SMS", "False");
+            FirstContact.SetFieldValue("Allow Phones", "False");
+            FirstContact.SetFieldValue("Allow Emails", "True");
+
+            FirstContact.SetFieldValue("Department", "Administration");
+            FirstContact.SetFieldValue("Work Phone", "2101234567");
+            FirstContact.SetFieldValue("Work Phone 2", "2111234567");
+            FirstContact.SetFieldValue("Mobile Phone 2", "69213456789");
+            FirstContact.SetFieldValue("Home Phone", "1234567890");
+            FirstContact.SetFieldValue("Home Phone 2", "0987654321");
+            FirstContact.SetFieldValue("Home Fax", "1234567890");
+            FirstContact.SetFieldValue("Work Fax", "0987654322");
+            FirstContact.SetFieldValue("Other Phone", "2143658709");
+            FirstContact.SetFieldValue("Personal Email", "myemail@email.com");
+            FirstContact.SetFieldValue("Other Email", "otheremail@email.com");
+            FirstContact.SetFieldValue("Work Street", "Παπαφλέσσα 10");
+            FirstContact.SetFieldValue("Work City", "Τρίκαλα");
+            FirstContact.SetFieldValue("Work State", "ΝΥ");
+            FirstContact.SetFieldValue("Work Postal Code", "12345");
+            FirstContact.SetFieldValue("Work Country", "Greece");
+            FirstContact.SetFieldValue("Home Street", "Παπαφλέσσα 11");
+            FirstContact.SetFieldValue("Home City", "Γιάννενα");
+            FirstContact.SetFieldValue("Home State", "CA");
+            FirstContact.SetFieldValue("Home Postal Code", "12345");
+            FirstContact.SetFieldValue("Home Country", "Greece");
+            FirstContact.SetFieldValue("Other Street", "otherstreet");
+            FirstContact.SetFieldValue("Other City", "othercity");
+            FirstContact.SetFieldValue("Other State", "OS");
+            FirstContact.SetFieldValue("Other Postal Code", "otherpostal");
+            FirstContact.SetFieldValue("Other Country", "Wallis and Futuna");
+            FirstContact.SetFieldValue("Salutation", "His majesty");
+            FirstContact.SetFieldValue("Nickname", "Νοντας");
+            FirstContact.SetFieldValue("Job Title", "Ταξιτζής");
+            FirstContact.SetFieldValue("Website", "http://www.facebook.com/TheNontas");
+            FirstContact.SetFieldValue("Religion", "Αγνωστικιστής");
+            FirstContact.SetFieldValue("Birthdate", "28/2/1980");
+            FirstContact.SetFieldValue("Gender", "Other");
+            FirstContact.SetFieldValue("Comments", "No comments");
+        }
+
+        public static void ImportOutlookCsvContactWithoutLastName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void ImportOutlookCsvContactWithOverflowValues()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

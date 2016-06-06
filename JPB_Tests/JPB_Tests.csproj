@@ -64,6 +64,7 @@
     <Compile Include="ContactsTests\ContactListTests.cs" />
     <Compile Include="ContactsTests\EditContactTests.cs" />
     <Compile Include="ContactsTests\ImportGmailCsvContactsTests.cs" />
+    <Compile Include="ContactsTests\ImportOutlookCsvContactsTests.cs" />
     <Compile Include="ContactsTests\ImportTemplateContactsTests.cs" />
     <Compile Include="ContactsTests\MinorContactTests.cs" />
     <Compile Include="Organizations Tests\AddOrganizationTests.cs" />
