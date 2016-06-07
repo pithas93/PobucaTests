@@ -1,6 +1,7 @@
 ﻿using JPB_Framework.Navigation;
 using JPB_Framework.Pages;
 using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Pages.Login;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.UI_Utilities;
@@ -16,10 +17,30 @@ namespace JPB_Tests.Smoke_Tests
     public class SmokeGeneralTests : JpbBaseTest
     {
         [TestMethod]
-        public void Can_Login()
+        public void Can_Login_Logout()
         {
             AssertThat.IsTrue(ContactsPage.IsAt, "Failed to login");
             AssertThat.IsTrue(ContactsPage.IsContactListLoaded, "Failed to load contact list");
+
+            UpperToolBar.Logout();
+            AssertThat.IsTrue(LoginPage.IsAt, "Probably failed to logout");
+        }
+
+        [TestMethod]
+        public void Can_Use_Contactlist_Searchbox()
+        {
+            ContactsPage.FindContact().ContainingKeyword("lavi").Find();
+            int expectedResult1 = 1;
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult1, $"Search using organization field, with keyword = 'lavi', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
+
+            ContactsPage.FindContact().ContainingKeyword("παπα").Find();
+            int expectedResult2 = 9;
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult2, $"Search using last name field, with keyword = 'παπα', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
+
+            ContactsPage.FindContact().ContainingKeyword("πούλου").Find();
+            int expectedResult3 = 6;
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult3, $"Search using last name field, with keyword = 'πούλου', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
+
         }
     }
 
