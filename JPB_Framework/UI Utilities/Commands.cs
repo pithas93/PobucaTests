@@ -205,6 +205,19 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
+        /// Clears searchbox value. It can only be used on pages with the searchbox field
+        /// </summary>
+        public static void ClearSearchbox()
+        {
+            var searchbox = Driver.Instance.FindElement(By.Id("search-input-related"));
+            var searchBoxField =
+                searchbox.FindElement(
+                    By.TagName("input"));
+            searchBoxField.Clear();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+        }
+
+        /// <summary>
         /// Selects a record from a list page, identified by its position in the list
         /// </summary>
         /// <param name="position"></param>

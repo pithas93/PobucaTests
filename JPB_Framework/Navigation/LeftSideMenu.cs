@@ -4,6 +4,7 @@ using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -17,7 +18,12 @@ namespace JPB_Framework.Navigation
         /// </summary>
         public static void GoToContacts()
         {
-            if (ContactsPage.IsAt) return;
+            if (ContactsPage.IsAt)
+            {
+                ContactsPage.ResetFilters();
+                Commands.ClearSearchbox();
+                return;
+            }
 
             try
             {
@@ -47,7 +53,12 @@ namespace JPB_Framework.Navigation
         /// </summary>
         public static void GoToOrganizations()
         {
-            if (OrganizationsPage.IsAt) return;
+            if (OrganizationsPage.IsAt)
+            {
+                OrganizationsPage.ResetFilters();
+                Commands.ClearSearchbox();
+                return;
+            }
 
             try
             {

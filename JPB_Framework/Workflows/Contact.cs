@@ -88,14 +88,16 @@ namespace JPB_Framework.Workflows
 
                 }
 
-                foreach (var contactField in BooleanContactFields)
-                {
-                    if (contactField.Value == null && contactField.RecordViewPageFieldValue == "True") continue;
-                    if (contactField.Value == contactField.RecordViewPageFieldValue) continue;
+                // Section of because boolean fields are not visible in Contact View Page as of 6/6/16
 
-                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
-                    notOk = true;
-                }
+//                foreach (var contactField in BooleanContactFields)
+//                {
+//                    if (contactField.Value == null && contactField.RecordViewPageFieldValue == "True") continue;
+//                    if (contactField.Value == contactField.RecordViewPageFieldValue) continue;
+//
+//                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
+//                    notOk = true;
+//                }
 
                 return !notOk;
             }
@@ -174,15 +176,16 @@ namespace JPB_Framework.Workflows
             BooleanContactFields = new List<RecordField>();
 
             BasicContactFields.Add(new RecordField("First Name", null, () => ContactViewPage.FirstName, null));
-            BasicContactFields.Add(new RecordField("Last Name", null, () => ContactViewPage.LastName, null));
-            BasicContactFields.Add(new RecordField("Middle Name", null, () => ContactViewPage.MiddleName, null));
-            BasicContactFields.Add(new RecordField("Suffix", null, () => ContactViewPage.Suffix, null));
+            BasicContactFields.Add(new RecordField("Last Name", null, () => ContactViewPage.LastName, null));            
             BasicContactFields.Add(new RecordField("Organization Name", null, () => ContactViewPage.OrganizationName, null));
             BasicContactFields.Add(new RecordField("Mobile Phone", null, () => ContactViewPage.MobilePhone, null));
             BasicContactFields.Add(new RecordField("Email", null, () => ContactViewPage.Email, null));
+            BasicContactFields.Add(new RecordField("Job Title", null, () => ContactViewPage.JobTitle, null));
+            BasicContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, null));
+            BasicContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, null));
 
-            ExtraContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, () => ContactViewPage.IsDepartmentFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, () => ContactViewPage.IsWorkPhoneFieldVisible));
+            ExtraContactFields.Add(new RecordField("Middle Name", null, () => ContactViewPage.MiddleName, () => ContactViewPage.IsMiddleNameFieldVisible));
+            ExtraContactFields.Add(new RecordField("Suffix", null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));
             ExtraContactFields.Add(new RecordField("Work Phone 2", null, () => ContactViewPage.WorkPhone2, () => ContactViewPage.IsWorkPhone2FieldVisible));
             ExtraContactFields.Add(new RecordField("Mobile Phone 2", null, () => ContactViewPage.MobilePhone2, () => ContactViewPage.IsMobilePhone2FieldVisible));
             ExtraContactFields.Add(new RecordField("Home Phone", null, () => ContactViewPage.HomePhone, () => ContactViewPage.IsHomePhoneFieldVisible));
@@ -208,8 +211,7 @@ namespace JPB_Framework.Workflows
             ExtraContactFields.Add(new RecordField("Other Postal Code", null, () => ContactViewPage.OtherPostalCode, () => ContactViewPage.IsOtherPostalCodeFieldVisible));
             ExtraContactFields.Add(new RecordField("Other Country", null, () => ContactViewPage.OtherCountry, () => ContactViewPage.IsOtherCountryFieldVisible));
             ExtraContactFields.Add(new RecordField("Salutation", null, () => ContactViewPage.Salutation, () => ContactViewPage.IsSalutationFieldVisible));
-            ExtraContactFields.Add(new RecordField("Nickname", null, () => ContactViewPage.Nickname, () => ContactViewPage.IsNicknameFieldVisible));
-            ExtraContactFields.Add(new RecordField("Job Title", null, () => ContactViewPage.JobTitle, () => ContactViewPage.IsJobTitleFieldVisible));
+            ExtraContactFields.Add(new RecordField("Nickname", null, () => ContactViewPage.Nickname, () => ContactViewPage.IsNicknameFieldVisible));            
             ExtraContactFields.Add(new RecordField("Website", null, () => ContactViewPage.Website, () => ContactViewPage.IsWebsiteFieldVisible));
             ExtraContactFields.Add(new RecordField("Religion", null, () => ContactViewPage.Religion, () => ContactViewPage.IsReligionFieldVisible));
             ExtraContactFields.Add(new RecordField("Birthdate", null, () => ContactViewPage.Birthdate, () => ContactViewPage.IsBirthdateFieldVisible));

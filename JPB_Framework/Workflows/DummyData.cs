@@ -295,7 +295,7 @@ namespace JPB_Framework.Workflows
         private static string[] Departments =
         {
             "Administration", "Human Resources", "Consulting", "Logistics", "Research and Development", "Sales",
-            "Production", "I.T. (Information Technology)",
+            "Production", "I.T. (Information Technology)"
         };
 
         private static string[] Organizations =

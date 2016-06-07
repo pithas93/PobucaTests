@@ -41,7 +41,8 @@ namespace JPB_Framework.Workflows
             SecondContact.CleanUp();
             ThirdContact.CleanUp();
             LeftSideMenu.GoToContacts();
-            VerifyThat.AreEqual(InitialContactCount,ContactsPage.TotalContactsCountByLabel, "Total contacts count is not the same as in the test initiation. Some contacts may have been created/imported but were not cleaned up at the end of test.");
+            VerifyThat.AreEqual(InitialContactCount,ContactsPage.TotalContactsCountByLabel, 
+                $"Total contacts count is not the same as in the test initiation (Expected={InitialContactCount}, Actual={ContactsPage.TotalContactsCountByLabel}). Some contacts may have not been cleaned up at the end of test.");
         }
 
         /// <summary>

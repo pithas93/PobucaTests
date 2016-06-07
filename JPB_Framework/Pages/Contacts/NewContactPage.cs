@@ -331,14 +331,16 @@ namespace JPB_Framework.Pages.Contacts
         {
             firstName = basicContactFields.Find(x => x.Label.Contains("First Name")).Value;
             lastName = basicContactFields.Find(x => x.Label.Contains("Last Name")).Value;
-            middleName = basicContactFields.Find(x => x.Label.Contains("Middle Name")).Value;
-            suffix = basicContactFields.Find(x => x.Label.Contains("Suffix")).Value;
+            department = basicContactFields.Find(x => x.Label.Contains("Department")).Value;
+            workPhone = basicContactFields.Find(x => x.Label.Contains("Work Phone")).Value;
             organizationName = basicContactFields.Find(x => x.Label.Contains("Organization Name")).Value;
             mobilePhone = basicContactFields.Find(x => x.Label.Contains("Mobile Phone")).Value;
             email = basicContactFields.Find(x => x.Label.Contains("Email")).Value;
+            jobTitle = basicContactFields.Find(x => x.Label.Contains("Job Title")).Value;
 
-            department = extraContactFields.Find(x => x.Label.Contains("Department")).Value;
-            workPhone = extraContactFields.Find(x => x.Label.Contains("Work Phone")).Value;
+
+            middleName = extraContactFields.Find(x => x.Label.Contains("Middle Name")).Value;
+            suffix = extraContactFields.Find(x => x.Label.Contains("Suffix")).Value;
             workPhone2 = extraContactFields.Find(x => x.Label.Contains("Work Phone 2")).Value;
             mobilePhone2 = extraContactFields.Find(x => x.Label.Contains("Mobile Phone 2")).Value;
             homePhone = extraContactFields.Find(x => x.Label.Contains("Home Phone")).Value;
@@ -364,8 +366,7 @@ namespace JPB_Framework.Pages.Contacts
             otherPostalCode = extraContactFields.Find(x => x.Label.Contains("Other Postal Code")).Value;
             otherCountry = extraContactFields.Find(x => x.Label.Contains("Other Country")).Value;
             salutation = extraContactFields.Find(x => x.Label.Contains("Salutation")).Value;
-            nickname = extraContactFields.Find(x => x.Label.Contains("Nickname")).Value;
-            jobTitle = extraContactFields.Find(x => x.Label.Contains("Job Title")).Value;
+            nickname = extraContactFields.Find(x => x.Label.Contains("Nickname")).Value;           
             website = extraContactFields.Find(x => x.Label.Contains("Website")).Value;
             religion = extraContactFields.Find(x => x.Label.Contains("Religion")).Value;
             birthdate = extraContactFields.Find(x => x.Label.Contains("Birthdate")).Value;
