@@ -899,7 +899,7 @@ namespace JPB_Framework.Workflows
 
         public static void ImportGmailCsvContactWithOverflowValues()
         {
-            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts3.xls").Submit();
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts3.csv").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
@@ -909,7 +909,7 @@ namespace JPB_Framework.Workflows
 
         public static void ImportOutlookCsvContactWithAllValues()
         {
-            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("Contacts2.xls").Submit();
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("OutlookContacts1.csv").Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
@@ -962,12 +962,21 @@ namespace JPB_Framework.Workflows
 
         public static void ImportOutlookCsvContactWithoutLastName()
         {
-            throw new NotImplementedException();
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("OutlookContacts2.csv").Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
         }
 
         public static void ImportOutlookCsvContactWithOverflowValues()
         {
-            throw new NotImplementedException();
+            ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("OutlookContacts3.csv").Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+
+            FirstContact.SetFieldValue("First Name", "PanagiotisPanagiotisPanagiotisPanagiotisPanagiotisPanagiotis");
+            FirstContact.SetFieldValue("Last Name", "PanagiotisPanagiotisPanagiotisPanagiotisPanagiotisPanagiotis");
         }
     }
 }

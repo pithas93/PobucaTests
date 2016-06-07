@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Report;
 using JPB_Framework.Workflows;
+using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class ImportOutlookCsvContactsTests
+    public class ImportOutlookCsvContactsTests : ContactsBaseTest
     {
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace JPB_Tests.ContactsTests
         public void Import_Contact_With_Overflow_Field_Values()
         {
             ContactCreator.ImportOutlookCsvContactWithOverflowValues();
-            AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully but it does not contain value for last name field");
+            AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully but it contains overflow values in its fields");
 
         }
     }
