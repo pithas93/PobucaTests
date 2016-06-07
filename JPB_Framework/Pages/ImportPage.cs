@@ -38,6 +38,22 @@ namespace JPB_Framework.Pages
         }
 
         /// <summary>
+        /// Returns true if the "Duplicate contacts found. Import partially completed!" is being shown
+        /// </summary>
+        public static bool IsImportWithDuplicatesMessageShown
+        {
+            get
+            {
+                var element =
+                    Driver.Instance.FindElement(
+                        By.CssSelector("fieldset[ng-show='wizardStepThree'] div[ng-show='duplicateReport']"));
+                var value = element.GetAttribute("class");
+
+                return string.Equals(value, "");
+            }
+        }
+
+        /// <summary>
         /// Returns true if the failed import message is being shown
         /// </summary>
         public static bool IsImportFailedMessageShown

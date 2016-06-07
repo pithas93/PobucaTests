@@ -21,7 +21,7 @@ namespace JPB_Tests.ContactsTests
         public void Import_Contacts_With_All_Contact_Fields_Filled()
         {
             ContactCreator.ImportOutlookCsvContactWithAllValues();
-            AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported successfully");
+            AssertThat.IsTrue(ContactCreator.IsContactFileImportedSuccessfully, "Contact was not imported successfully");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
         }
 
@@ -32,7 +32,7 @@ namespace JPB_Tests.ContactsTests
         public void Import_Contact_Without_Value_In_Mandatory_Field()
         {
             ContactCreator.ImportOutlookCsvContactWithoutLastName();
-            AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully but it does not contain value for last name field");
+            AssertThat.IsTrue(ContactCreator.IsContactFileFailedToImport, "Contact was imported successfully but it does not contain value for last name field");
 
         }
 
@@ -43,7 +43,7 @@ namespace JPB_Tests.ContactsTests
         public void Import_Contact_With_Overflow_Field_Values()
         {
             ContactCreator.ImportOutlookCsvContactWithOverflowValues();
-            AssertThat.IsFalse(ContactCreator.IsContactImportedSuccessfully, "Contact was imported successfully but it contains overflow values in its fields");
+            AssertThat.IsTrue(ContactCreator.IsContactFileFailedToImport, "Contact was imported successfully but it contains overflow values in its fields");
 
         }
     }

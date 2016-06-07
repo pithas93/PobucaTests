@@ -252,6 +252,7 @@ namespace JPB_Framework.UI_Utilities
         /// Selects a range of records whose name match the given string parameter
         /// </summary>
         /// <param name="s">The string criteria with which the records will be found</param>
+        /// <returns>Returns the number of records selected</returns>
         public static int SelectRecordsMatching(string s)
         {
             var recordCount = 0;

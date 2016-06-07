@@ -10,7 +10,18 @@ namespace JPB_Framework.UI_Utilities
     {
         private string filePath;
         private string fileName;
+        private bool checkForDuplicateFullName;
+        private bool checkForDuplicateEmail;
         private ImportFileType fileType;
+
+        public ImportFileCommand()
+        {
+            filePath = string.Empty;
+            fileName = string.Empty;
+            checkForDuplicateFullName = false;
+            checkForDuplicateEmail = false;
+            fileType = ImportFileType.Contacts;
+        }
 
         /// <summary>
         /// Informs browser in which computer path it will search for the file to import
@@ -49,12 +60,47 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
+        /// Instructs import command to check for duplicate contacts base on a given field
+        /// </summary>
+        /// <param name="field">The field according which the duplicate contact will be determined. For example ImportField.FullName</param>
+        /// <returns></returns>
+        public ImportFileCommand CheckingForDuplicate(ImportField field)
+        {
+            switch (field)
+            {
+                case ImportField.FullName:
+                    {
+                        checkForDuplicateFullName = true;
+                        break;
+                    }
+                case ImportField.Email:
+                    {
+                        checkForDuplicateEmail = true;
+                        break;
+                    }
+                default:
+                    {
+                        checkForDuplicateFullName = true;
+                        break;
+                    }
+            }
+            return this;
+        }
+
+
+        /// <summary>
         /// Instruct browser to execute an import file command with previously defined options.
         /// Details rearding file path, file name and whether it contains contacts or organizations, 
         /// must have been defined or else the command will fail.
         /// </summary>
         public void Submit()
         {
+            // Check if file path and name have been set
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(fileName))
+            {
+                Report.Report.ToLogFile(MessageType.Message, "File path and name have not been set.", null);
+                return;
+            }
 
             // Select whether you import file with contacts or organizations
             var fileTypeRadios = Driver.Instance.FindElements(By.CssSelector("div[ng-include*='import-inner-choices.min.html'] div[class*='radio']"));
@@ -75,12 +121,17 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(2));
 
             // Select file to import
-            var browseBtn = Driver.Instance.FindElement(By.CssSelector("input.import-template-file"));
-            browseBtn.SendKeys(filePath+fileName);
+            var browseBtn = Driver.Instance.FindElement(By.CssSelector("input.import-template-file"));            
+            browseBtn.SendKeys(filePath + fileName);
 
 
             // Click Next button
             Driver.Instance.FindElement(By.CssSelector("button[ng-click='wizardStepOne=0;wizardStepTwo=1;wizardStepThree=0;updateStats(1);']")).Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+
+            // Check duplicate checkboxes accordingly
+            if (checkForDuplicateFullName) Driver.Instance.FindElement(By.CssSelector("input#contactFullName")).Click();
+            if (checkForDuplicateEmail) Driver.Instance.FindElement(By.CssSelector("input#contactEmail")).Click();
             Driver.Wait(TimeSpan.FromSeconds(2));
 
             // Click Submit button
@@ -106,6 +157,12 @@ namespace JPB_Framework.UI_Utilities
     {
         Contacts,
         Organizations
+    }
+
+    public enum ImportField
+    {
+        FullName,
+        Email
     }
 }
 

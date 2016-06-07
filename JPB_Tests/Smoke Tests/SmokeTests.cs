@@ -52,7 +52,7 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Import_Contact_Template()
         {          
             ContactCreator.ImportTemplateSimpleContact();
-            AssertThat.IsTrue(ContactCreator.IsContactImportedSuccessfully, "Contact was not imported successfully");
+            AssertThat.IsTrue(ContactCreator.IsContactFileImportedSuccessfully, "Contact was not imported successfully");
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact field values where not saved correctly");
 
         }

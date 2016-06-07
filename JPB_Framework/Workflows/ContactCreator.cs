@@ -59,7 +59,17 @@ namespace JPB_Framework.Workflows
         /// <summary>
         /// Returns true if contact was imported successfully.
         /// </summary>
-        public static bool IsContactImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
+        public static bool IsContactFileImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
+
+        /// <summary>
+        /// Returns true if contacts were partially imported due to duplicate contact existance.
+        /// </summary>
+        public static bool IsContactFileImportedWithDuplicates => ImportPage.IsImportWithDuplicatesMessageShown;
+
+        /// <summary>
+        /// Returns true if contacts were not import due to some error
+        /// </summary>
+        public static bool IsContactFileFailedToImport => ImportPage.IsImportFailedMessageShown;
 
         /// <summary>
         /// Determines which contact will hold the data for the new contact that will be created
@@ -835,6 +845,76 @@ namespace JPB_Framework.Workflows
         }
 
         /// <summary>
+        /// Imports a contact template that contains 3 contacts of which 1 contact is inserted twice (with the same full name).
+        /// Check for duplicate full names is made during import
+        /// </summary>
+        public static void ImportTemplateWithTwinContacts()
+        {
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Contacts)
+                .FromPath(ImportFilePath)
+                .WithFileName("Contacts17.xls")
+                .CheckingForDuplicate(ImportField.FullName).Submit();
+
+            if (!ImportPage.IsImportWithDuplicatesMessageShown) return;
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+
+            SecondContact.SetFieldValue("First Name", "Manos");
+            SecondContact.SetFieldValue("Last Name", "Spiridakis");
+        }
+
+        /// <summary>
+        /// First creates a contact and then imports a contact template that contains 2 contacts of which 1 has the same full name with the previously created contact.
+        /// Check for duplicate full names is made during import
+        /// </summary>
+        public static void ImportTemplateWithAnExistingContact()
+        {
+            var firstName = "Panagiotis";
+            var lastName = "Mavrogiannis";
+            NewContactPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
+
+            if (!NewContactPage.IsContactSavedSuccessfully) return;
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Contacts)
+                .FromPath(ImportFilePath)
+                .WithFileName("Contacts18.xls")
+                .CheckingForDuplicate(ImportField.FullName).Submit();
+
+            if (!ImportPage.IsImportWithDuplicatesMessageShown) return;
+            SecondContact.SetFieldValue("First Name", "Panagiotis");
+            SecondContact.SetFieldValue("Last Name", "Mavrogiannis");
+
+            ThirdContact.SetFieldValue("First Name", "Manos");
+            ThirdContact.SetFieldValue("Last Name", "Spiridakis");
+        }
+
+        /// <summary>
+        /// Import a contact template that contains 3 contacts that have void lines in between them
+        /// </summary>
+        public static void ImportTemplateWithVoidLinesBetweenContacts()
+        {
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Contacts)
+                .FromPath(ImportFilePath)
+                .WithFileName("Contacts19.xls")
+                .CheckingForDuplicate(ImportField.FullName).Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+
+            SecondContact.SetFieldValue("First Name", "Giorgos");
+            SecondContact.SetFieldValue("Last Name", "Valsamakis");
+
+            ThirdContact.SetFieldValue("First Name", "Manos");
+            ThirdContact.SetFieldValue("Last Name", "Spiridakis");
+        }
+
+        /// <summary>
         /// Import gmail csv file with 1 contact. Every contact field has assigned value.
         /// </summary>
         public static void ImportGmailCsvContactWithAllValues()
@@ -978,5 +1058,8 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("First Name", "PanagiotisPanagiotisPanagiotisPanagiotisPanagiotisPanagiotis");
             FirstContact.SetFieldValue("Last Name", "PanagiotisPanagiotisPanagiotisPanagiotisPanagiotisPanagiotis");
         }
+
+
+       
     }
 }
