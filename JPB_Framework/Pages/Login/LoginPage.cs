@@ -76,9 +76,8 @@ namespace JPB_Framework.Pages.Login
             }
             catch (WebDriverTimeoutException e)
             {
-                Report.Report.ToLogFile(MessageType.Exception, "Failed to login or did take too long.", e);
+                Report.Report.ToLogFile(MessageType.Message, "Failed to login or did take too long.", null);
                 throw e;
-
             }
         }
     }

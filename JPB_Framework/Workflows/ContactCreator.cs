@@ -532,6 +532,7 @@ namespace JPB_Framework.Workflows
             }
 
             var tmp = new Contact();
+            tmp.Clone(editedContact);
 
             tmp.SetFieldValue("First Name", DummyData.SimpleWord);
             tmp.SetFieldValue("Last Name", DummyData.SimpleWord);
@@ -653,7 +654,7 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Job Title", "Ταξιτζής");
             FirstContact.SetFieldValue("Website", "http://www.facebook.com/TheNontas");
             FirstContact.SetFieldValue("Religion", "Αγνωστικιστής");
-            FirstContact.SetFieldValue("Birthdate", "28/2/1980");
+            FirstContact.SetFieldValue("Birthdate", "28/02/1980");
             FirstContact.SetFieldValue("Gender", "Other");
             FirstContact.SetFieldValue("Comments", "No comments");
 
@@ -775,7 +776,7 @@ namespace JPB_Framework.Workflows
 
             SecondContact.SetFieldValue("First Name", "Panagiotis");
             SecondContact.SetFieldValue("Last Name", "Mavrogiannis2");
-            SecondContact.SetFieldValue("Birthdate", "29/2/2001");
+            SecondContact.SetFieldValue("Birthdate", "29/02/2001");
 
             ThirdContact.SetFieldValue("First Name", "Panagiotis");
             ThirdContact.SetFieldValue("Last Name", "Mavrogiannis3");
@@ -841,7 +842,7 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Allow Emails", "True");
             FirstContact.SetFieldValue("Allow SMS", "True");
             FirstContact.SetFieldValue("Allow Phones", "True");
-            FirstContact.SetFieldValue("Birthdate", "15/5/1987");
+            FirstContact.SetFieldValue("Birthdate", "15/05/1987");
             FirstContact.SetFieldValue("Mobile Phone", "6944833390");
             FirstContact.SetFieldValue("Work Phone", "null");
             FirstContact.SetFieldValue("Email", ".");
@@ -971,7 +972,7 @@ namespace JPB_Framework.Workflows
 
             FirstContact.SetFieldValue("Website", "www.sieben.gr");
 
-            FirstContact.SetFieldValue("Birthdate", "27/1/1990");
+            FirstContact.SetFieldValue("Birthdate", "27/01/1990");
             FirstContact.SetFieldValue("Comments", "His majesty sir tester of the United Kingodom of Testingburg");
         }
 
@@ -1042,7 +1043,7 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Job Title", "Ταξιτζής");
             FirstContact.SetFieldValue("Website", "http://www.facebook.com/TheNontas");
             FirstContact.SetFieldValue("Religion", "Αγνωστικιστής");
-            FirstContact.SetFieldValue("Birthdate", "28/2/1980");
+            FirstContact.SetFieldValue("Birthdate", "28/02/1980");
             FirstContact.SetFieldValue("Gender", "Other");
             FirstContact.SetFieldValue("Comments", "No comments");
         }

@@ -184,7 +184,7 @@ namespace JPB_Framework.Workflows
             BasicContactFields.Add(new RecordField("Job Title", null, () => ContactViewPage.JobTitle, null));
             BasicContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, null));
             BasicContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, null));
-            BasicContactFields.Add(new RecordField("Favorite", null, () => ContactViewPage.Favorite, null));
+            BasicContactFields.Add(new RecordField("Favorite", false.ToString(), () => ContactViewPage.Favorite, null));
 
             ExtraContactFields.Add(new RecordField("Middle Name", null, () => ContactViewPage.MiddleName, () => ContactViewPage.IsMiddleNameFieldVisible));
             ExtraContactFields.Add(new RecordField("Suffix", null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));
