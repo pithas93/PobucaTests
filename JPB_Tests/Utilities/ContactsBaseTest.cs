@@ -15,18 +15,12 @@ namespace JPB_Tests.Utilities
     {
 
         [TestInitialize]
-        public void SetUp()
-        {
-            ContactCreator.Initialize();
-        }
+        public void SetUp() => ContactCreator.Initialize();
+
 
         [TestCleanup]
-        public void CleanUp()
-        {
-            ContactCreator.CleanUp();
-//            LeftSideMenu.GoToContacts();
-//            AssertThat.AreEqual(ContactsPage.ContactsBeingDisplayed, ContactCreator.InitialContactsCount, $"Contact created by the test, was not deleted or was not found to be deleted! Initially, contact count was {ContactCreator.InitialContactsCount} but, current contact count is {ContactsPage.ContactsBeingDisplayed}");
-        }
+        public void CleanUp() => ContactCreator.CleanUp();
+
 
     }
 }

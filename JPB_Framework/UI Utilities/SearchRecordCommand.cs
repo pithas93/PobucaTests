@@ -155,6 +155,18 @@ namespace JPB_Framework.UI_Utilities
 
         }
 
+        /// <summary>
+        /// Applicable only for Contacts within contact list. Direct the search command to execute itself and then check the favorite checkbox for every contact that matches exactly the search criteria.
+        /// The command renders the contacts favorite or unfavorite according to what they were previously to the command execution
+        /// </summary>
+        /// <returns></returns>
+        public void CheckFavorite()
+        {
+            navigateCommand?.Invoke();
+
+            Commands.SearchFor(keyword);
+            Commands.ClickFavoriteForContactsMatching(keyword);
+        }
     }
 
     public class SearchOrganizationCommand : SearchRecordCommand

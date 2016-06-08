@@ -42,6 +42,26 @@ namespace JPB_Framework.Pages.Contacts
         /// <returns></returns>
         public static bool IsContactShareableTo(string email) => Commands.IsRecordShareableTo(email);
 
+        /// <summary>
+        /// Returns true if contact is set to favorite otherwise returns false
+        /// </summary>
+        public static bool IsContactFavorite
+        {
+            get
+            {
+                if (true.ToString() == Favorite) return true;
+                if (false.ToString() == Favorite) return false;
+                throw new Exception();
+            }
+        }
+
+        /// <summary>
+        /// Sets current contact to be favorite
+        /// </summary>
+        public static void SetContactFavorite(bool v)
+        {
+            if (v.ToString() != Favorite) Commands.ClickFavorite();
+        }
 
 
         /// <summary>
@@ -335,7 +355,17 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
-
+        public static string Favorite
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("span#favorite-entity"));
+                var text = element.GetAttribute("class");
+                if (string.IsNullOrEmpty(text)) return true.ToString();
+                if (string.Equals(text, "ng-hide")) return false.ToString();
+                throw new Exception();
+            }
+        }
 
 
     }

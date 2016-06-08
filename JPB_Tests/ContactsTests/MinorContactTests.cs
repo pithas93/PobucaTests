@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Management.Instrumentation;
 using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
@@ -148,5 +149,27 @@ namespace JPB_Tests.ContactsTests
 
         }
 
+        /// <summary>
+        /// Assert that a contact is made favorite either from its contact view page or by the contact list page
+        /// </summary>
+        [TestMethod]
+        public void Make_A_Contact_Favorite()
+        {
+            ContactCreator.CreateSimpleContact();
+            ContactViewPage.SetContactFavorite(false);
+            AssertThat.IsFalse(ContactViewPage.IsContactFavorite, "Contact should have been set as un-favorite, but it is still favorite");
+
+            LeftSideMenu.GoToContacts();
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).CheckFavorite();
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
+
+            AssertThat.IsTrue(ContactViewPage.IsContactFavorite, "Contact should have been set as favorite, but it is still un-favorite");
+
+            ContactViewPage.SetContactFavorite(false);
+
+            LeftSideMenu.GoToContacts();
+            ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
+            AssertThat.IsFalse(ContactViewPage.IsContactFavorite, "Contact should have been set as favorite, but it is still un-favorite");
+        }
     }
 }

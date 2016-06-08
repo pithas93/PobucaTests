@@ -21,7 +21,7 @@ namespace JPB_Framework.Workflows
         public string LastName => GetFieldValue("Last Name");
         public string FullName => $"{GetFieldValue("First Name")} {GetFieldValue("Last Name")}";
         public string OrganizationName => GetFieldValue("Organization Name");
-
+        public string Favorite => GetFieldValue("Favorite");
         public string Birthdate => GetFieldValue("Birthdate");
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace JPB_Framework.Workflows
         /// Copies field values from a given object to the object that calls the method
         /// </summary>
         /// <param name="tmp">The object to be copied</param>
-        public void Clone(Contact tmp)
+        internal void Clone(Contact tmp)
         {
             SetFieldValue("First Name", tmp.GetFieldValue("First Name"));
             SetFieldValue("Last Name", tmp.GetFieldValue("Last Name"));
@@ -129,6 +129,7 @@ namespace JPB_Framework.Workflows
             SetFieldValue("Allow SMS", tmp.GetFieldValue("Allow SMS"));
             SetFieldValue("Allow Phones", tmp.GetFieldValue("Allow Phones"));
             SetFieldValue("Allow Emails", tmp.GetFieldValue("Allow Emails"));
+            SetFieldValue("Favorite", tmp.GetFieldValue("Favorite"));
 
             SetFieldValue("Department", tmp.GetFieldValue("Department"));
             SetFieldValue("Work Phone", tmp.GetFieldValue("Work Phone"));
@@ -183,6 +184,7 @@ namespace JPB_Framework.Workflows
             BasicContactFields.Add(new RecordField("Job Title", null, () => ContactViewPage.JobTitle, null));
             BasicContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, null));
             BasicContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, null));
+            BasicContactFields.Add(new RecordField("Favorite", null, () => ContactViewPage.Favorite, null));
 
             ExtraContactFields.Add(new RecordField("Middle Name", null, () => ContactViewPage.MiddleName, () => ContactViewPage.IsMiddleNameFieldVisible));
             ExtraContactFields.Add(new RecordField("Suffix", null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));

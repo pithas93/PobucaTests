@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
@@ -69,13 +70,24 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// It clicks the share button. Share button is available through the Cotnact and Organization ViewPages
+        /// It clicks the share button. Share button is available through the Contact and Organization ViewPages
         /// </summary>
         public static void ClickShare()
         {
             var shareBtn = Driver.Instance.FindElement(By.Id("share-entity"));
             shareBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
+        }
+
+        /// <summary>
+        /// It clicks the favorite button. Favorite button is available only through the Contact View Page
+        /// </summary>
+        public static void ClickFavorite()
+        {
+            string cssSelector;
+            if (ContactViewPage.Favorite == true.ToString()) cssSelector = "span#favorite-entity";
+            else cssSelector = "span#unfavorite-entity";
+            Driver.Instance.FindElement(By.CssSelector(cssSelector)).Click();
         }
 
         //////////////////////////////////////
@@ -244,8 +256,25 @@ namespace JPB_Framework.UI_Utilities
             var tmp = checkBox.GetAttribute("class");
             Driver.Wait(TimeSpan.FromSeconds(1));
             if (tmp.Equals("icheckbox") || tmp.Equals("icheckbox hover")) return false;
-            else if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
-            else throw new Exception();
+            if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
+            throw new Exception();
+        }
+
+        /// <summary>
+        /// Checks or unchecks the favorite checkbox for a contact within contact list
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        public static bool ClickContactFavorite(IWebElement record)
+        {
+            Driver.MoveToElement(record);
+            var favoriteCheckBox = record.FindElement(By.CssSelector("div.favoriteButton"));
+            favoriteCheckBox.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
+            var tmp = favoriteCheckBox.GetAttribute("class");
+            if (tmp.Equals("favoriteButton ng-scope is-favorite")) return true;
+            if (tmp.Equals("favoriteButton ng-scope")) return false;
+            throw new Exception();
         }
 
         /// <summary>
@@ -260,7 +289,7 @@ namespace JPB_Framework.UI_Utilities
             foreach (var record in records)
             {
                 var recordName = record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
-                if (recordName.Equals("") || recordName == null) break;
+                if (string.IsNullOrEmpty(recordName)) break;
                 if (!recordName.StartsWith(s)) continue;
                 SelectRecord(record);
                 recordCount++;
@@ -301,6 +330,21 @@ namespace JPB_Framework.UI_Utilities
             }
         }
 
+        /// <summary>
+        /// Checks/unchecks the favorite checkbox for one or more contacts within contact list whose name matches exactly the given string parameter 
+        /// </summary>
+        /// <param name="s">The string criteria with which the records will be found</param>
+        public static void ClickFavoriteForContactsMatching(string s)
+        {
+            var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
+            foreach (var record in records)
+            {
+                var recordName = record.FindElement(By.CssSelector("font[class^='name font-regular'][class*='m-b-sm']")).Text;
+                if (string.IsNullOrEmpty(recordName)) break;
+                if (!recordName.Equals(s)) continue;
+                ClickContactFavorite(record);
+            }
+        }
 
         //////////////////////////////////////
         ///  Get value - status for something commands
@@ -465,5 +509,7 @@ namespace JPB_Framework.UI_Utilities
             }
             return true;
         }
+
+
     }
 }

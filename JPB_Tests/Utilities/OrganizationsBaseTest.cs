@@ -7,16 +7,12 @@ namespace JPB_Tests.Utilities
     {
 
         [TestInitialize]
-        public void SetUp()
-        {
-            OrganizationCreator.Initialize();
-        }
+        public void SetUp() => OrganizationCreator.Initialize();
+        
 
         [TestCleanup]
-        public void CleanUp()
-        {
-            OrganizationCreator.CleanUp();
-        }
+        public void CleanUp() => OrganizationCreator.CleanUp();
+        
 
     }
 }

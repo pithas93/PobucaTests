@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests.Smoke_Tests
 {
-    // oti leitourgei to search
+
 
     [TestClass]
     public class SmokeGeneralTests : JpbBaseTest

@@ -117,9 +117,8 @@ namespace JPB_Framework.Workflows
             CurrentContact.SetFieldValue("Last Name", lastName);
             CurrentContact.SetFieldValue("Organization Name", organizationName);
             CurrentContact.SetFieldValue("Mobile Phone", mobilePhone);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
-
-
 
         /// <summary>
         /// Create a simple contact with dummy first, last name and phone values.
@@ -144,6 +143,7 @@ namespace JPB_Framework.Workflows
             CurrentContact.SetFieldValue("First Name", firstName);
             CurrentContact.SetFieldValue("Last Name", lastName);
             CurrentContact.SetFieldValue("Mobile Phone", mobilePhone);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
 
         /// <summary>
@@ -174,6 +174,7 @@ namespace JPB_Framework.Workflows
             CurrentContact.SetFieldValue("Work State", OrganizationViewPage.BillingState);
             CurrentContact.SetFieldValue("Work Postal Code", OrganizationViewPage.BillingPostalCode);
             CurrentContact.SetFieldValue("Work Country", OrganizationViewPage.BillingCountry);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
 
         /// <summary>
@@ -195,6 +196,7 @@ namespace JPB_Framework.Workflows
             tmp.SetFieldValue("Allow SMS", DummyData.BooleanValue);
             tmp.SetFieldValue("Allow Phones", DummyData.BooleanValue);
             tmp.SetFieldValue("Allow Emails", DummyData.BooleanValue);
+            tmp.SetFieldValue("Favorite", true.ToString());
 
             tmp.SetFieldValue("Department", DummyData.DepartmentValue);
             tmp.SetFieldValue("Work Phone", DummyData.PhoneValue);
@@ -254,6 +256,7 @@ namespace JPB_Framework.Workflows
 
             if (!CurrentContact.IsContactCreatedSuccessfully) return;
             CurrentContact.SetFieldValue("First Name", firstName);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
 
         /// <summary>
@@ -273,6 +276,7 @@ namespace JPB_Framework.Workflows
             if (!CurrentContact.IsContactCreatedSuccessfully) return;
             CurrentContact.SetFieldValue("First Name", firstName);
             CurrentContact.SetFieldValue("Last Name", lastName);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
 
         /// <summary>
@@ -292,6 +296,7 @@ namespace JPB_Framework.Workflows
             if (!CurrentContact.IsContactCreatedSuccessfully) return;
             CurrentContact.SetFieldValue("First Name", firstName);
             CurrentContact.SetFieldValue("Last Name", lastName);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
 
         /// <summary>
@@ -320,6 +325,7 @@ namespace JPB_Framework.Workflows
             CurrentContact.SetFieldValue("Last Name", lastName);
             CurrentContact.SetFieldValue("Organization Name", organizationName);
             CurrentContact.SetFieldValue("Home Phone", homePhone);
+            CurrentContact.SetFieldValue("Favorite", true.ToString());
         }
 
         /// <summary>
@@ -337,6 +343,7 @@ namespace JPB_Framework.Workflows
             tmp.SetFieldValue("Personal Email", string.Empty);
             tmp.SetFieldValue("Work City", string.Empty);
             tmp.SetFieldValue("Nickname", string.Empty);
+            tmp.SetFieldValue("Favorite", true.ToString());
 
             NewContactPage.CreateContact().WithMultipleValues(tmp.BasicContactFields, tmp.ExtraContactFields, tmp.BooleanContactFields).Create();
 
