@@ -171,5 +171,26 @@ namespace JPB_Tests.ContactsTests
             ContactsPage.FindContact().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
             AssertThat.IsFalse(ContactViewPage.IsContactFavorite, "Contact should have been set as favorite, but it is still un-favorite");
         }
+
+        /// <summary>
+        /// Assert that organization name within contact view, navigates to the organization view of the organization name
+        /// </summary>
+        [TestMethod]
+        public void Organization_Name_Navigates_To_Organization_View()
+        {
+            ContactCreator.CreateSimpleContact();
+            ContactViewPage.ClickOrganizationName();
+            AssertThat.AreEqual(ContactCreator.FirstContact.OrganizationName, OrganizationViewPage.OrganizationName, 
+                $"Browser should navigate to '{ContactCreator.FirstContact.OrganizationName}' organization view but, it did not");
+        }
+
+        [TestMethod]
+        public void Contact_Emails_Are_Emailable()
+        {
+            ContactCreator.CreateContactWithAllValues();
+            VerifyThat.IsTrue(ContactViewPage.IsWorkEmailEmailable, "Work email link is not active but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsPersonalEmailEmailable, "Personal email link is not active but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsOtherEmailEmailable, "Other email link is not active but it should");
+        }
     }
 }

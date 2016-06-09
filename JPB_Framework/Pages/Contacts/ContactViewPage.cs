@@ -34,6 +34,18 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+        public static bool IsWorkEmailEmailable => IsEmailLinkActive("Work Email", ()=>WorkEmail);
+        public static bool IsPersonalEmailEmailable => IsEmailLinkActive("Personal Email", () => PersonalEmail);
+        public static bool IsOtherEmailEmailable => IsEmailLinkActive("Other Email", () => OtherEmail);
+
+
+        public static void ClickOrganizationName()
+        {
+            var element = Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Organization Name'] div[ng-click='visitGroup()']"));
+            element.Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+        }
+
         /// <summary>
         /// Checks if the input for the share window email address field complies with the email format. 
         /// Returns true if the Share button is enabled.
@@ -73,6 +85,14 @@ namespace JPB_Framework.Pages.Contacts
             return new DeleteRecordCommand();
         }
 
+        private static bool IsEmailLinkActive(string fieldName, Func<string> contactViewPageField)
+        {
+            var element =
+                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
+            var href = element.GetAttribute("href");
+            var expectedEmailLink = $"mailto:{contactViewPageField()}";
+            return (href == expectedEmailLink);
+        }
 
         private static string GetRequiredFieldValueFor(string fieldName)
         {
@@ -161,7 +181,7 @@ namespace JPB_Framework.Pages.Contacts
 
         public static string MobilePhone => GetRequiredFieldValueFor("Mobile Phone");
 
-        public static string Email => GetRequiredFieldValueFor("Work Email");
+        public static string WorkEmail => GetRequiredFieldValueFor("Work Email");
 
         public static string OrganizationName => GetRequiredFieldValueFor("Organization Name");
 

@@ -180,7 +180,7 @@ namespace JPB_Framework.Workflows
             BasicContactFields.Add(new RecordField("Last Name", null, () => ContactViewPage.LastName, null));            
             BasicContactFields.Add(new RecordField("Organization Name", null, () => ContactViewPage.OrganizationName, null));
             BasicContactFields.Add(new RecordField("Mobile Phone", null, () => ContactViewPage.MobilePhone, null));
-            BasicContactFields.Add(new RecordField("Email", null, () => ContactViewPage.Email, null));
+            BasicContactFields.Add(new RecordField("Email", null, () => ContactViewPage.WorkEmail, null));
             BasicContactFields.Add(new RecordField("Job Title", null, () => ContactViewPage.JobTitle, null));
             BasicContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, null));
             BasicContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, null));
