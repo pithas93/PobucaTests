@@ -121,24 +121,12 @@ namespace JPB_Framework.Pages.Organizations
         }
 
         /// <summary>
-        /// If browser is at Contact List Page and there are filters set, it clears those filters
+        /// If browser is at Organization List Page and there are filters set, it clears those filters
         /// </summary>
         public static void ResetFilters()
         {
             if (IsAt)
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("img[ng-click='resetFilters();']"))
-                        );
-                    element.Click();
-                    Driver.Wait(TimeSpan.FromSeconds(1));
-                }
-                catch (NoSuchElementException)
-                {
-                }
-
+                Commands.ResetFilters();
             else
             {
                 throw new Exception();

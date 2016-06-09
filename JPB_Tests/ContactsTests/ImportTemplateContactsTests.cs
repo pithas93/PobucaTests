@@ -156,7 +156,7 @@ namespace JPB_Tests.ContactsTests
         /// Import a contact template that contains a contact that already exists within contact list (the 2 contacts will have the same full name)
         /// </summary>
         [TestMethod]
-        public void Import_Contacts_With_That_Already_Exist_Within_Contacts()
+        public void Import_Contact_That_Already_Exist_Within_Contacts()
         {
             ContactCreator.ImportTemplateWithAnExistingContact();
             AssertThat.IsTrue(ContactCreator.IsContactFileImportedWithDuplicates, "At least one of the 2 duplicate contacts should have been imported but neither did.");
@@ -166,6 +166,16 @@ namespace JPB_Tests.ContactsTests
                 .AndLastName(ContactCreator.FirstContact.LastName)
                 .Find();
             AssertThat.AreEqual(ContactsPage.TotalContactsCountByLabel, 1, $"There should be only one contact with name '{ContactCreator.FirstContact.FullName}' being displayed. It seems that the second twin contact was imported successfully");
+        }
+
+        /// <summary>
+        /// Import a contact template that contains 2 contacts of whom, one has invalid value for a combo field
+        /// </summary>
+        [TestMethod]
+        public void Import_Contacts_With_Invalid_Combo_Box_Values()
+        {
+            ContactCreator.ImportTemplateContactWithInvalidComboValues();
+            AssertThat.IsTrue(ContactCreator.IsContactFileFailedToImport, "Contact with invalid combo box values was imported but it should not");
         }
 
         /// <summary>

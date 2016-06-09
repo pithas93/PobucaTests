@@ -211,17 +211,7 @@ namespace JPB_Framework.Pages.Contacts
         public static void ResetFilters()
         {
             if (IsAt)
-                try
-                {
-                    var element = Driver.Instance.FindElement(By.CssSelector("img[ng-click='resetFilters();']"));
-                    var tmp = element.GetAttribute("class");
-                    if (tmp.Contains("ng-hide")) return;
-                    element.Click();
-                    Driver.Wait(TimeSpan.FromSeconds(1));
-                }
-                catch (NoSuchElementException)
-                {
-                }
+                Commands.ResetFilters();
 
             else
             {

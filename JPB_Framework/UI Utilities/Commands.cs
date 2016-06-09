@@ -196,6 +196,23 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(2));
         }
 
+        /// <summary>
+        /// Applicable only within organization/contact list pages. If there are filters set, it clears those filters
+        /// </summary>
+        public static void ResetFilters()
+        {
+            try
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("img[ng-click='resetFilters();']"));
+                var tmp = element.GetAttribute("class");
+                if (tmp.Contains("ng-hide")) return;
+                element.Click();
+                Driver.Wait(TimeSpan.FromSeconds(1));
+            }
+            catch (NoSuchElementException)
+            {
+            }
+        }
 
         //////////////////////////////////////
         ///  Search - Select - Open records commands

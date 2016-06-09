@@ -18,6 +18,7 @@ namespace JPB_Framework.Workflows
         private static int InitialOrganizationCount { get; set; }
         public static Organization FirstOrganization { get; set; }
         public static Organization SecondOrganization { get; set; }
+        public static Organization ThirdOrganization { get; set; }
 
         private static Organization CurrentOrganization { get; set; }
 
@@ -29,6 +30,7 @@ namespace JPB_Framework.Workflows
         {
             FirstOrganization = new Organization();
             SecondOrganization = new Organization();
+            ThirdOrganization = new Organization();
             InitialOrganizationCount = OrganizationsPage.TotalOrganizationsCountByLabel;
         }
 
@@ -36,6 +38,7 @@ namespace JPB_Framework.Workflows
         {
             FirstOrganization.CleanUp();
             SecondOrganization.CleanUp();
+            ThirdOrganization.CleanUp();
             LeftSideMenu.GoToContacts();
             VerifyThat.AreEqual(InitialOrganizationCount, OrganizationsPage.TotalOrganizationsCountByLabel,
                 $"Total organizations count is not the same as in the test initiation (Expected={InitialOrganizationCount}, Actual={OrganizationsPage.TotalOrganizationsCountByLabel}). Some organizations may have not been cleaned up at the end of test.");
@@ -54,7 +57,17 @@ namespace JPB_Framework.Workflows
         /// <summary>
         /// Returns true if organization was imported successfully.
         /// </summary>
-        public static bool IsOrganizationImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
+        public static bool IsOrganizationFileImportedSuccessfully => ImportPage.IsImportSuccessMessageShown;
+
+        /// <summary>
+        /// Returns true if organizations were partially imported due to duplicate organization existance.
+        /// </summary>
+        public static bool IsOrganizationFileImportedWithDuplicates => ImportPage.IsImportWithDuplicatesMessageShown;
+
+        /// <summary>
+        /// Returns true if organizations were not import due to some error
+        /// </summary>
+        public static bool IsOrganizationFileFailedToImport => ImportPage.IsImportFailedMessageShown;
 
         /// <summary>
         /// Determines which contact will hold the data for the new contact that will be created
@@ -564,6 +577,30 @@ namespace JPB_Framework.Workflows
             FirstOrganization.SetFieldValue("Email", "sieben@sieben.gr");
             FirstOrganization.SetFieldValue("Website", "http://www.sieben.gr");
 
+        }
+
+        /// <summary>
+        /// First creates an organization and then imports an organization template that contains 2 organizations of which 1 has the same organization name with the previously created organization.
+        /// Check for duplicate organziation names is made during import
+        /// </summary>
+        public static void ImportTemplateWithAnExistingOrganization()
+        {
+            var organizationName = "SiEBEN";
+            NewOrganizationPage.CreateOrganization().WithOrganizationName(organizationName).Create();
+
+            if (!NewOrganizationPage.IsOrganizationSavedSuccessfully) return;
+            FirstOrganization.SetFieldValue("Organization Name", organizationName);
+
+
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Organizations)
+                .FromPath(ImportFilePath)
+                .WithFileName("Organizations16.xls")
+                .CheckingForDuplicate(ImportField.OrganizationName).Submit();
+
+            if (!ImportPage.IsImportWithDuplicatesMessageShown) return;
+            SecondOrganization.SetFieldValue("Organization Name", "SiEBEN");
+            ThirdOrganization.SetFieldValue("Organization Name", "InEdu");
         }
     }
 }

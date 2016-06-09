@@ -109,7 +109,7 @@ namespace JPB_Tests.Smoke_Tests
         public void Can_Import_Organization_Template()
         {
             OrganizationCreator.ImportSimpleContact();
-            AssertThat.IsTrue(OrganizationCreator.IsOrganizationImportedSuccessfully, "Organization was not imported successfully");
+            AssertThat.IsTrue(OrganizationCreator.IsOrganizationFileImportedSuccessfully, "Organization was not imported successfully");
             AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
 
        }

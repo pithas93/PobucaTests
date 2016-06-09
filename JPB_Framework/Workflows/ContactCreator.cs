@@ -883,8 +883,8 @@ namespace JPB_Framework.Workflows
             NewContactPage.CreateContact().WithFirstName(firstName).WithLastName(lastName).Create();
 
             if (!NewContactPage.IsContactSavedSuccessfully) return;
-            FirstContact.SetFieldValue("First Name", "Panagiotis");
-            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+            FirstContact.SetFieldValue("First Name", firstName);
+            FirstContact.SetFieldValue("Last Name", lastName);
 
             ImportPage.ImportFile()
                 .Containing(ImportFileType.Contacts)
@@ -898,6 +898,24 @@ namespace JPB_Framework.Workflows
 
             ThirdContact.SetFieldValue("First Name", "Manos");
             ThirdContact.SetFieldValue("Last Name", "Spiridakis");
+        }
+
+        public static void ImportTemplateContactWithInvalidComboValues()
+        {
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Contacts)
+                .FromPath(ImportFilePath)
+                .WithFileName("Contacts20.xls")
+                .Submit();
+
+            if(!ImportPage.IsImportSuccessMessageShown) return;
+            FirstContact.SetFieldValue("First Name", "Panagiotis");
+            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
+            FirstContact.SetFieldValue("Department", "Finance");
+
+            SecondContact.SetFieldValue("First Name", "Giorgos");
+            SecondContact.SetFieldValue("Last Name", "Valsamakis");
+            FirstContact.SetFieldValue("Department", "Testing");
         }
 
         /// <summary>
@@ -1068,6 +1086,6 @@ namespace JPB_Framework.Workflows
         }
 
 
-       
+
     }
 }

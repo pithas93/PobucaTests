@@ -11,7 +11,10 @@ namespace JPB_Framework.UI_Utilities
         private string filePath;
         private string fileName;
         private bool checkForDuplicateFullName;
-        private bool checkForDuplicateEmail;
+        private bool checkForDuplicateContactEmail;
+        private bool checkForDuplicateOrganizationName;
+        private bool checkForDuplicateCompanyEmail;
+        private bool checkForDuplicateMainPhone;
         private ImportFileType fileType;
 
         public ImportFileCommand()
@@ -19,7 +22,10 @@ namespace JPB_Framework.UI_Utilities
             filePath = string.Empty;
             fileName = string.Empty;
             checkForDuplicateFullName = false;
-            checkForDuplicateEmail = false;
+            checkForDuplicateContactEmail = false;
+            checkForDuplicateOrganizationName = false;
+            checkForDuplicateCompanyEmail = false;
+            checkForDuplicateMainPhone = false;
             fileType = ImportFileType.Contacts;
         }
 
@@ -73,14 +79,28 @@ namespace JPB_Framework.UI_Utilities
                         checkForDuplicateFullName = true;
                         break;
                     }
-                case ImportField.Email:
+                case ImportField.ContactEmail:
                     {
-                        checkForDuplicateEmail = true;
+                        checkForDuplicateContactEmail = true;
+                        break;
+                    }
+                case ImportField.OrganizationName:
+                    {
+                        checkForDuplicateOrganizationName = true;
+                        break;
+                    }
+                case ImportField.OrganizationEmail:
+                {
+                    checkForDuplicateCompanyEmail = true;
+                    break;
+                }
+                case ImportField.MainPhone:
+                    {
+                        checkForDuplicateMainPhone = true;
                         break;
                     }
                 default:
                     {
-                        checkForDuplicateFullName = true;
                         break;
                     }
             }
@@ -130,8 +150,18 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(2));
 
             // Check duplicate checkboxes accordingly
-            if (checkForDuplicateFullName) Driver.Instance.FindElement(By.CssSelector("input#contactFullName")).Click();
-            if (checkForDuplicateEmail) Driver.Instance.FindElement(By.CssSelector("input#contactEmail")).Click();
+            if (fileType == ImportFileType.Contacts)
+            {
+                if (checkForDuplicateFullName) Driver.Instance.FindElement(By.CssSelector("input#contactFullName")).Click();
+                if (checkForDuplicateContactEmail) Driver.Instance.FindElement(By.CssSelector("input#contactEmail")).Click();
+            }
+            if (fileType == ImportFileType.Organizations)
+            {
+                if (checkForDuplicateOrganizationName) Driver.Instance.FindElement(By.CssSelector("input#companyName")).Click();
+                if (checkForDuplicateCompanyEmail) Driver.Instance.FindElement(By.CssSelector("input#companyEmail")).Click();
+                if (checkForDuplicateMainPhone) Driver.Instance.FindElement(By.CssSelector("input#companyEmail")).Click();
+            }
+            
             Driver.Wait(TimeSpan.FromSeconds(2));
 
             // Click Submit button
@@ -162,7 +192,10 @@ namespace JPB_Framework.UI_Utilities
     public enum ImportField
     {
         FullName,
-        Email
+        ContactEmail,
+        OrganizationName,
+        OrganizationEmail,
+        MainPhone
     }
 }
 
