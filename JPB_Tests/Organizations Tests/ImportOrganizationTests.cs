@@ -101,6 +101,9 @@ namespace JPB_Tests.Organizations_Tests
             AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values were not saved correctly");
         }
 
+        /// <summary>
+        /// Assert that, when 'check for duplicate organization name' filter is checked during import, if template contains an existing organization, that organization is dismissed
+        /// </summary>
         [TestMethod]
         public void Import_Organization_That_Already_Exist_Within_Contacts()
         {
@@ -111,6 +114,42 @@ namespace JPB_Tests.Organizations_Tests
                 .WithOrganizationName(OrganizationCreator.FirstOrganization.OrganizationName)
                 .Find();
             AssertThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel, 1, $"There should be only one organization with name '{OrganizationCreator.FirstOrganization.OrganizationName}' being displayed. It seems that the second twin organization was imported successfully");
+        }
+
+        /// <summary>
+        /// Assert that, when 'check for duplicate organization name' filter is checked during import, if template contains an organization with the same name twice, only one of them is imported
+        /// </summary>
+        [TestMethod]
+        public void Import_Organizations_With_The_Same_Organization_Twice()
+        {
+            OrganizationCreator.ImportTemplateWithTwinOrganizations();
+            AssertThat.IsTrue(OrganizationCreator.IsOrganizationFileImportedWithDuplicates, "At least one of the 2 duplicate organizations should have been imported but neither did.");
+
+            OrganizationsPage.FindOrganization()
+                .WithOrganizationName(OrganizationCreator.FirstOrganization.OrganizationName)
+                .Find();
+            AssertThat.AreEqual(OrganizationsPage.TotalOrganizationsCountByLabel,1,
+                $"There should be only one organziation with name '{OrganizationCreator.FirstOrganization.OrganizationName}' being displayed. It seems that the second twin organization was imported successfully");
+        }
+
+        /// <summary>
+        /// Assert that when importing a template that contains void lines in between its containing records, the import is successfull
+        /// </summary>
+        [TestMethod]
+        public void Import_Organizations_With_Void_Lines_Between_Organizations()
+        {
+            OrganizationCreator.ImportTemplateWithVoidLinesBetweenOrganizations();
+            AssertThat.IsTrue(OrganizationCreator.IsOrganizationFileImportedSuccessfully, "Contacts were not imported but they should.");
+        }
+
+        /// <summary>
+        /// Assert that when importing a template that contains organizations with invalid combo field values, the import fails
+        /// </summary>
+        [TestMethod]
+        public void Import_Organizations_With_Invalid_Combo_Box_Values()
+        {
+            OrganizationCreator.ImportTemplateOrganizationWithInvalidComboValues();
+            AssertThat.IsTrue(OrganizationCreator.IsOrganizationFileFailedToImport, "Organization with invalid combo box values was imported but it should not");
         }
 
         /// <summary>

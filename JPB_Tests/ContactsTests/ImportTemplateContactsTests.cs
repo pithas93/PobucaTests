@@ -137,7 +137,7 @@ namespace JPB_Tests.ContactsTests
 
 
         /// <summary>
-        /// Import a contact template that contains a contact twice (2 contacts with the same first and last name)
+        /// Import a contact template that contains a contact twice (2 contacts with the same first and last name). Test checks whether duplicate filter works correctly
         /// </summary>
         [TestMethod]
         public void Import_Contacts_With_The_Same_Contact_Twice()
@@ -149,11 +149,12 @@ namespace JPB_Tests.ContactsTests
                 .WithFirstName(ContactCreator.FirstContact.FirstName)
                 .AndLastName(ContactCreator.FirstContact.LastName)
                 .Find();
-            AssertThat.AreEqual(ContactsPage.TotalContactsCountByLabel,1,$"There should be only one contact with name '{ContactCreator.FirstContact.FullName}' being displayed. It seems that the second twin contact was imported successfully");
+            AssertThat.AreEqual(ContactsPage.TotalContactsCountByLabel,1,
+                $"There should be only one contact with name '{ContactCreator.FirstContact.FullName}' being displayed. It seems that the second twin contact was imported successfully");
         }
 
         /// <summary>
-        /// Import a contact template that contains a contact that already exists within contact list (the 2 contacts will have the same full name)
+        /// Import a contact template that contains a contact that already exists within contact list (the 2 contacts will have the same full name).Test checks whether duplicate filter works correctly
         /// </summary>
         [TestMethod]
         public void Import_Contact_That_Already_Exist_Within_Contacts()

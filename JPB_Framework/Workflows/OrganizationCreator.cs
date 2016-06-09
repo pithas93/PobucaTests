@@ -602,6 +602,60 @@ namespace JPB_Framework.Workflows
             SecondOrganization.SetFieldValue("Organization Name", "SiEBEN");
             ThirdOrganization.SetFieldValue("Organization Name", "InEdu");
         }
+
+        /// <summary>
+        /// Import an organization template that contains 2 organizations with the same organization name. During import, duplicate organization name checkbox is checked
+        /// </summary>
+        public static void ImportTemplateWithTwinOrganizations()
+        {
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Organizations)
+                .FromPath(ImportFilePath)
+                .WithFileName("Organizations17.xls")
+                .CheckingForDuplicate(ImportField.OrganizationName).Submit();
+
+            if (!ImportPage.IsImportWithDuplicatesMessageShown) return;
+            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
+            SecondOrganization.SetFieldValue("Organization Name", "InEdu");
+            ThirdOrganization.SetFieldValue("Organization Name", "SiEBEN");
+
+        }
+
+        /// <summary>
+        /// Import an organization template that contains 3 organization that have void lines in between them
+        /// </summary>
+        public static void ImportTemplateWithVoidLinesBetweenOrganizations()
+        {
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Organizations)
+                .FromPath(ImportFilePath)
+                .WithFileName("Organizations18.xls")
+                .Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
+            SecondOrganization.SetFieldValue("Organization Name", "InEdu");
+            ThirdOrganization.SetFieldValue("Organization Name", "Microsoft");
+        }
+
+        /// <summary>
+        /// Import an organization template that contains 2 organization of whom, one has invlaid value for a combo field
+        /// </summary>
+        public static void ImportTemplateOrganizationWithInvalidComboValues()
+        {
+            ImportPage.ImportFile()
+                .Containing(ImportFileType.Organizations)
+                .FromPath(ImportFilePath)
+                .WithFileName("Organizations19.xls")
+                .Submit();
+
+            if (!ImportPage.IsImportSuccessMessageShown) return;
+            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
+            FirstOrganization.SetFieldValue("Billing Country", "Ελλάδα");
+
+            SecondOrganization.SetFieldValue("Organization Name", "InEdu");
+            SecondOrganization.SetFieldValue("Billing Country", "Greece");
+        }
     }
 }
 

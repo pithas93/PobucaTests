@@ -870,6 +870,9 @@ namespace JPB_Framework.Workflows
 
             SecondContact.SetFieldValue("First Name", "Manos");
             SecondContact.SetFieldValue("Last Name", "Spiridakis");
+
+            ThirdContact.SetFieldValue("First Name", "Panagiotis");
+            ThirdContact.SetFieldValue("Last Name", "Mavrogiannis");
         }
 
         /// <summary>
