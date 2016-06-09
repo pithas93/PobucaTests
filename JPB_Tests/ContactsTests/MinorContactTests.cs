@@ -13,17 +13,7 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class MinorContactTests : ContactsBaseTest
     {
-        
 
-        /// <summary>
-        /// Check that clicking a telephone number within a contact, results in showing a dialog to select an app to dial the number or automatically calls the number.
-        /// </summary>
-        [TestMethod]
-        public void Call_A_Contact_Telephone_Number()
-        {
-            ContactCreator.CreateSimpleContact();
-            AssertThat.IsTrue(ContactViewPage.IsMobileNumberCallable, "Contact mobile phone is not callable");
-        }
 
         /// <summary>
         /// Check that a contact can be shared with a valid email and that the share button enabled.
@@ -103,7 +93,7 @@ namespace JPB_Tests.ContactsTests
             OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
             OrganizationViewPage.FindContactFromOrganizationContactList().WithFirstName(ContactCreator.FirstContact.FirstName).AndLastName(ContactCreator.FirstContact.LastName).Open();
             VerifyThat.IsTrue(ContactViewPage.IsAtFromWithinOrganizationViewPage, "Contact view page path from within organization view page is not the expected one");
-            
+
             EditContactPage.GoTo();
             VerifyThat.IsTrue(EditContactPage.IsAtFromWithinOrganizationViewPage, "Edit contact page path from within organization view page is not the expected one");
 
@@ -118,7 +108,7 @@ namespace JPB_Tests.ContactsTests
         public void Assert_That_Department_Combo_List_Is_Sorted_Alphabetically()
         {
             NewContactPage.GoTo();
-            AssertThat.IsTrue(NewContactPage.IsDepartmentComboListSorted, "Department combo list is not sorted alphabetically");  
+            AssertThat.IsTrue(NewContactPage.IsDepartmentComboListSorted, "Department combo list is not sorted alphabetically");
         }
 
         /// <summary>
@@ -137,13 +127,13 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Assert_Contact_Comment_Field_Character_Limit_Indicator_Works_Correctly()
         {
-            
+
             NewContactPage.GoTo();
-            NewContactPage.SetContactComments(" " + DummyData.SimpleText);
+            NewContactPage.SetComments(" " + DummyData.SimpleText);
             VerifyThat.AreEqual(500 - NewContactPage.CommentsTextLength, NewContactPage.CommentsLimitIndicator,
             $"Comments text length is {500 - NewContactPage.CommentsTextLength} the value indicator is displaying is {NewContactPage.CommentsLimitIndicator}");
 
-            NewContactPage.SetContactComments(DummyData.SimpleText);
+            NewContactPage.SetComments(DummyData.SimpleText);
             VerifyThat.AreEqual(500 - NewContactPage.CommentsTextLength, NewContactPage.CommentsLimitIndicator,
                 $"Comments text length is {500 - NewContactPage.CommentsTextLength} the value indicator is displaying is {NewContactPage.CommentsLimitIndicator}");
 
@@ -180,10 +170,13 @@ namespace JPB_Tests.ContactsTests
         {
             ContactCreator.CreateSimpleContact();
             ContactViewPage.ClickOrganizationName();
-            AssertThat.AreEqual(ContactCreator.FirstContact.OrganizationName, OrganizationViewPage.OrganizationName, 
+            AssertThat.AreEqual(ContactCreator.FirstContact.OrganizationName, OrganizationViewPage.OrganizationName,
                 $"Browser should navigate to '{ContactCreator.FirstContact.OrganizationName}' organization view but, it did not");
         }
 
+        /// <summary>
+        /// Assert that email links work as prompts to send emails
+        /// </summary>
         [TestMethod]
         public void Contact_Emails_Are_Emailable()
         {
@@ -191,6 +184,50 @@ namespace JPB_Tests.ContactsTests
             VerifyThat.IsTrue(ContactViewPage.IsWorkEmailEmailable, "Work email link is not active but it should");
             VerifyThat.IsTrue(ContactViewPage.IsPersonalEmailEmailable, "Personal email link is not active but it should");
             VerifyThat.IsTrue(ContactViewPage.IsOtherEmailEmailable, "Other email link is not active but it should");
+        }
+
+        /// <summary>
+        /// Assert that telephone number links work as prompts to make telephone calls
+        /// </summary>
+        [TestMethod]
+        public void Contact_Telephone_Numbers_Are_Callable()
+        {
+            ContactCreator.CreateContactWithAllValues();
+            VerifyThat.IsTrue(ContactViewPage.IsMobilePhoneCallable, "Contact mobile phone is not callable but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsMobilePhone2Callable, "Contact mobile phone 2 is not callable but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsWorkPhoneCallable, "Contact work phone is not callable but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsWorkPhone2Callable, "Contact work phone 2 is not callable but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsHomePhoneCallable, "Contact home phone is not callable but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsHomePhone2Callable, "Contact home phone is not callable but it should");
+            VerifyThat.IsTrue(ContactViewPage.IsOtherPhoneCallable, "Contact other phone is not callable but it should");
+        }
+
+        /// <summary>
+        /// Assert that clicking on either of the addresses, redirectes browser to a google maps page that shows the clicked address on map
+        /// </summary>
+        [TestMethod]
+        public void Contact_Address_Links_Navigate_To_Google_Maps()
+        {
+            ContactCreator.CreateContactWithAllValues();
+            VerifyThat.IsTrue(ContactViewPage.IsHomeAddressLinkActive, "Work address link does not navigate to google maps");
+            VerifyThat.IsTrue(ContactViewPage.IsOtherAddressLinkActive, "Work address link does not navigate to google maps");
+            VerifyThat.IsTrue(ContactViewPage.IsWorkAddressLinkActive, "Work address link does not navigate to google maps");
+        }
+
+        /// <summary>
+        /// Assert that when assinging values to first and last name that matche those of another existing contact, an indicator informs the user accordingly
+        /// </summary>
+        [TestMethod]
+        public void Duplicate_Contact_Indicator()
+        {
+            ContactCreator.CreateSimpleContact();
+            LeftSideMenu.GoToContacts();
+            NewContactPage.GoTo();
+            NewContactPage.SetFirstName(ContactCreator.FirstContact.FirstName);
+            NewContactPage.SetLastName(ContactCreator.FirstContact.LastName);
+            AssertThat.IsTrue(NewContactPage.IsPossibleDuplicateAlertShown, 
+                "There should be an alert at the top of the page that informs for the possibility of a duplicate contact");
+
         }
     }
 }

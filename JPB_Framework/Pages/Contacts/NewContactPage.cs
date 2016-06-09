@@ -89,7 +89,24 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
-
+        public static bool IsPossibleDuplicateAlertShown {
+            get
+            {
+                try
+                {
+                    Driver.NoWait(
+                        () =>
+                            Driver.Instance.FindElement(
+                                By.CssSelector("[ng-if='searchingExistingContacts && showDuplicateContactCheck']"))
+                        );
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        }
 
 
         /// <summary>
@@ -112,7 +129,9 @@ namespace JPB_Framework.Pages.Contacts
             return new CreateContactCommand();
         }
 
-        public static void SetContactComments(string v) { EditContactFields.Comments = v; }
+        public static void SetComments(string v) => EditContactFields.Comments = v;
+        public static void SetFirstName(string v) => EditContactFields.FirstName = v;
+        public static void SetLastName(string v) => EditContactFields.LastName = v;
     }
 
     public class CreateContactCommand

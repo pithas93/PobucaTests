@@ -3,6 +3,7 @@ using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace JPB_Framework.Pages.Contacts
 {
@@ -17,27 +18,6 @@ namespace JPB_Framework.Pages.Contacts
         /// Check if browser is at the selected page when it is open for a contact from within an organization view page
         /// </summary>
         public static bool IsAtFromWithinOrganizationViewPage => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization  /  Contact View");
-
-        /// <summary>
-        /// Returns true if contact mobile number field value can be dialed. 
-        /// System is supposed to ask user to execute the task with an app from a given list, or just executes the dialing command.
-        /// </summary>
-        public static bool IsMobileNumberCallable
-        {
-            get
-            {
-                var element =
-                    Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Mobile Phone'] a.ng-scope"));
-                var href = element.GetAttribute("href");
-                var expectedTelephoneLink = $"tel:{MobilePhone}";
-                return (href == expectedTelephoneLink);
-            }
-        }
-
-        public static bool IsWorkEmailEmailable => IsEmailLinkActive("Work Email", ()=>WorkEmail);
-        public static bool IsPersonalEmailEmailable => IsEmailLinkActive("Personal Email", () => PersonalEmail);
-        public static bool IsOtherEmailEmailable => IsEmailLinkActive("Other Email", () => OtherEmail);
-
 
         public static void ClickOrganizationName()
         {
@@ -92,6 +72,39 @@ namespace JPB_Framework.Pages.Contacts
             var href = element.GetAttribute("href");
             var expectedEmailLink = $"mailto:{contactViewPageField()}";
             return (href == expectedEmailLink);
+        }
+
+        private static bool IsTelephoneLinkActive(string fieldName, Func<string> contactViewPageField)
+        {
+            var element =
+                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
+            var href = element.GetAttribute("href");
+            var expectedEmailLink = $"tel:{contactViewPageField()}";
+            return (href == expectedEmailLink);
+        }
+
+        private static bool IsAddressLinkActive(string addressType, Func<string> street, Func<string> state, Func<string> postalCode, Func<string> city, Func<string> country)
+        {
+            var element =
+                    Driver.Instance.FindElement(By.CssSelector($"[ng-if='show{addressType}Address(contact);'] [ng-show='myaddressstreet']"));
+            Driver.MoveToElement(element);
+            element.Click();
+            Driver.Wait(TimeSpan.FromSeconds(5));
+            var mainWindow = Driver.Instance.WindowHandles[0];
+            var googleMapsWindow = Driver.Instance.WindowHandles[1];
+
+            // Navigate to Google Maps page
+            Driver.Instance.SwitchTo().Window(googleMapsWindow);
+            var googleMapsSearchbox = Driver.Instance.FindElement(By.CssSelector("input#searchboxinput"));
+            var googleAddressBar = googleMapsSearchbox.GetAttribute("value");
+            Driver.Instance.SwitchTo().Window(googleMapsWindow).Close();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+
+            // Return to jpb page
+            Driver.Instance.SwitchTo().Window(mainWindow);
+            var address = $"{street()}, {state()}, {postalCode()}, {city()}, {country()}";
+
+            return (googleAddressBar.Equals(address));
         }
 
         private static string GetRequiredFieldValueFor(string fieldName)
@@ -180,32 +193,39 @@ namespace JPB_Framework.Pages.Contacts
         public static string LastName => GetRequiredFieldValueFor("Last Name");
 
         public static string MobilePhone => GetRequiredFieldValueFor("Mobile Phone");
+        public static bool IsMobilePhoneCallable => IsTelephoneLinkActive("Mobile Phone", () => MobilePhone);
 
         public static string WorkEmail => GetRequiredFieldValueFor("Work Email");
+        public static bool IsWorkEmailEmailable => IsEmailLinkActive("Work Email", () => WorkEmail);
 
         public static string OrganizationName => GetRequiredFieldValueFor("Organization Name");
 
         public static string Department => GetRequiredFieldValueFor("Department");
 
         public static string WorkPhone => GetRequiredFieldValueFor("Work Phone");
+        public static bool IsWorkPhoneCallable => IsTelephoneLinkActive("Work Phone", () => WorkPhone);
 
         public static string JobTitle => GetRequiredFieldValueFor("Job Title");
 
 
         public static string WorkPhone2 => GetExtraFieldValueFor("Work Phone 2");
         public static bool IsWorkPhone2FieldVisible => IsExtraFieldVisible("Work Phone 2");
+        public static bool IsWorkPhone2Callable => IsTelephoneLinkActive("Work Phone 2", () => WorkPhone2);
 
 
         public static string MobilePhone2 => GetExtraFieldValueFor("Mobile Phone 2");
         public static bool IsMobilePhone2FieldVisible => IsExtraFieldVisible("Mobile Phone 2");
+        public static bool IsMobilePhone2Callable => IsTelephoneLinkActive("Mobile Phone 2", () => MobilePhone2);
 
 
         public static string HomePhone => GetExtraFieldValueFor("Home Phone");
         public static bool IsHomePhoneFieldVisible => IsExtraFieldVisible("Home Phone");
+        public static bool IsHomePhoneCallable => IsTelephoneLinkActive("Home Phone", () => HomePhone);
 
 
         public static string HomePhone2 => GetExtraFieldValueFor("Home Phone 2");
         public static bool IsHomePhone2FieldVisible => IsExtraFieldVisible("Home Phone 2");
+        public static bool IsHomePhone2Callable => IsTelephoneLinkActive("Home Phone 2", () => HomePhone2);
 
 
         public static string WorkFax => GetExtraFieldValueFor("Work Fax");
@@ -218,15 +238,16 @@ namespace JPB_Framework.Pages.Contacts
 
         public static string OtherPhone => GetExtraFieldValueFor("Other Phone");
         public static bool IsOtherPhoneFieldVisible => IsExtraFieldVisible("Other Phone");
+        public static bool IsOtherPhoneCallable => IsTelephoneLinkActive("Other Phone", () => OtherPhone);
 
 
         public static string PersonalEmail => GetExtraFieldValueFor("Personal Email");
         public static bool IsPersonalEmailFieldVisible => IsExtraFieldVisible("Personal Email");
-
+        public static bool IsPersonalEmailEmailable => IsEmailLinkActive("Personal Email", () => PersonalEmail);
 
         public static string OtherEmail => GetExtraFieldValueFor("Other Email");
         public static bool IsOtherEmailFieldVisible => IsExtraFieldVisible("Other Email");
-
+        public static bool IsOtherEmailEmailable => IsEmailLinkActive("Other Email", () => OtherEmail);
 
         public static string Salutation => GetExtraFieldValueFor("Title / Salutation");
         public static bool IsSalutationFieldVisible => IsExtraFieldVisible("Title / Salutation");
@@ -316,6 +337,10 @@ namespace JPB_Framework.Pages.Contacts
 
         public static string OtherCountry => GetAddressFieldValueFor("Other", "country");
         public static bool IsOtherCountryFieldVisible => IsAddressFieldVisible("Other", "country");
+
+        public static bool IsWorkAddressLinkActive => IsAddressLinkActive("Work", ()=>WorkStreet, () => WorkState, () => WorkPostalCode, () => WorkCity, () => WorkCountry);
+        public static bool IsHomeAddressLinkActive => IsAddressLinkActive("Home", () => HomeStreet, () => HomeState, () => HomePostalCode, () => HomeCity, () => HomeCountry);
+        public static bool IsOtherAddressLinkActive => IsAddressLinkActive("Other", () => OtherStreet, () => OtherState, () => OtherPostalCode, () => OtherCity, () => OtherCountry);
 
 
 
