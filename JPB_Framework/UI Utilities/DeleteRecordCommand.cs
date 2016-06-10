@@ -13,23 +13,21 @@ namespace JPB_Framework.UI_Utilities
         {
             Commands.ClickDelete();
         }
-        
-        /// <summary>
-        /// Delete contact through contact view page or selected contacts through contacts list page
-        /// </summary>
-        public void Delete()
-        {
-            var deleteBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
-            deleteBtn.Click();
-            Driver.Wait(TimeSpan.FromSeconds(3));
-        }
+
+    }
+
+    public class DeleteOrganizationCommand : DeleteRecordCommand
+    {
+
 
         /// <summary>
         /// Delete organization and its assigned contacts through organization view page or selected organizations through organizations list page
         /// </summary>
         public void WithContacts()
         {
-            var deleteAllBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
+            var deleteAllBtn =
+                Driver.Instance.FindElement(
+                    By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
             deleteAllBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
@@ -39,14 +37,30 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         public void OnlyOrganization()
         {
-            var deleteOnlyOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
+            var deleteOnlyOrganizationBtn =
+                Driver.Instance.FindElement(
+                    By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[2]"));
             deleteOnlyOrganizationBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
-
     }
 
-    public enum DeleteType
+    public class DeleteContactCommand : DeleteRecordCommand
+    {
+        /// <summary>
+        /// Delete contact through contact view page or selected contacts through contacts list page
+        /// </summary>
+        public void Delete()
+        {
+            var deleteBtn =
+                Driver.Instance.FindElement(
+                    By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[1]/div[2]/div/div[2]/div[2]/button[1]"));
+            deleteBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
+        }
+    }
+
+public enum DeleteType
     {
         WithContacts,
         OnlyOrganization

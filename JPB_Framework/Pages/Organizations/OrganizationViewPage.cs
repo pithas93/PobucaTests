@@ -54,9 +54,9 @@ namespace JPB_Framework.Pages.Organizations
         /// Issue delete command from an organization's detail view page
         /// </summary>
         /// <returns></returns>
-        public static DeleteRecordCommand DeleteOrganization()
+        public static DeleteOrganizationCommand DeleteOrganization()
         {
-            return new DeleteRecordCommand();
+            return new DeleteOrganizationCommand();
         }
 
         /// <summary>
@@ -995,8 +995,19 @@ namespace JPB_Framework.Pages.Organizations
     {
         private int numberOfContactsToBeAdded;
         private bool random;
+        private bool uncheckOnlyOrphan;
         private string firstName;
         private string lastName;
+
+        /// <summary>
+        /// Informs browser that during command execution, the "Orphan Contacts" check box needs to be unchecked
+        /// </summary>
+        /// <returns></returns>
+        public AddContactsToContactListCommand UncheckingOrphanCheckbox()
+        {
+            uncheckOnlyOrphan = true;
+            return this;
+        }
 
         /// <summary>
         /// Defines that the existing contacts to be added, will be selected randomly
@@ -1036,13 +1047,19 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public void Add()
         {
-            if (random)
+            Commands.ClickAddExistingContactsToOrganizationButton();
+
+            if (uncheckOnlyOrphan)
             {
-                Commands.ClickAddExistingContactsToOrganizationButton();
-                Commands.SelectRandomNumberOfRecords(numberOfContactsToBeAdded);
+                // Unchecks the "Orphan Contacts" checkbox which at this point is checked by default
+                Driver.Instance.FindElement(By.CssSelector("[ng-model='showOrphanContacts']")).FindElement(By.XPath("..")).Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
             }
+
+            if (random)
+               Commands.SelectRandomNumberOfRecords(numberOfContactsToBeAdded);           
             else
-                new SearchContactCommand(Commands.ClickAddExistingContactsToOrganizationButton)
+                new SearchContactCommand(null)
                     .WithFirstName(firstName)
                     .AndLastName(lastName)
                     .Select();
@@ -1050,6 +1067,7 @@ namespace JPB_Framework.Pages.Organizations
             Driver.Instance.FindElement(By.CssSelector("i[title='Αdd Contacts to Organization']")).Click();
             Driver.Wait(TimeSpan.FromSeconds(2));
         }
+
 
 
     }

@@ -148,7 +148,7 @@ namespace JPB_Framework.UI_Utilities
 
             Commands.SearchFor(keyword);
             var selecteddRecordsCount = Commands.SelectRecordsMatching(keyword);
-            if (selecteddRecordsCount > 0) new DeleteRecordCommand().Delete();
+            if (selecteddRecordsCount > 0) new DeleteContactCommand().Delete();
             else
                 Report.Report.ToLogFile(MessageType.Message,
                     $"There are no records matching given keywords '{keyword}' and so no records deleted.", null);
@@ -203,7 +203,7 @@ namespace JPB_Framework.UI_Utilities
             var selecteddRecordsCount = Commands.SelectRecordsMatching(keyword);
             if (selecteddRecordsCount > 0)
             {
-                var command = new DeleteRecordCommand();
+                var command = new DeleteOrganizationCommand();
                 switch (option)
                 {
                     case DeleteType.OnlyOrganization:

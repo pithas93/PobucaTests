@@ -84,6 +84,11 @@ namespace JPB_Framework.Workflows
                 CurrentOrganization = SecondOrganization;
                 return;
             }
+            if (string.IsNullOrEmpty(ThirdOrganization.OrganizationName))
+            {
+                CurrentOrganization = ThirdOrganization;
+                return;
+            }
             throw new Exception();
         }
 

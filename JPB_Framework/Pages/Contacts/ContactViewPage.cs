@@ -60,9 +60,9 @@ namespace JPB_Framework.Pages.Contacts
         /// Issue delete command from a contact's detail view page
         /// </summary>
         /// <returns></returns>
-        public static DeleteRecordCommand DeleteContact()
+        public static DeleteContactCommand DeleteContact()
         {
-            return new DeleteRecordCommand();
+            return new DeleteContactCommand();
         }
 
         private static bool IsEmailLinkActive(string fieldName, Func<string> contactViewPageField)

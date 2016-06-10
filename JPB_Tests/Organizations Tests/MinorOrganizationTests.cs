@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JPB_Framework.Pages.Contacts;
+﻿using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Workflows;
@@ -97,6 +92,85 @@ namespace JPB_Tests.Organizations_Tests
             VerifyThat.IsFalse(OrganizationViewPage.IsOrganizationShareableTo("_.@.co"), "Email field input does not follows email syntaxt but, it was accepted by the filter.");
             VerifyThat.IsFalse(OrganizationViewPage.IsOrganizationShareableTo(DummyData.SimpleWord), "Email field input does not follows email syntaxt but, it was accepted by the filter.");
 
+        }
+
+        /// <summary>
+        /// Assert that when deleting an organization, choosing "Delete All" option, besides organization, also deletes the contacts linked to organization
+        /// </summary>
+        [TestMethod]
+        public void Delete_Organization_Along_With_Its_Linked_Contacts()
+        {
+            ContactCreator.CreateSimpleOrphanContact();
+            ContactCreator.CreateSimpleOrphanContact();
+            ContactCreator.CreateSimpleOrphanContact();
+
+            OrganizationCreator.CreateSimpleOrganization();
+
+            OrganizationViewPage.AddContactsToContactList()
+                .WithFirstName(ContactCreator.FirstContact.FirstName)
+                .AndLastName(ContactCreator.FirstContact.LastName)
+                .Add();
+            OrganizationViewPage.AddContactsToContactList()
+                .WithFirstName(ContactCreator.SecondContact.FirstName)
+                .AndLastName(ContactCreator.SecondContact.LastName)
+                .Add();
+            OrganizationViewPage.AddContactsToContactList()
+                .WithFirstName(ContactCreator.ThirdContact.FirstName)
+                .AndLastName(ContactCreator.ThirdContact.LastName)
+                .Add();
+
+            OrganizationViewPage.DeleteOrganization().WithContacts();
+
+            VerifyThat.IsFalse(
+                OrganizationsPage.FindOrganization().WithOrganizationName(OrganizationCreator.FirstOrganization.OrganizationName).Find(),
+            $"Organization with name {OrganizationCreator.FirstOrganization.OrganizationName} should be deleted but, it still exists"
+                );
+
+            VerifyThat.IsFalse(
+                ContactsPage.FindContact().ContainingKeyword(ContactCreator.FirstContact.FullName).Find(),
+                $"Contact with name {ContactCreator.FirstContact.FullName} should be deleted along with its organization but, it still exists"
+                );
+            VerifyThat.IsFalse(
+                ContactsPage.FindContact().ContainingKeyword(ContactCreator.SecondContact.FullName).Find(),
+                $"Contact with name {ContactCreator.FirstContact.FullName} should be deleted along with its organization but, it still exists"
+                );
+            VerifyThat.IsFalse(
+                ContactsPage.FindContact().ContainingKeyword(ContactCreator.ThirdContact.FullName).Find(),
+                $"Contact with name {ContactCreator.FirstContact.FullName} should be deleted along with its organization but, it still exists"
+                );
+        }
+
+        /// <summary>
+        /// Assert that is possible to link a contact that is already linked to an organization, to another organization through organization view page "Add existing contacts" button
+        /// </summary>
+        [TestMethod]
+        public void Add_Existing_No_Orphan_Contact_To_An_Organization()
+        {
+            ContactCreator.CreateSimpleContact();
+            OrganizationCreator.CreateSimpleOrganization();
+
+            OrganizationViewPage.AddContactsToContactList()
+                .UncheckingOrphanCheckbox()
+                .WithFirstName(ContactCreator.FirstContact.FirstName)
+                .AndLastName(ContactCreator.FirstContact.LastName)
+                .Add();
+
+            AssertThat.IsTrue(
+               OrganizationViewPage.FindContactFromOrganizationContactList()
+               .WithFirstName(ContactCreator.FirstContact.FirstName)
+               .AndLastName(ContactCreator.FirstContact.LastName)
+               .Find(),
+               $"Contact with name {ContactCreator.FirstContact.FullName} should be linked to organization {OrganizationViewPage.OrganizationName} but it is not."
+               );
+
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
+            AssertThat.IsFalse(
+                OrganizationViewPage.FindContactFromOrganizationContactList()
+                .WithFirstName(ContactCreator.FirstContact.FirstName)
+                .AndLastName(ContactCreator.FirstContact.LastName)
+                .Find(),
+                $"Contact with name {ContactCreator.FirstContact.FullName} should not belong to organization {OrganizationViewPage.OrganizationName} but it is still linked with it."
+                );
         }
     }
 }

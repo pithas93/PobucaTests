@@ -18,7 +18,6 @@ namespace JPB_Framework.Workflows
         private static int InitialContactCount { get; set; }
         public static Contact FirstContact { get; set; }
         public static Contact SecondContact { get; set; }
-
         public static Contact ThirdContact { get; set; }
 
         private static Contact CurrentContact { get; set; }
@@ -84,6 +83,11 @@ namespace JPB_Framework.Workflows
             if (string.IsNullOrEmpty(SecondContact.FirstName) && string.IsNullOrEmpty(SecondContact.LastName))
             {
                 CurrentContact = SecondContact;
+                return;
+            }
+            if (string.IsNullOrEmpty(ThirdContact.FirstName) && string.IsNullOrEmpty(ThirdContact.LastName))
+            {
+                CurrentContact = ThirdContact;
                 return;
             }
             throw new Exception();
