@@ -907,6 +907,9 @@ namespace JPB_Framework.Workflows
             ThirdContact.SetFieldValue("Last Name", "Spiridakis");
         }
 
+        /// <summary>
+        /// Imports a contact template that contains 2 contacts of which, one has invalid value on a combo field 
+        /// </summary>
         public static void ImportTemplateContactWithInvalidComboValues()
         {
             ImportPage.ImportFile()
@@ -1001,6 +1004,9 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Comments", "His majesty sir tester of the United Kingodom of Testingburg");
         }
 
+        /// <summary>
+        /// Imports a contact csv file exported from gmail contacts. The file contains a contact that has no value for last name field
+        /// </summary>
         public static void ImportGmailCsvContactWithoutLastName()
         {
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts2.csv").Submit();
@@ -1010,6 +1016,9 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("First Name", "Panagiotis");
         }
 
+        /// <summary>
+        /// Imports a gmail csv file that contains 1 contact. The contact has overflow values for first and last name fields
+        /// </summary>
         public static void ImportGmailCsvContactWithOverflowValues()
         {
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("GmailContacts3.csv").Submit();
@@ -1020,6 +1029,9 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Last Name", "MRPanagiotisPanagiotisPanagiotisPanagiotisMRPanagiotisPanagiotis");
         }
 
+        /// <summary>
+        /// Import outlook csv file that contains 1 contact. Every contact field has assigned value.
+        /// </summary>
         public static void ImportOutlookCsvContactWithAllValues()
         {
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("OutlookContacts1.csv").Submit();
@@ -1073,6 +1085,9 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("Comments", "No comments");
         }
 
+        /// <summary>
+        /// Imports an outlook csv file that contains 1 contact. The contact has no value for last name field
+        /// </summary>
         public static void ImportOutlookCsvContactWithoutLastName()
         {
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("OutlookContacts2.csv").Submit();
@@ -1082,6 +1097,9 @@ namespace JPB_Framework.Workflows
             FirstContact.SetFieldValue("First Name", "Panagiotis");
         }
 
+        /// <summary>
+        /// Imports an outlook csv file that contains 1 contact. The contact has overflow values for first and last name fields
+        /// </summary>
         public static void ImportOutlookCsvContactWithOverflowValues()
         {
             ImportPage.ImportFile().Containing(ImportFileType.Contacts).FromPath(ImportFilePath).WithFileName("OutlookContacts3.csv").Submit();

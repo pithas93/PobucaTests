@@ -67,6 +67,8 @@
     <Compile Include="Pages\AlphabetSideBar.cs" />
     <Compile Include="Pages\Contacts\ContactsPage.cs" />
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
+    <Compile Include="Pages\Login\LandingPage.cs" />
+    <Compile Include="Pages\Login\ThankYouPage.cs" />
     <Compile Include="Pages\TakeTourWindow.cs" />
     <Compile Include="Pages\ImportPage.cs" />
     <Compile Include="Pages\UpperToolBar.cs" />

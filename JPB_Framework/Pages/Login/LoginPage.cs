@@ -8,12 +8,13 @@ namespace JPB_Framework.Pages.Login
 {
     public class LoginPage
     {
+        public static string BaseAddress => "https://jpbstaging.azurewebsites.net";
 
         public static bool IsAt => Driver.Instance.FindElement(By.Id("loginForm")).Displayed;
 
         public static void GoTo()
         {
-            Driver.Instance.Navigate().GoToUrl(Driver.BaseAddress);
+            Driver.Instance.Navigate().GoToUrl(BaseAddress);
 
             try
             {
