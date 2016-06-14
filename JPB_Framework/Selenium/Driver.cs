@@ -20,7 +20,12 @@ namespace JPB_Framework.Selenium
         public const int DriverTimeout = 10;
 
         public static IWebDriver Instance { get; set; }
-        public static string BaseAddress => "https://jpbstaging.azurewebsites.net";
+
+
+        public static void NavigateTo(string url)
+        {
+            Instance.Navigate().GoToUrl(url);
+        }
 
         /// <summary>
         /// Instantiates a web driver singleton that drives the selected browser through pages
@@ -188,164 +193,6 @@ namespace JPB_Framework.Selenium
             }
             return true;
 
-
-            //
-            //            switch (field)
-            //            {
-            //                case SortRecordsCommand.SortField.FirstName:
-            //                    {
-            //                        for (var i = 0; i < recordListCount; i++)
-            //                        {
-            //
-            //                            var currentRecordName = recordList[i].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            //                            var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            //
-            //
-            //                            // if there is no next record, there is no point continuing;
-            //                            if (string.IsNullOrEmpty(nextRecordName.Text)) break;
-            //
-            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
-            //                            {
-            //
-            //                                if (string.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
-            //                            {
-            //                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Contact:'{currentRecordName.Text}' is before contact:'{nextRecordName.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //
-            //                        }
-            //                        return true;
-            //                    }
-            //                case SortRecordsCommand.SortField.LastName:
-            //                    {
-            //                        for (var i = 0; i < recordListCount; i++)
-            //                        {
-            //
-            //                            var currentRecordName = recordList[i].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            //                            var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            //
-            //                            // Break the string in first and last name and revert their position
-            //                            string currentRecordNameStr = currentRecordName.Text.Split(' ')[1] + ' ' + currentRecordName.Text.Split(' ')[0];
-            //                            string nextRecordNameStr = nextRecordName.Text.Split(' ')[1] + ' ' + nextRecordName.Text.Split(' ')[0];
-            //
-            //                            // if there is no next record, there is no point continuing;
-            //                            if (String.IsNullOrEmpty(nextRecordName.Text)) break;
-            //
-            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
-            //                            {
-            //
-            //                                if (String.Compare(currentRecordNameStr, nextRecordNameStr) == 1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Contact:'{currentRecordNameStr}' is before contact:'{nextRecordNameStr}' which is wrong. The list must be sorted first by last name, then by first name ascending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
-            //                            {
-            //                                if (String.Compare(currentRecordNameStr, nextRecordNameStr) == -1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Contact:'{currentRecordNameStr}' is before contact:'{nextRecordNameStr}' which is wrong. The list must be sorted first by last name, then by first name descending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //
-            //                        }
-            //                        return true;
-            //                    }
-            //                case SortRecordsCommand.SortField.OrganizationName:
-            //                    {
-            //                        for (var i = 0; i < recordListCount; i++)
-            //                        {
-            //
-            //                            var currentRecordName = recordList[i].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            //                            var nextRecordName = recordList[i + 1].FindElement(By.CssSelector(".font-bold.ng-binding"));
-            //
-            //
-            //
-            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
-            //                            {
-            //
-            //                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == 1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Organization:'{currentRecordName.Text}' is before organization:'{nextRecordName.Text}' which is wrong. The list must be sorted by organization name ascending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
-            //                            {
-            //                                if (String.Compare(currentRecordName.Text, nextRecordName.Text) == -1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Organization:'{currentRecordName.Text}' is before organization:'{nextRecordName.Text}' which is wrong. The list must be sorted organization name descending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //
-            //                        }
-            //                        return true;
-            //                    }
-            //                case SortContactsCommand.SortField.City:
-            //                    {
-            //                        for (var i = 0; i < recordListCount; i++)
-            //                        {
-            //
-            //                            var currentRecordCity = recordList[i].FindElement(By.CssSelector(".details.font-light.ng-binding.ng-scope"));
-            //                            var nextRecordCity = recordList[i + 1].FindElement(By.CssSelector(".details.font-light.ng-binding.ng-scope"));
-            //
-            //                            // if there is no next record, there is no point continuing;
-            //                            if (String.IsNullOrEmpty(nextRecordCity.Text)) break;
-            //
-            //                            if (order == SortRecordsCommand.SortOrder.Ascending)
-            //                            {
-            //
-            //                                if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == 1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Contact:'{currentRecordCity.Text}' is before contact:'{nextRecordCity.Text}' which is wrong. The list must be sorted first by first name, then by last name ascending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //                            else if (order == SortRecordsCommand.SortOrder.Descending)
-            //                            {
-            //                                if (String.Compare(currentRecordCity.Text, nextRecordCity.Text) == -1)
-            //                                {
-            //                                    Report.Report.ToLogFile(MessageType.Message,
-            //                                        $"Contact:'{currentRecordCity.Text}' is before contact:'{nextRecordCity.Text}' which is wrong. The list must be sorted first by first name, then by last name descending.",
-            //                                        null);
-            //                                    return false;
-            //                                }
-            //                            }
-            //
-            //                        }
-            //                        return true;
-            //                    }
-            //                default:
-            //                    {
-            //                        return false;
-            //                    }
-            //            }
-
         }
 
 
@@ -416,6 +263,7 @@ namespace JPB_Framework.Selenium
             return finalString.ToString();
         }
 
-       
+
+
     }
 }
