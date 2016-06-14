@@ -7,6 +7,9 @@ using OpenQA.Selenium;
 
 namespace JPB_Framework.UI_Utilities
 {
+    /// <summary>
+    /// Manages the assignement of new values for contact fields within new contact or edit contact pages
+    /// </summary>
     internal class EditContactFields
     {
 
@@ -877,7 +880,9 @@ namespace JPB_Framework.UI_Utilities
             Report.Report.ToLogFile(MessageType.Message, $"The option {value} does not exist within the list.", null);
         }
 
-
+        /// <summary>
+        /// This class is for use only inside current class in order to not have to memorize all the string needed for the css selectors
+        /// </summary>
         private static class ContactFields
         {
             public const string Phone = "Phone";

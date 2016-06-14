@@ -73,7 +73,6 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Assert_That_Page_Paths_Are_Correct()
         {
-            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
             VerifyThat.IsTrue(ContactsPage.IsAt, "Contact page path is not the expected one");
 
             ContactsPage.OpenFirstContact();
@@ -85,7 +84,7 @@ namespace JPB_Tests.ContactsTests
             EditContactPage.ClickSaveContactButton();
             VerifyThat.IsTrue(ContactViewPage.IsAt, "Contact view page path is not the expected one");
 
-            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
+            LeftSideMenu.GoToContacts();
             NewContactPage.GoTo();
             VerifyThat.IsTrue(NewContactPage.IsAt, "New contact page path is not the expected one");
 
@@ -99,6 +98,11 @@ namespace JPB_Tests.ContactsTests
 
             EditContactPage.ClickSaveContactButton();
             VerifyThat.IsTrue(ContactViewPage.IsAtFromWithinOrganizationViewPage, "Contact view page path from within organization view page is not the expected one");
+
+            OrganizationsPage.FindOrganization().WithOrganizationName(ContactCreator.FirstContact.OrganizationName).Open();
+            OrganizationViewPage.CreateContact();
+            VerifyThat.IsTrue(NewContactPage.IsAtFromWithinOrganizationViewPage, "Contact view page path from within organization view page is not the expected one");
+
         }
 
         /// <summary>
@@ -122,7 +126,7 @@ namespace JPB_Tests.ContactsTests
         }
 
         /// <summary>
-        /// Assert that comment character limit indicator wothin new/edit contact page, works correctly
+        /// Assert that comment character limit indicator within new/edit contact page, works correctly
         /// </summary>
         [TestMethod]
         public void Assert_Contact_Comment_Field_Character_Limit_Indicator_Works_Correctly()
@@ -229,5 +233,6 @@ namespace JPB_Tests.ContactsTests
                 "There should be an alert at the top of the page that informs for the possibility of a duplicate contact");
 
         }
+
     }
 }

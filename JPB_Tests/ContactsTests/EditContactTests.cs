@@ -12,9 +12,11 @@ namespace JPB_Tests.ContactsTests
     [TestClass]
     public class EditContactTests : ContactsBaseTest
     {
-        // oti otan mpaineis na kaneis edit contact mesa apo to organization, ta pedia einai prosymplhrwmena swsta
+        
 
-        // Edit every contact field of a contact - normal case
+        /// <summary>
+        /// Edit every contact field of a contact - normal case
+        /// </summary>
         [TestMethod]
         public void Edit_Every_Contact_Field_From_Existing_Contact()
         {
@@ -24,8 +26,10 @@ namespace JPB_Tests.ContactsTests
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
 
         }
-        
-        // Edit every contact field of a contact from within organization contact list
+
+        /// <summary>
+        /// Edit every contact field of a contact from within organization contact list
+        /// </summary>
         [TestMethod]
         public void Edit_Contact_From_Within_Organization_Contact_List()
         {
@@ -39,7 +43,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // Edit contact with mandatory field value deletion
+        /// <summary>
+        /// Cannot save contact during edit after deletion of mandatory field value
+        /// </summary>
         [TestMethod]
         public void Cannot_Save_Contact_After_Leaving_Mandatory_Fields_Empty()
         {
@@ -49,7 +55,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // Edit contact and assign character overflow values
+        /// <summary>
+        /// Cannot save contact during edit after assigning overflow values to at least one field
+        /// </summary>
         [TestMethod]
         public void Cannot_Save_Contact_After_Assigning_OverFlown_Field_Values()
         {
@@ -59,7 +67,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // Edit contact and assign nonsense values
+        /// <summary>
+        /// Edit contact and assign nonsense values
+        /// </summary>
         [TestMethod]
         public void Edit_Contact_And_Assign_Nonsense_Values()
         {
@@ -70,7 +80,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // Edit contact and link contact with non existant organization
+        /// <summary>
+        /// During contact edit, changing organization to a non existance results in organization name being empty after save
+        /// </summary>
         [TestMethod]
         public void Cannot_Assign_Invalid_Organization_After_Edit()
         {
@@ -81,7 +93,9 @@ namespace JPB_Tests.ContactsTests
 
         }
 
-        // Edit contact so that contact becomes orphaned
+        /// <summary>
+        /// Edit contact so that contact becomes orphaned
+        /// </summary>
         [TestMethod]
         public void Edit_Contact_And_Delete_Organization_Value()
         {
@@ -91,7 +105,9 @@ namespace JPB_Tests.ContactsTests
             AssertThat.IsTrue(ContactCreator.FirstContact.AreContactFieldValuesSavedCorrectly, "Contact fields have not the expected values after the edit.");
         }
 
-        // Remove a contact from within an organization contact list thus rendering it orphan
+        /// <summary>
+        /// Remove a contact from within an organization contact list thus rendering it orphan
+        /// </summary>
         [TestMethod]
         public void Remove_Contact_From_Organization_Contact_List()
         {
@@ -109,5 +125,7 @@ namespace JPB_Tests.ContactsTests
                 $"Contact {ContactCreator.FirstContact.FullName} was supposed to be removed but is still a contact of organization {ContactCreator.FirstContact.OrganizationName}."
                 );
         }
+
+
     }
 }

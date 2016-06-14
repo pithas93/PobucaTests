@@ -17,12 +17,12 @@ namespace JPB_Framework.Workflows
         internal List<RecordField> ExtraContactFields;
         internal List<RecordField> BooleanContactFields;
 
-        public string FirstName => GetFieldValue("First Name");
-        public string LastName => GetFieldValue("Last Name");
-        public string FullName => $"{GetFieldValue("First Name")} {GetFieldValue("Last Name")}";
-        public string OrganizationName => GetFieldValue("Organization Name");
-        public string Favorite => GetFieldValue("Favorite");
-        public string Birthdate => GetFieldValue("Birthdate");
+        public string FirstName => GetFieldValue(ContactFields.FirstName);
+        public string LastName => GetFieldValue(ContactFields.LastName);
+        public string FullName => $"{GetFieldValue(ContactFields.FirstName)} {GetFieldValue(ContactFields.LastName)}";
+        public string OrganizationName => GetFieldValue(ContactFields.OrganizationName);
+        public string Favorite => GetFieldValue(ContactFields.Favorite);
+        public string Birthdate => GetFieldValue(ContactFields.Birthdate);
 
         /// <summary>
         /// If a contact was created during test execution, returns true.
@@ -31,8 +31,8 @@ namespace JPB_Framework.Workflows
         {
             get
             {
-                var firstName = BasicContactFields.Find(x => x.Label.Contains("First Name")).Value;
-                var lastName = BasicContactFields.Find(x => x.Label.Contains("Last Name")).Value;
+                var firstName = BasicContactFields.Find(x => x.Label.Contains(ContactFields.FirstName)).Value;
+                var lastName = BasicContactFields.Find(x => x.Label.Contains(ContactFields.LastName)).Value;
 
                 var firstNameHasValue = !string.IsNullOrEmpty(firstName);
                 var lastNameHasValue = !string.IsNullOrEmpty(lastName);
@@ -50,8 +50,9 @@ namespace JPB_Framework.Workflows
         {
             get
             {
+                var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
 
-                if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != FirstName) || (ContactViewPage.LastName != LastName))))
+                if (!isAtContactViewPage || ((ContactViewPage.FirstName != FirstName) || (ContactViewPage.LastName != LastName)))
                 {
                     if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                     ContactsPage.FindContact().WithFirstName(FirstName).AndLastName(LastName).Open();
@@ -325,5 +326,57 @@ namespace JPB_Framework.Workflows
                 return BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
             throw new Exception();
         }
+
+        
+    }
+
+    internal class ContactFields
+    {
+        internal const string FirstName = "First Name";
+        internal const string LastName = "Last Name";
+        internal const string MiddleName = "Middle Name";
+        internal const string Suffix = "Suffix";
+        internal const string OrganizationName = "Organization Name";
+        internal const string MobilePhone = "Mobile Phone";
+        internal const string WorkEmail = "Email";
+        internal const string AllowSms = "Allow SMS";
+        internal const string AllowPhones = "Allow Phones";
+        internal const string AllowEmails = "Allow Emails";
+        internal const string Favorite = "Favorite";
+
+        internal const string Department = "Department";
+        internal const string WorkPhone = "Work Phone";
+        internal const string WorkPhone2 = "Work Phone 2";
+        internal const string MobilePhone2 = "Mobile Phone 2";
+        internal const string HomePhone = "Home Phone";
+        internal const string HomePhone2 = "Home Phone 2";
+        internal const string HomeFax = "Home Fax";
+        internal const string WorkFax = "Work Fax";
+        internal const string OtherPhone = "Other Phone";
+        internal const string PersonalEmail = "Personal Email";
+        internal const string OtherEmail = "Other Email";
+        internal const string WorkStreet = "Work Street";
+        internal const string WorkCity = "Work City";
+        internal const string WorkState = "Work State";
+        internal const string WorkPostalCode = "Work Postal Code";
+        internal const string WorkCountry = "Work Country";
+        internal const string HomeStreet = "Home Street";
+        internal const string HomeCity = "Home City";
+        internal const string HomeState = "Home State";
+        internal const string HomePostalCode = "Home Postal Code";
+        internal const string HomeCountry = "Home Country";
+        internal const string OtherStreet = "Other Street";
+        internal const string OtherCity = "Other City";
+        internal const string OtherState = "Other State";
+        internal const string OtherPostalCode = "Other Postal Code";
+        internal const string OtherCountry = "Other Country";
+        internal const string Salutation = "Salutation";
+        internal const string Nickname = "Nickname";
+        internal const string JobTitle = "Job Title";
+        internal const string Website = "Website";
+        internal const string Religion = "Religion";
+        internal const string Birthdate = "Birthdate";
+        internal const string Gender = "Gender";
+        internal const string Comments = "Comments";
     }
 }

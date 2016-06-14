@@ -317,16 +317,16 @@ namespace JPB_Framework.UI_Utilities
             }
         }
 
-        public static string AccountType
+        public static string OrganizationType
         {
             set
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-select[myname='Account Type']"));
+                var element = Driver.Instance.FindElement(By.CssSelector("my-select[myname='Organization Type']"));
                 if (!element.Displayed)
                 {
                     Driver.Instance.FindElement(By.CssSelector("span[ng-hide='group.otherInfoVisible']")).Click();
                 }
-                var industryList = Driver.Instance.FindElements(By.CssSelector("my-select[myname='Account Type'] div select option.ng-binding.ng-scope"));
+                var industryList = Driver.Instance.FindElements(By.CssSelector("my-select[myname='Organization Type'] div select option.ng-binding.ng-scope"));
                 SelectFromListByName(industryList, value);
             }
         }

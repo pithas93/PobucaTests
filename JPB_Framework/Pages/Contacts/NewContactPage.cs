@@ -16,6 +16,11 @@ namespace JPB_Framework.Pages.Contacts
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Contacts  /  Add Contact");
 
         /// <summary>
+        ///  Check if browser is at contact form page that allows to create a new contact from within an organization view page
+        /// </summary>
+        public static bool IsAtFromWithinOrganizationViewPage => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization  /  Add Contact");
+
+        /// <summary>
         /// Returns whether the new contact Save button was pressed, and so the contact was saved, or not.
         /// </summary>
         public static bool IsContactSavedSuccessfully { get; set; }
@@ -27,13 +32,16 @@ namespace JPB_Framework.Pages.Contacts
         {
             get
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-auto-complete[myname='Organization'] input"));
-                var str = element.GetAttribute("disabled");
-                return (string.IsNullOrEmpty(str));
+                var element = Driver.Instance.FindElement(By.CssSelector("my-auto-complete[myname='Organization'] div input"));
+                var tmp = element.GetAttribute("disabled");
+                return (tmp != null);
             }
 
         }
 
+        /// <summary>
+        /// Returns true if department combo field values are ordered alphabetically
+        /// </summary>
         public static bool IsDepartmentComboListSorted
         {
             get
@@ -46,18 +54,24 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+        /// <summary>
+        /// Returns true if both work, home and other country combo field values are ordered alphabetically
+        /// </summary>
         public static bool AreCountryComboListsSorted
         {
             get
             {
+                SetWorkCountry("");
                 var workCountryIsSorted = Commands.CheckIfListIsSorted(
                     Driver.Instance.FindElements(By.CssSelector("#workAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
                     );
 
+                SetHomeCountry("");
                 var homeCountryIsSorted = Commands.CheckIfListIsSorted(
                     Driver.Instance.FindElements(By.CssSelector("#homeAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
                     );
 
+                SetOtherCountry("");
                 var otherCountryIsSorted = Commands.CheckIfListIsSorted(
                     Driver.Instance.FindElements(By.CssSelector("#otherAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
                     );
@@ -70,6 +84,9 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+        /// <summary>
+        /// Returns the length of string value from the comment field
+        /// </summary>
         public static int CommentsTextLength
         {
             get
@@ -80,6 +97,9 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+        /// <summary>
+        /// Returns the value of comments remaining characters indicator
+        /// </summary>
         public static int CommentsLimitIndicator
         {
             get
@@ -89,6 +109,9 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
+        /// <summary>
+        /// Returns true if the message that alerts user of possible duplicate contact is being shown
+        /// </summary>
         public static bool IsPossibleDuplicateAlertShown {
             get
             {
@@ -107,6 +130,7 @@ namespace JPB_Framework.Pages.Contacts
                 }
             }
         }
+
 
 
         /// <summary>
@@ -132,6 +156,10 @@ namespace JPB_Framework.Pages.Contacts
         public static void SetComments(string v) => EditContactFields.Comments = v;
         public static void SetFirstName(string v) => EditContactFields.FirstName = v;
         public static void SetLastName(string v) => EditContactFields.LastName = v;
+        public static void SetWorkCountry(string v) => EditContactFields.WorkCountry = v;
+        public static void SetHomeCountry(string v) => EditContactFields.HomeCountry = v;
+        public static void SetOtherCountry(string v) => EditContactFields.OtherCountry = v;
+
     }
 
     public class CreateContactCommand

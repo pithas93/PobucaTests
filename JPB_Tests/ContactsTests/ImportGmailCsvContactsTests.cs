@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JPB_Framework.Report;
+﻿using JPB_Framework.Report;
 using JPB_Framework.Workflows;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

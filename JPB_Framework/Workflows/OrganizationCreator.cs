@@ -133,7 +133,7 @@ namespace JPB_Framework.Workflows
             tmp.SetFieldValue("Allow Emails", DummyData.BooleanValue);
 
             tmp.SetFieldValue("Industry", DummyData.IndustryValue);
-            tmp.SetFieldValue("Account Type", DummyData.AccountTypeValue);
+            tmp.SetFieldValue("Account Type", DummyData.OrganizationTypeValue);
             tmp.SetFieldValue("Profession", DummyData.SimpleWord);
             tmp.SetFieldValue("Comments", DummyData.SimpleText);
             tmp.SetFieldValue("Billing Street", DummyData.AddressValue);
@@ -379,7 +379,7 @@ namespace JPB_Framework.Workflows
             tmp.SetFieldValue("Allow Emails", DummyData.BooleanValue);
 
             tmp.SetFieldValue("Industry", DummyData.IndustryValue);
-            tmp.SetFieldValue("Account Type", DummyData.AccountTypeValue);
+            tmp.SetFieldValue("Account Type", DummyData.OrganizationTypeValue);
             tmp.SetFieldValue("Profession", DummyData.SimpleWord);
             tmp.SetFieldValue("Comments", DummyData.SimpleText);
             tmp.SetFieldValue("Billing Street", DummyData.AddressValue);

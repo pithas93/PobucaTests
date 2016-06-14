@@ -85,7 +85,7 @@ namespace JPB_Framework.Workflows
         /// <summary>
         /// Get a random account type. Account type exists in account type list
         /// </summary>
-        public static string AccountTypeValue => RandomAccountType();
+        public static string OrganizationTypeValue => RandomOrganizationType();
 
         /// <summary>
         /// Get a random industry. Industry exists in industry list
@@ -236,10 +236,10 @@ namespace JPB_Framework.Workflows
         /// Get a random account type. The account type exists in account type list
         /// </summary>
         /// <returns></returns>
-        private static string RandomAccountType()
+        private static string RandomOrganizationType()
         {
             var random = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-            return AccountType[random.Next(AccountType.Length)];
+            return OrganizationType[random.Next(OrganizationType.Length)];
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace JPB_Framework.Workflows
 
         private static string[] Countries =
         {
-            "Greece","Australia","Japan","France","Namibia","Pakistan",
+            "Greece","Australia","Japan","France","Namibia","Pakistan","Austria","Bahrain","Canada","India"
         };
 
         private static string[] Departments =
@@ -310,7 +310,7 @@ namespace JPB_Framework.Workflows
             "Office Supplies & Equipment", "Telecommunications", "Real Estate", "Other", "Medical & Healthcare", "Transportation & Logistics", "Wholesale"
         };
 
-        private static string[] AccountType =
+        private static string[] OrganizationType =
         {
             "Consultant", "Customer", "Influencer", "Partner", "Investor", "Prospect", "Reseller", "Supplier"
         };

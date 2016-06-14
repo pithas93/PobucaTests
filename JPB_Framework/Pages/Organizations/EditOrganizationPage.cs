@@ -31,6 +31,12 @@ namespace JPB_Framework.Pages.Organizations
             GoTo();
             return new EditOrganizationCommand();
         }
+
+        /// <summary>
+        /// Click the save button located in edit organization page
+        /// </summary>
+        public static void ClickSaveOrganizationButton() => Commands.ClickSave(); 
+
     }
 
     public class EditOrganizationCommand
@@ -123,7 +129,7 @@ namespace JPB_Framework.Pages.Organizations
             if (fax != null) EditOrganizationFields.Fax = fax;
             if (website != null) EditOrganizationFields.Website = website;
             if (industry != null) EditOrganizationFields.Industry = industry;
-            if (accountType != null) EditOrganizationFields.AccountType = accountType;
+            if (accountType != null) EditOrganizationFields.OrganizationType = accountType;
             if (profession != null) EditOrganizationFields.Profession = profession;
             if (comments != null) EditOrganizationFields.Comments = comments;
 

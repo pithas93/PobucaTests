@@ -367,7 +367,9 @@ namespace JPB_Framework.UI_Utilities
         ///  Get value - status for something commands
         //////////////////////////////////////
 
-
+        /// <summary>
+        /// Returns true if a record can be shared with a given email. If the email is of invalid form, returns false.
+        /// </summary>
         public static bool IsRecordShareableTo(string email)
         {
             var shareModalWindow = Driver.Instance.FindElement(By.CssSelector("div#showShareVCardModal"));
@@ -503,8 +505,7 @@ namespace JPB_Framework.UI_Utilities
         {
             string guid_pattern = @"\A\{[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}\}\z";
             Regex reg = new Regex(guid_pattern, RegexOptions.IgnoreCase);
-            Match match;
-            match = reg.Match(valuesList[0].Text);
+            var match = reg.Match(valuesList[0].Text);
             if (match.Success)
             {
                 Report.Report.ToLogFile(MessageType.Message, "Guid value found inside given list values!", null);

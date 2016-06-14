@@ -363,7 +363,9 @@ namespace JPB_Framework.Workflows
         public static void EditSimpleContact(Contact editedContact)
         {
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -386,8 +388,9 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void EditSimpleContactWithOrganization(Contact editedContact)
         {
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -412,7 +415,9 @@ namespace JPB_Framework.Workflows
         /// </summary>
         public static void EditContactRemovingLastName(Contact editedContact)
         {
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -435,7 +440,9 @@ namespace JPB_Framework.Workflows
         public static void EditContactAssigningOverflowValues(Contact editedContact)
         {
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -459,7 +466,9 @@ namespace JPB_Framework.Workflows
         public static void EditContactAssigningNonsenseValues(Contact editedContact)
         {
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -483,7 +492,9 @@ namespace JPB_Framework.Workflows
         public static void EditContactAssigningInvalidOrganization(Contact editedContact)
         {
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -507,7 +518,9 @@ namespace JPB_Framework.Workflows
         public static void EditContactRemovingOrganization(Contact editedContact)
         {
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -529,7 +542,9 @@ namespace JPB_Framework.Workflows
         public static void EditContactAlteringAllValues(Contact editedContact)
         {
 
-            if (!ContactViewPage.IsAt || (ContactViewPage.IsAt && ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName))))
+            var isAtContactViewPage = ContactViewPage.IsAt || ContactViewPage.IsAtFromWithinOrganizationViewPage;
+
+            if (!isAtContactViewPage || ((ContactViewPage.FirstName != editedContact.FirstName) || (ContactViewPage.LastName != editedContact.LastName)))
             {
                 if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
                 ContactsPage.FindContact().WithFirstName(editedContact.FirstName).AndLastName(editedContact.LastName).Open();
@@ -956,49 +971,51 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
+            FirstContact.SetFieldValue("Salutation", "Mr.");
             FirstContact.SetFieldValue("First Name", "Panagiotis");
             FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
             FirstContact.SetFieldValue("Middle Name", "Emmanouil");
             FirstContact.SetFieldValue("Suffix", "Sir");
-            FirstContact.SetFieldValue("Mobile Phone", "6949585690");
-
-            FirstContact.SetFieldValue("Email", "p.mavrogiannis@sieben.gr");
-
-            FirstContact.SetFieldValue("Work Phone", "2130179000");
 
 
-            FirstContact.SetFieldValue("Home Phone", "2294048550");
+            FirstContact.SetFieldValue(ContactFields.MobilePhone, "6949585690");
+            FirstContact.SetFieldValue(ContactFields.WorkPhone, "2130179000");
+            FirstContact.SetFieldValue(ContactFields.WorkPhone2, "21012345000");
+            FirstContact.SetFieldValue(ContactFields.HomePhone, "2294048550");
+            FirstContact.SetFieldValue(ContactFields.HomePhone2, "6949585691");
+            FirstContact.SetFieldValue(ContactFields.HomeFax, "2294048551");
+            FirstContact.SetFieldValue(ContactFields.WorkFax, "2130179001");
+            FirstContact.SetFieldValue(ContactFields.OtherPhone, "1234567890");
 
-            FirstContact.SetFieldValue("Home Fax", "2294048551");
-            FirstContact.SetFieldValue("Work Fax", "2130179001");
 
-            FirstContact.SetFieldValue("Personal Email", "p.mavrogiannis@outlook.com");
-            FirstContact.SetFieldValue("Other Email", "apaixtoos@hotmail.com");
+            FirstContact.SetFieldValue(ContactFields.WorkEmail, "p.mavrogiannis@sieben.gr");
+            FirstContact.SetFieldValue(ContactFields.PersonalEmail, "p.mavrogiannis@outlook.com");
+            FirstContact.SetFieldValue(ContactFields.OtherEmail, "apaixtoos@hotmail.com");
 
-            FirstContact.SetFieldValue("Work Street", "Aristomenous 3");
-            FirstContact.SetFieldValue("Work City", "Gerakas");
-            FirstContact.SetFieldValue("Work State", "Attica");
-            FirstContact.SetFieldValue("Work Postal Code", "10613");
-            FirstContact.SetFieldValue("Work Country", "Greece");
+            FirstContact.SetFieldValue(ContactFields.WorkStreet, "Aristomenous 3");
+            FirstContact.SetFieldValue(ContactFields.WorkCity, "Gerakas");
+            FirstContact.SetFieldValue(ContactFields.WorkState, "Attica");
+            FirstContact.SetFieldValue(ContactFields.WorkPostalCode, "10613");
+            FirstContact.SetFieldValue(ContactFields.WorkCountry, "Greece");
 
-            FirstContact.SetFieldValue("Home Street", "Papachristou 4");
-            FirstContact.SetFieldValue("Home City", "Artemida");
-            FirstContact.SetFieldValue("Home State", "Attica");
-            FirstContact.SetFieldValue("Home Postal Code", "19016");
-            FirstContact.SetFieldValue("Home Country", "Greece");
+            FirstContact.SetFieldValue(ContactFields.HomeStreet, "Papachristou 4");
+            FirstContact.SetFieldValue(ContactFields.HomeCity, "Artemida");
+            FirstContact.SetFieldValue(ContactFields.HomeState, "Attica");
+            FirstContact.SetFieldValue(ContactFields.HomePostalCode, "19016");
+            FirstContact.SetFieldValue(ContactFields.HomeCountry, "Greece");
 
-            FirstContact.SetFieldValue("Other Street", "Karavan Serai 2");
-            FirstContact.SetFieldValue("Other City", "Constantinople");
-            FirstContact.SetFieldValue("Other State", "Thrace");
-            FirstContact.SetFieldValue("Other Postal Code", "12345");
-            FirstContact.SetFieldValue("Other Country", "Greece");
-            FirstContact.SetFieldValue("Salutation", "Mr.");
-            FirstContact.SetFieldValue("Nickname", "Panagof");
+            FirstContact.SetFieldValue(ContactFields.OtherStreet, "Karavan Serai 2");
+            FirstContact.SetFieldValue(ContactFields.OtherCity, "Constantinople");
+            FirstContact.SetFieldValue(ContactFields.OtherState, "Thrace");
+            FirstContact.SetFieldValue(ContactFields.OtherPostalCode, "12345");
+            FirstContact.SetFieldValue(ContactFields.OtherCountry, "Greece");
 
-            FirstContact.SetFieldValue("Website", "www.sieben.gr");
-
-            FirstContact.SetFieldValue("Birthdate", "27/01/1990");
-            FirstContact.SetFieldValue("Comments", "His majesty sir tester of the United Kingodom of Testingburg");
+            FirstContact.SetFieldValue(ContactFields.OrganizationName, "KONICA MINOLTA");
+            FirstContact.SetFieldValue(ContactFields.JobTitle, "Software Quality Tester");
+            FirstContact.SetFieldValue(ContactFields.Nickname, "Panagof");
+            FirstContact.SetFieldValue(ContactFields.Website, "www.sieben.gr");
+            FirstContact.SetFieldValue(ContactFields.Birthdate, "27/01/1990");
+            FirstContact.SetFieldValue(ContactFields.Comments, "His majesty sir tester of the United Kingodom of Testingburg");
         }
 
         public static void ImportGmailCsvContactWithoutLastName()
@@ -1026,51 +1043,54 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstContact.SetFieldValue("First Name", "Panagiotis");
-            FirstContact.SetFieldValue("Last Name", "Mavrogiannis");
-            FirstContact.SetFieldValue("Middle Name", "Emmanouil");
-            FirstContact.SetFieldValue("Suffix", "Mr");
-            FirstContact.SetFieldValue("Organization Name", "KONICA MINOLTA");
-            FirstContact.SetFieldValue("Mobile Phone", "6912345678");
-            FirstContact.SetFieldValue("Email", "email@email.com");
-            FirstContact.SetFieldValue("Allow SMS", "False");
-            FirstContact.SetFieldValue("Allow Phones", "False");
-            FirstContact.SetFieldValue("Allow Emails", "True");
+            FirstContact.SetFieldValue(ContactFields.Salutation, "His majesty");
+            FirstContact.SetFieldValue(ContactFields.FirstName, "Panagiotis");
+            FirstContact.SetFieldValue(ContactFields.LastName, "Mavrogiannis");
+            FirstContact.SetFieldValue(ContactFields.MiddleName, "Emmanouil");
+            FirstContact.SetFieldValue(ContactFields.Suffix, "Mr");
+        
+            FirstContact.SetFieldValue(ContactFields.OrganizationName, "KONICA MINOLTA");
+            
+            FirstContact.SetFieldValue(ContactFields.WorkEmail, "email@email.com");
+            FirstContact.SetFieldValue(ContactFields.PersonalEmail, "myemail@email.com");
+            FirstContact.SetFieldValue(ContactFields.OtherEmail, "otheremail@email.com");
 
-            FirstContact.SetFieldValue("Department", "Administration");
-            FirstContact.SetFieldValue("Work Phone", "2101234567");
-            FirstContact.SetFieldValue("Work Phone 2", "2111234567");
-            FirstContact.SetFieldValue("Mobile Phone 2", "69213456789");
-            FirstContact.SetFieldValue("Home Phone", "1234567890");
-            FirstContact.SetFieldValue("Home Phone 2", "0987654321");
-            FirstContact.SetFieldValue("Home Fax", "1234567890");
-            FirstContact.SetFieldValue("Work Fax", "0987654322");
-            FirstContact.SetFieldValue("Other Phone", "2143658709");
-            FirstContact.SetFieldValue("Personal Email", "myemail@email.com");
-            FirstContact.SetFieldValue("Other Email", "otheremail@email.com");
-            FirstContact.SetFieldValue("Work Street", "Παπαφλέσσα 10");
-            FirstContact.SetFieldValue("Work City", "Τρίκαλα");
-            FirstContact.SetFieldValue("Work State", "ΝΥ");
-            FirstContact.SetFieldValue("Work Postal Code", "12345");
-            FirstContact.SetFieldValue("Work Country", "Greece");
-            FirstContact.SetFieldValue("Home Street", "Παπαφλέσσα 11");
-            FirstContact.SetFieldValue("Home City", "Γιάννενα");
-            FirstContact.SetFieldValue("Home State", "CA");
-            FirstContact.SetFieldValue("Home Postal Code", "12345");
-            FirstContact.SetFieldValue("Home Country", "Greece");
-            FirstContact.SetFieldValue("Other Street", "otherstreet");
-            FirstContact.SetFieldValue("Other City", "othercity");
-            FirstContact.SetFieldValue("Other State", "OS");
-            FirstContact.SetFieldValue("Other Postal Code", "otherpostal");
-            FirstContact.SetFieldValue("Other Country", "Wallis and Futuna");
-            FirstContact.SetFieldValue("Salutation", "His majesty");
-            FirstContact.SetFieldValue("Nickname", "Νοντας");
-            FirstContact.SetFieldValue("Job Title", "Ταξιτζής");
-            FirstContact.SetFieldValue("Website", "http://www.facebook.com/TheNontas");
-            FirstContact.SetFieldValue("Religion", "Αγνωστικιστής");
-            FirstContact.SetFieldValue("Birthdate", "28/02/1980");
-            FirstContact.SetFieldValue("Gender", "Other");
-            FirstContact.SetFieldValue("Comments", "No comments");
+
+
+            FirstContact.SetFieldValue(ContactFields.MobilePhone, "6912345678");
+            FirstContact.SetFieldValue(ContactFields.WorkPhone, "2101234567");
+            FirstContact.SetFieldValue(ContactFields.WorkPhone2, "2111234567");
+            FirstContact.SetFieldValue(ContactFields.HomePhone, "1234567890");
+            FirstContact.SetFieldValue(ContactFields.HomePhone2, "0987654321");
+            FirstContact.SetFieldValue(ContactFields.HomeFax, "1234567890");
+            FirstContact.SetFieldValue(ContactFields.WorkFax, "0987654322");
+            FirstContact.SetFieldValue(ContactFields.OtherPhone, "2143658709");
+
+            FirstContact.SetFieldValue(ContactFields.WorkStreet, "Aristomenous 3");
+            FirstContact.SetFieldValue(ContactFields.WorkCity, "Gerakas");
+            FirstContact.SetFieldValue(ContactFields.WorkState, "Attica");
+            FirstContact.SetFieldValue(ContactFields.WorkPostalCode, "153 44");
+            FirstContact.SetFieldValue(ContactFields.WorkCountry, "Greece");
+
+            FirstContact.SetFieldValue(ContactFields.HomeStreet, "Παπαχρήστου 4");
+            FirstContact.SetFieldValue(ContactFields.HomeCity, "Αρτέμιδα");
+            FirstContact.SetFieldValue(ContactFields.HomeState, "Αττική");
+            FirstContact.SetFieldValue(ContactFields.HomePostalCode, "19016");
+            FirstContact.SetFieldValue(ContactFields.HomeCountry, "Greece");
+
+            FirstContact.SetFieldValue(ContactFields.OtherStreet, "64 Rue Ferrer");
+            FirstContact.SetFieldValue(ContactFields.OtherCity, "Dunkirk");
+            FirstContact.SetFieldValue(ContactFields.OtherState, "Nord-Pas-de-Calais-Picardie");
+            FirstContact.SetFieldValue(ContactFields.OtherPostalCode, "59430");
+            FirstContact.SetFieldValue(ContactFields.OtherCountry, "France");
+
+            FirstContact.SetFieldValue(ContactFields.Department, "Administration");
+            
+            FirstContact.SetFieldValue(ContactFields.Nickname, "Panagof");
+            FirstContact.SetFieldValue(ContactFields.JobTitle, "Software Quality Tester");
+            FirstContact.SetFieldValue(ContactFields.Website, "http://www.facebook.com/TheNontas");
+            FirstContact.SetFieldValue(ContactFields.Birthdate, "28/2/1980");
+            FirstContact.SetFieldValue(ContactFields.Comments, "No comments");
         }
 
         public static void ImportOutlookCsvContactWithoutLastName()

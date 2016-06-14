@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JPB_Framework.Navigation;
 using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -19,6 +20,85 @@ namespace JPB_Framework.Pages.Organizations
         /// Returns whether the new contact Save button was pressed, and so the contact was saved, or not.
         /// </summary>
         public static bool IsOrganizationSavedSuccessfully { get; set; }
+
+        /// <summary>
+        /// Returns the length of the string value from the comments field
+        /// </summary>
+        public static int CommentsTextLength {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("#textboxid"));
+                string str = element.GetAttribute("value");
+                return str.Length;
+            }
+        }
+
+        /// <summary>
+        /// Returns the value of the comment remaining characters indicator
+        /// </summary>
+        public static int CommentsLimitIndicator
+        {
+            get
+            {
+                var indicatorText = Driver.Instance.FindElement(By.CssSelector("span[ng-show='group.comments.length && group.comments.length <= 500']")).Text;
+                return int.Parse(indicatorText.Split(' ')[2]);
+            }
+        }
+
+        /// <summary>
+        /// Returns true if both shipping, billing and other country combo field values are ordered alphabetically
+        /// </summary>
+        public static bool AreCountryComboListsSorted
+        {
+            get
+            {
+                SetBillingCountry("");
+                var billingCountryIsSorted = Commands.CheckIfListIsSorted
+                    (Driver.Instance.FindElements(By.CssSelector("#billingAddress my-select[myname='Country'] div select option.ng-binding.ng-scope")));
+
+                SetShippingCountry("");
+                var shippingCountryIsSorted = Commands.CheckIfListIsSorted(
+                    Driver.Instance.FindElements(By.CssSelector("#shippingAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
+                    );
+
+                SetOtherCountry("");
+                var otherCountryIsSorted = Commands.CheckIfListIsSorted(
+                    Driver.Instance.FindElements(By.CssSelector("#otherAddress my-select[myname='Country'] div select option.ng-binding.ng-scope"))
+                    );
+
+                if (billingCountryIsSorted == false) Report.Report.ToLogFile(MessageType.Message, "Shipping country combo field values are not sorted correctly", null);
+                if (shippingCountryIsSorted == false) Report.Report.ToLogFile(MessageType.Message, "Billing country combo field values are not sorted correctly", null);
+                if (otherCountryIsSorted == false) Report.Report.ToLogFile(MessageType.Message, "Other country combo field values are not sorted correctly", null);
+
+                return (billingCountryIsSorted && shippingCountryIsSorted && otherCountryIsSorted);
+            }
+        }
+
+        /// <summary>
+        /// Returns true if industry combo field values are ordered alphabetically
+        /// </summary>
+        public static bool IsIndustryComboListSorted
+        {
+            get
+            {
+                SetIndustry("");
+                return Commands.CheckIfListIsSorted(Driver.Instance.FindElements(By.CssSelector("[myname='Industry'] div select option.ng-binding.ng-scope")));
+            }
+        }
+
+        /// <summary>
+        /// Returns true if organization type combo field values are ordered alphabetically
+        /// </summary>
+        public static bool IsOrganizationTypeComboListSorted
+        {
+            get
+            {
+                SetOrganizationType("");
+                return Commands.CheckIfListIsSorted(Driver.Instance.FindElements(By.CssSelector("[myname='Organization Type'] div select option.ng-binding.ng-scope")));
+            }
+        }
+
+        
 
         /// <summary>
         /// Navigates browser to an organization form page that allows to create a new organization
@@ -40,6 +120,38 @@ namespace JPB_Framework.Pages.Organizations
             GoTo();
             return new CreateOrganizationCommand();
         }
+
+        /// <summary>
+        /// Sets the given value to the Comments field
+        /// </summary>
+        /// <param name="v"></param>
+        public static void SetComments(string v) => EditOrganizationFields.Comments = v;
+        /// <summary>
+        /// Sets the given value to the Shipping Country field
+        /// </summary>
+        /// <param name="v"></param>
+        public static void SetShippingCountry(string v) => EditOrganizationFields.ShippingCountry = v;
+        /// <summary>
+        /// Sets the given value to the Billing Country field
+        /// </summary>
+        /// <param name="v"></param>
+        public static void SetBillingCountry(string v) => EditOrganizationFields.BillingCountry = v;
+        /// <summary>
+        /// Sets the given value to the Other Country field
+        /// </summary>
+        /// <param name="v"></param>
+        public static void SetOtherCountry(string v) => EditOrganizationFields.OtherCountry = v;
+        /// <summary>
+        /// Sets the given value to the Organization Type field
+        /// </summary>
+        /// <param name="v"></param>
+        public static void SetOrganizationType(string v) => EditOrganizationFields.OrganizationType = v;
+        /// <summary>
+        /// Sets the given value to the Industry field
+        /// </summary>
+        /// <param name="v"></param>
+        public static void SetIndustry(string v) => EditOrganizationFields.Industry = v;
+
     }
 
     public class CreateOrganizationCommand
@@ -87,24 +199,46 @@ namespace JPB_Framework.Pages.Organizations
             return this;
         }
 
+        /// <summary>
+        /// Sets the phone for the new organization
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <returns></returns>
         public CreateOrganizationCommand WithPhone(string phone)
         {
             this.phone = phone;
             return this;
         }
 
+        /// <summary>
+        /// Sets the billing street address for the new organization
+        /// </summary>
+        /// <param name="billingStreet"></param>
+        /// <returns></returns>
         public CreateOrganizationCommand WithBillingStreet(string billingStreet)
         {
             this.billingStreet = billingStreet;
             return this;
         }
 
+        /// <summary>
+        /// Sets the profession for the new organization
+        /// </summary>
+        /// <param name="profession"></param>
+        /// <returns></returns>
         public CreateOrganizationCommand WithProfession(string profession)
         {
             this.profession = profession;
             return this;
         }
 
+        /// <summary>
+        /// Sets the values for every organization field value of the new organization
+        /// </summary>
+        /// <param name="basicOrganizationFields"></param>
+        /// <param name="extraOrganizationFields"></param>
+        /// <param name="booleanOrganizationFields"></param>
+        /// <returns></returns>
         internal CreateOrganizationCommand WithMultipleValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields, List<Workflows.RecordField> booleanOrganizationFields)
         {
             organizationName = basicOrganizationFields.Find(x => x.Label.Contains("Organization Name")).Value;
@@ -153,7 +287,7 @@ namespace JPB_Framework.Pages.Organizations
             if (fax != null) EditOrganizationFields.Fax= fax;
             if (website != null) EditOrganizationFields.Website= website;
             if (industry!= null) EditOrganizationFields.Industry= industry;
-            if (accountType != null) EditOrganizationFields.AccountType= accountType;
+            if (accountType != null) EditOrganizationFields.OrganizationType= accountType;
             if (profession != null) EditOrganizationFields.Profession = profession;
             if (comments != null) EditOrganizationFields.Comments= comments;
 

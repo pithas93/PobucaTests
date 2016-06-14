@@ -65,25 +65,8 @@ namespace JPB_Framework.Pages.Contacts
             return new DeleteContactCommand();
         }
 
-        private static bool IsEmailLinkActive(string fieldName, Func<string> contactViewPageField)
-        {
-            var element =
-                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
-            var href = element.GetAttribute("href");
-            var expectedEmailLink = $"mailto:{contactViewPageField()}";
-            return (href == expectedEmailLink);
-        }
 
-        private static bool IsTelephoneLinkActive(string fieldName, Func<string> contactViewPageField)
-        {
-            var element =
-                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
-            var href = element.GetAttribute("href");
-            var expectedEmailLink = $"tel:{contactViewPageField()}";
-            return (href == expectedEmailLink);
-        }
-
-        private static bool IsAddressLinkActive(string addressType, Func<string> street, Func<string> state, Func<string> postalCode, Func<string> city, Func<string> country)
+        public static bool IsAddressLinkActive(string addressType, Func<string> street, Func<string> state, Func<string> postalCode, Func<string> city, Func<string> country)
         {
             var element =
                     Driver.Instance.FindElement(By.CssSelector($"[ng-if='show{addressType}Address(contact);'] [ng-show='myaddressstreet']"));
@@ -106,87 +89,6 @@ namespace JPB_Framework.Pages.Contacts
 
             return (googleAddressBar.Equals(address));
         }
-
-        private static string GetRequiredFieldValueFor(string fieldName)
-        {
-            var element = Driver.Instance.FindElement(By.CssSelector($"my-required-info[mytitle='{fieldName}']"));
-            var text = element.GetAttribute("myitem");
-            if (text != null)
-                return text;
-            return string.Empty;
-        }
-
-        private static string GetExtraFieldValueFor(string fieldName)
-        {
-            try
-            {
-                IWebElement element = null;
-                Driver.NoWait(
-                    () => element = Driver.Instance.FindElement(By.CssSelector($"my-extra-info[mytitle='{fieldName}']")));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-            catch (NoSuchElementException)
-            {
-                return string.Empty;
-            }
-        }
-
-        private static bool IsExtraFieldVisible(string fieldName)
-        {
-            try
-            {
-                Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector($"my-extra-info[mytitle='{fieldName}']")));
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-
-        private static string GetAddressFieldValueFor(string type, string field)
-        {
-            try
-            {
-                IWebElement element = null;
-                Driver.NoWait(
-                    () => element = Driver.Instance.FindElement(By.CssSelector($"div[ng-if='show{type}Address(contact);']")));
-                var element2 = element.FindElement(By.CssSelector($"span[ng-show='myaddress{field}']"));
-                string text = element2.Text;
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-            catch (NoSuchElementException)
-            {
-                return string.Empty;
-            }
-        }
-
-        private static bool IsAddressFieldVisible(string type, string field)
-        {
-            try
-            {
-                IWebElement element = null;
-                IWebElement element2 = null;
-                Driver.NoWait(
-                    () =>
-                        element = Driver.Instance.FindElement(By.CssSelector($"div[ng-if='show{type}Address(contact);']")));
-                Driver.NoWait(
-                    () =>
-                        element2 = element.FindElement(By.CssSelector($"span[ng-show='myaddress{field}']")));
-                var str = element2.GetAttribute("class");
-                return !str.Contains("ng-hide");
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-
 
         public static string FirstName => GetRequiredFieldValueFor("First Name");
 
@@ -364,41 +266,9 @@ namespace JPB_Framework.Pages.Contacts
             }
         }
 
-        public static string AllowSms
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowSMS']"));
-                string text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
-                throw new Exception();
-            }
-        }
-
-        public static string AllowPhones
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowPhones']"));
-                string text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
-                throw new Exception();
-            }
-        }
-
-        public static string AllowEmails
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='contact.allowEmails']"));
-                string text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
-                throw new Exception();
-            }
-        }
+        public static string AllowSms => GetAllowFieldValue("allowSMS");
+        public static string AllowPhones => GetAllowFieldValue("allowPhones");
+        public static string AllowEmails => GetAllowFieldValue("allowEmails");
 
         public static string Favorite
         {
@@ -410,6 +280,110 @@ namespace JPB_Framework.Pages.Contacts
                 if (string.Equals(text, "ng-hide")) return false.ToString();
                 throw new Exception();
             }
+        }
+
+
+
+
+
+        private static bool IsEmailLinkActive(string fieldName, Func<string> contactViewPageField)
+        {
+            var element =
+                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
+            var href = element.GetAttribute("href");
+            var expectedEmailLink = $"mailto:{contactViewPageField()}";
+            return (href == expectedEmailLink);
+        }
+        private static bool IsTelephoneLinkActive(string fieldName, Func<string> contactViewPageField)
+        {
+            var element =
+                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
+            var href = element.GetAttribute("href");
+            var expectedEmailLink = $"tel:{contactViewPageField()}";
+            return (href == expectedEmailLink);
+        }
+        private static string GetRequiredFieldValueFor(string fieldName)
+        {
+            var element = Driver.Instance.FindElement(By.CssSelector($"my-required-info[mytitle='{fieldName}']"));
+            var text = element.GetAttribute("myitem");
+            if (text != null)
+                return text;
+            return string.Empty;
+        }
+        private static string GetExtraFieldValueFor(string fieldName)
+        {
+            try
+            {
+                IWebElement element = null;
+                Driver.NoWait(
+                    () => element = Driver.Instance.FindElement(By.CssSelector($"my-extra-info[mytitle='{fieldName}']")));
+                string text = element.GetAttribute("myattr");
+                if (text != null)
+                    return text;
+                return string.Empty;
+            }
+            catch (NoSuchElementException)
+            {
+                return string.Empty;
+            }
+        }
+        private static bool IsExtraFieldVisible(string fieldName)
+        {
+            try
+            {
+                Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector($"my-extra-info[mytitle='{fieldName}']")));
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+        private static string GetAddressFieldValueFor(string type, string field)
+        {
+            try
+            {
+                IWebElement element = null;
+                Driver.NoWait(
+                    () => element = Driver.Instance.FindElement(By.CssSelector($"div[ng-if='show{type}Address(contact);']")));
+                var element2 = element.FindElement(By.CssSelector($"span[ng-show='myaddress{field}']"));
+                string text = element2.Text;
+                if (text != null)
+                    return text;
+                return string.Empty;
+            }
+            catch (NoSuchElementException)
+            {
+                return string.Empty;
+            }
+        }
+        private static bool IsAddressFieldVisible(string type, string field)
+        {
+            try
+            {
+                IWebElement element = null;
+                IWebElement element2 = null;
+                Driver.NoWait(
+                    () =>
+                        element = Driver.Instance.FindElement(By.CssSelector($"div[ng-if='show{type}Address(contact);']")));
+                Driver.NoWait(
+                    () =>
+                        element2 = element.FindElement(By.CssSelector($"span[ng-show='myaddress{field}']")));
+                var str = element2.GetAttribute("class");
+                return !str.Contains("ng-hide");
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+        private static string GetAllowFieldValue(string field)
+        {
+            var element = Driver.Instance.FindElement(By.CssSelector($"div[ng-show='contact.{field}']"));
+            string text = element.GetAttribute("class");
+            if (string.IsNullOrEmpty(text)) return true.ToString();
+            if (string.Equals(text, "ng-hide")) return false.ToString();
+            throw new Exception();
         }
 
 

@@ -78,6 +78,31 @@ namespace JPB_Framework.Pages.Organizations
             return new CreateContactCommand();
         }
 
+
+        public static bool IsAddressLinkActive(string addressType, Func<string> street, Func<string> state, Func<string> postalCode, Func<string> city, Func<string> country)
+        {
+            var element =
+                    Driver.Instance.FindElement(By.CssSelector($"[ng-if='show{addressType}Address(group);'] [ng-show='myaddressstreet']"));
+            Driver.MoveToElement(element);
+            element.Click();
+            Driver.Wait(TimeSpan.FromSeconds(5));
+            var mainWindow = Driver.Instance.WindowHandles[0];
+            var googleMapsWindow = Driver.Instance.WindowHandles[1];
+
+            // Navigate to Google Maps page
+            Driver.Instance.SwitchTo().Window(googleMapsWindow);
+            var googleMapsSearchbox = Driver.Instance.FindElement(By.CssSelector("input#searchboxinput"));
+            var googleAddressBar = googleMapsSearchbox.GetAttribute("value");
+            Driver.Instance.SwitchTo().Window(googleMapsWindow).Close();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+
+            // Return to jpb page
+            Driver.Instance.SwitchTo().Window(mainWindow);
+            var address = $"{street()}, {state()}, {postalCode()}, {city()}, {country()}";
+
+            return (googleAddressBar.Equals(address));
+        }
+
         /// <summary>
         /// Issue an add existing contact to organization contact list command, from within organization view page
         /// </summary>
@@ -89,65 +114,27 @@ namespace JPB_Framework.Pages.Organizations
 
         // REQUIRED FIELDS START ///////////////////////////////////////////////////////////
 
-        public static string OrganizationName
+        public static string OrganizationName => GetRequiredFieldValueFor("Organization Name");
+
+        public static string Phone => GetRequiredFieldValueFor("Phone");
+
+        public static string Email => GetRequiredFieldValueFor("Email");
+        public static bool IsEmailEmailable
         {
             get
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Organization Name']"));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
+                var element =
+                      Driver.Instance.FindElement(By.CssSelector($"[mytitle='Email'] a.ng-scope"));
+                var href = element.GetAttribute("href");
+                var expectedEmailLink = $"mailto:{Email}";
+                return (href == expectedEmailLink);
             }
         }
 
-        public static string Phone
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Phone']"));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-        }
+        public static string Fax => GetRequiredFieldValueFor("Fax");
 
-        public static string Email
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Email']"));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-        }
+        public static string Website => GetRequiredFieldValueFor("Website");
 
-        public static string Fax
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Fax']"));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-        }
-
-        public static string Website
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("my-required-info[mytitle='Website']"));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-        }
 
         // REQUIRED FIELDS END ///////////////////////////////////////////////////////////
 
@@ -240,41 +227,10 @@ namespace JPB_Framework.Pages.Organizations
         }
 
 
-        public static string AllowSms
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.allowSMS']"));
-                string text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
-                throw new Exception();
-            }
-        }
+        public static string AllowSms => GetAllowFieldValue("allowSMS");
+        public static string AllowPhones => GetAllowFieldValue("allowPhones");
+        public static string AllowEmails => GetAllowFieldValue("allowEmails");
 
-        public static string AllowPhones
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.allowPhones']"));
-                string text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
-                throw new Exception();
-            }
-        }
-
-        public static string AllowEmails
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.allowEmails']"));
-                string text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
-                throw new Exception();
-            }
-        }
 
         public static string Comments
         {
@@ -297,696 +253,121 @@ namespace JPB_Framework.Pages.Organizations
         }
 
 
-        public static string BillingStreet
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsBillingStreetFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
+        public static string BillingStreet => GetAddressFieldValueFor("Billing", "street");
+        public static bool IsBillingStreetFieldVisible => IsAddressFieldVisible("Billing", "street");
+
+        public static string BillingCity => GetAddressFieldValueFor("Billing", "city");
+        public static bool IsBillingCityFieldVisible => IsAddressFieldVisible("Billing", "city");
+
+        public static string BillingState => GetAddressFieldValueFor("Billing", "state");
+        public static bool IsBillingStateFieldVisible => IsAddressFieldVisible("Billing", "state");
+
+        public static string BillingPostalCode => GetAddressFieldValueFor("Billing", "postalcode");
+        public static bool IsBillingPostalCodeFieldVisible => IsAddressFieldVisible("Billing", "postalcode");
+
+        public static string BillingCountry => GetAddressFieldValueFor("Billing", "country");
+        public static bool IsBillingCountryFieldVisible => IsAddressFieldVisible("Billing", "country");
 
 
-        public static string BillingCity
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsBillingCityFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
+
+        public static string ShippingStreet => GetAddressFieldValueFor("Shipping", "street");
+        public static bool IsShippingStreetFieldVisible => IsAddressFieldVisible("Shipping", "street");
+
+        public static string ShippingCity => GetAddressFieldValueFor("Shipping", "city");
+        public static bool IsShippingCityFieldVisible => IsAddressFieldVisible("Shipping", "city");
+
+        public static string ShippingState => GetAddressFieldValueFor("Shipping", "state");
+        public static bool IsShippingStateFieldVisible => IsAddressFieldVisible("Shipping", "state");
+
+        public static string ShippingPostalCode => GetAddressFieldValueFor("Shipping", "postalcode");
+        public static bool IsShippingPostalCodeFieldVisible => IsAddressFieldVisible("Shipping", "postalcode");
+
+        public static string ShippingCountry => GetAddressFieldValueFor("Shipping", "country");
+        public static bool IsShippingCountryFieldVisible => IsAddressFieldVisible("Shipping", "country");
 
 
-        public static string BillingState
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsBillingStateFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
+
+        public static string OtherStreet => GetAddressFieldValueFor("Other", "street");
+        public static bool IsOtherStreetFieldVisible => IsAddressFieldVisible("Other", "street");
+
+        public static string OtherCity => GetAddressFieldValueFor("Other", "city");
+        public static bool IsOtherCityFieldVisible => IsAddressFieldVisible("Other", "city");
+
+        public static string OtherState => GetAddressFieldValueFor("Other", "state");
+        public static bool IsOtherStateFieldVisible => IsAddressFieldVisible("Other", "state");
+
+        public static string OtherPostalCode => GetAddressFieldValueFor("Other", "postalcode");
+        public static bool IsOtherPostalCodeFieldVisible => IsAddressFieldVisible("Other", "postalcode");
+
+        public static string OtherCountry => GetAddressFieldValueFor("Other", "country");
+        public static bool IsOtherCountryFieldVisible => IsAddressFieldVisible("Other", "country");
 
 
-        public static string BillingPostalCode
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsBillingPostalCodeFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
+        public static bool IsShippingAddressLinkActive => IsAddressLinkActive("Shipping", () => ShippingStreet, () => ShippingState, () => ShippingPostalCode, () => ShippingCity, () => ShippingCountry);
+        public static bool IsBillingAddressLinkActive => IsAddressLinkActive("Billing", () => BillingStreet, () => BillingState, () => BillingPostalCode, () => BillingCity, () => BillingCountry);
+        public static bool IsOtherAddressLinkActive => IsAddressLinkActive("Other", () => OtherStreet, () => OtherState, () => OtherPostalCode, () => OtherCity, () => OtherCountry);
 
 
-        public static string BillingCountry
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("div[ng-show='myaddresscountry']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsBillingCountryFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showBillingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
 
 
-        public static string ShippingStreet
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsShippingStreetFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
 
 
-        public static string ShippingCity
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsShippingCityFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
 
 
-        public static string ShippingState
+
+        private static string GetRequiredFieldValueFor(string fieldName)
         {
-            get
+            var element = Driver.Instance.FindElement(By.CssSelector($"my-required-info[mytitle='{fieldName}']"));
+            var text = element.GetAttribute("myitem");
+            if (text != null)
+                return text;
+            return string.Empty;
+        }
+        private static string GetAddressFieldValueFor(string type, string field)
+        {
+            try
             {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
+                IWebElement element = null;
+                Driver.NoWait(
+                    () => element = Driver.Instance.FindElement(By.CssSelector($"div[ng-if='show{type}Address(group);']")));
+                var text = element.FindElement(By.CssSelector($"span[ng-show='myaddress{field}']")).Text;
+                if (text != null)
+                    return text;
+                return string.Empty;
+            }
+            catch (NoSuchElementException)
+            {
+                return string.Empty;
             }
         }
-        public static bool IsShippingStateFieldVisible
+        private static bool IsAddressFieldVisible(string type, string field)
         {
-            get
+            try
             {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
+                IWebElement element = null;
+                IWebElement element2 = null;
+                Driver.NoWait(
+                    () =>
+                        element = Driver.Instance.FindElement(By.CssSelector($"div[ng-if='show{type}Address(contact);']")));
+                Driver.NoWait(
+                    () =>
+                        element2 = element.FindElement(By.CssSelector($"span[ng-show='myaddress{field}']")));
+                var str = element2.GetAttribute("class");
+                return !str.Contains("ng-hide");
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
             }
         }
-
-
-        public static string ShippingPostalCode
+        private static string GetAllowFieldValue(string field)
         {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
+            var element = Driver.Instance.FindElement(By.CssSelector($"div[ng-show='group.{field}']"));
+            string text = element.GetAttribute("class");
+            if (string.IsNullOrEmpty(text)) return true.ToString();
+            if (string.Equals(text, "ng-hide")) return false.ToString();
+            throw new Exception();
         }
-        public static bool IsShippingPostalCodeFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
-        public static string ShippingCountry
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("div[ng-show='myaddresscountry']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsShippingCountryFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showShippingAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
-        public static string OtherStreet
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsOtherStreetFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstreet']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
-        public static string OtherCity
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsOtherCityFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscity']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
-        public static string OtherState
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsOtherStateFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddressstate']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
-        public static string OtherPostalCode
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsOtherPostalCodeFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresspostalcode']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
-        public static string OtherCountry
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    Driver.NoWait(
-                        () => element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    var element2 = element.FindElement(By.CssSelector("div[ng-show='myaddresscountry']"));
-                    string text = element2.Text;
-                    if (text != null)
-                        return text;
-                    return string.Empty;
-                }
-                catch (NoSuchElementException)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-        public static bool IsOtherCountryFieldVisible
-        {
-            get
-            {
-                try
-                {
-                    IWebElement element = null;
-                    IWebElement element2 = null;
-                    Driver.NoWait(
-                        () =>
-                            element = Driver.Instance.FindElement(By.CssSelector("div[ng-if='showOtherAddress(group);']")));
-                    Driver.NoWait(
-                        () =>
-                            element2 = element.FindElement(By.CssSelector("span[ng-show='myaddresscountry']")));
-                    var str = element2.GetAttribute("class");
-                    return !str.Contains("ng-hide");
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-        }
-
-
 
     }
 

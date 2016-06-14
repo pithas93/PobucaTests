@@ -1,4 +1,5 @@
-﻿using JPB_Framework.Pages.Contacts;
+﻿using JPB_Framework.Navigation;
+using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Workflows;
@@ -171,6 +172,82 @@ namespace JPB_Tests.Organizations_Tests
                 .Find(),
                 $"Contact with name {ContactCreator.FirstContact.FullName} should not belong to organization {OrganizationViewPage.OrganizationName} but it is still linked with it."
                 );
+        }
+
+        /// <summary>
+        /// Assert that pages related to organizations have the correct paths
+        /// </summary>
+        [TestMethod]
+        public void Assert_That_Page_Paths_Are_Correct()
+        {
+            LeftSideMenu.GoToOrganizations();
+            VerifyThat.IsTrue(OrganizationsPage.IsAt, "Organization page path is not the expected one");
+
+            OrganizationsPage.OpenFirstOrganization();
+            VerifyThat.IsTrue(OrganizationViewPage.IsAt, "Organization view page path is not the expected one");
+
+            EditOrganizationPage.GoTo();
+            VerifyThat.IsTrue(EditOrganizationPage.IsAt, "Edit organization page path is not the expected one");
+
+            EditOrganizationPage.ClickSaveOrganizationButton();
+            VerifyThat.IsTrue(OrganizationViewPage.IsAt, "Organization view page path is not the expected one");
+
+            LeftSideMenu.GoToOrganizations();
+            NewOrganizationPage.GoTo();
+            VerifyThat.IsTrue(NewOrganizationPage.IsAt, "New organization page path is not the expected one");
+        }
+
+        /// <summary>
+        /// Assert that clicking upon an email address has as a result opening default mail program
+        /// </summary>
+        [TestMethod]
+        public void Organization_Emails_Are_Emailable()
+        {
+            OrganizationCreator.CreateOrganizationWithAllValues();
+            AssertThat.IsTrue(OrganizationViewPage.IsEmailEmailable, "Email link is not active but it should");
+        }
+
+        /// <summary>
+        /// Assert that when clicking upon an address within organization view page, browser opens a new tab/window in google maps displaying the clicked address
+        /// </summary>
+        [TestMethod]
+        public void Organization_Address_Links_Navigate_To_Google_Maps()
+        {
+            OrganizationCreator.CreateOrganizationWithAllValues();
+            VerifyThat.IsTrue(OrganizationViewPage.IsBillingAddressLinkActive, "Billing address link does not navigate to google maps");
+            VerifyThat.IsTrue(OrganizationViewPage.IsOtherAddressLinkActive, "Shipping address link does not navigate to google maps");
+            VerifyThat.IsTrue(OrganizationViewPage.IsShippingAddressLinkActive, "Other address link does not navigate to google maps");
+        }
+
+        /// <summary>
+        /// Assert that combo field values for Industry, Organization Type and Country fields are alphabetically ordered
+        /// </summary>
+        [TestMethod]
+        public void Assert_That_Combo_List_Fields_Are_Sorted_Alphabetically()
+        {
+            LeftSideMenu.GoToOrganizations();
+            NewOrganizationPage.GoTo();
+            AssertThat.IsTrue(NewOrganizationPage.AreCountryComboListsSorted, "Country combo list is not sorted alphabetically");
+            AssertThat.IsTrue(NewOrganizationPage.IsIndustryComboListSorted, "Country combo list is not sorted alphabetically");
+            AssertThat.IsTrue(NewOrganizationPage.IsOrganizationTypeComboListSorted, "Country combo list is not sorted alphabetically");
+        }
+
+        /// <summary>
+        /// Assert that comment character limit indicator within new/edit organization page, works correctly
+        /// </summary>
+        [TestMethod]
+        public void Assert_Organization_Comment_Field_Character_Limit_Indicator_Works_Correctly()
+        {
+            LeftSideMenu.GoToOrganizations();
+            NewOrganizationPage.GoTo();
+            NewOrganizationPage.SetComments(" " + DummyData.SimpleText);
+            VerifyThat.AreEqual(500 - NewOrganizationPage.CommentsTextLength, NewOrganizationPage.CommentsLimitIndicator,
+            $"Comments text length is {500 - NewContactPage.CommentsTextLength} the value indicator is displaying is {NewOrganizationPage.CommentsLimitIndicator}");
+
+            NewOrganizationPage.SetComments(DummyData.SimpleText);
+            VerifyThat.AreEqual(500 - NewOrganizationPage.CommentsTextLength, NewOrganizationPage.CommentsLimitIndicator,
+                $"Comments text length is {500 - NewOrganizationPage.CommentsTextLength} the value indicator is displaying is {NewOrganizationPage.CommentsLimitIndicator}");
+
         }
     }
 }
