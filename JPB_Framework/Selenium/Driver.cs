@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -12,6 +13,7 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Safari;
+using OpenQA.Selenium.Support.UI;
 
 namespace JPB_Framework.Selenium
 {
@@ -51,6 +53,7 @@ namespace JPB_Framework.Selenium
                     break;
             }
             TurnOnWait();
+
         }
 
         /// <summary>
@@ -89,6 +92,12 @@ namespace JPB_Framework.Selenium
         public static void Wait(TimeSpan timespan)
         {
             Thread.Sleep((int)timespan.TotalSeconds * 1000);
+        }
+
+        public static void WaitForElementToBeVisible(TimeSpan timespan, string cssSelector)
+        {
+            var wait = new WebDriverWait(Driver.Instance, timespan);
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector(cssSelector)));
         }
 
         /// <summary>

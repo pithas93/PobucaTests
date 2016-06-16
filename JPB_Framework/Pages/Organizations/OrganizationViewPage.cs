@@ -114,11 +114,13 @@ namespace JPB_Framework.Pages.Organizations
 
         // REQUIRED FIELDS START ///////////////////////////////////////////////////////////
 
-        public static string OrganizationName => GetRequiredFieldValueFor("Organization Name");
+        public static string OrganizationName => GetFieldValueFor("Organization Name");
 
-        public static string Phone => GetRequiredFieldValueFor("Phone");
+        public static string OrganizationType => GetFieldValueFor("Organization Type");
 
-        public static string Email => GetRequiredFieldValueFor("Email");
+        public static string Phone => GetFieldValueFor("Phone");
+
+        public static string Email => GetFieldValueFor("Email");
         public static bool IsEmailEmailable
         {
             get
@@ -131,9 +133,9 @@ namespace JPB_Framework.Pages.Organizations
             }
         }
 
-        public static string Fax => GetRequiredFieldValueFor("Fax");
+        public static string Fax => GetFieldValueFor("Fax");
 
-        public static string Website => GetRequiredFieldValueFor("Website");
+        public static string Website => GetFieldValueFor("Website");
 
 
         // REQUIRED FIELDS END ///////////////////////////////////////////////////////////
@@ -156,75 +158,11 @@ namespace JPB_Framework.Pages.Organizations
             }
         }
 
-        public static string Industry
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.industryID'] span"));
-                if (!string.IsNullOrEmpty(element.Text))
-                {
-                    string str = element.Text;
+        public static string Industry => GetFieldValueFor("Industry");
+        public static bool IsIndustryFieldVisible => IsFieldVisible("Industry");
 
-                    return str.Split(':')[1].Trim();
-                }
-                return string.Empty;
-            }
-        }
-        public static bool IsIndustryFieldVisible
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.industryID']"));
-                var attr = element.GetAttribute("class");
-                return string.Equals(attr, "m-b-xs");
-            }
-        }
-
-        public static string AccountType
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.accountTypeID'] span"));
-                if (!string.IsNullOrEmpty(element.Text))
-                {
-                    string str = element.Text;
-                    return str.Split(':')[1].Trim();
-                }
-                return string.Empty;
-            }
-        }
-        public static bool IsAccountTypeFieldVisible
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.accountTypeID']"));
-                var attr = element.GetAttribute("class");
-                return string.Equals(attr, "m-b-xs");
-            }
-        }
-
-        public static string Profession
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.profession'] span"));
-                if (!string.IsNullOrEmpty(element.Text))
-                {
-                    string str = element.Text;
-                    return str.Split(':')[1].Trim();
-                }
-                return string.Empty;
-            }
-        }
-        public static bool IsProfessionFieldVisible
-        {
-            get
-            {
-                var element = Driver.Instance.FindElement(By.CssSelector("div[ng-show='group.profession']"));
-                var attr = element.GetAttribute("class");
-                return string.Equals(attr, "m-b-xs");
-            }
-        }
+        public static string Profession => GetFieldValueFor("Profession");
+        public static bool IsProfessionFieldVisible => IsFieldVisible("Profession");
 
 
         public static string AllowSms => GetAllowFieldValue("allowSMS");
@@ -315,13 +253,26 @@ namespace JPB_Framework.Pages.Organizations
 
 
 
-        private static string GetRequiredFieldValueFor(string fieldName)
+        private static string GetFieldValueFor(string fieldName)
         {
-            var element = Driver.Instance.FindElement(By.CssSelector($"my-required-info[mytitle='{fieldName}']"));
-            var text = element.GetAttribute("myitem");
+            if (!IsFieldVisible(fieldName)) return string.Empty;
+            var element = Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}']"));
+            var text = element.GetAttribute("myattr");
             if (text != null)
                 return text;
             return string.Empty;
+        }
+        private static bool IsFieldVisible(string fieldName)
+        {
+            try
+            {
+                Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}']")));
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
         }
         private static string GetAddressFieldValueFor(string type, string field)
         {

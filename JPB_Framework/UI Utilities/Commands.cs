@@ -88,6 +88,7 @@ namespace JPB_Framework.UI_Utilities
             if (ContactViewPage.Favorite == true.ToString()) cssSelector = "span#favorite-entity";
             else cssSelector = "span#unfavorite-entity";
             Driver.Instance.FindElement(By.CssSelector(cssSelector)).Click();
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
         //////////////////////////////////////
@@ -374,15 +375,19 @@ namespace JPB_Framework.UI_Utilities
         {
             var shareModalWindow = Driver.Instance.FindElement(By.CssSelector("div#showShareVCardModal"));
             var isModalShown = shareModalWindow.GetAttribute("class");
+
+            // If modal dialog is being shown, close it by pressing Cancel
             if (isModalShown == "modal fade ng-scope in")
             {
                 shareModalWindow.FindElement(By.CssSelector("button.btn.btn-default")).Click();
                 Driver.Wait(TimeSpan.FromSeconds(2));
             }
+
             Commands.ClickShare();
 
             var shareEmailField = shareModalWindow.FindElement(By.CssSelector("input#shareVcardInput"));
 
+            // If email input field within modal dialog, is not empty, report it and clear it
             if (shareEmailField.GetAttribute("value") != "")
             {
                 Report.Report.ToLogFile(MessageType.Message, "Share contact input email field was not empty.", null);
@@ -393,7 +398,14 @@ namespace JPB_Framework.UI_Utilities
             shareEmailField.SendKeys(email);
             var shareBtn = shareModalWindow.FindElement(By.CssSelector("button#shareBtn"));
             Driver.Wait(TimeSpan.FromSeconds(2));
-            return (shareBtn.Enabled);
+
+            var isShareable = shareBtn.Enabled;
+
+            // Close modal dialog by pressing Cancel
+            shareModalWindow.FindElement(By.CssSelector("button.btn.btn-default")).Click();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+
+            return isShareable;
         }
 
         /// <summary>

@@ -18,8 +18,7 @@ namespace JPB_Framework.Pages.Login
 
             try
             {
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(15));
-                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector("form#loginForm")));
+                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(15), "form#loginForm");                
             }
             catch (WebDriverTimeoutException e)
             {

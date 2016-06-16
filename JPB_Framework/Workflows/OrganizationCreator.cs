@@ -110,8 +110,8 @@ namespace JPB_Framework.Workflows
             CurrentOrganization.IsOrganizationCreatedSuccessfully = IsOrganizationCreatedSuccessfully;
 
             if (!CurrentOrganization.IsOrganizationCreatedSuccessfully) return;
-            CurrentOrganization.SetFieldValue("Organization Name", organizationName);
-            CurrentOrganization.SetFieldValue("Phone", phone);
+            CurrentOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            CurrentOrganization.SetFieldValue(OrganizationFields.Phone, phone);
         }
 
         /// <summary>
@@ -123,34 +123,34 @@ namespace JPB_Framework.Workflows
 
             var tmp = new Organization();
 
-            tmp.SetFieldValue("Organization Name", DummyData.SimpleWord);
-            tmp.SetFieldValue("Phone", DummyData.PhoneValue);
-            tmp.SetFieldValue("Email", DummyData.EmailValue);
-            tmp.SetFieldValue("Fax", DummyData.PhoneValue);
-            tmp.SetFieldValue("Website", DummyData.SimpleWord);
-            tmp.SetFieldValue("Allow SMS", DummyData.BooleanValue);
-            tmp.SetFieldValue("Allow Phones", DummyData.BooleanValue);
-            tmp.SetFieldValue("Allow Emails", DummyData.BooleanValue);
+            tmp.SetFieldValue(OrganizationFields.OrganizationName, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.Phone, DummyData.PhoneValue);
+            tmp.SetFieldValue(OrganizationFields.Email, DummyData.EmailValue);
+            tmp.SetFieldValue(OrganizationFields.Fax, DummyData.PhoneValue);
+            tmp.SetFieldValue(OrganizationFields.Website, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.AllowSms, DummyData.BooleanValue);
+            tmp.SetFieldValue(OrganizationFields.AllowPhones, DummyData.BooleanValue);
+            tmp.SetFieldValue(OrganizationFields.AllowEmails, DummyData.BooleanValue);
 
-            tmp.SetFieldValue("Industry", DummyData.IndustryValue);
-            tmp.SetFieldValue("Account Type", DummyData.OrganizationTypeValue);
-            tmp.SetFieldValue("Profession", DummyData.SimpleWord);
-            tmp.SetFieldValue("Comments", DummyData.SimpleText);
-            tmp.SetFieldValue("Billing Street", DummyData.AddressValue);
-            tmp.SetFieldValue("Billing City", DummyData.SimpleWord);
-            tmp.SetFieldValue("Billing State", DummyData.SimpleWord);
-            tmp.SetFieldValue("Billing Postal Code", DummyData.NumericValue);
-            tmp.SetFieldValue("Billing Country", DummyData.CountryValue);
-            tmp.SetFieldValue("Shipping Street", DummyData.AddressValue);
-            tmp.SetFieldValue("Shipping City", DummyData.SimpleWord);
-            tmp.SetFieldValue("Shipping State", DummyData.SimpleWord);
-            tmp.SetFieldValue("Shipping Postal Code", DummyData.NumericValue);
-            tmp.SetFieldValue("Shipping Country", DummyData.CountryValue);
-            tmp.SetFieldValue("Other Street", DummyData.AddressValue);
-            tmp.SetFieldValue("Other City", DummyData.SimpleWord);
-            tmp.SetFieldValue("Other State", DummyData.SimpleWord);
-            tmp.SetFieldValue("Other Postal Code", DummyData.NumericValue);
-            tmp.SetFieldValue("Other Country", DummyData.CountryValue);
+            tmp.SetFieldValue(OrganizationFields.Industry, DummyData.IndustryValue);
+            tmp.SetFieldValue(OrganizationFields.OrganizationType, DummyData.OrganizationTypeValue);
+            tmp.SetFieldValue(OrganizationFields.Profession, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.Comments, DummyData.SimpleText);
+            tmp.SetFieldValue(OrganizationFields.BillingStreet, DummyData.AddressValue);
+            tmp.SetFieldValue(OrganizationFields.BillingCity, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.BillingState, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.BillingPostalCode, DummyData.NumericValue);
+            tmp.SetFieldValue(OrganizationFields.BillingCountry, DummyData.CountryValue);
+            tmp.SetFieldValue(OrganizationFields.ShippingStreet, DummyData.AddressValue);
+            tmp.SetFieldValue(OrganizationFields.ShippingCity, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.ShippingState, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.ShippingPostalCode, DummyData.NumericValue);
+            tmp.SetFieldValue(OrganizationFields.ShippingCountry, DummyData.CountryValue);
+            tmp.SetFieldValue(OrganizationFields.OtherStreet, DummyData.AddressValue);
+            tmp.SetFieldValue(OrganizationFields.OtherCity, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.OtherState, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.OtherPostalCode, DummyData.NumericValue);
+            tmp.SetFieldValue(OrganizationFields.OtherCountry, DummyData.CountryValue);
 
             NewOrganizationPage.CreateOrganization()
                 .WithMultipleValues(tmp.BasicOrganizationFields, tmp.ExtraOrganizationFields, tmp.BooleanOrganizationFields)
@@ -178,7 +178,7 @@ namespace JPB_Framework.Workflows
             CurrentOrganization.IsOrganizationCreatedSuccessfully = IsOrganizationCreatedSuccessfully;
 
             if (!CurrentOrganization.IsOrganizationCreatedSuccessfully) return;
-            CurrentOrganization.SetFieldValue("Phone", phone);
+            CurrentOrganization.SetFieldValue(OrganizationFields.Phone, phone);
 
         }
 
@@ -200,8 +200,8 @@ namespace JPB_Framework.Workflows
             CurrentOrganization.IsOrganizationCreatedSuccessfully = IsOrganizationCreatedSuccessfully;
 
             if (!CurrentOrganization.IsOrganizationCreatedSuccessfully) return;
-            CurrentOrganization.SetFieldValue("Organization Name", organizationName);
-            CurrentOrganization.SetFieldValue("Phone", phone);
+            CurrentOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            CurrentOrganization.SetFieldValue(OrganizationFields.Phone, phone);
         }
 
         /// <summary>
@@ -222,8 +222,8 @@ namespace JPB_Framework.Workflows
             CurrentOrganization.IsOrganizationCreatedSuccessfully = IsOrganizationCreatedSuccessfully;
 
             if (!CurrentOrganization.IsOrganizationCreatedSuccessfully) return;
-            CurrentOrganization.SetFieldValue("Organization Name", organizationName);
-            CurrentOrganization.SetFieldValue("Phone", phone);
+            CurrentOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            CurrentOrganization.SetFieldValue(OrganizationFields.Phone, phone);
         }
 
         /// <summary>
@@ -248,10 +248,10 @@ namespace JPB_Framework.Workflows
             CurrentOrganization.IsOrganizationCreatedSuccessfully = IsOrganizationCreatedSuccessfully;
 
             if (!CurrentOrganization.IsOrganizationCreatedSuccessfully) return;
-            CurrentOrganization.SetFieldValue("Organization Name", organizationName);
-            CurrentOrganization.SetFieldValue("Phone", phone);
-            CurrentOrganization.SetFieldValue("Billing Street", billingStreet);
-            CurrentOrganization.SetFieldValue("Profession", profession);
+            CurrentOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            CurrentOrganization.SetFieldValue(OrganizationFields.Phone, phone);
+            CurrentOrganization.SetFieldValue(OrganizationFields.BillingStreet, billingStreet);
+            CurrentOrganization.SetFieldValue(OrganizationFields.Profession, profession);
 
         }
 
@@ -277,8 +277,8 @@ namespace JPB_Framework.Workflows
             editedOrganization.IsOrganizationSavedAfterEdit = IsOrganizationSavedAfterEdit;
 
             if (!editedOrganization.IsOrganizationSavedAfterEdit) return;
-            editedOrganization.SetFieldValue("Organization Name", organizationName);
-            editedOrganization.SetFieldValue("Phone", phone);
+            editedOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            editedOrganization.SetFieldValue(OrganizationFields.Phone, phone);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace JPB_Framework.Workflows
             editedOrganization.IsOrganizationSavedAfterEdit = IsOrganizationSavedAfterEdit;
 
             if (!editedOrganization.IsOrganizationSavedAfterEdit) return;
-            editedOrganization.SetFieldValue("Organization Name", organizationName);
+            editedOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
         }
 
         /// <summary>
@@ -326,8 +326,8 @@ namespace JPB_Framework.Workflows
             editedOrganization.IsOrganizationSavedAfterEdit = IsOrganizationSavedAfterEdit;
 
             if (!editedOrganization.IsOrganizationSavedAfterEdit) return;
-             editedOrganization.SetFieldValue("Organization Name",organizationName);
-             editedOrganization.SetFieldValue("Phone",phone);
+            editedOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            editedOrganization.SetFieldValue(OrganizationFields.Phone, phone);
         }
 
         /// <summary>
@@ -352,8 +352,8 @@ namespace JPB_Framework.Workflows
             editedOrganization.IsOrganizationSavedAfterEdit = IsOrganizationSavedAfterEdit;
 
             if (!editedOrganization.IsOrganizationSavedAfterEdit) return;
-            editedOrganization.SetFieldValue("Organization Name", organizationName);
-            editedOrganization.SetFieldValue("Phone", phone);
+            editedOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
+            editedOrganization.SetFieldValue(OrganizationFields.Phone, phone);
         }
 
         /// <summary>
@@ -369,34 +369,34 @@ namespace JPB_Framework.Workflows
 
             var tmp = new Organization();
 
-            tmp.SetFieldValue("Organization Name", DummyData.SimpleWord);
-            tmp.SetFieldValue("Phone", DummyData.PhoneValue);
-            tmp.SetFieldValue("Email", DummyData.EmailValue);
-            tmp.SetFieldValue("Fax", DummyData.PhoneValue);
-            tmp.SetFieldValue("Website", DummyData.SimpleWord);
-            tmp.SetFieldValue("Allow SMS", DummyData.BooleanValue);
-            tmp.SetFieldValue("Allow Phones", DummyData.BooleanValue);
-            tmp.SetFieldValue("Allow Emails", DummyData.BooleanValue);
+            tmp.SetFieldValue(OrganizationFields.OrganizationName, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.Phone, DummyData.PhoneValue);
+            tmp.SetFieldValue(OrganizationFields.Email, DummyData.EmailValue);
+            tmp.SetFieldValue(OrganizationFields.Fax, DummyData.PhoneValue);
+            tmp.SetFieldValue(OrganizationFields.Website, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.AllowSms, DummyData.BooleanValue);
+            tmp.SetFieldValue(OrganizationFields.AllowPhones, DummyData.BooleanValue);
+            tmp.SetFieldValue(OrganizationFields.AllowEmails, DummyData.BooleanValue);
 
-            tmp.SetFieldValue("Industry", DummyData.IndustryValue);
-            tmp.SetFieldValue("Account Type", DummyData.OrganizationTypeValue);
-            tmp.SetFieldValue("Profession", DummyData.SimpleWord);
-            tmp.SetFieldValue("Comments", DummyData.SimpleText);
-            tmp.SetFieldValue("Billing Street", DummyData.AddressValue);
-            tmp.SetFieldValue("Billing City", DummyData.SimpleWord);
-            tmp.SetFieldValue("Billing State", DummyData.SimpleWord);
-            tmp.SetFieldValue("Billing Postal Code", DummyData.NumericValue);
-            tmp.SetFieldValue("Billing Country", DummyData.CountryValue);
-            tmp.SetFieldValue("Shipping Street", DummyData.AddressValue);
-            tmp.SetFieldValue("Shipping City", DummyData.SimpleWord);
-            tmp.SetFieldValue("Shipping State", DummyData.SimpleWord);
-            tmp.SetFieldValue("Shipping Postal Code", DummyData.NumericValue);
-            tmp.SetFieldValue("Shipping Country", DummyData.CountryValue);
-            tmp.SetFieldValue("Other Street", DummyData.AddressValue);
-            tmp.SetFieldValue("Other City", DummyData.SimpleWord);
-            tmp.SetFieldValue("Other State", DummyData.SimpleWord);
-            tmp.SetFieldValue("Other Postal Code", DummyData.NumericValue);
-            tmp.SetFieldValue("Other Country", DummyData.CountryValue);
+            tmp.SetFieldValue(OrganizationFields.Industry, DummyData.IndustryValue);
+            tmp.SetFieldValue(OrganizationFields.OrganizationType, DummyData.OrganizationTypeValue);
+            tmp.SetFieldValue(OrganizationFields.Profession, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.Comments, DummyData.SimpleText);
+            tmp.SetFieldValue(OrganizationFields.BillingStreet, DummyData.AddressValue);
+            tmp.SetFieldValue(OrganizationFields.BillingCity, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.BillingState, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.BillingPostalCode, DummyData.NumericValue);
+            tmp.SetFieldValue(OrganizationFields.BillingCountry, DummyData.CountryValue);
+            tmp.SetFieldValue(OrganizationFields.ShippingStreet, DummyData.AddressValue);
+            tmp.SetFieldValue(OrganizationFields.ShippingCity, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.ShippingState, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.ShippingPostalCode, DummyData.NumericValue);
+            tmp.SetFieldValue(OrganizationFields.ShippingCountry, DummyData.CountryValue);
+            tmp.SetFieldValue(OrganizationFields.OtherStreet, DummyData.AddressValue);
+            tmp.SetFieldValue(OrganizationFields.OtherCity, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.OtherState, DummyData.SimpleWord);
+            tmp.SetFieldValue(OrganizationFields.OtherPostalCode, DummyData.NumericValue);
+            tmp.SetFieldValue(OrganizationFields.OtherCountry, DummyData.CountryValue);
 
             EditOrganizationPage.EditOrganization()
                 .WithMultipleNewValues(tmp.BasicOrganizationFields, tmp.ExtraOrganizationFields, tmp.BooleanOrganizationFields)
@@ -417,8 +417,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Phone", "2130179000");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "2130179000");
         }
 
         /// <summary>
@@ -430,34 +430,34 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Phone", "2130179000");
-            FirstOrganization.SetFieldValue("Email", "sieben@sieben.gr");
-            FirstOrganization.SetFieldValue("Fax", "2130179001");
-            FirstOrganization.SetFieldValue("Website", "http://www.sieben.gr");
-            FirstOrganization.SetFieldValue("Allow SMS", "False");
-            FirstOrganization.SetFieldValue("Allow Phones", "False");
-            FirstOrganization.SetFieldValue("Allow Emails", "True");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "2130179000");
+            FirstOrganization.SetFieldValue(OrganizationFields.Email, "sieben@sieben.gr");
+            FirstOrganization.SetFieldValue(OrganizationFields.Fax, "2130179001");
+            FirstOrganization.SetFieldValue(OrganizationFields.Website, "http://www.sieben.gr");
+            FirstOrganization.SetFieldValue(OrganizationFields.AllowSms, "False");
+            FirstOrganization.SetFieldValue(OrganizationFields.AllowPhones, "False");
+            FirstOrganization.SetFieldValue(OrganizationFields.AllowEmails, "True");
 
-            FirstOrganization.SetFieldValue("Industry", "Consulting");
-            FirstOrganization.SetFieldValue("Account Type", "Consultant");
-            FirstOrganization.SetFieldValue("Profession", "Informatics");
-            FirstOrganization.SetFieldValue("Comments", "Sieben on the rocks");
-            FirstOrganization.SetFieldValue("Billing Street", "Aristomenous 3");
-            FirstOrganization.SetFieldValue("Billing City", "Gerakas");
-            FirstOrganization.SetFieldValue("Billing State", "Attica");
-            FirstOrganization.SetFieldValue("Billing Postal Code", "10442");
-            FirstOrganization.SetFieldValue("Billing Country", "Greece");
-            FirstOrganization.SetFieldValue("Shipping Street", "Aristomenous 2");
-            FirstOrganization.SetFieldValue("Shipping City", "Pallini");
-            FirstOrganization.SetFieldValue("Shipping State", "Thessalonica");
-            FirstOrganization.SetFieldValue("Shipping Postal Code", "10443");
-            FirstOrganization.SetFieldValue("Shipping Country", "Greece");
-            FirstOrganization.SetFieldValue("Other Street", "Armigado 2");
-            FirstOrganization.SetFieldValue("Other City", "Valencia");
-            FirstOrganization.SetFieldValue("Other State", "Deportivo");
-            FirstOrganization.SetFieldValue("Other Postal Code", "15016");
-            FirstOrganization.SetFieldValue("Other Country", "Spain");
+            FirstOrganization.SetFieldValue(OrganizationFields.Industry, "Consulting");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationType, "Consultant");
+            FirstOrganization.SetFieldValue(OrganizationFields.Profession, "Informatics");
+            FirstOrganization.SetFieldValue(OrganizationFields.Comments, "Sieben on the rocks");
+            FirstOrganization.SetFieldValue(OrganizationFields.BillingStreet, "Aristomenous 3");
+            FirstOrganization.SetFieldValue(OrganizationFields.BillingCity, "Gerakas");
+            FirstOrganization.SetFieldValue(OrganizationFields.BillingState, "Attica");
+            FirstOrganization.SetFieldValue(OrganizationFields.BillingPostalCode, "10442");
+            FirstOrganization.SetFieldValue(OrganizationFields.BillingCountry, "Greece");
+            FirstOrganization.SetFieldValue(OrganizationFields.ShippingStreet, "Aristomenous 2");
+            FirstOrganization.SetFieldValue(OrganizationFields.ShippingCity, "Pallini");
+            FirstOrganization.SetFieldValue(OrganizationFields.ShippingState, "Thessalonica");
+            FirstOrganization.SetFieldValue(OrganizationFields.ShippingPostalCode, "10443");
+            FirstOrganization.SetFieldValue(OrganizationFields.ShippingCountry, "Greece");
+            FirstOrganization.SetFieldValue(OrganizationFields.OtherStreet, "Armigado 2");
+            FirstOrganization.SetFieldValue(OrganizationFields.OtherCity, "Valencia");
+            FirstOrganization.SetFieldValue(OrganizationFields.OtherState, "Deportivo");
+            FirstOrganization.SetFieldValue(OrganizationFields.OtherPostalCode, "15016");
+            FirstOrganization.SetFieldValue(OrganizationFields.OtherCountry, "Spain");
         }
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Phone", "1234567890");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "1234567890");
 
         }
 
@@ -482,8 +482,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "!@#qweQWE123");
-            FirstOrganization.SetFieldValue("Phone", "!@#qweQWE123");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "!@#qweQWE123");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "!@#qweQWE123");
 
         }
 
@@ -496,8 +496,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm");
-            FirstOrganization.SetFieldValue("Phone", "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm");
 
 
         }
@@ -511,8 +511,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Primary Contact", "Carja Ramona");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.PrimaryContact, "Carja Ramona");
         }
 
         /// <summary>
@@ -524,7 +524,7 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
         }
 
         /// <summary>
@@ -536,8 +536,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Phone", "2130179000");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "2130179000");
         }
 
         /// <summary>
@@ -549,8 +549,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Phone", "2130179000");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "2130179000");
 
         }
 
@@ -563,10 +563,10 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Phone", "2130179000");
-            FirstOrganization.SetFieldValue("Email", "sieben@sieben.gr");
-            FirstOrganization.SetFieldValue("Website", "http://www.sieben.gr");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.Phone, "2130179000");
+            FirstOrganization.SetFieldValue(OrganizationFields.Email, "sieben@sieben.gr");
+            FirstOrganization.SetFieldValue(OrganizationFields.Website, "http://www.sieben.gr");
 
         }
 
@@ -579,8 +579,8 @@ namespace JPB_Framework.Workflows
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
 
-            FirstOrganization.SetFieldValue("Email", "sieben@sieben.gr");
-            FirstOrganization.SetFieldValue("Website", "http://www.sieben.gr");
+            FirstOrganization.SetFieldValue(OrganizationFields.Email, "sieben@sieben.gr");
+            FirstOrganization.SetFieldValue(OrganizationFields.Website, "http://www.sieben.gr");
 
         }
 
@@ -594,7 +594,7 @@ namespace JPB_Framework.Workflows
             NewOrganizationPage.CreateOrganization().WithOrganizationName(organizationName).Create();
 
             if (!NewOrganizationPage.IsOrganizationSavedSuccessfully) return;
-            FirstOrganization.SetFieldValue("Organization Name", organizationName);
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, organizationName);
 
 
             ImportPage.ImportFile()
@@ -604,8 +604,8 @@ namespace JPB_Framework.Workflows
                 .CheckingForDuplicate(ImportField.OrganizationName).Submit();
 
             if (!ImportPage.IsImportWithDuplicatesMessageShown) return;
-            SecondOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            ThirdOrganization.SetFieldValue("Organization Name", "InEdu");
+            SecondOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            ThirdOrganization.SetFieldValue(OrganizationFields.OrganizationName, "InEdu");
         }
 
         /// <summary>
@@ -620,9 +620,9 @@ namespace JPB_Framework.Workflows
                 .CheckingForDuplicate(ImportField.OrganizationName).Submit();
 
             if (!ImportPage.IsImportWithDuplicatesMessageShown) return;
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            SecondOrganization.SetFieldValue("Organization Name", "InEdu");
-            ThirdOrganization.SetFieldValue("Organization Name", "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            SecondOrganization.SetFieldValue(OrganizationFields.OrganizationName, "InEdu");
+            ThirdOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
 
         }
 
@@ -638,9 +638,9 @@ namespace JPB_Framework.Workflows
                 .Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            SecondOrganization.SetFieldValue("Organization Name", "InEdu");
-            ThirdOrganization.SetFieldValue("Organization Name", "Microsoft");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            SecondOrganization.SetFieldValue(OrganizationFields.OrganizationName, "InEdu");
+            ThirdOrganization.SetFieldValue(OrganizationFields.OrganizationName, "Microsoft");
         }
 
         /// <summary>
@@ -655,11 +655,11 @@ namespace JPB_Framework.Workflows
                 .Submit();
 
             if (!ImportPage.IsImportSuccessMessageShown) return;
-            FirstOrganization.SetFieldValue("Organization Name", "SiEBEN");
-            FirstOrganization.SetFieldValue("Billing Country", "Ελλάδα");
+            FirstOrganization.SetFieldValue(OrganizationFields.OrganizationName, "SiEBEN");
+            FirstOrganization.SetFieldValue(OrganizationFields.BillingCountry, "Ελλάδα");
 
-            SecondOrganization.SetFieldValue("Organization Name", "InEdu");
-            SecondOrganization.SetFieldValue("Billing Country", "Greece");
+            SecondOrganization.SetFieldValue(OrganizationFields.OrganizationName, "InEdu");
+            SecondOrganization.SetFieldValue(OrganizationFields.BillingCountry, "Greece");
         }
     }
 }

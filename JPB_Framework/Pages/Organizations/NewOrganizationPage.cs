@@ -5,6 +5,7 @@ using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
+using JPB_Framework.Workflows;
 using OpenQA.Selenium;
 
 namespace JPB_Framework.Pages.Organizations
@@ -163,7 +164,7 @@ namespace JPB_Framework.Pages.Organizations
         private string website;
 
         private string industry;
-        private string accountType;
+        private string organizationType;
         private string profession;
 
         private string billingStreet;
@@ -241,35 +242,35 @@ namespace JPB_Framework.Pages.Organizations
         /// <returns></returns>
         internal CreateOrganizationCommand WithMultipleValues(List<Workflows.RecordField> basicOrganizationFields, List<Workflows.RecordField> extraOrganizationFields, List<Workflows.RecordField> booleanOrganizationFields)
         {
-            organizationName = basicOrganizationFields.Find(x => x.Label.Contains("Organization Name")).Value;
-            phone = basicOrganizationFields.Find(x => x.Label.Contains("Phone")).Value;
-            email = basicOrganizationFields.Find(x => x.Label.Contains("Email")).Value;
-            fax = basicOrganizationFields.Find(x => x.Label.Contains("Fax")).Value;
-            website = basicOrganizationFields.Find(x => x.Label.Contains("Website")).Value;
+            organizationName = basicOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OrganizationName)).Value;
+            phone = basicOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Phone)).Value;
+            email = basicOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Email)).Value;
+            fax = basicOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Fax)).Value;
+            website = basicOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Website)).Value;
+            organizationType = basicOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OrganizationType)).Value;
 
-            industry = extraOrganizationFields.Find(x => x.Label.Contains("Industry")).Value;
-            accountType = extraOrganizationFields.Find(x => x.Label.Contains("Account Type")).Value;
-            profession = extraOrganizationFields.Find(x => x.Label.Contains("Profession")).Value;
-            comments = extraOrganizationFields.Find(x => x.Label.Contains("Comments")).Value;
-            billingStreet = extraOrganizationFields.Find(x => x.Label.Contains("Billing Street")).Value;
-            billingCity = extraOrganizationFields.Find(x => x.Label.Contains("Billing City")).Value;
-            billingState = extraOrganizationFields.Find(x => x.Label.Contains("Billing State")).Value;
-            billingPostalCode = extraOrganizationFields.Find(x => x.Label.Contains("Billing Postal Code")).Value;
-            billingCountry = extraOrganizationFields.Find(x => x.Label.Contains("Billing Country")).Value;
-            shippingStreet = extraOrganizationFields.Find(x => x.Label.Contains("Shipping Street")).Value;
-            shippingCity = extraOrganizationFields.Find(x => x.Label.Contains("Shipping City")).Value;
-            shippingState = extraOrganizationFields.Find(x => x.Label.Contains("Shipping State")).Value;
-            shippingPostalCode = extraOrganizationFields.Find(x => x.Label.Contains("Shipping Postal Code")).Value;
-            shippingCountry = extraOrganizationFields.Find(x => x.Label.Contains("Shipping Country")).Value;
-            otherStreet = extraOrganizationFields.Find(x => x.Label.Contains("Other Street")).Value;
-            otherCity = extraOrganizationFields.Find(x => x.Label.Contains("Other City")).Value;
-            otherState = extraOrganizationFields.Find(x => x.Label.Contains("Other State")).Value;
-            otherPostalCode = extraOrganizationFields.Find(x => x.Label.Contains("Other Postal Code")).Value;
-            otherCountry = extraOrganizationFields.Find(x => x.Label.Contains("Other Country")).Value;
+            industry = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Industry)).Value;           
+            profession = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Profession)).Value;
+            comments = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.Comments)).Value;
+            billingStreet = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.BillingStreet)).Value;
+            billingCity = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.BillingCity)).Value;
+            billingState = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.BillingState)).Value;
+            billingPostalCode = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.BillingPostalCode)).Value;
+            billingCountry = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.BillingCountry)).Value;
+            shippingStreet = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.ShippingStreet)).Value;
+            shippingCity = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.ShippingCity)).Value;
+            shippingState = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.ShippingState)).Value;
+            shippingPostalCode = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.ShippingPostalCode)).Value;
+            shippingCountry = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.ShippingCountry)).Value;
+            otherStreet = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OtherStreet)).Value;
+            otherCity = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OtherCity)).Value;
+            otherState = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OtherState)).Value;
+            otherPostalCode = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OtherPostalCode)).Value;
+            otherCountry = extraOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.OtherCountry)).Value;
 
-            allowSms = booleanOrganizationFields.Find(x => x.Label.Contains("Allow SMS")).Value;
-            allowPhones = booleanOrganizationFields.Find(x => x.Label.Contains("Allow Phones")).Value;
-            allowEmails = booleanOrganizationFields.Find(x => x.Label.Contains("Allow Emails")).Value;
+            allowSms = booleanOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.AllowSms)).Value;
+            allowPhones = booleanOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.AllowPhones)).Value;
+            allowEmails = booleanOrganizationFields.Find(x => x.Label.Contains(OrganizationFields.AllowEmails)).Value;
 
             return this;
         }
@@ -287,7 +288,7 @@ namespace JPB_Framework.Pages.Organizations
             if (fax != null) EditOrganizationFields.Fax= fax;
             if (website != null) EditOrganizationFields.Website= website;
             if (industry!= null) EditOrganizationFields.Industry= industry;
-            if (accountType != null) EditOrganizationFields.OrganizationType= accountType;
+            if (organizationType != null) EditOrganizationFields.OrganizationType= organizationType;
             if (profession != null) EditOrganizationFields.Profession = profession;
             if (comments != null) EditOrganizationFields.Comments= comments;
 

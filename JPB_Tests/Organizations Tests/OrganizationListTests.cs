@@ -33,7 +33,7 @@ namespace JPB_Tests.Organizations_Tests
         /// Check that Account Type filter options works correctly
         /// </summary>
         [TestMethod]
-        public void Filter_Using_Account_Type()
+        public void Filter_Using_Organization_Type()
         {
             LeftSideMenu.GoToOrganizations();
             OrganizationsPage.FilterBy().SelectingAccountType(AccountType.Consultant).Filter();
@@ -145,27 +145,27 @@ namespace JPB_Tests.Organizations_Tests
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.RestChars);
             int expectedResult1 = 0;
-            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult1, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult1}");
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.Z);
             int expectedResult2 = 0;
-            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult2, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult2}");
 
             AlphabetSideBar.SelectLetter(LatinAlphabet.L);
             int expectedResult3 = 93;
-            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult3, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.RestChars);
             int expectedResult4 = 200;
-            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult4}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult4, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult4}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.Α);
             int expectedResult5 = 0;
-            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult5}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult5, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult5}");
 
             AlphabetSideBar.SelectLetter(GreekAlphabet.Β);
             int expectedResult6 = 0;
-            VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult6}");
+            VerifyThat.AreEqual(ContactsPage.TotalContactsCountByLabel, expectedResult6, $"Alphabet side bar doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult6}");
 
         }
 

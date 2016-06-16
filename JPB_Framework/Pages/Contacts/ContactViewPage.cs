@@ -90,94 +90,104 @@ namespace JPB_Framework.Pages.Contacts
             return (googleAddressBar.Equals(address));
         }
 
-        public static string FirstName => GetRequiredFieldValueFor("First Name");
+        public static string FirstName => GetFieldValueFor("First Name");
 
-        public static string LastName => GetRequiredFieldValueFor("Last Name");
+        public static string LastName => GetFieldValueFor("Last Name");
 
-        public static string MobilePhone => GetRequiredFieldValueFor("Mobile Phone");
+        public static string MobilePhone => GetFieldValueFor("Mobile Phone");
         public static bool IsMobilePhoneCallable => IsTelephoneLinkActive("Mobile Phone", () => MobilePhone);
 
-        public static string WorkEmail => GetRequiredFieldValueFor("Work Email");
+        public static string WorkEmail => GetFieldValueFor("Work Email");
         public static bool IsWorkEmailEmailable => IsEmailLinkActive("Work Email", () => WorkEmail);
 
-        public static string OrganizationName => GetRequiredFieldValueFor("Organization Name");
+        public static string OrganizationName
+        {
+            get
+            {
+                var element = Driver.Instance.FindElement(By.CssSelector("[mytitle='Organization Name']"));
+                var text = element.GetAttribute("myitem");
+                if (text != null)
+                    return text;
+                return string.Empty;
+            }
+        }
 
-        public static string Department => GetRequiredFieldValueFor("Department");
+        public static string Department => GetFieldValueFor("Department");
 
-        public static string WorkPhone => GetRequiredFieldValueFor("Work Phone");
+        public static string WorkPhone => GetFieldValueFor("Work Phone");
         public static bool IsWorkPhoneCallable => IsTelephoneLinkActive("Work Phone", () => WorkPhone);
 
-        public static string JobTitle => GetRequiredFieldValueFor("Job Title");
+        public static string JobTitle => GetFieldValueFor("Job Title");
 
 
-        public static string WorkPhone2 => GetExtraFieldValueFor("Work Phone 2");
-        public static bool IsWorkPhone2FieldVisible => IsExtraFieldVisible("Work Phone 2");
+        public static string WorkPhone2 => GetFieldValueFor("Work Phone 2");
+        public static bool IsWorkPhone2FieldVisible => IsFieldVisible("Work Phone 2");
         public static bool IsWorkPhone2Callable => IsTelephoneLinkActive("Work Phone 2", () => WorkPhone2);
 
 
-        public static string MobilePhone2 => GetExtraFieldValueFor("Mobile Phone 2");
-        public static bool IsMobilePhone2FieldVisible => IsExtraFieldVisible("Mobile Phone 2");
+        public static string MobilePhone2 => GetFieldValueFor("Mobile Phone 2");
+        public static bool IsMobilePhone2FieldVisible => IsFieldVisible("Mobile Phone 2");
         public static bool IsMobilePhone2Callable => IsTelephoneLinkActive("Mobile Phone 2", () => MobilePhone2);
 
 
-        public static string HomePhone => GetExtraFieldValueFor("Home Phone");
-        public static bool IsHomePhoneFieldVisible => IsExtraFieldVisible("Home Phone");
+        public static string HomePhone => GetFieldValueFor("Home Phone");
+        public static bool IsHomePhoneFieldVisible => IsFieldVisible("Home Phone");
         public static bool IsHomePhoneCallable => IsTelephoneLinkActive("Home Phone", () => HomePhone);
 
 
-        public static string HomePhone2 => GetExtraFieldValueFor("Home Phone 2");
-        public static bool IsHomePhone2FieldVisible => IsExtraFieldVisible("Home Phone 2");
+        public static string HomePhone2 => GetFieldValueFor("Home Phone 2");
+        public static bool IsHomePhone2FieldVisible => IsFieldVisible("Home Phone 2");
         public static bool IsHomePhone2Callable => IsTelephoneLinkActive("Home Phone 2", () => HomePhone2);
 
 
-        public static string WorkFax => GetExtraFieldValueFor("Work Fax");
-        public static bool IsWorkFaxFieldVisible => IsExtraFieldVisible("Work Fax");
+        public static string WorkFax => GetFieldValueFor("Work Fax");
+        public static bool IsWorkFaxFieldVisible => IsFieldVisible("Work Fax");
 
 
-        public static string HomeFax => GetExtraFieldValueFor("Home Fax");
-        public static bool IsHomeFaxFieldVisible => IsExtraFieldVisible("Home Fax");
+        public static string HomeFax => GetFieldValueFor("Home Fax");
+        public static bool IsHomeFaxFieldVisible => IsFieldVisible("Home Fax");
 
 
-        public static string OtherPhone => GetExtraFieldValueFor("Other Phone");
-        public static bool IsOtherPhoneFieldVisible => IsExtraFieldVisible("Other Phone");
+        public static string OtherPhone => GetFieldValueFor("Other Phone");
+        public static bool IsOtherPhoneFieldVisible => IsFieldVisible("Other Phone");
         public static bool IsOtherPhoneCallable => IsTelephoneLinkActive("Other Phone", () => OtherPhone);
 
 
-        public static string PersonalEmail => GetExtraFieldValueFor("Personal Email");
-        public static bool IsPersonalEmailFieldVisible => IsExtraFieldVisible("Personal Email");
+        public static string PersonalEmail => GetFieldValueFor("Personal Email");
+        public static bool IsPersonalEmailFieldVisible => IsFieldVisible("Personal Email");
         public static bool IsPersonalEmailEmailable => IsEmailLinkActive("Personal Email", () => PersonalEmail);
 
-        public static string OtherEmail => GetExtraFieldValueFor("Other Email");
-        public static bool IsOtherEmailFieldVisible => IsExtraFieldVisible("Other Email");
+        public static string OtherEmail => GetFieldValueFor("Other Email");
+        public static bool IsOtherEmailFieldVisible => IsFieldVisible("Other Email");
         public static bool IsOtherEmailEmailable => IsEmailLinkActive("Other Email", () => OtherEmail);
 
-        public static string Salutation => GetExtraFieldValueFor("Title / Salutation");
-        public static bool IsSalutationFieldVisible => IsExtraFieldVisible("Title / Salutation");
+        public static string Salutation => GetFieldValueFor("Title / Salutation");
+        public static bool IsSalutationFieldVisible => IsFieldVisible("Title / Salutation");
 
-        public static string MiddleName => GetExtraFieldValueFor("Middle Name");
-        public static bool IsMiddleNameFieldVisible => IsExtraFieldVisible("Middle Name");
-
-
-        public static string Suffix => GetExtraFieldValueFor("Suffix");
-        public static bool IsSuffixFieldVisible => IsExtraFieldVisible("Suffix");
-
-        public static string Nickname => GetExtraFieldValueFor("Nickname");
-        public static bool IsNicknameFieldVisible => IsExtraFieldVisible("Nickname");
-
-        public static string Website => GetExtraFieldValueFor("Website");
-        public static bool IsWebsiteFieldVisible => IsExtraFieldVisible("Website");
+        public static string MiddleName => GetFieldValueFor("Middle Name");
+        public static bool IsMiddleNameFieldVisible => IsFieldVisible("Middle Name");
 
 
-        public static string Religion => GetExtraFieldValueFor("Religion");
-        public static bool IsReligionFieldVisible => IsExtraFieldVisible("Religion");
+        public static string Suffix => GetFieldValueFor("Suffix");
+        public static bool IsSuffixFieldVisible => IsFieldVisible("Suffix");
+
+        public static string Nickname => GetFieldValueFor("Nickname");
+        public static bool IsNicknameFieldVisible => IsFieldVisible("Nickname");
+
+        public static string Website => GetFieldValueFor("Website");
+        public static bool IsWebsiteFieldVisible => IsFieldVisible("Website");
 
 
-        public static string Birthdate => GetExtraFieldValueFor("Birthday");
-        public static bool IsBirthdateFieldVisible => IsExtraFieldVisible("Birthday");
+        public static string Religion => GetFieldValueFor("Religion");
+        public static bool IsReligionFieldVisible => IsFieldVisible("Religion");
 
 
-        public static string Gender => GetExtraFieldValueFor("Gender");
-        public static bool IsGenderFieldVisible => IsExtraFieldVisible("Gender");
+        public static string Birthdate => GetFieldValueFor("Birthday");
+        public static bool IsBirthdateFieldVisible => IsFieldVisible("Birthday");
+
+
+        public static string Gender => GetFieldValueFor("Gender");
+        public static bool IsGenderFieldVisible => IsFieldVisible("Gender");
 
 
         public static string WorkStreet => GetAddressFieldValueFor("Work", "street");
@@ -302,36 +312,21 @@ namespace JPB_Framework.Pages.Contacts
             var expectedEmailLink = $"tel:{contactViewPageField()}";
             return (href == expectedEmailLink);
         }
-        private static string GetRequiredFieldValueFor(string fieldName)
+        private static string GetFieldValueFor(string fieldName)
         {
-            var element = Driver.Instance.FindElement(By.CssSelector($"my-required-info[mytitle='{fieldName}']"));
-            var text = element.GetAttribute("myitem");
+            if (!IsFieldVisible(fieldName)) return string.Empty;
+            var element = Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}']"));
+            var text = element.GetAttribute("myattr");
             if (text != null)
                 return text;
             return string.Empty;
         }
-        private static string GetExtraFieldValueFor(string fieldName)
+       
+        private static bool IsFieldVisible(string fieldName)
         {
             try
             {
-                IWebElement element = null;
-                Driver.NoWait(
-                    () => element = Driver.Instance.FindElement(By.CssSelector($"my-extra-info[mytitle='{fieldName}']")));
-                string text = element.GetAttribute("myattr");
-                if (text != null)
-                    return text;
-                return string.Empty;
-            }
-            catch (NoSuchElementException)
-            {
-                return string.Empty;
-            }
-        }
-        private static bool IsExtraFieldVisible(string fieldName)
-        {
-            try
-            {
-                Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector($"my-extra-info[mytitle='{fieldName}']")));
+                Driver.NoWait(() => Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}']")));
                 return true;
             }
             catch (NoSuchElementException)

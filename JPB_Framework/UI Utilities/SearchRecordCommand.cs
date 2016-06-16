@@ -166,6 +166,7 @@ namespace JPB_Framework.UI_Utilities
 
             Commands.SearchFor(keyword);
             Commands.ClickFavoriteForContactsMatching(keyword);
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
     }
 

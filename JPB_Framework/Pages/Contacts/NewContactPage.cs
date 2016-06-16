@@ -34,7 +34,7 @@ namespace JPB_Framework.Pages.Contacts
             {
                 var element = Driver.Instance.FindElement(By.CssSelector("my-auto-complete[myname='Organization'] div input"));
                 var tmp = element.GetAttribute("disabled");
-                return (tmp != null);
+                return (tmp == null);
             }
 
         }
@@ -115,16 +115,20 @@ namespace JPB_Framework.Pages.Contacts
         public static bool IsPossibleDuplicateAlertShown {
             get
             {
+
                 try
                 {
-                    Driver.NoWait(
-                        () =>
-                            Driver.Instance.FindElement(
-                                By.CssSelector("[ng-if='searchingExistingContacts && showDuplicateContactCheck']"))
-                        );
+                    Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(5),
+                        "[ng-if='searchingExistingContacts && showDuplicateContactCheck']");
+                    Driver.Instance.FindElement(
+                        By.CssSelector("[ng-if='searchingExistingContacts && showDuplicateContactCheck']"));
                     return true;
                 }
                 catch (NoSuchElementException)
+                {
+                    return false;
+                }
+                catch (WebDriverTimeoutException)
                 {
                     return false;
                 }

@@ -91,14 +91,14 @@ namespace JPB_Framework.Workflows
 
                 // Section of because boolean fields are not visible in Contact View Page as of 6/6/16
 
-//                foreach (var contactField in BooleanContactFields)
-//                {
-//                    if (contactField.Value == null && contactField.RecordViewPageFieldValue == "True") continue;
-//                    if (contactField.Value == contactField.RecordViewPageFieldValue) continue;
-//
-//                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
-//                    notOk = true;
-//                }
+                //                foreach (var contactField in BooleanContactFields)
+                //                {
+                //                    if (contactField.Value == null && contactField.RecordViewPageFieldValue == "True") continue;
+                //                    if (contactField.Value == contactField.RecordViewPageFieldValue) continue;
+                //
+                //                    Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has value='{contactField.RecordViewPageFieldValue}' but was expected to have value='{contactField.Value}'", null);
+                //                    notOk = true;
+                //                }
 
                 return !notOk;
             }
@@ -120,52 +120,52 @@ namespace JPB_Framework.Workflows
         /// <param name="tmp">The object to be copied</param>
         internal void Clone(Contact tmp)
         {
-            SetFieldValue("First Name", tmp.GetFieldValue("First Name"));
-            SetFieldValue("Last Name", tmp.GetFieldValue("Last Name"));
-            SetFieldValue("Middle Name", tmp.GetFieldValue("Middle Name"));
-            SetFieldValue("Suffix", tmp.GetFieldValue("Suffix"));
-            SetFieldValue("Organization Name", tmp.GetFieldValue("Organization Name"));
-            SetFieldValue("Mobile Phone", tmp.GetFieldValue("Mobile Phone"));
-            SetFieldValue("Email", tmp.GetFieldValue("Email"));
-            SetFieldValue("Allow SMS", tmp.GetFieldValue("Allow SMS"));
-            SetFieldValue("Allow Phones", tmp.GetFieldValue("Allow Phones"));
-            SetFieldValue("Allow Emails", tmp.GetFieldValue("Allow Emails"));
-            SetFieldValue("Favorite", tmp.GetFieldValue("Favorite"));
+            SetFieldValue(ContactFields.FirstName, tmp.GetFieldValue(ContactFields.FirstName));
+            SetFieldValue(ContactFields.LastName, tmp.GetFieldValue(ContactFields.LastName));
+            SetFieldValue(ContactFields.MiddleName, tmp.GetFieldValue(ContactFields.MiddleName));
+            SetFieldValue(ContactFields.Suffix, tmp.GetFieldValue(ContactFields.Suffix));
+            SetFieldValue(ContactFields.OrganizationName, tmp.GetFieldValue(ContactFields.OrganizationName));
+            SetFieldValue(ContactFields.MobilePhone, tmp.GetFieldValue(ContactFields.MobilePhone));
+            SetFieldValue(ContactFields.WorkEmail, tmp.GetFieldValue(ContactFields.WorkEmail));
+            SetFieldValue(ContactFields.AllowSms, tmp.GetFieldValue(ContactFields.AllowSms));
+            SetFieldValue(ContactFields.AllowPhones, tmp.GetFieldValue(ContactFields.AllowPhones));
+            SetFieldValue(ContactFields.AllowEmails, tmp.GetFieldValue(ContactFields.AllowEmails));
+            SetFieldValue(ContactFields.Favorite, tmp.GetFieldValue(ContactFields.Favorite));
 
-            SetFieldValue("Department", tmp.GetFieldValue("Department"));
-            SetFieldValue("Work Phone", tmp.GetFieldValue("Work Phone"));
-            SetFieldValue("Work Phone 2", tmp.GetFieldValue("Work Phone 2"));
-            SetFieldValue("Mobile Phone 2", tmp.GetFieldValue("Mobile Phone 2"));
-            SetFieldValue("Home Phone", tmp.GetFieldValue("Home Phone"));
-            SetFieldValue("Home Phone 2", tmp.GetFieldValue("Home Phone 2"));
-            SetFieldValue("Home Fax", tmp.GetFieldValue("Home Fax"));
-            SetFieldValue("Work Fax", tmp.GetFieldValue("Work Fax"));
-            SetFieldValue("Other Phone", tmp.GetFieldValue("Other Phone"));
-            SetFieldValue("Personal Email", tmp.GetFieldValue("Personal Email"));
-            SetFieldValue("Other Email", tmp.GetFieldValue("Other Email"));
-            SetFieldValue("Work Street", tmp.GetFieldValue("Work Street"));
-            SetFieldValue("Work City", tmp.GetFieldValue("Work City"));
-            SetFieldValue("Work State", tmp.GetFieldValue("Work State"));
-            SetFieldValue("Work Postal Code", tmp.GetFieldValue("Work Postal Code"));
-            SetFieldValue("Work Country", tmp.GetFieldValue("Work Country"));
-            SetFieldValue("Home Street", tmp.GetFieldValue("Home Street"));
-            SetFieldValue("Home City", tmp.GetFieldValue("Home City"));
-            SetFieldValue("Home State", tmp.GetFieldValue("Home State"));
-            SetFieldValue("Home Postal Code", tmp.GetFieldValue("Home Postal Code"));
-            SetFieldValue("Home Country", tmp.GetFieldValue("Home Country"));
-            SetFieldValue("Other Street", tmp.GetFieldValue("Other Street"));
-            SetFieldValue("Other City", tmp.GetFieldValue("Other City"));
-            SetFieldValue("Other State", tmp.GetFieldValue("Other State"));
-            SetFieldValue("Other Postal Code", tmp.GetFieldValue("Other Postal Code"));
-            SetFieldValue("Other Country", tmp.GetFieldValue("Other Country"));
-            SetFieldValue("Salutation", tmp.GetFieldValue("Salutation"));
-            SetFieldValue("Nickname", tmp.GetFieldValue("Nickname"));
-            SetFieldValue("Job Title", tmp.GetFieldValue("Job Title"));
-            SetFieldValue("Website", tmp.GetFieldValue("Website"));
-            SetFieldValue("Religion", tmp.GetFieldValue("Religion"));
-            SetFieldValue("Birthdate", tmp.GetFieldValue("Birthdate"));
-            SetFieldValue("Gender", tmp.GetFieldValue("Gender"));
-            SetFieldValue("Comments", tmp.GetFieldValue("Comments"));
+            SetFieldValue(ContactFields.Department, tmp.GetFieldValue(ContactFields.Department));
+            SetFieldValue(ContactFields.WorkPhone, tmp.GetFieldValue(ContactFields.WorkPhone));
+            SetFieldValue(ContactFields.WorkPhone2, tmp.GetFieldValue(ContactFields.WorkPhone2));
+            SetFieldValue(ContactFields.MobilePhone2, tmp.GetFieldValue(ContactFields.MobilePhone2));
+            SetFieldValue(ContactFields.HomePhone, tmp.GetFieldValue(ContactFields.HomePhone));
+            SetFieldValue(ContactFields.HomePhone2, tmp.GetFieldValue(ContactFields.HomePhone2));
+            SetFieldValue(ContactFields.HomeFax, tmp.GetFieldValue(ContactFields.HomeFax));
+            SetFieldValue(ContactFields.WorkFax, tmp.GetFieldValue(ContactFields.WorkFax));
+            SetFieldValue(ContactFields.OtherPhone, tmp.GetFieldValue(ContactFields.OtherPhone));
+            SetFieldValue(ContactFields.PersonalEmail, tmp.GetFieldValue(ContactFields.PersonalEmail));
+            SetFieldValue(ContactFields.OtherEmail, tmp.GetFieldValue(ContactFields.OtherEmail));
+            SetFieldValue(ContactFields.WorkStreet, tmp.GetFieldValue(ContactFields.WorkStreet));
+            SetFieldValue(ContactFields.WorkCity, tmp.GetFieldValue(ContactFields.WorkCity));
+            SetFieldValue(ContactFields.WorkState, tmp.GetFieldValue(ContactFields.WorkState));
+            SetFieldValue(ContactFields.WorkPostalCode, tmp.GetFieldValue(ContactFields.WorkPostalCode));
+            SetFieldValue(ContactFields.WorkCountry, tmp.GetFieldValue(ContactFields.WorkCountry));
+            SetFieldValue(ContactFields.HomeStreet, tmp.GetFieldValue(ContactFields.HomeStreet));
+            SetFieldValue(ContactFields.HomeCity, tmp.GetFieldValue(ContactFields.HomeCity));
+            SetFieldValue(ContactFields.HomeState, tmp.GetFieldValue(ContactFields.HomeState));
+            SetFieldValue(ContactFields.HomePostalCode, tmp.GetFieldValue(ContactFields.HomePostalCode));
+            SetFieldValue(ContactFields.HomeCountry, tmp.GetFieldValue(ContactFields.HomeCountry));
+            SetFieldValue(ContactFields.OtherStreet, tmp.GetFieldValue(ContactFields.OtherStreet));
+            SetFieldValue(ContactFields.OtherCity, tmp.GetFieldValue(ContactFields.OtherCity));
+            SetFieldValue(ContactFields.OtherState, tmp.GetFieldValue(ContactFields.OtherState));
+            SetFieldValue(ContactFields.OtherPostalCode, tmp.GetFieldValue(ContactFields.OtherPostalCode));
+            SetFieldValue(ContactFields.OtherCountry, tmp.GetFieldValue(ContactFields.OtherCountry));
+            SetFieldValue(ContactFields.Salutation, tmp.GetFieldValue(ContactFields.Salutation));
+            SetFieldValue(ContactFields.Nickname, tmp.GetFieldValue(ContactFields.Nickname));
+            SetFieldValue(ContactFields.JobTitle, tmp.GetFieldValue(ContactFields.JobTitle));
+            SetFieldValue(ContactFields.Website, tmp.GetFieldValue(ContactFields.Website));
+            SetFieldValue(ContactFields.Religion, tmp.GetFieldValue(ContactFields.Religion));
+            SetFieldValue(ContactFields.Birthdate, tmp.GetFieldValue(ContactFields.Birthdate));
+            SetFieldValue(ContactFields.Gender, tmp.GetFieldValue(ContactFields.Gender));
+            SetFieldValue(ContactFields.Comments, tmp.GetFieldValue(ContactFields.Comments));
         }
 
         /// <summary>
@@ -177,53 +177,53 @@ namespace JPB_Framework.Workflows
             ExtraContactFields = new List<RecordField>();
             BooleanContactFields = new List<RecordField>();
 
-            BasicContactFields.Add(new RecordField("First Name", null, () => ContactViewPage.FirstName, null));
-            BasicContactFields.Add(new RecordField("Last Name", null, () => ContactViewPage.LastName, null));            
-            BasicContactFields.Add(new RecordField("Organization Name", null, () => ContactViewPage.OrganizationName, null));
-            BasicContactFields.Add(new RecordField("Mobile Phone", null, () => ContactViewPage.MobilePhone, null));
-            BasicContactFields.Add(new RecordField("Email", null, () => ContactViewPage.WorkEmail, null));
-            BasicContactFields.Add(new RecordField("Job Title", null, () => ContactViewPage.JobTitle, null));
-            BasicContactFields.Add(new RecordField("Department", null, () => ContactViewPage.Department, null));
-            BasicContactFields.Add(new RecordField("Work Phone", null, () => ContactViewPage.WorkPhone, null));
-            BasicContactFields.Add(new RecordField("Favorite", false.ToString(), () => ContactViewPage.Favorite, null));
+            BasicContactFields.Add(new RecordField(ContactFields.FirstName, null, () => ContactViewPage.FirstName, null));
+            BasicContactFields.Add(new RecordField(ContactFields.LastName, null, () => ContactViewPage.LastName, null));
+            BasicContactFields.Add(new RecordField(ContactFields.OrganizationName, null, () => ContactViewPage.OrganizationName, null));
+            BasicContactFields.Add(new RecordField(ContactFields.MobilePhone, null, () => ContactViewPage.MobilePhone, null));
+            BasicContactFields.Add(new RecordField(ContactFields.WorkEmail, null, () => ContactViewPage.WorkEmail, null));
+            BasicContactFields.Add(new RecordField(ContactFields.JobTitle, null, () => ContactViewPage.JobTitle, null));
+            BasicContactFields.Add(new RecordField(ContactFields.Department, null, () => ContactViewPage.Department, null));
+            BasicContactFields.Add(new RecordField(ContactFields.WorkPhone, null, () => ContactViewPage.WorkPhone, null));
+            BasicContactFields.Add(new RecordField(ContactFields.Favorite, false.ToString(), () => ContactViewPage.Favorite, null));
 
-            ExtraContactFields.Add(new RecordField("Middle Name", null, () => ContactViewPage.MiddleName, () => ContactViewPage.IsMiddleNameFieldVisible));
-            ExtraContactFields.Add(new RecordField("Suffix", null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work Phone 2", null, () => ContactViewPage.WorkPhone2, () => ContactViewPage.IsWorkPhone2FieldVisible));
-            ExtraContactFields.Add(new RecordField("Mobile Phone 2", null, () => ContactViewPage.MobilePhone2, () => ContactViewPage.IsMobilePhone2FieldVisible));
-            ExtraContactFields.Add(new RecordField("Home Phone", null, () => ContactViewPage.HomePhone, () => ContactViewPage.IsHomePhoneFieldVisible));
-            ExtraContactFields.Add(new RecordField("Home Phone 2", null, () => ContactViewPage.HomePhone2, () => ContactViewPage.IsHomePhone2FieldVisible));
-            ExtraContactFields.Add(new RecordField("Home Fax", null, () => ContactViewPage.HomeFax, () => ContactViewPage.IsHomeFaxFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work Fax", null, () => ContactViewPage.WorkFax, () => ContactViewPage.IsWorkFaxFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other Phone", null, () => ContactViewPage.OtherPhone, () => ContactViewPage.IsOtherPhoneFieldVisible));
-            ExtraContactFields.Add(new RecordField("Personal Email", null, () => ContactViewPage.PersonalEmail, () => ContactViewPage.IsPersonalEmailFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other Email", null, () => ContactViewPage.OtherEmail, () => ContactViewPage.IsOtherEmailFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work Street", null, () => ContactViewPage.WorkStreet, () => ContactViewPage.IsWorkStreetFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work City", null, () => ContactViewPage.WorkCity, () => ContactViewPage.IsWorkCityFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work State", null, () => ContactViewPage.WorkState, () => ContactViewPage.IsWorkStateFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work Postal Code", null, () => ContactViewPage.WorkPostalCode, () => ContactViewPage.IsWorkPostalCodeFieldVisible));
-            ExtraContactFields.Add(new RecordField("Work Country", null, () => ContactViewPage.WorkCountry, () => ContactViewPage.IsWorkCountryFieldVisible));
-            ExtraContactFields.Add(new RecordField("Home Street", null, () => ContactViewPage.HomeStreet, () => ContactViewPage.IsHomeStreetFieldVisible));
-            ExtraContactFields.Add(new RecordField("Home City", null, () => ContactViewPage.HomeCity, () => ContactViewPage.IsHomeCityFieldVisible));
-            ExtraContactFields.Add(new RecordField("Home State", null, () => ContactViewPage.HomeState, () => ContactViewPage.IsHomeStateFieldVisible));
-            ExtraContactFields.Add(new RecordField("Home Postal Code", null, () => ContactViewPage.HomePostalCode, () => ContactViewPage.IsHomePostalCodeFieldVisible));
-            ExtraContactFields.Add(new RecordField("Home Country", null, () => ContactViewPage.HomeCountry, () => ContactViewPage.IsHomeCountryFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other Street", null, () => ContactViewPage.OtherStreet, () => ContactViewPage.IsOtherStreetFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other City", null, () => ContactViewPage.OtherCity, () => ContactViewPage.IsOtherCityFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other State", null, () => ContactViewPage.OtherState, () => ContactViewPage.IsOtherStateFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other Postal Code", null, () => ContactViewPage.OtherPostalCode, () => ContactViewPage.IsOtherPostalCodeFieldVisible));
-            ExtraContactFields.Add(new RecordField("Other Country", null, () => ContactViewPage.OtherCountry, () => ContactViewPage.IsOtherCountryFieldVisible));
-            ExtraContactFields.Add(new RecordField("Salutation", null, () => ContactViewPage.Salutation, () => ContactViewPage.IsSalutationFieldVisible));
-            ExtraContactFields.Add(new RecordField("Nickname", null, () => ContactViewPage.Nickname, () => ContactViewPage.IsNicknameFieldVisible));            
-            ExtraContactFields.Add(new RecordField("Website", null, () => ContactViewPage.Website, () => ContactViewPage.IsWebsiteFieldVisible));
-            ExtraContactFields.Add(new RecordField("Religion", null, () => ContactViewPage.Religion, () => ContactViewPage.IsReligionFieldVisible));
-            ExtraContactFields.Add(new RecordField("Birthdate", null, () => ContactViewPage.Birthdate, () => ContactViewPage.IsBirthdateFieldVisible));
-            ExtraContactFields.Add(new RecordField("Gender", null, () => ContactViewPage.Gender, () => ContactViewPage.IsGenderFieldVisible));
-            ExtraContactFields.Add(new RecordField("Comments", null, () => ContactViewPage.Comments, () => ContactViewPage.IsCommentsFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.MiddleName, null, () => ContactViewPage.MiddleName, () => ContactViewPage.IsMiddleNameFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Suffix, null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkPhone2, null, () => ContactViewPage.WorkPhone2, () => ContactViewPage.IsWorkPhone2FieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.MobilePhone2, null, () => ContactViewPage.MobilePhone2, () => ContactViewPage.IsMobilePhone2FieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomePhone, null, () => ContactViewPage.HomePhone, () => ContactViewPage.IsHomePhoneFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomePhone2, null, () => ContactViewPage.HomePhone2, () => ContactViewPage.IsHomePhone2FieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomeFax, null, () => ContactViewPage.HomeFax, () => ContactViewPage.IsHomeFaxFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkFax, null, () => ContactViewPage.WorkFax, () => ContactViewPage.IsWorkFaxFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherPhone, null, () => ContactViewPage.OtherPhone, () => ContactViewPage.IsOtherPhoneFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.PersonalEmail, null, () => ContactViewPage.PersonalEmail, () => ContactViewPage.IsPersonalEmailFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherEmail, null, () => ContactViewPage.OtherEmail, () => ContactViewPage.IsOtherEmailFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkStreet, null, () => ContactViewPage.WorkStreet, () => ContactViewPage.IsWorkStreetFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkCity, null, () => ContactViewPage.WorkCity, () => ContactViewPage.IsWorkCityFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkState, null, () => ContactViewPage.WorkState, () => ContactViewPage.IsWorkStateFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkPostalCode, null, () => ContactViewPage.WorkPostalCode, () => ContactViewPage.IsWorkPostalCodeFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.WorkCountry, null, () => ContactViewPage.WorkCountry, () => ContactViewPage.IsWorkCountryFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomeStreet, null, () => ContactViewPage.HomeStreet, () => ContactViewPage.IsHomeStreetFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomeCity, null, () => ContactViewPage.HomeCity, () => ContactViewPage.IsHomeCityFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomeState, null, () => ContactViewPage.HomeState, () => ContactViewPage.IsHomeStateFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomePostalCode, null, () => ContactViewPage.HomePostalCode, () => ContactViewPage.IsHomePostalCodeFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.HomeCountry, null, () => ContactViewPage.HomeCountry, () => ContactViewPage.IsHomeCountryFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherStreet, null, () => ContactViewPage.OtherStreet, () => ContactViewPage.IsOtherStreetFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherCity, null, () => ContactViewPage.OtherCity, () => ContactViewPage.IsOtherCityFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherState, null, () => ContactViewPage.OtherState, () => ContactViewPage.IsOtherStateFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherPostalCode, null, () => ContactViewPage.OtherPostalCode, () => ContactViewPage.IsOtherPostalCodeFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.OtherCountry, null, () => ContactViewPage.OtherCountry, () => ContactViewPage.IsOtherCountryFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Salutation, null, () => ContactViewPage.Salutation, () => ContactViewPage.IsSalutationFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Nickname, null, () => ContactViewPage.Nickname, () => ContactViewPage.IsNicknameFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Website, null, () => ContactViewPage.Website, () => ContactViewPage.IsWebsiteFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Religion, null, () => ContactViewPage.Religion, () => ContactViewPage.IsReligionFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Birthdate, null, () => ContactViewPage.Birthdate, () => ContactViewPage.IsBirthdateFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Gender, null, () => ContactViewPage.Gender, () => ContactViewPage.IsGenderFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Comments, null, () => ContactViewPage.Comments, () => ContactViewPage.IsCommentsFieldVisible));
 
-            BooleanContactFields.Add(new RecordField("Allow SMS", null, () => ContactViewPage.AllowSms, null));
-            BooleanContactFields.Add(new RecordField("Allow Phones", null, () => ContactViewPage.AllowPhones, null));
-            BooleanContactFields.Add(new RecordField("Allow Emails", null, () => ContactViewPage.AllowEmails, null));
+            BooleanContactFields.Add(new RecordField(ContactFields.AllowSms, null, () => ContactViewPage.AllowSms, null));
+            BooleanContactFields.Add(new RecordField(ContactFields.AllowPhones, null, () => ContactViewPage.AllowPhones, null));
+            BooleanContactFields.Add(new RecordField(ContactFields.AllowEmails, null, () => ContactViewPage.AllowEmails, null));
 
         }
 
@@ -236,8 +236,8 @@ namespace JPB_Framework.Workflows
             {
                 if (ContactWasCreated)
                 {
-                    var firstName = GetFieldValue("First Name");
-                    var lastName = GetFieldValue("Last Name");
+                    var firstName = GetFieldValue(ContactFields.FirstName);
+                    var lastName = GetFieldValue(ContactFields.LastName);
                     LeftSideMenu.GoToContacts();
                     ContactsPage.FindContact()
                         .WithFirstName(firstName)
@@ -327,7 +327,7 @@ namespace JPB_Framework.Workflows
             throw new Exception();
         }
 
-        
+
     }
 
     internal class ContactFields
