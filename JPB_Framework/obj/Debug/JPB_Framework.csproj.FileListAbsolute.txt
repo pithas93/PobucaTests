@@ -31,4 +31,3 @@ D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\ja\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.dll
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\obj\Debug\JPB_Framework.pdb
-D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Framework\bin\Debug\wires-0.6.0-win.exe

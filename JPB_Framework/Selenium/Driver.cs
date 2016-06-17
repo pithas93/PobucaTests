@@ -12,6 +12,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Opera;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Support.UI;
 
@@ -37,20 +38,31 @@ namespace JPB_Framework.Selenium
             switch (type)
             {
                 case Browser.Chrome:
+                {
                     Instance = new ChromeDriver("C:/Selenium/Chrome_Driver/");
                     break;
+                }
                 case Browser.Firefox:
+                {
                     Instance = new FirefoxDriver();
                     break;
+                }
                 case Browser.IE:
-                    Instance = new InternetExplorerDriver("C:/Selenium/IE_Driver/");
+                {
+                    var o = new InternetExplorerOptions { RequireWindowFocus = true, EnablePersistentHover = false };
+                    Instance = new InternetExplorerDriver("C:/Selenium/IE_Driver/",o);
                     break;
+                }
                 case Browser.Safari:
+                {
                     Instance = new SafariDriver();
                     break;
+                }
                 case Browser.Opera:
+                {
                     Instance = new OperaDriver("C:/Selenium/Opera_Driver/");
                     break;
+                }
             }
             TurnOnWait();
 

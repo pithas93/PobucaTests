@@ -24,4 +24,3 @@ D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debu
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.csprojResolveAssemblyReference.cache
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.dll
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.pdb
-D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\wires-0.6.0-win.exe

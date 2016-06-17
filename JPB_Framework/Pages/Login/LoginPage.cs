@@ -1,4 +1,5 @@
 ﻿using System;
+using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
@@ -15,17 +16,7 @@ namespace JPB_Framework.Pages.Login
         public static void GoTo()
         {
             Driver.Instance.Navigate().GoToUrl(BaseAddress);
-
-            try
-            {
-                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(15), "form#loginForm");                
-            }
-            catch (WebDriverTimeoutException e)
-            {
-                Report.Report.ToLogFile(MessageType.Message, "Failed to load login screen on time.", null);
-                throw e;
-
-            }
+            Driver.Wait(TimeSpan.FromSeconds(3));
         }
 
         public static LoginCommand LoginAs(string username)

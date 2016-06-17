@@ -133,6 +133,7 @@ namespace JPB_Framework.UI_Utilities
                 string radioText = fileTypeRadio.FindElement(By.CssSelector("label")).Text;
                 if (radioText != dataType) continue;
                 fileTypeRadio.FindElement(By.CssSelector("label")).Click();
+                Driver.Wait(TimeSpan.FromSeconds(2));
                 break;
             }
 
@@ -143,6 +144,7 @@ namespace JPB_Framework.UI_Utilities
             // Select file to import
             var browseBtn = Driver.Instance.FindElement(By.CssSelector("input.import-template-file"));            
             browseBtn.SendKeys(filePath + fileName);
+            Driver.Wait(TimeSpan.FromSeconds(2));
 
 
             // Click Next button
@@ -167,12 +169,11 @@ namespace JPB_Framework.UI_Utilities
             // Click Submit button
             Driver.Instance.FindElement(By.CssSelector("input#upload-wizard-btn")).Click();
 
-            // Wait for result to be shown on screen
+            // Wait for result to be shown on screen            
             try
             {
                 // Wait till spinner gets invisible and the sucess/failure message is shown
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromMinutes(2));
-                wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("div[ng-show='showSpinner']")));
+                Driver.WaitForElementToBeVisible(TimeSpan.FromMinutes(2), "div[ng-show='showSpinner']");
             }
             catch (WebDriverTimeoutException e)
             {

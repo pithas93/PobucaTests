@@ -21,7 +21,11 @@ namespace JPB_Framework.Pages.Organizations
         /// <summary>
         ///  Navigates browser through the available edit button to the organization's edit page
         /// </summary>
-        public static void GoTo() { Commands.ClickEdit(); }
+        public static void GoTo()
+        {
+            Commands.ClickEdit();
+            Driver.Wait(TimeSpan.FromSeconds(2));
+        }
 
         /// <summary>
         /// Issue an command that instructs browser to change the value for some or every single field within edit organization page
