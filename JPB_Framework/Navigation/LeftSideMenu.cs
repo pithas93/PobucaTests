@@ -1,6 +1,7 @@
 ﻿using System;
 using JPB_Framework.Pages;
 using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Pages.Coworkers;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
@@ -108,6 +109,43 @@ namespace JPB_Framework.Navigation
             catch (WebDriverTimeoutException e)
             {
                 Report.Report.ToLogFile(MessageType.Exception, "Failed to load Imports Page on time.", e);
+                throw e;
+            }
+        }
+
+
+        /// <summary>
+        /// Navigates browser to the Co-workers list page
+        /// </summary>
+        public static void GoToCoworkers()
+        {
+            if (CoworkersPage.IsAt)
+            {
+                CoworkersPage.ResetFilters();
+                Commands.ClearSearchbox();
+                return;
+            }
+
+
+            try
+            {
+                var coworkersBtn = Driver.Instance.FindElement(By.CssSelector("#Users"));
+                Driver.MoveToElement(coworkersBtn);
+                coworkersBtn.Click();
+
+                // wait for organization list to load
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
+                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
+            }
+            catch (NoSuchElementException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception,
+                    "Browser was expected to be in Co-workers Page but is not or page is not loaded properly", e);
+                throw e;
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to load Co-workers page on time.", e);
                 throw e;
             }
         }

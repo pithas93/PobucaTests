@@ -234,14 +234,12 @@ namespace JPB_Framework.Selenium
                 var breadcrumb = Instance.FindElement(By.CssSelector("#breadcrumb"));
                 return breadcrumb.Text == view;
             }
-            catch (NoSuchElementException e)
+            catch (NoSuchElementException)
             {
-                Report.Report.ToLogFile(MessageType.Exception, $"Browser was expected to be at {view} path, but was not", e);
                 return false;
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
-                Report.Report.ToLogFile(MessageType.Exception, $"It is probable that browser didn't loaded properly or in time all of the {view} web page elements", e);
                 return false;
             }
         }
@@ -278,9 +276,9 @@ namespace JPB_Framework.Selenium
         {
             var finalString = new StringBuilder();
             var str = fullName.Split(' ');
-            var firstName = str[0];
-            for (var i = 1; i < str.Length; i++) finalString.Append(str[i] + ' ');
-            finalString.Append(firstName);
+            var lastName = str[str.Length-1];
+            finalString.Append(lastName + ' ');
+            for (var i = 0; i < str.Length-1; i++) finalString.Append(str[i] + ' ');
             return finalString.ToString();
         }
 

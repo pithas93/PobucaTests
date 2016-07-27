@@ -170,6 +170,41 @@ namespace JPB_Framework.UI_Utilities
         }
     }
 
+    public class SearchCoworkerCommand : SearchRecordCommand
+    {
+
+        /// <summary>
+        /// Instructs the search command that the search command will be executed on contact list page
+        /// </summary>
+        public SearchCoworkerCommand(Action navigateAction)
+        {
+            navigateCommand = navigateAction;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for coworkers with specific first name
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
+        public SearchCoworkerCommand WithFirstName(string firstName)
+        {
+            AppendToKeyword(firstName);
+            return this;
+        }
+
+        /// <summary>
+        /// Direct the search command to search for coworkers with specific last name
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public SearchCoworkerCommand AndLastName(string lastName)
+        {
+            AppendToKeyword(lastName);
+            return this;
+        }
+
+    }
+
     public class SearchOrganizationCommand : SearchRecordCommand
     {
 

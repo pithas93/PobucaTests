@@ -11,9 +11,9 @@ namespace JPB_Tests.Utilities
 {
     public class JpbBaseTest
     {
-        public const Browser browser = Browser.IE;
-        public const string Username = "panagiotis@panagof1.com";
-        public const string Password = "6AB10F93";
+        public const Browser browser = Browser.Firefox;
+        public const string Username = "panagiotis@panagof.com";
+        public const string Password = "568bedd1!";
         public const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
         //        public const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
@@ -62,6 +62,7 @@ namespace JPB_Tests.Utilities
                     LoginPage.LoginAs(Username).WithPassword(Password).Login();
                 }
             }
+            CookieConsent.Close();
             TakeTourWindow.Close();
         }
 

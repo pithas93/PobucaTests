@@ -71,7 +71,7 @@ namespace JPB_Framework.UI_Utilities
         /// <summary>
         /// Add a department to the existing filter by criteria
         /// </summary>
-        /// <param name="department"></param>
+        /// <param name="department">The name of department to be chosen. For example, Department.Logistics</param>
         /// <returns></returns>
         public FilterContactsCommand SelectingDepartment(string department)
         {
@@ -133,6 +133,67 @@ namespace JPB_Framework.UI_Utilities
             }
 
             Driver.Wait(TimeSpan.FromSeconds(3));
+
+        }
+
+    }
+
+    public class FilterCoworkersCommand
+    {
+
+        private List<string> selectedDepartments;
+
+        public FilterCoworkersCommand()
+        {
+            selectedDepartments = new List<string>();
+        }
+
+        /// <summary>
+        /// Add a department to the existing filter by criteria
+        /// </summary>
+        /// <param name="department">The name of department to be chosen. For example, Department.Logistics</param>
+        /// <returns></returns>
+        public FilterCoworkersCommand SelectingDepartment(string department)
+        {
+            selectedDepartments.Add(department);
+            return this;
+        }
+
+        /// <summary>
+        /// Execute the filter command with the given options
+        /// </summary>
+        public void Filter()
+        {
+
+            var filterByDepartmentBtn = Driver.Instance.FindElement(By.CssSelector("[default-label='Department']"));
+
+            filterByDepartmentBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
+
+
+            var departmentsOptionList =
+               filterByDepartmentBtn.FindElements(By.CssSelector("span.ng-binding"));
+
+            if (selectedDepartments.Count > 0)
+            {
+                // Select the Department option
+                foreach (var selectedDepartment in selectedDepartments)
+                {
+                    foreach (var webElement in departmentsOptionList)
+                    {
+                        if (webElement.Text != selectedDepartment) continue;
+                        Driver.Wait(TimeSpan.FromSeconds(1));
+                        webElement.FindElement(By.XPath("../../..")).Click();
+                        Driver.Wait(TimeSpan.FromSeconds(1));
+                        break;
+                    }
+
+                }
+
+                filterByDepartmentBtn.Click();
+                Driver.Wait(TimeSpan.FromSeconds(1));
+            }
+
 
         }
 

@@ -127,14 +127,7 @@ namespace JPB_Framework.UI_Utilities
             field = SortField.LastName;
             return this;
         }
-
-        
-
-       
-
-
-
-        
+  
     }
 
     public class SortOrganizationsCommand : SortRecordsCommand
@@ -165,6 +158,29 @@ namespace JPB_Framework.UI_Utilities
             return this;
         }
 
+
+    }
+
+    public class SortCoworkersCommand : SortRecordsCommand
+    {
+
+        public SortCoworkersCommand()
+        {
+            field = SortField.FirstName;
+            order = SortOrder.Ascending;
+        }
+
+        public SortCoworkersCommand FirstName()
+        {
+            field = SortField.FirstName;
+            return this;
+        }
+
+        public SortCoworkersCommand LastName()
+        {
+            field = SortField.LastName;
+            return this;
+        }
 
     }
 }

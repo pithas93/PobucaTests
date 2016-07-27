@@ -496,7 +496,7 @@ namespace JPB_Framework.UI_Utilities
             var totalRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
             return Int32.Parse(totalRecordsLbl.Text);
         }
-
+        
         /// <summary>
         /// Returns the value of label showing the number of selected records
         /// </summary>
