@@ -65,6 +65,8 @@
     <Compile Include="Pages\Contacts\ContactViewPage.cs" />
     <Compile Include="Pages\CookieConsent.cs" />
     <Compile Include="Pages\Coworkers\CoworkersPage.cs" />
+    <Compile Include="Pages\Coworkers\CoworkerViewPage.cs" />
+    <Compile Include="Pages\InvitePage.cs" />
     <Compile Include="Pages\Login\LandingPage.cs" />
     <Compile Include="Pages\Login\ThankYouPage.cs" />
     <Compile Include="Pages\TakeTourWindow.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Pages\UpperToolBar.cs" />
     <Compile Include="UI Utilities\EditContactFields.cs" />
     <Compile Include="UI Utilities\EditOrganizationFields.cs" />
+    <Compile Include="UI Utilities\InviteCoworkersCommand.cs" />
     <Compile Include="Workflows\Contact.cs" />
     <Compile Include="Workflows\ContactCreator.cs" />
     <Compile Include="Workflows\DummyData.cs" />

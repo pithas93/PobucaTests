@@ -59,6 +59,9 @@ namespace JPB_Framework.Pages.Coworkers
         /// </summary>
         public static int TotalCoworkersCount => Commands.TotalRecordsCount();
 
+        /// <summary>
+        /// Returns true if the Departments filter has its elements arranged alphabetically by default
+        /// </summary>
         public static bool AreFilterByDepartmentsInCorrectState
         {
             get
@@ -84,6 +87,16 @@ namespace JPB_Framework.Pages.Coworkers
                 return true;
             }
         }
+
+        /// <summary>
+        /// Checks whether or not coworker home phone is callable from within contact list page
+        /// </summary>
+        public static bool IsCoworkerMobilePhoneCallable => Commands.IsRecordMobilePhoneCallable;
+
+        /// <summary>
+        /// Checks whether or not coworker home phone is callable from within contact list page
+        /// </summary>
+        public static bool IsCoworkerWorkPhoneCallable => Commands.IsRecordWorkPhoneCallable;
 
 
         /// <summary>
@@ -127,6 +140,26 @@ namespace JPB_Framework.Pages.Coworkers
             {
                 throw new Exception();
             }
+        }
+
+        /// <summary>
+        /// Opens the first coworker from the contact list, to view its details
+        /// </summary>
+        public static void OpenFirstCoworker()
+        {
+            if (!IsAt) LeftSideMenu.GoToCoworkers();
+            Commands.OpenRecordFromListBySequence(1);
+        }
+
+        /// <summary>
+        ///  Clicks "Invite more Co-Workers" button 
+        /// </summary>
+        public static void ClickInviteCoworkers()
+        {
+            if (!IsAt) LeftSideMenu.GoToCoworkers();
+            
+            Driver.Instance.FindElement(By.CssSelector("i[title='Invite Co-workers']")).Click();
+
         }
     }
 }

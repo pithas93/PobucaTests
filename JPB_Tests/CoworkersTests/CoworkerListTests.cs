@@ -1,6 +1,5 @@
 ﻿using JPB_Framework.Navigation;
 using JPB_Framework.Pages;
-using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
 using JPB_Framework.Pages.Coworkers;
 using JPB_Framework.UI_Utilities;
@@ -137,7 +136,7 @@ namespace JPB_Tests.CoworkersTests
         }
 
         /// <summary>
-        /// Check that the contacts displayed count is the same with the value displayed in the corresponding label
+        /// Check that the coworkers displayed count is the same with the value displayed in the corresponding label
         /// </summary>
         [TestMethod]
         public void Check_Coworkers_Displayed_Is_Equal_To_Label()

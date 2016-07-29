@@ -57,14 +57,10 @@ namespace JPB_Tests.ContactsTests
         [TestMethod]
         public void Call_A_Contact_Telephone_From_Contact_List_Page()
         {
-            ContactCreator.CreateSimpleContact();
-            if (!ContactsPage.IsAt) LeftSideMenu.GoToContacts();
-            ContactsPage.FindContact()
-                .WithFirstName(ContactCreator.FirstContact.FirstName)
-                .AndLastName(ContactCreator.FirstContact.LastName)
-                .Find();
-
+            LeftSideMenu.GoToContacts();
             AssertThat.IsTrue(ContactsPage.IsContactMobilePhoneCallable, "Contact mobile phone is not callable from within contact list page");
+            AssertThat.IsTrue(ContactsPage.IsContactWorkPhoneCallable, "Contact mobile phone is not callable from within contact list page");
+
         }
 
         /// <summary>

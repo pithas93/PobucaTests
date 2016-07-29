@@ -68,6 +68,7 @@
     <Compile Include="ContactsTests\ImportTemplateContactsTests.cs" />
     <Compile Include="ContactsTests\MinorContactTests.cs" />
     <Compile Include="CoworkersTests\CoworkerListTests.cs" />
+    <Compile Include="CoworkersTests\MinorCoworkerTests.cs" />
     <Compile Include="Organizations Tests\AddOrganizationTests.cs" />
     <Compile Include="Organizations Tests\EditOrganizationTests.cs" />
     <Compile Include="Organizations Tests\ImportOrganizationTests.cs" />

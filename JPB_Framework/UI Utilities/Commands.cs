@@ -74,7 +74,7 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         public static void ClickShare()
         {
-            var shareBtn = Driver.Instance.FindElement(By.Id("share-entity"));
+            var shareBtn = Driver.Instance.FindElement(By.CssSelector("span[id^=share]"));
             shareBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
@@ -253,7 +253,7 @@ namespace JPB_Framework.UI_Utilities
         /// <param name="position"></param>
         public static void OpenRecordFromListBySequence(int position)
         {
-            var record = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[3]/div[" + position + "]"));
+            var record = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"))[position-1];
             record.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
@@ -540,6 +540,29 @@ namespace JPB_Framework.UI_Utilities
             return true;
         }
 
+        public static bool IsRecordMobilePhoneCallable
+        {
+            get
+            {
 
+                var element =
+                    Driver.Instance.FindElements(By.CssSelector("font[ng-if$='.mobilePhone'] a"))[0];
+                var href = element.GetAttribute("href");
+                var expectedTelephoneLink = "tel:";
+                return (href.StartsWith(expectedTelephoneLink));
+            }
+        }
+
+        public static bool IsRecordWorkPhoneCallable
+        {
+            get
+            {
+                var element =
+                   Driver.Instance.FindElements(By.CssSelector("font[ng-if$='.workPhone'] a"))[0];
+                var href = element.GetAttribute("href");
+                var expectedTelephoneLink = "tel:";
+                return (href.StartsWith(expectedTelephoneLink));
+            }
+        }
     }
 }

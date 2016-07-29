@@ -128,32 +128,13 @@ namespace JPB_Framework.Pages.Contacts
         /// <summary>
         /// Checks whether or not contact home phone is callable from within contact list page
         /// </summary>
-        public static bool IsContactWorkPhoneCallable
-        {
-            get
-            {
-                var element =
-                    Driver.Instance.FindElement(By.CssSelector("font[ng-if='contact.workPhone'] a"));
-                var href = element.GetAttribute("href");
-                var expectedTelephoneLink ="tel:";
-                return (href.StartsWith(expectedTelephoneLink));
-            }
-        }
+        public static bool IsContactWorkPhoneCallable => Commands.IsRecordWorkPhoneCallable;
 
         /// <summary>
         /// Checks whether or not contact home phone is callable from within contact list page
         /// </summary>
-        public static bool IsContactMobilePhoneCallable
-        {
-            get
-            {
-                var element =
-                    Driver.Instance.FindElement(By.CssSelector("font[ng-if='contact.mobilePhone'] a"));
-                var href = element.GetAttribute("href");
-                var expectedTelephoneLink = "tel:";
-                return (href.StartsWith(expectedTelephoneLink));
-            }
-        }
+        public static bool IsContactMobilePhoneCallable => Commands.IsRecordMobilePhoneCallable;
+
 
         /// <summary>
         /// Opens the first contact from the contact list, to view its details
