@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Net;
 using JPB_Framework.Navigation;
+using JPB_Framework.Pages.Contacts;
+using JPB_Framework.Pages.Coworkers;
 using JPB_Framework.Pages.Organizations;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
@@ -52,8 +55,18 @@ namespace JPB_Framework.UI_Utilities
         public bool Find()
         {
             navigateCommand?.Invoke();
+            
+            // Check whether the browser has navigated to a page that contains a record list
+            if (!(CoworkersPage.IsAt || OrganizationsPage.IsAt || ContactsPage.IsAt || OrganizationViewPage.IsAt))
+            {
+                Report.Report.ToLogFile(MessageType.Message, $"Browser navigated to wrong page.Current page is {Driver.GetCurrentPage}", null);
+                throw new Exception();
+            }
 
-            if (!OrganizationViewPage.IsAt) Commands.SearchFor(keyword);
+            // If you 're at contacts or organizations list page, use search, else you 're at organization view page.
+            if (OrganizationsPage.IsAt || ContactsPage.IsAt) Commands.SearchFor(keyword);
+
+
 
             var records = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
             foreach (var record in records)
@@ -315,7 +328,7 @@ namespace JPB_Framework.UI_Utilities
             {
                 if (!sequence.Equals(null) && sequence != 0)
                 {
-                    Driver.MoveToElement(records[sequence - 1]);
+//                    Driver.MoveToElement(records[sequence - 1]);
                     Commands.ClickContactRemoveButton(records[sequence - 1]);
                     return;
                 }

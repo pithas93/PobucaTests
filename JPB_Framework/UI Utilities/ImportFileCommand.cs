@@ -173,7 +173,7 @@ namespace JPB_Framework.UI_Utilities
             try
             {
                 // Wait till spinner gets invisible and the sucess/failure message is shown
-                Driver.WaitForElementToBeVisible(TimeSpan.FromMinutes(2), "div[ng-show='showSpinner']");
+                Driver.WaitForElementToBeInvisible(TimeSpan.FromMinutes(2), "div[ng-show='showSpinner']");
             }
             catch (WebDriverTimeoutException e)
             {

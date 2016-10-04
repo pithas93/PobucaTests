@@ -75,8 +75,12 @@ namespace JPB_Framework.Pages.Coworkers
         private static bool IsTelephoneLinkActive(string fieldName, Func<string> coworkerViewPageField)
         {
             var element =
-                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}'] a.ng-scope"));
-            var href = element.GetAttribute("href");
+                  Driver.Instance.FindElement(By.CssSelector($"[mytitle='{fieldName}']"));
+            var tmp = element.GetAttribute("myattr");
+            if (string.IsNullOrEmpty(tmp)) return true;
+
+            var phoneElement = element.FindElement(By.CssSelector("a.ng-scope"));
+            var href = phoneElement.GetAttribute("href");
             var expectedEmailLink = $"tel:{coworkerViewPageField()}";
             return (href == expectedEmailLink);
         }

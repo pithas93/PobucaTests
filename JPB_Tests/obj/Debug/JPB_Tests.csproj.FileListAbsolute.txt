@@ -24,3 +24,16 @@ D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debu
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.csprojResolveAssemblyReference.cache
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.dll
 D:\Development\Visual_Studio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.pdb
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\JPB_Tests.dll
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\JPB_Tests.pdb
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\JPB_Framework.dll
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\WebDriver.dll
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\WebDriver.Support.dll
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\JPB_Framework.pdb
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\WebDriver.xml
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\bin\Debug\WebDriver.Support.xml
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.csprojResolveAssemblyReference.cache
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.dll
+C:\Android\VisualStudio_Projects\JustPhoneBook_Framework\JPB_Tests\obj\Debug\JPB_Tests.pdb

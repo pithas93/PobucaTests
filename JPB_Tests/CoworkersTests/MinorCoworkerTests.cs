@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.CoworkersTests
 {
     [TestClass]
-    public class MinorCoworkerTests : JpbBaseTest
+    public class MinorCoworkerTests : PbkBaseTest
     {
 
 

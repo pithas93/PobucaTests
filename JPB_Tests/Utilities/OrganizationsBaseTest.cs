@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests.Utilities
 {
-    public class OrganizationsBaseTest : JpbBaseTest
+    public class OrganizationsBaseTest : PbkBaseTest
     {
 
         [TestInitialize]

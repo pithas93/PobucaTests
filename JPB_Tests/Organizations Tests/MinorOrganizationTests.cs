@@ -31,6 +31,7 @@ namespace JPB_Tests.Organizations_Tests
             OrganizationCreator.CreateSimpleOrganization();
             OrganizationViewPage.AddContactsToContactList().Randomly(2).Add();
 
+            AssertThat.AreEqual(OrganizationViewPage.ContactListCount, 2, "Previously added contacts did not show up in organization contact list");
             OrganizationViewPage.FindContactFromOrganizationContactList().BySequence(1).MakePrimaryContact();
             AssertThat.AreEqual(OrganizationViewPage.PrimaryContact, OrganizationViewPage.GetContactFullNameBySequence(1), $"Contact '{OrganizationViewPage.GetContactFullNameBySequence(1)}' was not made primary though it should");
 
@@ -39,7 +40,7 @@ namespace JPB_Tests.Organizations_Tests
         }
 
         /// <summary>
-        /// Assert that an orphan contact can be added to an organization's contact list
+        /// Assert that an orphan contact can be added to an organization's contact list and the be removed
         /// </summary>
         [TestMethod]
         public void Add_Contact_To_Organization_Contact_List()

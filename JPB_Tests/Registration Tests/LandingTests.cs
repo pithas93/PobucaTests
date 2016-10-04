@@ -9,13 +9,13 @@ using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenQA.Selenium;
+
 
 namespace JPB_Tests.Registration_Tests
 {
 
     [TestClass]
-    public class LandingTests : JpbBaseTest
+    public class LandingTests : PbkBaseTest
     {
 
 

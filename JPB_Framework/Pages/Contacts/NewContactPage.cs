@@ -142,7 +142,7 @@ namespace JPB_Framework.Pages.Contacts
         /// </summary>
         public static void GoTo()
         {
-            var newContactBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[5]/ul/li[2]/a/i"));
+            var newContactBtn = Driver.Instance.FindElement(By.CssSelector("i#newContactButton"));
             newContactBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(2));
         }

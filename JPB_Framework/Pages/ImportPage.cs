@@ -89,6 +89,8 @@ namespace JPB_Framework.Pages
                 webElement.FindElement(By.CssSelector("ng-pristine.ng-valid.ng-touched")).Click();
             }
 
+            Driver.Wait(TimeSpan.FromSeconds(1));
+
             var nextBtn = Driver.Instance.FindElement(By.CssSelector("button[ng-click*='nextStep'][ng-click*='1']"));
             nextBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));

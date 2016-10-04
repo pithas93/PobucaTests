@@ -14,7 +14,7 @@ namespace JPB_Tests.Smoke_Tests
 
 
     [TestClass]
-    public class SmokeGeneralTests : JpbBaseTest
+    public class SmokeGeneralTests : PbkBaseTest
     {
         [TestMethod]
         public void Can_Login_Logout()

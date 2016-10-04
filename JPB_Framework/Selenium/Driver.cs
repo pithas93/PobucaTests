@@ -24,6 +24,29 @@ namespace JPB_Framework.Selenium
 
         public static IWebDriver Instance { get; set; }
 
+        /// <summary>
+        /// Returns a string that identifies the webpage currently being displayed by the browser
+        /// </summary>
+        public static string GetCurrentPage
+        {
+            get
+            {
+                try
+                {
+                    var breadcrumb = Instance.FindElement(By.CssSelector("#breadcrumb"));
+                    return breadcrumb.Text;
+                }
+                catch (NoSuchElementException)
+                {
+                    return string.Empty;
+                }
+                catch (InvalidOperationException)
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
 
         public static void NavigateTo(string url)
         {
@@ -35,35 +58,41 @@ namespace JPB_Framework.Selenium
         /// </summary>
         public static void Initialize(Browser type)
         {
+
             switch (type)
             {
                 case Browser.Chrome:
-                {
-                    Instance = new ChromeDriver("C:/Selenium/Chrome_Driver/");
-                    break;
-                }
+                    {
+                        Instance = new ChromeDriver("C:/Selenium/Chrome_Driver/");
+                        break;
+                    }
                 case Browser.Firefox:
-                {
-                    Instance = new FirefoxDriver();
-                    break;
-                }
+                    {
+                        Instance = new FirefoxDriver();
+
+
+                        break;
+                    }
                 case Browser.IE:
-                {
-                    var o = new InternetExplorerOptions { RequireWindowFocus = true, EnablePersistentHover = false };
-                    Instance = new InternetExplorerDriver("C:/Selenium/IE_Driver/",o);
-                    break;
-                }
+                    {
+                        var o = new InternetExplorerOptions { RequireWindowFocus = true, EnablePersistentHover = false };
+                        Instance = new InternetExplorerDriver("C:/Selenium/IE_Driver/", o);
+                        break;
+                    }
                 case Browser.Safari:
-                {
-                    Instance = new SafariDriver();
-                    break;
-                }
+                    {
+                        Instance = new SafariDriver();
+                        break;
+                    }
                 case Browser.Opera:
-                {
-                    Instance = new OperaDriver("C:/Selenium/Opera_Driver/");
-                    break;
-                }
+                    {
+                        Instance = new OperaDriver("C:/Selenium/Opera_Driver/");
+                        break;
+                    }
             }
+
+
+            Instance.Manage().Window.Maximize();
             TurnOnWait();
 
         }
@@ -109,8 +138,16 @@ namespace JPB_Framework.Selenium
         public static void WaitForElementToBeVisible(TimeSpan timespan, string cssSelector)
         {
             var wait = new WebDriverWait(Driver.Instance, timespan);
-            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector(cssSelector)));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(cssSelector)));
+            //            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector(cssSelector)));
         }
+
+        public static void WaitForElementToBeInvisible(TimeSpan timespan, string cssSelector)
+        {
+            var wait = new WebDriverWait(Driver.Instance, timespan);
+            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector(cssSelector)));
+        }
+
 
         /// <summary>
         /// Turn on driver wait timeout. The timeout is 10 seconds
@@ -269,16 +306,16 @@ namespace JPB_Framework.Selenium
         }
 
 
-      
 
-      
+
+
         private static string RevertFirstLastName(string fullName)
         {
             var finalString = new StringBuilder();
             var str = fullName.Split(' ');
-            var lastName = str[str.Length-1];
+            var lastName = str[str.Length - 1];
             finalString.Append(lastName + ' ');
-            for (var i = 0; i < str.Length-1; i++) finalString.Append(str[i] + ' ');
+            for (var i = 0; i < str.Length - 1; i++) finalString.Append(str[i] + ' ');
             return finalString.ToString();
         }
 

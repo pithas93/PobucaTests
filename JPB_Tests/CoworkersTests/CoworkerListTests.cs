@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.CoworkersTests
 {
     [TestClass]
-    public class CoworkerListTests : JpbBaseTest
+    public class CoworkerListTests : PbkBaseTest
     {
 
         /// <summary>

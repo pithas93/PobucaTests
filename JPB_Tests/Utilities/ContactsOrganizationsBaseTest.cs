@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace JPB_Tests.Utilities
 {
-    public class ContactsOrganizationsBaseTest : JpbBaseTest
+    public class ContactsOrganizationsBaseTest : PbkBaseTest
     {
 
         [TestInitialize]

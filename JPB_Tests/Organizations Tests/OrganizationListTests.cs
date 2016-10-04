@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.Organizations_Tests
 {
     [TestClass]
-    public class OrganizationListTests : JpbBaseTest
+    public class OrganizationListTests : PbkBaseTest
     {
 
         /// <summary>

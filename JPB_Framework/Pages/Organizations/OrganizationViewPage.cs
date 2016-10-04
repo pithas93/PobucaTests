@@ -15,6 +15,11 @@ namespace JPB_Framework.Pages.Organizations
         public static bool IsAt => Driver.CheckIfIsAt("Home  /  Organizations  /  Organization View");
 
         /// <summary>
+        /// Returns how many contacts are linked to currently displayed organization's contact list
+        /// </summary>
+        public static int ContactListCount => Commands.TotalRecordsCount(); 
+
+        /// <summary>
         /// Returns true if the organization phone number is callable when it is clicked
         /// </summary>
         public static bool IsPhoneNumberCallable
@@ -244,13 +249,6 @@ namespace JPB_Framework.Pages.Organizations
         public static bool IsShippingAddressLinkActive => IsAddressLinkActive("Shipping", () => ShippingStreet, () => ShippingState, () => ShippingPostalCode, () => ShippingCity, () => ShippingCountry);
         public static bool IsBillingAddressLinkActive => IsAddressLinkActive("Billing", () => BillingStreet, () => BillingState, () => BillingPostalCode, () => BillingCity, () => BillingCountry);
         public static bool IsOtherAddressLinkActive => IsAddressLinkActive("Other", () => OtherStreet, () => OtherState, () => OtherPostalCode, () => OtherCity, () => OtherCountry);
-
-
-
-
-
-
-
 
 
         private static string GetFieldValueFor(string fieldName)

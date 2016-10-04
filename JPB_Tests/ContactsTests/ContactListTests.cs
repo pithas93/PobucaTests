@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace JPB_Tests.ContactsTests
 {
     [TestClass]
-    public class ContactListTests : JpbBaseTest
+    public class ContactListTests : PbkBaseTest
     {
            
         /// <summary>

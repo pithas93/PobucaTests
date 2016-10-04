@@ -417,7 +417,10 @@ namespace JPB_Framework.UI_Utilities
             var recordList = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"));
 
 
-            // Check if there is at least one record displayed in the record list or else there is no point in continuing
+            // Check if there is at least on record no matter if it is envisible for the user. Preserves next check from getting exception. Used in Organization contact list
+            if (recordList.Count <= 0) return 0;
+
+            // Check if there is at least one record being displayed. If not there are records which are invisible and so the list is empty for the user
             var recordName = recordList[0].GetAttribute("style");
             if (recordName.Equals("display: none;")) return 0;
 
@@ -434,6 +437,9 @@ namespace JPB_Framework.UI_Utilities
             int previousRecordListCount;
             do
             {
+                // Save the previousRecordListCount
+                previousRecordListCount = recordListCount;
+
                 // Navigate to the last record list item
                 Driver.MoveToElement(recordList[recordListCount - 1]);
 
@@ -449,8 +455,6 @@ namespace JPB_Framework.UI_Utilities
                     recordListCount++;
                 }
 
-                // Save the previousRecordListCount
-                previousRecordListCount = recordListCount;
 
                 if (previousRecordListCount > recordListCount)
                 {

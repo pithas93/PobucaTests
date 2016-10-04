@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JPB_Framework.Report;
 using JPB_Framework.Selenium;
+using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -12,6 +13,12 @@ namespace JPB_Framework.Pages
 {
     public class UpperToolBar
     {
+        
+        public static int GeneralSearchContactsDisplayed => Driver.Instance.FindElements(By.CssSelector("div[ng-if*='results.Contacts.length'] strong.ng-binding")).Count;
+        public static int GeneralSearchOrganizationsDisplayed => Driver.Instance.FindElements(By.CssSelector("div[ng-if*='results.Groups.length'] strong.ng-binding")).Count;
+        public static int GeneralSearchCoworkersDisplayed => Driver.Instance.FindElements(By.CssSelector("div[ng-if*='results.User.length'] strong.ng-binding")).Count;
+
+
         public static void Logout()
         {
             var element = Driver.Instance.FindElement(By.CssSelector("div.navbar-more-menu.dropdown "));
@@ -32,5 +39,14 @@ namespace JPB_Framework.Pages
 
             }
         }
+
+
+        public static GeneralSearchRecordCommand UseGeneralSearch()
+        {
+            return new GeneralSearchRecordCommand();
+        }
+
+
+
     }
 }

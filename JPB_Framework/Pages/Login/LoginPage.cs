@@ -24,7 +24,7 @@ namespace JPB_Framework.Pages.Login
             return new LoginCommand(username);
         }
 
-        
+
     }
 
     public class LoginCommand
@@ -45,25 +45,19 @@ namespace JPB_Framework.Pages.Login
 
         public void Login()
         {
-            try
-            {
-                var userField = Driver.Instance.FindElement(By.Id("email"));
-                var passField = Driver.Instance.FindElement(By.Id("pass"));
-                var loginBtn = Driver.Instance.FindElement(By.Id("login_btn"));
-                userField.SendKeys(username);
-                passField.SendKeys(password);
-                loginBtn.Click();
-            }
-            catch (NoSuchElementException)
-            {
-               // In case that browser navigates directly to Contacts List Page, it 's not required to login, so do nothing
-            }
 
-            // wait for organization list to load
+            var userField = Driver.Instance.FindElement(By.Id("email"));
+            var passField = Driver.Instance.FindElement(By.Id("pass"));
+            var loginBtn = Driver.Instance.FindElement(By.Id("login_btn"));
+            userField.SendKeys(username);
+            passField.SendKeys(password);
+            loginBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(5));
+
+            // wait for contact list to load
             try
             {
-                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(15));
-                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("main-content")));
+                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(15), "div.groups-main-content");
             }
             catch (WebDriverTimeoutException e)
             {
@@ -73,3 +67,18 @@ namespace JPB_Framework.Pages.Login
         }
     }
 }
+
+
+
+//                try
+//                {
+//                    LoginPage.LoginAs(Username).WithPassword(Password).Login();
+//                }
+//                catch (WebDriverTimeoutException)
+//                {
+//                    Report.ToLogFile(MessageType.Message,
+//                        "Reseting browser because the test failed to initialize properly.", null);
+//                    Driver.Reinitialize(browser);
+//                    LoginPage.GoTo();
+//                    LoginPage.LoginAs(Username).WithPassword(Password).Login();
+//                }
