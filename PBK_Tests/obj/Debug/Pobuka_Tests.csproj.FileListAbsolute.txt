@@ -1,0 +1,13 @@
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\JPB_Tests.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\JPB_Tests.pdb
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\JPB_Framework.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\WebDriver.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\WebDriver.Support.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\JPB_Framework.pdb
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\WebDriver.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\bin\Debug\WebDriver.Support.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\obj\Debug\Pobuka_Tests.csprojResolveAssemblyReference.cache
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\obj\Debug\JPB_Tests.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Tests\obj\Debug\JPB_Tests.pdb

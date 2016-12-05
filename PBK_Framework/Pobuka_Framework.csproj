@@ -73,6 +73,7 @@
     <Compile Include="Pages\InvitePage.cs" />
     <Compile Include="Pages\Login\LandingPage.cs" />
     <Compile Include="Pages\Login\ThankYouPage.cs" />
+    <Compile Include="Pages\ProfilePage.cs" />
     <Compile Include="Pages\TakeTourWindow.cs" />
     <Compile Include="Pages\ImportPage.cs" />
     <Compile Include="Pages\UpperToolBar.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="UI Utilities\SearchRecordCommand.cs" />
     <Compile Include="Workflows\Organization.cs" />
     <Compile Include="Workflows\OrganizationCreator.cs" />
+    <Compile Include="Workflows\Profile.cs" />
+    <Compile Include="Workflows\ProfileEditor.cs" />
     <Compile Include="Workflows\RecordField.cs" />
   </ItemGroup>
   <ItemGroup>

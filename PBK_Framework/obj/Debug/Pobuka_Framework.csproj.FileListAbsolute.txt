@@ -1,0 +1,17 @@
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\JPB_Framework.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\JPB_Framework.pdb
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\nunit.framework.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\Selenium.WebDriverBackedSelenium.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\ThoughtWorks.Selenium.Core.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\WebDriver.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\WebDriver.Support.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\nunit.framework.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\Selenium.WebDriverBackedSelenium.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\ThoughtWorks.Selenium.Core.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\WebDriver.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\WebDriver.Support.xml
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\Pobuka_Framework.csprojResolveAssemblyReference.cache
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\JPB_Framework.dll
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\JPB_Framework.pdb

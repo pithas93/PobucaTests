@@ -149,5 +149,33 @@ namespace JPB_Framework.Navigation
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Navigates browser to the Profile page
+        /// </summary>
+        public static void GoToProfile()
+        {
+            if (ProfilePage.IsAt) return;
+
+            try
+            {
+                var profileIcon = Driver.Instance.FindElement(By.CssSelector("img[ng-if='$storage.userData.imageUrl']"));
+                Driver.MoveToElement(profileIcon);
+                profileIcon.Click();
+
+                // wait for organization list to load
+                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(10),"div.row.contacts-add-update");
+            }
+            catch (NoSuchElementException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Browser was expected to be in Profile Settings Page but is not or page is not loaded properly", e);
+                throw e;
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Exception, "Failed to load Profile Settings Page on time.", e);
+                throw e;
+            }
+        }
     }
 }

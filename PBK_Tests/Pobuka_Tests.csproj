@@ -67,6 +67,8 @@
     <Compile Include="Organizations Tests\ImportOrganizationTests.cs" />
     <Compile Include="Organizations Tests\MinorOrganizationTests.cs" />
     <Compile Include="Organizations Tests\OrganizationListTests.cs" />
+    <Compile Include="ProfileTests\PasswordTests.cs" />
+    <Compile Include="ProfileTests\ProfileSettingsTests.cs" />
     <Compile Include="Registration Tests\LandingTests.cs" />
     <Compile Include="Smoke Tests\SmokeTests.cs" />
     <Compile Include="Utilities\ContactsBaseTest.cs" />
@@ -76,7 +78,7 @@
     <Compile Include="Utilities\OrganizationsBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JPB_Framework\Pobuka_Framework.csproj">
+    <ProjectReference Include="..\PBK_Framework\Pobuka_Framework.csproj">
       <Project>{e207838b-c8c5-4983-a51f-8601affd2c95}</Project>
       <Name>Pobuka_Framework</Name>
     </ProjectReference>
