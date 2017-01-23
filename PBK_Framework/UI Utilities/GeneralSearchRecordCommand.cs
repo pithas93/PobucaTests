@@ -59,8 +59,13 @@ namespace JPB_Framework.UI_Utilities
             return this;
         }
 
+        public void Search()
+        {
+            ExecuteSearch(keyword);
+        }
 
-        public void Select()
+
+        public void Open()
         {
 
             var resultElements = ExecuteSearch(keyword).FindElements(By.CssSelector("div.ibox-content strong.ng-binding"));
@@ -75,43 +80,42 @@ namespace JPB_Framework.UI_Utilities
             Report.Report.ToLogFile(MessageType.Message, $"There is no record matching keyword='{keyword}'.", null);
         }
 
-        public int GetContactCount()
-        {
-            var resultElements =
-                ExecuteSearch(keyword)
-                    .FindElements(By.CssSelector("div[ng-if*='results.Contacts.length'] strong.ng-binding"));
-            return resultElements.Count;
-        }
 
-        public int GetOrganizationCount()
-        {
-            var resultElements =
-                ExecuteSearch(keyword)
-                    .FindElements(By.CssSelector("div[ng-if*='results.Groups.length'] strong.ng-binding"));
-            return resultElements.Count;
-        }
-
-        public int GetCoworkerCount()
-        {
-            var resultElements =
-                ExecuteSearch(keyword)
-                    .FindElements(By.CssSelector("div[ng-if*='results.User.length'] strong.ng-binding"));
-            return resultElements.Count;
-        }
 
         public void AndSeeResultsForContacts()
         {
-            ExecuteSearch(keyword).FindElement(By.CssSelector("[ng-mousedown*='index.searchcontacts']")).Click();
+            try
+            {
+                ExecuteSearch(keyword).FindElement(By.CssSelector("[ng-mousedown*='index.searchcontacts']")).Click();
+            }
+            catch (NoSuchElementException)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "General search returned no results for contacts.", null);
+            }
         }
 
         public void AndSeeResultsForOrganizations()
         {
-            ExecuteSearch(keyword).FindElement(By.CssSelector("[ng-mousedown*='index.searchgroups']")).Click();
+            try
+            {
+                ExecuteSearch(keyword).FindElement(By.CssSelector("[ng-mousedown*='index.searchgroups']")).Click();
+            }
+            catch (NoSuchElementException)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "General search returned no results for organizations.", null);
+            }
         }
 
         public void AndSeeResultsForCoworkers()
         {
-            ExecuteSearch(keyword).FindElement(By.CssSelector("[ng-mousedown*='index.searchusers']")).Click();
+            try
+            {
+                ExecuteSearch(keyword).FindElement(By.CssSelector("[ng-mousedown*='index.searchusers']")).Click();
+            }
+            catch (NoSuchElementException)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "General search returned no results for coworkers.", null);
+            }
         }
 
         private static IWebElement ExecuteSearch(string word)
@@ -132,10 +136,23 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(2));
 
             searchbox.SendKeys(word);
-            Driver.Wait(TimeSpan.FromSeconds(2));
+
+            IJavaScriptExecutor exec = Driver.Instance as IJavaScriptExecutor;
+            exec.ExecuteScript("arguments[0].scrollIntoView(true);", searchbox);
+            try
+            {
+                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(15), "#search-section");
+                Driver.WaitForElementToBeInvisible(TimeSpan.FromSeconds(15), "[ng-if='isSearching.Groups || isSearching.Contacts || isSearching.User']");
+            }
+            catch (WebDriverTimeoutException e)
+            {
+                Report.Report.ToLogFile(MessageType.Message, $"Waiting for general search to return results, while searching for keyword '{word}', took too long.", null);
+                throw e;
+            }
+
+            Driver.Wait(TimeSpan.FromSeconds(1));
 
             return Driver.Instance.FindElement(By.CssSelector("div#search-section"));
-            //            return Driver.Instance.FindElements(By.CssSelector("div.ibox-content strong.ng-binding"));
         }
 
         protected enum RecordType

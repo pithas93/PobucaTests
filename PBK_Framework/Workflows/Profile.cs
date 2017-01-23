@@ -103,8 +103,11 @@ namespace JPB_Framework.Workflows
             else if (AddressFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 AddressFields.Find(x => x.Label.Contains(fieldLabel)).Value = newValue;
             else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
-
+            }
             return newValue;
         }
 
@@ -114,6 +117,8 @@ namespace JPB_Framework.Workflows
                 return UserInfoFields.Find(x => x.Label.Contains(fieldLabel)).Value;
             else if (AddressFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return AddressFields.Find(x => x.Label.Contains(fieldLabel)).Value;
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -124,8 +129,11 @@ namespace JPB_Framework.Workflows
             else if (AddressFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 AddressFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue = previousValue;
             else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
-
+            }
             return previousValue;
         }
 
@@ -135,7 +143,8 @@ namespace JPB_Framework.Workflows
                 return UserInfoFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
             else if (AddressFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return AddressFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
-
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 

@@ -59,7 +59,7 @@ namespace JPB_Tests.CoworkersTests
                 $"Search using first name field, with keyword = 'Γιωργος', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={CoworkersPage.TotalCoworkersCount}, Expected={expectedResult2}");
 
             CoworkersPage.FindCoworker().ContainingKeyword("research").Find();
-            int expectedResult3 = 4;
+            int expectedResult3 = 1;
             VerifyThat.AreEqual(CoworkersPage.TotalCoworkersCount, expectedResult3,
                 $"Search using department field, with keyword = 'research', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={CoworkersPage.TotalCoworkersCount}, Expected={expectedResult3}");
 

@@ -43,6 +43,9 @@ namespace JPB_Framework.Pages.Contacts
             {
                 if (true.ToString() == Favorite) return true;
                 if (false.ToString() == Favorite) return false;
+
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong with getting if contact is Favorite.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }
@@ -94,11 +97,10 @@ namespace JPB_Framework.Pages.Contacts
 
         public static string LastName => GetFieldValueFor("Last Name");
 
-        public static string MobilePhone => GetFieldValueFor("Mobile Phone");
-        public static bool IsMobilePhoneCallable => IsTelephoneLinkActive("Mobile Phone", () => MobilePhone);
+        public static string MiddleName => GetFieldValueFor("Middle Name");
+        public static bool IsMiddleNameFieldVisible => IsFieldVisible("Middle Name");
 
-        public static string WorkEmail => GetFieldValueFor("Work Email");
-        public static bool IsWorkEmailEmailable => IsEmailLinkActive("Work Email", () => WorkEmail);
+        public static string JobTitle => GetFieldValueFor("Job Title");
 
         public static string OrganizationName
         {
@@ -114,15 +116,21 @@ namespace JPB_Framework.Pages.Contacts
 
         public static string Department => GetFieldValueFor("Department");
 
-        public static string WorkPhone => GetFieldValueFor("Work Phone");
-        public static bool IsWorkPhoneCallable => IsTelephoneLinkActive("Work Phone", () => WorkPhone);
 
-        public static string JobTitle => GetFieldValueFor("Job Title");
+
+        public static string WorkPhone => GetFieldValueFor("Work Phone");
+        public static bool IsWorkPhoneFieldVisible => IsFieldVisible("Work Phone");
+        public static bool IsWorkPhoneCallable => IsTelephoneLinkActive("Work Phone", () => WorkPhone);
 
 
         public static string WorkPhone2 => GetFieldValueFor("Work Phone 2");
         public static bool IsWorkPhone2FieldVisible => IsFieldVisible("Work Phone 2");
         public static bool IsWorkPhone2Callable => IsTelephoneLinkActive("Work Phone 2", () => WorkPhone2);
+
+
+        public static string MobilePhone => GetFieldValueFor("Mobile Phone");
+        public static bool IsMobilePhoneFieldVisible => IsFieldVisible("Mobile Phone");
+        public static bool IsMobilePhoneCallable => IsTelephoneLinkActive("Mobile Phone", () => MobilePhone);
 
 
         public static string MobilePhone2 => GetFieldValueFor("Mobile Phone 2");
@@ -153,6 +161,10 @@ namespace JPB_Framework.Pages.Contacts
         public static bool IsOtherPhoneCallable => IsTelephoneLinkActive("Other Phone", () => OtherPhone);
 
 
+        public static string WorkEmail => GetFieldValueFor("Work Email");
+        public static bool IsWorkEmailFieldVisible => IsFieldVisible("Work Email");
+        public static bool IsWorkEmailEmailable => IsEmailLinkActive("Work Email", () => WorkEmail);
+
         public static string PersonalEmail => GetFieldValueFor("Personal Email");
         public static bool IsPersonalEmailFieldVisible => IsFieldVisible("Personal Email");
         public static bool IsPersonalEmailEmailable => IsEmailLinkActive("Personal Email", () => PersonalEmail);
@@ -164,8 +176,7 @@ namespace JPB_Framework.Pages.Contacts
         public static string Salutation => GetFieldValueFor("Title / Salutation");
         public static bool IsSalutationFieldVisible => IsFieldVisible("Title / Salutation");
 
-        public static string MiddleName => GetFieldValueFor("Middle Name");
-        public static bool IsMiddleNameFieldVisible => IsFieldVisible("Middle Name");
+        
 
 
         public static string Suffix => GetFieldValueFor("Suffix");
@@ -284,10 +295,13 @@ namespace JPB_Framework.Pages.Contacts
         {
             get
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("span#favorite-entity"));
-                var text = element.GetAttribute("class");
-                if (string.IsNullOrEmpty(text)) return true.ToString();
-                if (string.Equals(text, "ng-hide")) return false.ToString();
+                var element = Driver.Instance.FindElement(By.CssSelector("span[id*='favorite-entity']"));
+                var text = element.GetAttribute("id");
+                if (text.Equals("favorite-entity")) return true.ToString();
+                if (text.Equals("unfavorite-entity")) return false.ToString();
+
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong when getting Favorite value in contact view page.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }
@@ -378,6 +392,9 @@ namespace JPB_Framework.Pages.Contacts
             string text = element.GetAttribute("class");
             if (string.IsNullOrEmpty(text)) return true.ToString();
             if (string.Equals(text, "ng-hide")) return false.ToString();
+
+            Report.Report.ToLogFile(MessageType.Message, $"Something went wrong when getting allow{field} value in contact view page.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using JPB_Framework.Navigation;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using JPB_Framework.UI_Utilities;
 using OpenQA.Selenium;
@@ -129,6 +130,8 @@ namespace JPB_Framework.Pages.Organizations
                 Commands.ResetFilters();
             else
             {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong when resetting organizations search filters.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }

@@ -441,9 +441,10 @@ namespace JPB_Framework.Pages.Contacts
             if (firstName != null) EditContactFields.FirstName = firstName;
             if (lastName != null) EditContactFields.LastName = lastName;
             if (middleName != null) EditContactFields.MiddleName = middleName;
-            if (suffix != null) EditContactFields.Suffix = suffix;
+            if (jobTitle != null) EditContactFields.JobTitle = jobTitle;
             if (organizationName != null) EditContactFields.OrganizationName = organizationName;
             if (department != null) EditContactFields.Department = department;
+
             if (workPhone != null) EditContactFields.WorkPhone = workPhone;
             if (workPhone2 != null) EditContactFields.WorkPhone2 = workPhone2;
             if (mobilePhone != null) EditContactFields.MobilePhone = mobilePhone;
@@ -477,7 +478,7 @@ namespace JPB_Framework.Pages.Contacts
 
             if (salutation != null) EditContactFields.Salutation = salutation;
             if (nickname != null) EditContactFields.Nickname = nickname;
-            if (jobTitle != null) EditContactFields.JobTitle = jobTitle;
+            if (suffix != null) EditContactFields.Suffix = suffix;
             if (website != null) EditContactFields.Website = website;
             if (religion != null) EditContactFields.Religion = religion;
             if (birthdate != null) EditContactFields.Birthdate = birthdate;

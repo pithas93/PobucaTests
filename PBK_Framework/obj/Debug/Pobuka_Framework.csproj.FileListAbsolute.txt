@@ -12,6 +12,6 @@ C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\Seleni
 C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\ThoughtWorks.Selenium.Core.xml
 C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\WebDriver.xml
 C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\bin\Debug\WebDriver.Support.xml
-C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\Pobuka_Framework.csprojResolveAssemblyReference.cache
 C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\JPB_Framework.dll
 C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\JPB_Framework.pdb
+C:\Android\VisualStudio_Projects\Pobuka_Framework\PBK_Framework\obj\Debug\Pobuka_Framework.csprojResolveAssemblyReference.cache

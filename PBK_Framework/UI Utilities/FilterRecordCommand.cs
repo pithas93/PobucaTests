@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions.Internal;
 
 namespace JPB_Framework.UI_Utilities
 {
@@ -110,26 +114,15 @@ namespace JPB_Framework.UI_Utilities
                 Driver.Wait(TimeSpan.FromSeconds(1));
 
                 var departmentsOptionList =
-                    Driver.Instance.FindElements(By.CssSelector("div#department-dropdown .checkBoxContainer .multiSelectItem.ng-scope.vertical div label span"));
+                    Driver.Instance.FindElements(By.CssSelector("div#department-dropdown .checkBoxContainer .multiSelectItem"));
 
                 if (selectedDepartments.Count > 0)
                 {
-                    // Select the Department option
-                    foreach (var selectedDepartment in selectedDepartments)
-                    {
-                        foreach (var webElement in departmentsOptionList)
-                        {
-                            if (webElement.Text != selectedDepartment) continue;
-                            webElement.FindElement(By.XPath("../../..")).Click();
-                            Driver.Wait(TimeSpan.FromSeconds(1));
-                            break;
-                        }
-
-                    }
-
-                    departmentListBtn.Click();
-                    Driver.Wait(TimeSpan.FromSeconds(1));
+                    Commands.SelectFromDropdown(departmentsOptionList,selectedDepartments);
                 }
+
+                departmentListBtn.Click();
+                Driver.Wait(TimeSpan.FromSeconds(1));
             }
 
             Driver.Wait(TimeSpan.FromSeconds(3));
@@ -176,25 +169,11 @@ namespace JPB_Framework.UI_Utilities
 
             if (selectedDepartments.Count > 0)
             {
-                // Select the Department option
-                foreach (var selectedDepartment in selectedDepartments)
-                {
-                    foreach (var webElement in departmentsOptionList)
-                    {
-                        if (webElement.Text != selectedDepartment) continue;
-                        Driver.Wait(TimeSpan.FromSeconds(1));
-                        webElement.FindElement(By.XPath("../../..")).Click();
-                        Driver.Wait(TimeSpan.FromSeconds(1));
-                        break;
-                    }
-
-                }
-
-                filterByDepartmentBtn.Click();
-                Driver.Wait(TimeSpan.FromSeconds(1));
+                Commands.SelectFromDropdown(departmentsOptionList, selectedDepartments);
             }
 
-
+            filterByDepartmentBtn.Click();
+            Driver.Wait(TimeSpan.FromSeconds(1));
         }
 
     }
@@ -225,22 +204,18 @@ namespace JPB_Framework.UI_Utilities
         public void Filter()
         {
             var accountTypeOptionList =
-                Driver.Instance.FindElements(By.CssSelector(".checkboxLayer.show .checkBoxContainer .multiSelectItem.ng-scope.vertical div label span"));
+                Driver.Instance.FindElements(By.CssSelector(".checkBoxContainer .multiSelectItem"));
 
             // Select the Account Type options 
             if (selectedAccountTypes.Count > 0)
             {
-                foreach (var selectedAccountType in selectedAccountTypes)
-                {
-                    foreach (var webElement in accountTypeOptionList)
-                    {
-                        if (webElement.Text != selectedAccountType) continue;
-                        webElement.FindElement(By.XPath("../../..")).Click();
-                        Driver.Wait(TimeSpan.FromSeconds(1));
-                        break;
-                    }
-
-                }
+                Commands.SelectFromDropdown(accountTypeOptionList, selectedAccountTypes);
+            }
+            else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Somehow organization filter by type, opened without having selected organization types.", null);
+                Report.Report.AbruptFinalize();
+                throw new Exception();
             }
 
             Commands.ClickAccountTypeFilter();
@@ -251,27 +226,27 @@ namespace JPB_Framework.UI_Utilities
 
     public class Department
     {
-        public static readonly string Logistics = " Logistics";
-        public static readonly string RnD = " Research and Development";
-        public static readonly string Administration = " Administration";
-        public static readonly string Consulting = " Consulting";
-        public static readonly string Sales = " Sales";
+        public static readonly string Logistics = "Logistics";
+        public static readonly string RnD = "Research and Development";
+        public static readonly string Administration = "Administration";
+        public static readonly string Consulting =  "Consulting";
+        public static readonly string Sales = "Sales";
     }
 
     public class AccountType
     {
-        public static readonly string Consultant = " Consultant";
-        public static readonly string Customer = " Customer";
-        public static readonly string Influencer = " Influencer";
-        public static readonly string Investor = " Investor";
-        public static readonly string Lead = " Lead";
-        public static readonly string Other = " Other";
-        public static readonly string Partner = " Partner";
-        public static readonly string Press = " Press";
-        public static readonly string Prospect = " Prospect";
-        public static readonly string Reseller = " Reseller";
-        public static readonly string Supplier = " Supplier";
-        public static readonly string Vendor = " Vendor";
+        public static readonly string Consultant = "Consultant";
+        public static readonly string Customer = "Customer";
+        public static readonly string Influencer = "Influencer";
+        public static readonly string Investor = "Investor";
+        public static readonly string Lead = "Lead";
+        public static readonly string Other = "Other";
+        public static readonly string Partner = "Partner";
+        public static readonly string Press = "Press";
+        public static readonly string Prospect = "Prospect";
+        public static readonly string Reseller = "Reseller";
+        public static readonly string Supplier = "Supplier";
+        public static readonly string Vendor = "Vendor";
 
     }
 

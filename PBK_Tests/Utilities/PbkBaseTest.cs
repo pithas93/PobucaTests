@@ -49,7 +49,7 @@ namespace JPB_Tests.Utilities
             if (!ContactsPage.IsAt)
                 LoginPage.LoginAs(Username).WithPassword(Password).Login();
 
-            CookieConsent.Close();
+            CookieConsent.Close();                                                                                   
             TakeTourWindow.Close();
         }
 

@@ -138,6 +138,8 @@ namespace JPB_Framework.Pages.Coworkers
                 Commands.ResetFilters();
             else
             {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong when resetting coworkers search filters.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }

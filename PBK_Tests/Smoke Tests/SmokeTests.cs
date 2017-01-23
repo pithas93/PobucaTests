@@ -42,6 +42,7 @@ namespace JPB_Tests.Smoke_Tests
             VerifyThat.AreEqual(ContactsPage.TotalContactsCount, expectedResult3, $"Search using last name field, with keyword = 'πούλου', doesn't work. The sum of contacts being displayed is different from the expected. ContactsDisplayed={ContactsPage.TotalContactsCount}, Expected={expectedResult3}");
 
         }
+
     }
 
     [TestClass]
@@ -108,7 +109,7 @@ namespace JPB_Tests.Smoke_Tests
         [TestMethod]
         public void Can_Import_Organization_Template()
         {
-            OrganizationCreator.ImportSimpleContact();
+            OrganizationCreator.ImportSimpleOrganization();
             AssertThat.IsTrue(OrganizationCreator.IsOrganizationFileImportedSuccessfully, "Organization was not imported successfully");
             AssertThat.IsTrue(OrganizationCreator.FirstOrganization.AreOrganizationFieldValuesSavedCorrectly, "Organization field values where not saved correctly");
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using JPB_Framework.Report;
 using JPB_Framework.Selenium;
 using OpenQA.Selenium;
 
@@ -34,7 +35,7 @@ namespace JPB_Framework.Pages
                     return;
                 }
             }
-            alphabetLetters[1].Click();
+            Report.Report.ToLogFile(MessageType.Message, $"Character {character} does not exist within the alphabet characters", null);
         }
 
         /// <summary>

@@ -149,17 +149,31 @@ namespace JPB_Framework.Pages.Organizations
         {
             get
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("div#primary-contact-box"));
-                if (!element.Displayed) return string.Empty;
-                return element.FindElement(By.CssSelector("font.name.font-regular.m-b-sm.ng-binding")).Text;
+                try
+                {
+                    var element = Driver.Instance.FindElement(By.CssSelector("div#primary-contact-box font.name"));
+                    return element.GetAttribute("textContent");
+                }
+                catch (NoSuchElementException)
+                {
+                    return string.Empty;
+                }
+                
             }
         }
         public static bool IsPrimaryContactFieldVisible
         {
             get
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("div#primary-contact-box"));
-                return element.Displayed;
+                try
+                {
+                    Driver.Instance.FindElement(By.CssSelector("div#primary-contact-box"));
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
             }
         }
 
@@ -315,6 +329,9 @@ namespace JPB_Framework.Pages.Organizations
             string text = element.GetAttribute("class");
             if (string.IsNullOrEmpty(text)) return true.ToString();
             if (string.Equals(text, "ng-hide")) return false.ToString();
+
+            Report.Report.ToLogFile(MessageType.Message, $"Something went wrong when getting allow{field} value in contact view page.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 

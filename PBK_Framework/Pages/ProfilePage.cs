@@ -397,6 +397,9 @@ namespace JPB_Framework.Pages
             var element = Driver.Instance.FindElement(By.Id($"{type}Address"));
             var tmp = element.GetAttribute("aria-hidden");
             if (tmp != null) return tmp.Equals("true");
+
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 

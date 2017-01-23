@@ -85,11 +85,15 @@ namespace JPB_Framework.Workflows
                         notOk = true;
                     }
                     else if (valuesAreBothEmpty && contactField.RecordViewPageIsFieldVisible)
+                    {
                         Report.Report.ToLogFile(MessageType.Message, $"Field: {contactField.Label} has no value but its field is shown in contact's detail view page with value '{contactField.RecordViewPageFieldValue}'", null);
+                        notOk = true;
+                    }
+
 
                 }
 
-                // Section of because boolean fields are not visible in Contact View Page as of 6/6/16
+                // Section off because boolean fields are not visible in Contact View Page as of 6/6/16
 
                 //                foreach (var contactField in BooleanContactFields)
                 //                {
@@ -178,17 +182,17 @@ namespace JPB_Framework.Workflows
             BooleanContactFields = new List<RecordField>();
 
             BasicContactFields.Add(new RecordField(ContactFields.FirstName, null, () => ContactViewPage.FirstName, null));
-            BasicContactFields.Add(new RecordField(ContactFields.LastName, null, () => ContactViewPage.LastName, null));
-            BasicContactFields.Add(new RecordField(ContactFields.OrganizationName, null, () => ContactViewPage.OrganizationName, null));
+            BasicContactFields.Add(new RecordField(ContactFields.LastName, null, () => ContactViewPage.LastName, null));           
+            BasicContactFields.Add(new RecordField(ContactFields.JobTitle, null, () => ContactViewPage.JobTitle, null));
+            BasicContactFields.Add(new RecordField(ContactFields.OrganizationName, null, () => ContactViewPage.OrganizationName, null));                      
+            BasicContactFields.Add(new RecordField(ContactFields.Department, null, () => ContactViewPage.Department, null));            
+            BasicContactFields.Add(new RecordField(ContactFields.Favorite, false.ToString(), () => ContactViewPage.Favorite, null));
+            BasicContactFields.Add(new RecordField(ContactFields.WorkPhone, null, () => ContactViewPage.WorkPhone, null));
             BasicContactFields.Add(new RecordField(ContactFields.MobilePhone, null, () => ContactViewPage.MobilePhone, null));
             BasicContactFields.Add(new RecordField(ContactFields.WorkEmail, null, () => ContactViewPage.WorkEmail, null));
-            BasicContactFields.Add(new RecordField(ContactFields.JobTitle, null, () => ContactViewPage.JobTitle, null));
-            BasicContactFields.Add(new RecordField(ContactFields.Department, null, () => ContactViewPage.Department, null));
-            BasicContactFields.Add(new RecordField(ContactFields.WorkPhone, null, () => ContactViewPage.WorkPhone, null));
-            BasicContactFields.Add(new RecordField(ContactFields.Favorite, false.ToString(), () => ContactViewPage.Favorite, null));
+
 
             ExtraContactFields.Add(new RecordField(ContactFields.MiddleName, null, () => ContactViewPage.MiddleName, () => ContactViewPage.IsMiddleNameFieldVisible));
-            ExtraContactFields.Add(new RecordField(ContactFields.Suffix, null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.WorkPhone2, null, () => ContactViewPage.WorkPhone2, () => ContactViewPage.IsWorkPhone2FieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.MobilePhone2, null, () => ContactViewPage.MobilePhone2, () => ContactViewPage.IsMobilePhone2FieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.HomePhone, null, () => ContactViewPage.HomePhone, () => ContactViewPage.IsHomePhoneFieldVisible));
@@ -215,6 +219,7 @@ namespace JPB_Framework.Workflows
             ExtraContactFields.Add(new RecordField(ContactFields.OtherCountry, null, () => ContactViewPage.OtherCountry, () => ContactViewPage.IsOtherCountryFieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.Salutation, null, () => ContactViewPage.Salutation, () => ContactViewPage.IsSalutationFieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.Nickname, null, () => ContactViewPage.Nickname, () => ContactViewPage.IsNicknameFieldVisible));
+            ExtraContactFields.Add(new RecordField(ContactFields.Suffix, null, () => ContactViewPage.Suffix, () => ContactViewPage.IsSuffixFieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.Website, null, () => ContactViewPage.Website, () => ContactViewPage.IsWebsiteFieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.Religion, null, () => ContactViewPage.Religion, () => ContactViewPage.IsReligionFieldVisible));
             ExtraContactFields.Add(new RecordField(ContactFields.Birthdate, null, () => ContactViewPage.Birthdate, () => ContactViewPage.IsBirthdateFieldVisible));
@@ -269,7 +274,11 @@ namespace JPB_Framework.Workflows
             else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).Value = newValue;
             else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
+            }
 
             return newValue;
         }
@@ -287,7 +296,8 @@ namespace JPB_Framework.Workflows
                 return ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)).Value;
             else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).Value;
-
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -306,7 +316,12 @@ namespace JPB_Framework.Workflows
             else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue = previousValue;
             else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
+            }
+                
 
             return previousValue;
         }
@@ -324,6 +339,8 @@ namespace JPB_Framework.Workflows
                 return ExtraContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
             else if (BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return BooleanContactFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 

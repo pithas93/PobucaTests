@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Mime;
 using System.Text.RegularExpressions;
 using JPB_Framework.Pages.Contacts;
 using JPB_Framework.Report;
@@ -64,7 +66,7 @@ namespace JPB_Framework.UI_Utilities
         /// </summary>
         public static void ClickDelete()
         {
-            var deleteBtn = Driver.Instance.FindElement(By.CssSelector("i.fa.fa-trash-o"));
+            var deleteBtn = Driver.Instance.FindElement(By.CssSelector("i.fa.fa-trash-o.jp-pink"));
             deleteBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
@@ -149,9 +151,11 @@ namespace JPB_Framework.UI_Utilities
             else
             {
                 Report.Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }
+
 
         /// <summary>
         /// Applicable only within organization view page. Clicks the 'Create New Contact' button from organization's contact list
@@ -171,6 +175,7 @@ namespace JPB_Framework.UI_Utilities
             else
             {
                 Report.Report.ToLogFile(MessageType.Message, "After clicking to add contact to organization, within organization view page, the relative combo box should be expanded, nut it did not.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }
@@ -193,7 +198,7 @@ namespace JPB_Framework.UI_Utilities
         public static void ClickContactRemoveButton(IWebElement record)
         {
             Driver.MoveToElement(record);
-            record.FindElement(By.CssSelector("div[action='removeRelatedContact(contact)']")).Click();
+            record.FindElement(By.CssSelector("div[title='Remove Contact']")).Click();
             Driver.Wait(TimeSpan.FromSeconds(2));
         }
 
@@ -204,7 +209,7 @@ namespace JPB_Framework.UI_Utilities
         {
             try
             {
-                var element = Driver.Instance.FindElement(By.CssSelector("img[ng-click='resetFilters();']"));
+                var element = Driver.Instance.FindElement(By.CssSelector("img[ng-click^='resetFilters();']"));
                 var tmp = element.GetAttribute("class");
                 if (tmp.Contains("ng-hide")) return;
                 element.Click();
@@ -231,7 +236,14 @@ namespace JPB_Framework.UI_Utilities
                     By.TagName("input"));
             searchBoxField.Clear();
             searchBoxField.SendKeys(keyword);
+
+            // Wait for the loading graphic to show up
             Driver.Wait(TimeSpan.FromSeconds(5));
+
+            // Wait until loading graphic hides
+
+            Driver.WaitForElementToBeInvisible(TimeSpan.FromSeconds(20), "div[ng-show='searching && !loadingMore']");
+            //            Driver.Instance.FindElement(By.CssSelector("div[ng-show='searching && !loadingMore']"));
         }
 
         /// <summary>
@@ -253,7 +265,7 @@ namespace JPB_Framework.UI_Utilities
         /// <param name="position"></param>
         public static void OpenRecordFromListBySequence(int position)
         {
-            var record = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"))[position-1];
+            var record = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"))[position - 1];
             record.Click();
             Driver.Wait(TimeSpan.FromSeconds(3));
         }
@@ -275,6 +287,9 @@ namespace JPB_Framework.UI_Utilities
             Driver.Wait(TimeSpan.FromSeconds(1));
             if (tmp.Equals("icheckbox") || tmp.Equals("icheckbox hover")) return false;
             if (tmp.Equals("icheckbox checked") || tmp.Equals("icheckbox hover checked")) return true;
+
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong when selecting record from list.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -292,6 +307,9 @@ namespace JPB_Framework.UI_Utilities
             var tmp = favoriteCheckBox.GetAttribute("class");
             if (tmp.Equals("favoriteButton ng-scope is-favorite")) return true;
             if (tmp.Equals("favoriteButton ng-scope")) return false;
+
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong when checking favorite in contact list.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -317,35 +335,40 @@ namespace JPB_Framework.UI_Utilities
 
 
         /// <summary>
-        /// Selects a given or a random number of up to 20 records from a list. If records are more than 40, the selected are among the first 40. 
+        /// Selects a given or a random number of up to 20 records from a list. If total records are more than 40, the selected records are among the first 40. 
         /// </summary>
-        /// <param name="num">Defines the number of records to be selected. If it is zero, method chooses a random number of records</param>
-        /// <returns>The count of records that where selected</returns>
+        /// <param name="num">Defines the number of records to be selected. If it is zero, method chooses a random number of records</param>       
         public static void SelectRandomNumberOfRecords(int num)
         {
+
             // The range of records from where the selection will be
             int range;
+
             // How many records will be selected
             int numOfRecordsToBeSelected;
+
             var rand = new Random();
             var records = Driver.Instance.FindElements(By.CssSelector("div.col-md-6.col-lg-4.col-xl-3.ng-scope"));
 
             // Do not use a range greater than 40 for the selection
-            if (40 < TotalRecordsCount()) range = 40;
+            if (TotalRecordsCount() >= 40) range = 40;
             else range = TotalRecordsCount();
 
 
             // If there is no defined number for the num of contacts to be selected, choose one randomly
-            if (num==0) numOfRecordsToBeSelected = rand.Next(1, 20);
+            if (num == 0) numOfRecordsToBeSelected = rand.Next(1, 20);
             else numOfRecordsToBeSelected = num;
 
+            // Start selecting records
             for (var i = 0; i < numOfRecordsToBeSelected; i++)
             {
+                // Generate a random number within range
                 var tmp = rand.Next(1, range) - 1;
-                var isChecked = SelectRecord(records[tmp]);
-                if (!isChecked) i-=2;
 
+                // Check its checkbox
+                SelectRecord(records[tmp]);
             }
+
         }
 
         /// <summary>
@@ -443,6 +466,9 @@ namespace JPB_Framework.UI_Utilities
                 // Navigate to the last record list item
                 Driver.MoveToElement(recordList[recordListCount - 1]);
 
+                // Wait for list to refresh if there are additional records
+                Driver.Wait(TimeSpan.FromSeconds(2));
+
                 // After the record list has load the extra, not shown previously records, get the new record list count
                 recordList = Driver.Instance.FindElements(By.CssSelector(".col-md-6.col-lg-4.col-xl-3.ng-scope"));
 
@@ -459,6 +485,7 @@ namespace JPB_Framework.UI_Utilities
                 if (previousRecordListCount > recordListCount)
                 {
                     Report.Report.ToLogFile(MessageType.Message, "It seems that there is somethign wrong while counting records from the list", null);
+                    Report.Report.AbruptFinalize();
                     throw new Exception();
                 }
 
@@ -497,18 +524,21 @@ namespace JPB_Framework.UI_Utilities
         /// <returns></returns>
         public static int TotalRecordsCountByLabel()
         {
-            var totalRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[2]"));
-            return Int32.Parse(totalRecordsLbl.Text);
+            var totalRecordsLbl = Driver.Instance.FindElements(By.CssSelector("span.md-text"))[1];
+
+            var str = totalRecordsLbl.Text.Split('(');
+            var str2 = str[1].Split(')');
+            return int.Parse(str2[0]);
         }
-        
+
         /// <summary>
         /// Returns the value of label showing the number of selected records
         /// </summary>
         /// <returns></returns>
         public static int SelectedRecordsCountByLabel()
         {
-            var selectedRecordsLbl = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[1]/span/span[1]"));
-            return Int32.Parse(selectedRecordsLbl.Text);
+            var selectedRecordsLbl = Driver.Instance.FindElements(By.CssSelector("#groups-counter span.md-text.ng-binding"))[0];
+            return int.Parse(selectedRecordsLbl.Text);
         }
 
         /// <summary>
@@ -568,5 +598,47 @@ namespace JPB_Framework.UI_Utilities
                 return (href.StartsWith(expectedTelephoneLink));
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// Selects one or more options from a drop-down list field.
+        /// </summary>
+        /// <param name="dropDownOptionList"> The list of options contained in drop-down list</param>
+        /// <param name="selectionList"> The list of options that will be selected from the drop-down list</param>
+        public static void SelectFromDropdown(ReadOnlyCollection<IWebElement> dropDownOptionList, List<string> selectionList)
+        {
+            foreach (var selection in selectionList)
+            {
+                foreach (var webElement in dropDownOptionList)
+                {
+
+                    var department = webElement.GetAttribute("textContent").Trim();
+
+                    if (department != selection) continue;
+
+                    IJavaScriptExecutor exec = Driver.Instance as IJavaScriptExecutor;
+                    exec.ExecuteScript("arguments[0].scrollIntoView(true);", webElement);
+
+                    webElement.Click();
+                    Driver.Wait(TimeSpan.FromSeconds(1));
+                    break;
+                }
+            }
+        }
+
+
+
+
     }
+
 }

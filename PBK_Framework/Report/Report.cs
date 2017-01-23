@@ -236,6 +236,12 @@ namespace JPB_Framework.Report
             else ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Passed", null);
             WriteReportFile();
         }
+
+        public static void AbruptFinalize()
+        {
+            ToLogFile(JPB_Framework.Report.MessageType.Empty, "Test Failed", null);
+            WriteReportFile();
+        }
     }
 
     internal class ReportLine

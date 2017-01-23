@@ -22,7 +22,7 @@ namespace JPB_Framework.Workflows
 
         private static Contact CurrentContact { get; set; }
 
-        private const string ImportFilePath = "E:\\OneDrive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        private const string ImportFilePath = "E:\\OneDrive\\Work\\Testing files - local temp\\Pobuca Webpage\\Test Scenarios\\test_scenario_files\\";
         //        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
 
@@ -90,6 +90,8 @@ namespace JPB_Framework.Workflows
                 CurrentContact = ThirdContact;
                 return;
             }
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -193,24 +195,25 @@ namespace JPB_Framework.Workflows
             tmp.SetFieldValue(ContactFields.FirstName, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.LastName, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.MiddleName, DummyData.SimpleWord);
-            tmp.SetFieldValue(ContactFields.Suffix, DummyData.SimpleWord);
+            tmp.SetFieldValue(ContactFields.JobTitle, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.OrganizationName, DummyData.OrganizationValue);
-            tmp.SetFieldValue(ContactFields.MobilePhone, DummyData.PhoneValue);
-            tmp.SetFieldValue(ContactFields.WorkEmail, DummyData.EmailValue);
+            tmp.SetFieldValue(ContactFields.Department, DummyData.DepartmentValue);
+
             tmp.SetFieldValue(ContactFields.AllowSms, DummyData.BooleanValue);
             tmp.SetFieldValue(ContactFields.AllowPhones, DummyData.BooleanValue);
             tmp.SetFieldValue(ContactFields.AllowEmails, DummyData.BooleanValue);
             tmp.SetFieldValue(ContactFields.Favorite, true.ToString());
 
-            tmp.SetFieldValue(ContactFields.Department, DummyData.DepartmentValue);
             tmp.SetFieldValue(ContactFields.WorkPhone, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.WorkPhone2, DummyData.PhoneValue);
+            tmp.SetFieldValue(ContactFields.MobilePhone, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.MobilePhone2, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.HomePhone, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.HomePhone2, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.HomeFax, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.WorkFax, DummyData.PhoneValue);
             tmp.SetFieldValue(ContactFields.OtherPhone, DummyData.PhoneValue);
+            tmp.SetFieldValue(ContactFields.WorkEmail, DummyData.EmailValue);
             tmp.SetFieldValue(ContactFields.PersonalEmail, DummyData.EmailValue);
             tmp.SetFieldValue(ContactFields.OtherEmail, DummyData.EmailValue);
             tmp.SetFieldValue(ContactFields.WorkStreet, DummyData.AddressValue);
@@ -228,9 +231,10 @@ namespace JPB_Framework.Workflows
             tmp.SetFieldValue(ContactFields.OtherState, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.OtherPostalCode, DummyData.NumericValue);
             tmp.SetFieldValue(ContactFields.OtherCountry, DummyData.CountryValue);
+
             tmp.SetFieldValue(ContactFields.Salutation, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.Nickname, DummyData.SimpleWord);
-            tmp.SetFieldValue(ContactFields.JobTitle, DummyData.SimpleWord);
+            tmp.SetFieldValue(ContactFields.Suffix, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.Website, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.Religion, DummyData.SimpleWord);
             tmp.SetFieldValue(ContactFields.Birthdate, DummyData.DateValue);

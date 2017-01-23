@@ -60,6 +60,7 @@ namespace JPB_Framework.UI_Utilities
             if (!(CoworkersPage.IsAt || OrganizationsPage.IsAt || ContactsPage.IsAt || OrganizationViewPage.IsAt))
             {
                 Report.Report.ToLogFile(MessageType.Message, $"Browser navigated to wrong page.Current page is {Driver.GetCurrentPage}", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
 

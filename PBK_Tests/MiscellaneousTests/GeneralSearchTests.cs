@@ -23,16 +23,16 @@ namespace JPB_Tests.MiscellaneousTests
         public void Individual_Record_Selection_From_General_Search_Navigates_To_Record_View()
         {
 
-            UpperToolBar.UseGeneralSearch().WithKeyword("Mattia Pelloni").Select();
-            VerifyThat.IsTrue(ContactViewPage.IsAt,"Contact view page should be displayed but is not.");
-
-            UpperToolBar.UseGeneralSearch().WithKeyword("Kolonaki Center").Select();
-            VerifyThat.IsTrue(OrganizationViewPage.IsAt, "Organization view page should be displayed but is not.");
-
-            UpperToolBar.UseGeneralSearch().WithKeyword("Γεράσιμος Λυμπεράτος").Select();
-            VerifyThat.IsTrue(CoworkerViewPage.IsAt, "Coworker view page should be displayed but is not.");
+                        UpperToolBar.UseGeneralSearch().ToFindContact("Mattia Pelloni").Open();
+                        VerifyThat.IsTrue(ContactViewPage.IsAt,"Contact view page should be displayed but is not.");
+            
+                        UpperToolBar.UseGeneralSearch().ToFindOrganization("Kolonaki Center").Open();
+                        VerifyThat.IsTrue(OrganizationViewPage.IsAt, "Organization view page should be displayed but is not.");
+            
+                        UpperToolBar.UseGeneralSearch().ToFindCoworker("Γεράσιμος Λυμπεράτος").Open();
+                        VerifyThat.IsTrue(CoworkerViewPage.IsAt, "Coworker view page should be displayed but is not.");
         }
-        
+
         /// <summary>
         /// Assert that general search retrieves results from all three entities and with correct number of results
         /// </summary>
@@ -40,32 +40,34 @@ namespace JPB_Tests.MiscellaneousTests
         public void General_Search_Returns_Correct_Results_From_All_Entities()
         {
 
+
+            UpperToolBar.UseGeneralSearch().WithKeyword("Kor").Search();
             var expectedResult1 = 5;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("Kor").GetContactCount(), expectedResult1, "Number of contacts returned from search is incorrect.");
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchContactsDisplayed, expectedResult1, $"Number of contacts returned from search of is incorrect for keyword 'kor'. Expected={expectedResult1}, Actual={UpperToolBar.GeneralSearchContactsDisplayed}");
 
+            UpperToolBar.UseGeneralSearch().WithKeyword("2310").Search();
             var expectedResult2 = 2;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("2310").GetContactCount(), expectedResult2, "Number of contacts returned from search is incorrect.");
-
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchContactsDisplayed, expectedResult2, $"Number of contacts returned from search is incorrect for keyword '2310'. Expected={expectedResult2}, Actual={UpperToolBar.GeneralSearchContactsDisplayed}");
+            
+            UpperToolBar.UseGeneralSearch().WithKeyword("leroymerlin").Search();
             var expectedResult3 = 2;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("leroymerlin").GetContactCount(), expectedResult3, "Number of contacts returned from search is incorrect.");
-
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchContactsDisplayed, expectedResult3, $"Number of contacts returned from search is incorrect for keyword 'leroymerlin'. Expected={expectedResult3}, Actual={UpperToolBar.GeneralSearchContactsDisplayed}");
+            
+            UpperToolBar.UseGeneralSearch().WithKeyword("Zurich").Search();
             var expectedResult4 = 3;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("Zurich").GetContactCount(), expectedResult4, "Number of contacts returned from search is incorrect.");
-
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchContactsDisplayed, expectedResult4, $"Number of contacts returned from search is incorrect for keyword 'Zurich'. Expected={expectedResult4}, Actual={UpperToolBar.GeneralSearchContactsDisplayed}");
+            
+            UpperToolBar.UseGeneralSearch().WithKeyword("Project Manager").Search();
             var expectedResult5 = 2;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("Project Manager").GetContactCount(), expectedResult5, "Number of contacts returned from search is incorrect.");
-
-
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchContactsDisplayed, expectedResult5, $"Number of contacts returned from search is incorrect for keyword 'Project Manager'. Expected={expectedResult5}, Actual={UpperToolBar.GeneralSearchContactsDisplayed}");
+                        
+            UpperToolBar.UseGeneralSearch().WithKeyword("www.mas").Search();
             var expectedResult6 = 2;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("www.mas").GetOrganizationCount(), expectedResult6, "Number of contacts returned from search is incorrect.");
-
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchOrganizationsDisplayed, expectedResult6, $"Number of contacts returned from search is incorrect for keyword 'www.mas'. Expected={expectedResult6}, Actual={UpperToolBar.GeneralSearchOrganizationsDisplayed}");
+            
+            UpperToolBar.UseGeneralSearch().WithKeyword("Παπανδρέου").Search();
             var expectedResult7 = 2;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("Παπανδρέου").GetOrganizationCount(), expectedResult7, "Number of contacts returned from search is incorrect.");
-
-
-            var expectedResult8 = 4;
-            VerifyThat.AreEqual(UpperToolBar.UseGeneralSearch().WithKeyword("Research").GetCoworkerCount(), expectedResult8, $"Number of contacts returned from search is incorrect.");
-
+            VerifyThat.AreEqual(UpperToolBar.GeneralSearchOrganizationsDisplayed, expectedResult7, $"Number of contacts returned from search is incorrect for keyword 'Παπανδρέου'. Expected={expectedResult7}, Actual={UpperToolBar.GeneralSearchOrganizationsDisplayed}");
 
         }
 
@@ -76,14 +78,14 @@ namespace JPB_Tests.MiscellaneousTests
         public void Navigate_To_Record_Lists_Through_See_All_Results()
         {
 
-            UpperToolBar.UseGeneralSearch().WithKeyword("K").AndSeeResultsForContacts();
-            VerifyThat.IsTrue(ContactsPage.IsAt, "Browser should have navigate at contact list page");
-
-            UpperToolBar.UseGeneralSearch().WithKeyword("K").AndSeeResultsForOrganizations();
-            VerifyThat.IsTrue(OrganizationsPage.IsAt, "Browser should have navigate at organization list page");
-
-            UpperToolBar.UseGeneralSearch().WithKeyword("K").AndSeeResultsForCoworkers();
-            VerifyThat.IsTrue(CoworkersPage.IsAt, "Browser should have navigate at coworker list page");
+                        UpperToolBar.UseGeneralSearch().WithKeyword("Παπ").AndSeeResultsForContacts();
+                        VerifyThat.IsTrue(ContactsPage.IsAt, "Browser should have navigate at contact list page");
+            
+                        UpperToolBar.UseGeneralSearch().WithKeyword("Kno").AndSeeResultsForOrganizations();
+                        VerifyThat.IsTrue(OrganizationsPage.IsAt, "Browser should have navigate at organization list page");
+            
+                        UpperToolBar.UseGeneralSearch().WithKeyword("Κοκ").AndSeeResultsForCoworkers();
+                        VerifyThat.IsTrue(CoworkersPage.IsAt, "Browser should have navigate at coworker list page");
         }
     }
 }

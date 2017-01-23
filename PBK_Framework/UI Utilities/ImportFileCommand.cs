@@ -123,16 +123,17 @@ namespace JPB_Framework.UI_Utilities
             }
 
             // Select whether you import file with contacts or organizations
-            var fileTypeRadios = Driver.Instance.FindElements(By.CssSelector("div[ng-include*='import-inner-choices.min.html'] div[class*='radio']"));
+            var fileTypeRadios = Driver.Instance.FindElements(By.CssSelector("[name='importInFilesRadio']"));
             string dataType;
             if (fileType == ImportFileType.Contacts) dataType = "Contacts";
             else dataType = "Organizations";
 
             foreach (var fileTypeRadio in fileTypeRadios)
             {
-                string radioText = fileTypeRadio.FindElement(By.CssSelector("label")).Text;
+                var tmp = fileTypeRadio.FindElement(By.XPath(".."));
+                string radioText = fileTypeRadio.FindElement(By.XPath("..")).Text;
                 if (radioText != dataType) continue;
-                fileTypeRadio.FindElement(By.CssSelector("label")).Click();
+                fileTypeRadio.Click();
                 Driver.Wait(TimeSpan.FromSeconds(2));
                 break;
             }

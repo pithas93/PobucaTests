@@ -196,6 +196,8 @@ namespace JPB_Framework.Pages.Contacts
 
             else
             {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong when trying to reset filters.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
             }
         }

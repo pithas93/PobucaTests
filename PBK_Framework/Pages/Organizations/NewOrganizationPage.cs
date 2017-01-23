@@ -106,7 +106,7 @@ namespace JPB_Framework.Pages.Organizations
         /// </summary>
         public static void GoTo()
         {
-            var newOrganizationBtn = Driver.Instance.FindElement(By.XPath("/html/body/div[4]/div/div[2]/div[2]/div[5]/div[2]/div[1]/div/div[4]/ul/li[1]/a/i"));
+            var newOrganizationBtn = Driver.Instance.FindElement(By.CssSelector("i[title='Add Organization']"));
             newOrganizationBtn.Click();
             Driver.Wait(TimeSpan.FromSeconds(2));
         }

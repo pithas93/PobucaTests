@@ -22,7 +22,7 @@ namespace JPB_Framework.Workflows
 
         private static Organization CurrentOrganization { get; set; }
 
-        private const string ImportFilePath = "E:\\OneDrive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
+        private const string ImportFilePath = "E:\\OneDrive\\Work\\Testing files - local temp\\Pobuca Webpage\\Test Scenarios\\test_scenario_files\\";
         //        private const string ImportFilePath = "C:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
 
 
@@ -89,6 +89,8 @@ namespace JPB_Framework.Workflows
                 CurrentOrganization = ThirdOrganization;
                 return;
             }
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -411,7 +413,7 @@ namespace JPB_Framework.Workflows
         /// <summary>
         /// Import a simple organization with dummy organization and phone values.
         /// </summary>
-        public static void ImportSimpleContact()
+        public static void ImportSimpleOrganization()
         {
             ImportPage.ImportFile().Containing(ImportFileType.Organizations).FromPath(ImportFilePath).WithFileName("Organizations1.xls").Submit();
 

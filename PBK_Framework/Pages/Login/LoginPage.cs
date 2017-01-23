@@ -9,7 +9,7 @@ namespace JPB_Framework.Pages.Login
 {
     public class LoginPage
     {
-        public static string BaseAddress => "https://jpbstaging.azurewebsites.net";
+        public static string BaseAddress => "https://pobucaapp-staging.azurewebsites.net";
 
         public static bool IsAt => Driver.Instance.FindElement(By.Id("loginForm")).Displayed;
 
@@ -52,33 +52,24 @@ namespace JPB_Framework.Pages.Login
             userField.SendKeys(username);
             passField.SendKeys(password);
             loginBtn.Click();
+
             Driver.Wait(TimeSpan.FromSeconds(5));
 
-            // wait for contact list to load
-            try
+            if (!ContactsPage.IsAt)
             {
-                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(15), "div.groups-main-content");
+                Report.Report.ToLogFile(MessageType.Message, "Failed to login probably.", null);
+                Report.Report.AbruptFinalize();
+                throw new WebDriverTimeoutException();
             }
-            catch (WebDriverTimeoutException e)
+
+            if (!ContactsPage.IsContactListLoaded)
             {
-                Report.Report.ToLogFile(MessageType.Message, "Failed to login or did take too long.", null);
-                throw e;
+                Report.Report.ToLogFile(MessageType.Message, "Contact list is not loading or it does take too long to load contents", null);
+                Report.Report.AbruptFinalize();
+                throw new WebDriverTimeoutException();
             }
+
         }
     }
 }
 
-
-
-//                try
-//                {
-//                    LoginPage.LoginAs(Username).WithPassword(Password).Login();
-//                }
-//                catch (WebDriverTimeoutException)
-//                {
-//                    Report.ToLogFile(MessageType.Message,
-//                        "Reseting browser because the test failed to initialize properly.", null);
-//                    Driver.Reinitialize(browser);
-//                    LoginPage.GoTo();
-//                    LoginPage.LoginAs(Username).WithPassword(Password).Login();
-//                }

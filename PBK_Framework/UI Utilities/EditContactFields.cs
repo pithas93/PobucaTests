@@ -53,15 +53,17 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Sets the value for the Suffix field
+        /// Sets the value for the Job Title textfield
         /// </summary>
-        public static string Suffix {
+        public static string JobTitle
+        {
             set
             {
-                var element = Driver.Instance.FindElement(By.Id("Suffix"));
+                var element = Driver.Instance.FindElement(By.CssSelector("[id='Job Title']"));
                 element.Clear();
                 element.SendKeys(value);
-            } }
+            }
+        }
 
         /// <summary>
         /// Sets the value for the Organization Name list field
@@ -626,23 +628,24 @@ namespace JPB_Framework.UI_Utilities
         }
 
         /// <summary>
-        /// Sets the value for the Job Title textfield
+        /// Sets the value for the Suffix field
         /// </summary>
-        public static string JobTitle
+        public static string Suffix
         {
             set
             {
-                var element = Driver.Instance.FindElement(By.Id("jobtitle"));
+                var element = Driver.Instance.FindElement(By.Id("suffix"));
                 if (!element.Displayed)
                 {
                     ExpandCategory(ContactFields.OtherInfo);
-                    InsertExtraField(ContactFields.OtherInfo, ContactFields.OtherInfoFields.JobTitle);
+                    InsertExtraField(ContactFields.OtherInfo, ContactFields.OtherInfoFields.Suffix);
                 }
                 element.Clear();
                 element.SendKeys(value);
             }
         }
 
+      
         /// <summary>
         /// Sets the value for the Website textfield
         /// </summary>
@@ -922,6 +925,7 @@ namespace JPB_Framework.UI_Utilities
             {
                 public const string Salutation = "Title / Salutation";
                 public const string Nickname = "Nickname";
+                public const string Suffix = "Suffix";
                 public const string JobTitle = "Job Title";
                 public const string Website = "Website";
                 public const string Religion = "Religion";

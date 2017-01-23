@@ -218,8 +218,11 @@ namespace JPB_Framework.Workflows
             else if (BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)).Value = newValue;
             else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
-
+            }
             return newValue;
         }
 
@@ -236,7 +239,8 @@ namespace JPB_Framework.Workflows
                 return ExtraOrganizationFields.Find(x => x.Label.Contains(fieldLabel)).Value;
             else if (BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)).Value;
-
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
 
@@ -255,8 +259,11 @@ namespace JPB_Framework.Workflows
             else if (BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue = previousValue;
             else
+            {
+                Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+                Report.Report.AbruptFinalize();
                 throw new Exception();
-
+            }
             return previousValue;
         }
 
@@ -273,7 +280,8 @@ namespace JPB_Framework.Workflows
                 return ExtraOrganizationFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
             else if (BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)) != null)
                 return BooleanOrganizationFields.Find(x => x.Label.Contains(fieldLabel)).PreviousValue;
-
+            Report.Report.ToLogFile(MessageType.Message, "Something went wrong.", null);
+            Report.Report.AbruptFinalize();
             throw new Exception();
         }
     }

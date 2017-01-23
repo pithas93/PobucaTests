@@ -137,15 +137,16 @@ namespace JPB_Framework.Selenium
 
         public static void WaitForElementToBeVisible(TimeSpan timespan, string cssSelector)
         {
-            var wait = new WebDriverWait(Driver.Instance, timespan);
+            var wait = new WebDriverWait(Instance, timespan);
             wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(cssSelector)));
-            //            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.CssSelector(cssSelector)));
+
         }
 
         public static void WaitForElementToBeInvisible(TimeSpan timespan, string cssSelector)
         {
-            var wait = new WebDriverWait(Driver.Instance, timespan);
+            var wait = new WebDriverWait(Instance, timespan);
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector(cssSelector)));
+
         }
 
 
@@ -266,10 +267,16 @@ namespace JPB_Framework.Selenium
         /// <returns>True if browser is at the given page</returns>
         public static bool CheckIfIsAt(string view)
         {
+
             try
             {
+                Driver.WaitForElementToBeVisible(TimeSpan.FromSeconds(15), "#breadcrumb");
                 var breadcrumb = Instance.FindElement(By.CssSelector("#breadcrumb"));
                 return breadcrumb.Text == view;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
             }
             catch (NoSuchElementException)
             {
@@ -289,18 +296,18 @@ namespace JPB_Framework.Selenium
         {
             try
             {
-                var recordlist = Instance.FindElement(By.Id("main-content"));
-                if (recordlist.Displayed) return true;
-                else return false;
-            }
-            catch (NoSuchElementException e)
-            {
-                Report.Report.ToLogFile(MessageType.Exception, "Probably at wrong page Or record list is taking time to load", e);
+                var recordlistContainer = Instance.FindElement(By.Id("main-content"));
+                var recordlistLoader = Instance.FindElement(By.CssSelector("div.sk-folding-cube"));
+                if (recordlistContainer.Displayed && !recordlistLoader.Displayed) return true;
                 return false;
             }
-            catch (StaleElementReferenceException e)
+            catch (NoSuchElementException)
             {
-                Report.Report.ToLogFile(MessageType.Exception, "", e);
+                return false;
+            }
+            catch (StaleElementReferenceException)
+            {
+                Report.Report.ToLogFile(MessageType.Message, "StaleElementReferenceException", null);
                 return false;
             }
         }
