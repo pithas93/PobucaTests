@@ -96,6 +96,15 @@ namespace JPB_Framework.Workflows
         }
 
 
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Create a simple contact with dummy first, last and organization name and phone values.
         /// </summary>
@@ -360,6 +369,10 @@ namespace JPB_Framework.Workflows
             if (!CurrentContact.IsContactCreatedSuccessfully) return;
             CurrentContact.Clone(tmp);
         }
+
+
+
+
 
         /// <summary>
         /// Edit a previously created contact by changing its first and last names

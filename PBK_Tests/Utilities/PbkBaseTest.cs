@@ -11,7 +11,7 @@ namespace JPB_Tests.Utilities
 {
     public class PbkBaseTest
     {
-        public const Browser browser = Browser.Firefox;
+        public const Browser browser = Browser.Chrome;
         public const string Username = "panagiotis@panagof.com";
         public const string Password = "568bedd1!";
 //        public const string ImportFilePath = "D:\\Google Drive\\Work\\Testing files - local temp\\JustPhoneBook Webpage\\Test Scenarios\\test_scenario_files\\";
